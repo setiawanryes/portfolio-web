@@ -1,6 +1,7 @@
 name: Comment API
 
 on:
+  workflow_dispatch:
   repository_dispatch:
     types: [comment]
 
@@ -8,15 +9,17 @@ jobs:
   send_comment:
     runs-on: ubuntu-latest
     steps:
-      - name: Kirim komentar ke Issues
+      - name: Send comment to GitHub Issues
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           REPO: setiawanryes/portfolio-web
-          TITLE: ${{ github.event.client_payload.title }}
-          BODY: ${{ github.event.client_payload.body }}
+          PAYLOAD: ${{ github.event.client_payload }}
         run: |
+          title=$(echo '${{ github.event.client_payload.title }}' | jq -r '.')
+          body=$(echo '${{ github.event.client_payload.body }}' | jq -r '.')
+          
           curl -X POST \
             -H "Authorization: token $GH_TOKEN" \
             -H "Accept: application/vnd.github+json" \
             https://api.github.com/repos/$REPO/issues \
-            -d "{\"title\":\"$TITLE\",\"body\":\"$BODY\"}"
+            -d "{\"title\":\"$title\",\"body\":\"$body\"}"

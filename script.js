@@ -50,3 +50,26 @@ async function postComment(e) {
     alert("Gagal mengirim komentar 😥");
   }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const page = document.querySelector(".page-transition");
+  setTimeout(() => document.body.classList.add("loaded"), 100); // efek masuk
+
+  const backLinks = document.querySelectorAll(".back-btn");
+  backLinks.forEach(link => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const target = e.currentTarget.getAttribute("href");
+
+      // Tambahkan efek fade-out lembut
+      page.classList.add("fade-out");
+
+      // Sedikit delay supaya transisi terlihat lembut
+      setTimeout(() => {
+        window.location.href = target;
+      }, 900); // harus sedikit lebih lama dari CSS transition
+    });
+  });
+});
+
+

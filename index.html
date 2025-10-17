@@ -10,6 +10,9 @@
 />
   <link rel="stylesheet" href="style.css" />
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
   <script src="script.js" defer></script>
  
 </head>
@@ -27,6 +30,7 @@
     </nav>
   </header>
 
+ <!-- Home -->
   <section id="home" class="hero">
     <div class="hero-text">
       <h3>Hello, I am</h3>
@@ -57,58 +61,382 @@
     </div>
   </section>
 
-  <section id="contact" class="contact-section">
-  <h2 class="section-title">Get in Touch</h2>
+   <!-- About -->
+<section id="about" class="about-glow">
+  <div class="about-container">
 
-  <div class="contact-container">
-  <div class="left-side" data-aos="fade-right">
-    <!-- Left: Send Message -->
-    <div class="contact-form" data-aos="fade-right">
-      <h3>Send a Message</h3>
-  <form action="https://formspree.io/f/maypkxyz" method="POST">
-  <input type="email" name="email" placeholder="Your Email" required>
-  <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
-  <button class="btn-primary" type="submit">Send Message</button>
-</form>
+    <!-- Left Navigation -->
+    <aside class="about-sidebar">
+      <h2>ABOUT ME</h2>
+      <p class="subtitle">My Profile at a Glance</p>
+      <ul class="about-tabs">
+        <li class="tab active" data-tab="intro">Introduction</li>
+        <li class="tab" data-tab="skills">Skills</li>
+        <li class="tab" data-tab="education">Education</li>
+      </ul>
+
+      <div class="about-socials">
+        <a href="#"><i class="fab fa-github"></i></a>
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+    </aside>
+
+    <!-- Right Content -->
+    <div class="about-content">
+
+      <!-- === INTRODUCTION === -->
+      <div id="intro" class="tab-content active" data-aos="fade-up">
+        <div class="profile-box">
+          <img src="images/roni-profile.jpg" alt="Roni Setiawan">
+          <div class="bio">
+            <h3>Roni Setiawan</h3>
+            <p class="role">Data Analyst & Web Developer</p>
+            <p>
+              Halo! Saya Roni Setiawan, lulusan S1 Matematika dari Institut Teknologi Sumatera.  
+              Saat ini bekerja di Badan Pusat Statistik sebagai Pengolah Data.
+              Saya tertarik menggabungkan logika analitis dan kreativitas visual dalam
+              analisis data, web design, dan storytelling digital.
+            </p>
+          </div>
+        </div>
+
+        <div class="info-box">
+          <div class="personal">
+            <h4>Personal Details</h4>
+            <ul>
+              <li><strong>Email:</strong> ronisetiawan496@gmail.com</li>
+              <li><strong>Phone:</strong> +62 8XX XXXX XXXX</li>
+              <li><strong>Address:</strong> Lampung, Indonesia</li>
+            </ul>
+          </div>
+
+          <div class="interests">
+            <h4>Interests</h4>
+            <div class="tags">
+              <span>🎵 Music</span>
+              <span>🎮 Games</span>
+              <span>🎬 Movies</span>
+              <span>📊 Data</span>
+              <span>🎨 Design</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- === SKILLS === -->
+      <div id="skills" class="tab-content">
+        <h3 class="section-title">Skills & Tools</h3>
+        <div class="skill-category">
+          <h4>📈 Data & Analytics</h4>
+          <div class="skills-list">
+            <span>Microsoft Excel (Advanced)</span>
+            <span>SPSS</span>
+            <span>Google Sheets</span>
+          </div>
+
+          <h4>💻 Web & Development</h4>
+          <div class="skills-list">
+            <span>HTML</span>
+            <span>CSS</span>
+            <span>JavaScript</span>
+          </div>
+
+          <h4>🎨 Design & Creativity</h4>
+          <div class="skills-list">
+            <span>Canva</span>
+            <span>Adobe Lightroom</span>
+            <span>CapCut</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- === EDUCATION === -->
+      <div id="education" class="tab-content">
+        <h3 class="section-title">Education</h3>
+        <div class="edu-item">
+          <h4>Institut Teknologi Sumatera</h4>
+          <p>Bachelor of Mathematics (S1) — 2017–2021</p>
+          <p>Fokus pada analisis data, pemodelan statistik, dan pengolahan data terapan.</p>
+        </div>
+
+        <div class="edu-item">
+          <h4>Pelatihan & Sertifikasi</h4>
+          <ul>
+            <li>Data Analytics Training – BPS</li>
+            <li>Web Design Bootcamp – Online Course</li>
+          </ul>
+        </div>
+      </div>
+
     </div>
-
-    <!-- Middle: Connect -->
-<div class="connect" data-aos="zoom-in">
-  <h3>✨ Let's Connect ✨</h3>
-  <p>Follow and connect with me on my social networks</p>
-
-  <div class="social-wrapper">
-    <div class="social-left">
-      <a href="#" class="facebook"><i class="fab fa-facebook-f"></i><span>Facebook</span></a>
-      <a href="#" class="tiktok"><i class="fab fa-tiktok"></i><span>TikTok</span></a>
-    </div>
-
-    <div class="social-right">
-      <a href="#" class="instagram"><i class="fab fa-instagram"></i><span>Instagram</span></a>
-      <a href="#" class="linkedin"><i class="fab fa-linkedin-in"></i><span>LinkedIn</span></a>
-    </div>
-  </div>
-</div>
-</div>
-
-    <!-- Right: Comments -->
-<!-- Comments Section -->
-  <div class="right-side" data-aos="fade-left">
-    <h3>Leave a Comment</h3>
-    <form id="commentForm">
-      <input id="name" type="text" placeholder="Your Name" required>
-      <input id="photo" type="file" accept="image/*">
-      <textarea id="comment" rows="4" placeholder="Write your comment..." required></textarea>
-      <button class="btn-primary" type="submit">Post Comment</button>
-    </form>
-
-    <div id="commentList"></div>
   </div>
 </section>
 
+  <!-- Portofolio -->
+   <section id="portfolio" class="portfolio-section">
+  <div class="portfolio-container">
+
+    <h2 class="portfolio-title">Portfolio Showcase</h2>
+    <p class="portfolio-subtitle">
+      Explore my journey through projects, certifications, and achievements.
+    </p>
+
+    <!-- NAVIGATION TABS -->
+    <div class="portfolio-tabs">
+      <button class="tab-btn active" data-tab="projects">Projects</button>
+      <button class="tab-btn" data-tab="certificates">Certificates</button>
+      <button class="tab-btn" data-tab="achievements">Achievements</button>
+    </div>
+
+    <!-- PROJECTS -->
+    <div id="projects" class="tab-content active">
+      <div class="card-grid">
+
+        <div class="portfolio-card" data-aos="fade-up">
+          <img src="images/project1.jpg" alt="Project 1">
+          <div class="card-content">
+            <h3>Aritmatika Solver</h3>
+            <p>Program sederhana untuk menyelesaikan soal-soal aritmatika otomatis.</p>
+            <div class="card-links">
+              <a href="#" class="demo">Live Demo</a>
+              <a href="projects/projects1.html" class="details">Details</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="portfolio-card" data-aos="fade-up">
+          <img src="images/project2.jpg" alt="Project 2">
+          <div class="card-content">
+            <h3>AutoChat Discord</h3>
+            <p>Solusi otomatisasi pesan di Discord dengan fitur penjadwalan cerdas.</p>
+            <div class="card-links">
+              <a href="#" class="demo">Live Demo</a>
+              <a href="#" class="details">Details</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="portfolio-card" data-aos="fade-up">
+          <img src="images/project3.jpg" alt="Project 3">
+          <div class="card-content">
+            <h3>Data Dashboard</h3>
+            <p>Dashboard analisis data interaktif menggunakan HTML, CSS, dan Chart.js.</p>
+            <div class="card-links">
+              <a href="#" class="demo">Live Demo</a>
+              <a href="project-detail.html" class="details">Details</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- CERTIFICATES -->
+    <div id="certificates" class="tab-content">
+      <div class="card-grid">
+        <div class="portfolio-card" data-aos="fade-up">
+          <img src="images/certificate1.jpg" alt="Certificate 1">
+          <div class="card-content">
+            <h3>Data Analytics Certificate</h3>
+            <p>Sertifikat pelatihan analisis data menggunakan Excel & SPSS.</p>
+          </div>
+        </div>
+
+        <div class="portfolio-card" data-aos="fade-up">
+          <img src="images/certificate2.jpg" alt="Certificate 2">
+          <div class="card-content">
+            <h3>Web Development Bootcamp</h3>
+            <p>Pelatihan intensif pembuatan website menggunakan HTML, CSS, dan JS.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACHIEVEMENTS -->
+    <div id="achievements" class="tab-content">
+      <div class="card-grid">
+        <div class="portfolio-card" data-aos="fade-up">
+          <img src="images/award1.jpg" alt="Achievement 1">
+          <div class="card-content">
+            <h3>Tim Pengolah Data Terbaik ke-2</h3>
+            <p>Penghargaan dari Badan Pusat Statistik atas kinerja unggul dalam pengolahan data.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+ <!-- Kontak -->
+  <section id="contact" class="contact-section">
+  <h2 class="section-title">Contact Me</h2>
+  <p class="section-subtitle">Got a question? Send me a message, and I'll get back to you soon.</p>
+
+  <div class="contact-container">
+    <!-- LEFT SIDE -->
+    <div class="left-side" data-aos="fade-right">
+      <div class="contact-form">
+        <h3>Get in Touch</h3>
+        <p>Have something to discuss? Send me a message and let's talk.</p>
+
+        <form action="https://formspree.io/f/maypkxyz" method="POST">
+          <input type="text" name="name" placeholder="Your Name" required>
+          <input type="email" name="email" placeholder="Your Email" required>
+          <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
+          <button class="btn-gradient" type="submit">
+            <i class="fas fa-paper-plane"></i> Send Message
+          </button>
+        </form>
+      </div>
+
+      <!-- CONNECT SECTION -->
+      <div class="connect" data-aos="fade-up">
+        <h3>Connect With Me</h3>
+        <p>Let’s connect on my social platforms!</p>
+        <div class="social-links">
+          <a href="#" class="facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
+          <a href="#" class="tiktok"><i class="fab fa-tiktok"></i> TikTok</a>
+          <a href="#" class="instagram"><i class="fab fa-instagram"></i> Instagram</a>
+          <a href="#" class="linkedin"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT SIDE (COMMENTS) -->
+    <div class="right-side" data-aos="fade-left">
+      <h3>Comments</h3>
+      <form id="commentForm">
+        <input type="text" id="commentName" placeholder="Name *" required>
+        <textarea id="commentText" placeholder="Write your message..." required></textarea>
+
+        <label for="profilePhoto" class="file-label">Profile Photo (optional)</label>
+        <input type="file" id="profilePhoto" accept="image/*">
+
+        <button type="submit" class="btn-gradient">
+          <i class="fas fa-comment"></i> Post Comment
+        </button>
+      </form>
+
+      <div id="commentList" class="comment-list"></div>
+    </div>
+  </div>
+</section>
+
+
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-  AOS.init({ duration: 1000 });
+  const tabs = document.querySelectorAll(".tab");
+  const contents = document.querySelectorAll(".tab-content");
+
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      tabs.forEach(t => t.classList.remove("active"));
+      contents.forEach(c => c.classList.remove("active"));
+
+      tab.classList.add("active");
+      document.getElementById(tab.dataset.tab).classList.add("active");
+    });
+  });
+</script>
+
+<script>
+  const tabs = document.querySelectorAll(".portfolio-tabs .tab");
+  const contents = document.querySelectorAll(".tab-content");
+
+  tabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      // Hilangkan aktif dari semua tab dan konten
+      tabs.forEach(t => t.classList.remove("active"));
+      contents.forEach(c => c.classList.remove("active"));
+
+      // Aktifkan tab dan konten yang diklik
+      tab.classList.add("active");
+      document.getElementById(tab.dataset.tab).classList.add("active");
+    });
+  });
+</script>
+<script>
+// Ambil elemen
+const commentForm = document.getElementById("commentForm");
+const commentList = document.getElementById("commentList");
+const defaultAvatar = "images/default-avatar.png"; // ganti sesuai lokasi gambar default kamu
+
+// Saat form dikirim
+commentForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  // Ambil data input
+  const name = document.getElementById("commentName").value.trim();
+  const text = document.getElementById("commentText").value.trim();
+  const photoInput = document.getElementById("profilePhoto");
+
+  if (!name || !text) {
+    alert("Please fill out name and comment!");
+    return;
+  }
+
+  // Buat URL foto profil
+  let photoURL = defaultAvatar;
+  if (photoInput.files && photoInput.files[0]) {
+    photoURL = URL.createObjectURL(photoInput.files[0]);
+  }
+
+  // Buat elemen komentar baru
+  const newComment = document.createElement("div");
+  newComment.classList.add("comment-item");
+  newComment.innerHTML = `
+    <img src="${photoURL}" alt="avatar">
+    <div class="comment-content">
+      <h4>${name}</h4>
+      <p>${text}</p>
+      <span class="comment-time">just now</span>
+    </div>
+  `;
+
+  // Masukkan ke daftar komentar
+  commentList.prepend(newComment);
+
+  // Reset form
+  commentForm.reset();
+
+  // Simpan ke localStorage biar gak hilang saat reload
+  saveComment(name, text, photoURL);
+});
+
+// Simpan komentar ke localStorage
+function saveComment(name, text, photoURL) {
+  let comments = JSON.parse(localStorage.getItem("comments")) || [];
+  comments.unshift({ name, text, photoURL });
+  localStorage.setItem("comments", JSON.stringify(comments));
+}
+
+// Tampilkan komentar dari localStorage saat halaman dibuka
+function loadComments() {
+  let comments = JSON.parse(localStorage.getItem("comments")) || [];
+  commentList.innerHTML = "";
+  comments.forEach(c => {
+    const div = document.createElement("div");
+    div.classList.add("comment-item");
+    div.innerHTML = `
+      <img src="${c.photoURL || defaultAvatar}" alt="avatar">
+      <div class="comment-content">
+        <h4>${c.name}</h4>
+        <p>${c.text}</p>
+        <span class="comment-time">previously</span>
+      </div>
+    `;
+    commentList.appendChild(div);
+  });
+}
+
+// Jalankan pas halaman dimuat
+document.addEventListener("DOMContentLoaded", loadComments);
+</script>
+
+<script>
+  AOS.init({ duration: 1000, once: true });
 </script>
 <script src="comment.js"></script>
 
