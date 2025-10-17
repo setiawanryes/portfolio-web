@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roni Setiawan | Portfolio</title>
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+/>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="script.js" defer></script>
+ 
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <h2 class="logo">Portfolio<span>.</span></h2>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="home" class="hero">
+    <div class="hero-text">
+      <h3>Hello, I am</h3>
+      <h1>Roni <span>Setiawan</span></h1>
+      <div class="role-slider">
+        <div class="slide-text" id="role-text">Web Developer</div>
+      </div>
+      <p>
+        I’m a web developer who loves to create beautiful and functional websites 
+        for people who want to make a difference in the world.
+      </p>
+
+        <div class="socials">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-tiktok"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+
+      <div class="buttons">
+        <a href="#" class="bt">Hire Me</a>
+        <a href="#" class="btn">Download CV</a>
+      </div>
+      
+    </div>
+    <div class="hero-img">
+      <img src="images/profile.jpeg" alt="Roni Setiawan" />
+    </div>
+  </section>
+
+  <section id="contact" class="contact-section">
+  <h2 class="section-title">Get in Touch</h2>
+
+  <div class="contact-container">
+  <div class="left-side" data-aos="fade-right">
+    <!-- Left: Send Message -->
+    <div class="contact-form" data-aos="fade-right">
+      <h3>Send a Message</h3>
+  <form action="https://formspree.io/f/maypkxyz" method="POST">
+  <input type="email" name="email" placeholder="Your Email" required>
+  <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
+  <button class="btn-primary" type="submit">Send Message</button>
+</form>
+    </div>
+
+    <!-- Middle: Connect -->
+<div class="connect" data-aos="zoom-in">
+  <h3>✨ Let's Connect ✨</h3>
+  <p>Follow and connect with me on my social networks</p>
+
+  <div class="social-wrapper">
+    <div class="social-left">
+      <a href="#" class="facebook"><i class="fab fa-facebook-f"></i><span>Facebook</span></a>
+      <a href="#" class="tiktok"><i class="fab fa-tiktok"></i><span>TikTok</span></a>
+    </div>
+
+    <div class="social-right">
+      <a href="#" class="instagram"><i class="fab fa-instagram"></i><span>Instagram</span></a>
+      <a href="#" class="linkedin"><i class="fab fa-linkedin-in"></i><span>LinkedIn</span></a>
+    </div>
+  </div>
+</div>
+</div>
+
+    <!-- Right: Comments -->
+<!-- Comments Section -->
+  <div class="right-side" data-aos="fade-left">
+    <h3>Leave a Comment</h3>
+    <form id="commentForm">
+      <input id="name" type="text" placeholder="Your Name" required>
+      <input id="photo" type="file" accept="image/*">
+      <textarea id="comment" rows="4" placeholder="Write your comment..." required></textarea>
+      <button class="btn-primary" type="submit">Post Comment</button>
+    </form>
+
+    <div id="commentList"></div>
+  </div>
+</section>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({ duration: 1000 });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,533 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: #f7f8fc;
+  color: #333;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 60px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 24px;
+  color: #4c4c4c;
+}
+.logo span {
+  color: #93a8ff;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #555;
+  transition: 0.3s;
+}
+.nav-links a:hover {
+  color: #93a8ff;
+}
+
+/* Hero Section */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 150px 60px 60px;
+  background: linear-gradient(120deg, #f0f4ff 50%, #ffffff 50%);
+  min-height: 100vh;
+  flex-wrap: wrap;
+}
+
+.hero-text {
+  flex: 1;
+  min-width: 300px;
+}
+
+.hero-text h3 {
+  color: #666;
+  font-weight: 500;
+}
+
+.hero-text h1 {
+  font-size: 48px;
+  color: #2b2b2b;
+}
+.hero-text h1 span {
+  color: #6a8dfd;
+}
+
+/* Role Slider */
+.role-slider {
+  position: relative;
+  height: 35px;
+  overflow: hidden;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.slide-text {
+  position: absolute;
+  font-size: 22px;
+  color: #93a8ff;
+  animation: slideIn 0.6s ease forwards;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+.hero-text p {
+  margin: 20px 0;
+  max-width: 500px;
+  color: #666;
+  line-height: 1.6;
+}
+
+.buttons .btn {
+  background: #93a8ff;
+  color: white;
+  padding: 10px 25px;
+  border-radius: 25px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.buttons .btn:hover {
+  background: #7d93f7;
+}
+
+.buttons .bt {
+  background: #5c00ac;
+  color: white;
+  padding: 10px 25px;
+  border-radius: 25px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.buttons .bt:hover {
+  background: #c277e8;
+}
+
+.socials {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.socials a {
+  color: #93a8ff;
+  font-size: 18px;
+  margin-right: 15px;
+  transition: 0.3s;
+}
+.socials a:hover {
+  color: #6a8dfd;
+}
+
+.hero-img {
+  flex: 1;
+  text-align: center;
+}
+.hero-img img {
+  width: 90%;
+  max-width: 380px;
+  border-radius: 50%;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  transition: transform 0.4s;
+}
+.hero-img img:hover {
+  transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column-reverse;
+    text-align: center;
+    padding: 120px 20px;
+  }
+
+  .hero-text {
+    margin-top: 40px;
+  }
+
+  .nav-links {
+    display: none;
+  }
+}
+
+/* Contact Section */
+/* SECTION CONTACT */
+.contact-section {
+  background: linear-gradient(135deg, #f8f9fb, #eaf3f9);
+  padding: 80px 20px;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+.section-title {
+  font-size: 2.3rem;
+  margin-bottom: 40px;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+/* GRID KONTAINER */
+.contact-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* CARD DASAR */
+.contact-form, .connect, .comments {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+  padding: 25px 20px;
+  width: 330px;
+  transition: all 0.3s ease;
+}
+
+.contact-form:hover, .connect:hover, .comments:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+/* FORM INPUT */
+input, textarea {
+  width: 100%;
+  padding: 10px 12px;
+  margin: 10px 0;
+  border: 1px solid #d0d7de;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border 0.2s ease;
+}
+
+input:focus, textarea:focus {
+  border-color: #7ab2d3;
+}
+
+/* BUTTON */
+.btn-primary {
+  background: #7ab2d3;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: #5b9dc4;
+}
+
+/* CONNECT CARD */
+.connect {
+  background: linear-gradient(145deg, #eaf3f9, #fdfdfd);
+  padding: 35px 25px;
+}
+
+.connect h3 {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin-bottom: 8px;
+}
+
+.connect p {
+  font-size: 0.95rem;
+  color: #6b7a89;
+  margin-bottom: 25px;
+}
+
+/* SOSIAL MEDIA WRAPPER */
+.social-wrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.social-left, .social-right {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 45%;
+}
+
+.social-left a, .social-right a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px 16px;
+  color: #34495e;
+  text-decoration: none;
+  font-weight: 500;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+}
+
+.social-left a:hover, .social-right a:hover {
+  transform: translateX(6px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+}
+
+/* Warna hover tiap platform */
+.facebook:hover { background: #1877f2; color: #fff; }
+.tiktok:hover { background: #000; color: #fff; }
+.instagram:hover { background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af); color: #fff; }
+.linkedin:hover { background: #0077b5; color: #fff; }
+
+
+/* RESPONSIF */
+@media (max-width: 768px) {
+  .contact-container {
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .social-left, .social-right {
+    width: 100%;
+    align-items: center;
+  }
+
+  .social-left a, .social-right a {
+    justify-content: center;
+    width: 80%;
+  }
+}
+
+/* ====== BAGIAN KIRI (SEND MESSAGE & CONNECT) ====== */
+.left-side {
+  flex: 1;
+  min-width: 320px; /* Supaya responsif tetap rapi */
+}
+
+/* ====== BAGIAN KANAN (COMMENTS) ====== */
+.right-side {
+  flex: 1;
+  min-width: 320px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  padding: 30px;
+  transition: all 0.3s ease;
+}
+
+/* Efek hover */
+.right-side:hover {
+  transform: translateY(-5px);
+}
+
+/* ====== LIST KOMENTAR ====== */
+#commentList {
+  margin-top: 25px;
+}
+
+/* Item komentar */
+.comment-item {
+  display: flex;
+  gap: 15px;
+  background: #f9fbff; /* Biru muda halus */
+  padding: 15px;
+  border-radius: 15px;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  animation: fadeIn 0.4s ease; /* Efek muncul halus */
+}
+
+/* Foto profil komentar */
+.comment-item img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover; /* Foto proporsional */
+}
+
+/* Nama & teks komentar */
+.comment-content h4 {
+  margin: 0;
+  color: #003366;
+}
+
+.comment-content p {
+  margin: 5px 0 0;
+  color: #444;
+}
+
+/* Animasi muncul komentar */
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(10px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+/* ====== RESPONSIVE (LAYAR HP) ====== */
+@media (max-width: 768px) {
+  section {
+    flex-direction: column; /* Biar kiri & kanan jadi vertikal */
+    padding: 60px 5%;
+  }
+}
+
+/* ====== TAMBAHAN STRUKTUR CONTACT BARU ====== */
+.contact-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 40px;
+  padding: 60px 10%;
+}
+
+/* ====== KIRI (Send Message + Connect) ====== */
+.left-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  min-width: 340px;
+}
+
+/* Supaya connect & form menyatu dengan harmonis */
+.left-side .contact-form, .left-side .connect {
+  width: 100%;
+}
+
+/* ====== KANAN (Comments) ====== */
+.right-side {
+  flex: 1;
+  min-width: 340px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  padding: 30px;
+  transition: all 0.3s ease;
+}
+
+.right-side:hover {
+  transform: translateY(-5px);
+}
+
+/* ====== FORM COMMENT ====== */
+#commentForm {
+  display: flex;
+  flex-direction: column;
+}
+
+/* File input styling */
+#photo {
+  background: #f1f5ff;
+  border: 1px dashed #b3c7ff;
+  cursor: pointer;
+}
+
+/* ====== LIST KOMENTAR ====== */
+.comment-box {
+  background: #f9faff;
+  border-radius: 12px;
+  padding: 15px;
+  margin-top: 15px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+}
+
+.comment-box:hover {
+  transform: translateY(-2px);
+}
+
+.comment-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.comment-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #e0e4f7;
+  border: 2px solid #cfd4ee;
+}
+
+.comment-info h4 {
+  margin: 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.comment-info p {
+  font-size: 12px;
+  color: #777;
+  margin: 2px 0 0;
+}
+
+.comment-text {
+  margin-left: 2px;
+  margin-top: 10px;
+  line-height: 1.5;
+  color: #444;
+}
+
+.delete-btn {
+  background: #ff4c4c;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background: #e13b3b;
+}
