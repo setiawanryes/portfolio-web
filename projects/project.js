@@ -151,16 +151,6 @@ const dislikeCount = document.getElementById('dislike-count');
 let likeNumber = 0;
 let dislikeNumber = 0;
 
-// Tambah count tiap klik
-likeBtn.addEventListener('click', () => {
-  likeNumber++;
-  likeCount.textContent = likeNumber;
-});
-
-dislikeBtn.addEventListener('click', () => {
-  dislikeNumber++;
-  dislikeCount.textContent = dislikeNumber;
-});
 
 
 /* ===============================
