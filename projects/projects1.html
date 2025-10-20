@@ -127,21 +127,28 @@
 document.addEventListener('DOMContentLoaded', () => {
   const komentarBtn = document.getElementById('komentar-btn');
   const komentarCount = document.getElementById('komentar-count');
-  const modal = document.getElementById('comment-modal');
-  const closeModal = document.querySelector('.close');
+  const komentarModal = document.getElementById('comment-modal');
+  const closeCommentModal = komentarModal.querySelector('.close');
   const commentForm = document.getElementById('comment-form');
   const commentList = document.getElementById('comment-list');
 
   const defaultPhoto = 'https://via.placeholder.com/50';
   let komentarNumber = 0;
 
-  // Buka modal
-  komentarBtn.addEventListener('click', () => { modal.style.display = 'flex'; });
-  // Tutup modal
-  closeModal.addEventListener('click', () => { modal.style.display = 'none'; });
-  window.addEventListener('click', e => { if(e.target === modal) modal.style.display = 'none'; });
+  // Buka modal komentar
+  komentarBtn.addEventListener('click', () => {
+    komentarModal.style.display = 'flex';
+  });
 
-  // Submit komentar
+  // Tutup modal komentar
+  closeCommentModal.addEventListener('click', () => {
+    komentarModal.style.display = 'none';
+  });
+  window.addEventListener('click', e => {
+    if(e.target === komentarModal) komentarModal.style.display = 'none';
+  });
+
+  // Submit komentar utama
   commentForm.addEventListener('submit', e => {
     e.preventDefault();
     const name = document.getElementById('name-input').value.trim();
@@ -150,25 +157,24 @@ document.addEventListener('DOMContentLoaded', () => {
     if(!name || !text) return;
 
     const processComment = (photoURL) => {
-      addComment(name,text,photoURL);
+      addComment(name, text, photoURL);
       commentForm.reset();
-      modal.style.display = 'none';
+      komentarModal.style.display = 'none';
       komentarNumber++;
       komentarCount.textContent = komentarNumber;
     };
 
     if(photoFile){
       const reader = new FileReader();
-      reader.onload = function(event){
-        processComment(event.target.result);
-      }
+      reader.onload = event => processComment(event.target.result);
       reader.readAsDataURL(photoFile);
     } else {
       processComment(defaultPhoto);
     }
   });
 
-  function addComment(name,text,photo){
+  // Fungsi tambah komentar / reply
+  function addComment(name, text, photo){
     const date = new Date().toLocaleString();
     const commentItem = document.createElement('div');
     commentItem.className = 'comment-item';
@@ -191,14 +197,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const replyBtn = commentItem.querySelector('.reply-btn');
     const replyList = commentItem.querySelector('.reply-list');
 
-    // Like / Unlike
     let likeCount=0, unlikeCount=0;
-    likeBtn.addEventListener('click', ()=> { likeCount++; likeBtn.textContent=`❤️ Like (${likeCount})`; });
-    unlikeBtn.addEventListener('click', ()=> { unlikeCount++; unlikeBtn.textContent=`👎 Unlike (${unlikeCount})`; });
+    likeBtn.addEventListener('click', ()=>{ likeCount++; likeBtn.textContent=`❤️ Like (${likeCount})`; });
+    unlikeBtn.addEventListener('click', ()=>{ unlikeCount++; unlikeBtn.textContent=`👎 Unlike (${unlikeCount})`; });
 
-    // Reply → buka modal, reply masuk ke reply-list
+    // Reply komentar
     replyBtn.addEventListener('click', ()=>{
-      modal.style.display='flex';
+      komentarModal.style.display='flex';
       const submitHandler = (e)=>{
         e.preventDefault();
         const replyName = document.getElementById('name-input').value.trim();
@@ -225,11 +230,12 @@ document.addEventListener('DOMContentLoaded', () => {
           let rLike=0,rUnlike=0;
           replyItem.querySelector('.like-btn').addEventListener('click', e=>{ rLike++; e.target.textContent=`❤️ Like (${rLike})`; });
           replyItem.querySelector('.unlike-btn').addEventListener('click', e=>{ rUnlike++; e.target.textContent=`👎 Unlike (${rUnlike})`; });
+
           replyList.appendChild(replyItem);
-          modal.style.display='none';
+          komentarModal.style.display='none';
           commentForm.removeEventListener('submit', submitHandler);
           commentForm.reset();
-        }
+        };
 
         if(replyPhotoFile){
           const reader = new FileReader();
@@ -244,8 +250,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     commentList.prepend(commentItem);
   }
-
 });
+
 </script>
 <script src="project.js"></script>
 
