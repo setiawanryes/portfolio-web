@@ -54,31 +54,14 @@
   <span id="like-count">0</span>
 
   <button id="komentar-btn" class="reaction-btn komentar-theme">💬</button>
-  <span id="komentar-count">0</span>
-</div>
-
-<!-- Daftar komentar -->
-<div id="comments-list" class="comments-container"></div>
-
-<!-- Modal Komentar -->
-<div id="komentarModal" class="custom-modal">
-  <div class="custom-modal-content">
-    <span id="close-komentar-modal" class="close-btn">&times;</span>
-    <h2 id="modal-title">Tulis Komentar</h2>
-
-    <form id="komentar-form">
-      <label>Nama <span style="color:red">*</span></label>
-      <input type="text" id="nama" required>
-
-      <label>Foto (opsional)</label>
-      <input type="file" id="foto" accept="image/*">
-
-      <label>Komentar</label>
-      <textarea id="isi" rows="3"></textarea>
-
-      <button type="button" id="kirim-btn">Kirim</button>
-    </form>
+    <span id="komentar-count">0</span>
   </div>
+</div>
+</div>
+      <div>
+  <!-- Daftar Komentar -->
+  <div id="comments-list"></div>
+</div>
 </div>
 
   <!-- KANAN (preview) -->
@@ -112,6 +95,19 @@
 </div>
 </section>
 
+<!-- Modal Komentar (nama class & id unik) -->
+  <div id="komentarModal" class="komentar-modal">
+    <div class="komentar-modal-content">
+      <span class="close-btn" id="close-komentar-modal">&times;</span>
+      <h3 id="modal-title">Tulis Komentar</h3>
+
+      <input type="text" id="nama" placeholder="Nama Anda *" required />
+      <input type="file" id="foto" accept="image/*" />
+      <textarea id="isi" rows="3" placeholder="Tulis komentar Anda..."></textarea>
+
+      <button id="kirim-btn">Kirim</button>
+    </div>
+  </div>
 <!-- Modal / Tooltip di dalam container -->
   <div id="miniModal" class="mini-modal">
     <div class="mini-content" id="miniContent"></div>
