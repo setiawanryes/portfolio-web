@@ -86,24 +86,24 @@ modalImg.addEventListener("touchend", e => {
 
 const miniModal = document.getElementById("miniModal");
 const miniContent = document.getElementById("miniContent");
-const miniClose = document.getElementsByClassName("mini-close")[0];
 const stats = document.querySelectorAll(".stat");
 
-// Klik stat untuk buka modal
 stats.forEach(stat => {
-  stat.addEventListener("click", () => {
+  // Mouse masuk → tampilkan modal
+  stat.addEventListener("mouseenter", (e) => {
     const info = stat.getAttribute("data-info");
     miniContent.textContent = info;
-    miniModal.style.display = "block";
+
+    // posisikan modal di atas elemen
+    const rect = stat.getBoundingClientRect();
+    miniModal.style.top = rect.bottom + window.scrollY + 10 + "px"; // 10px jarak
+    miniModal.style.left = rect.left + window.scrollX + "px";
+
+    miniModal.classList.add("show");
   });
-});
 
-// Close modal
-miniClose.addEventListener("click", () => {
-  miniModal.style.display = "none";
-});
-
-// Klik di luar modal untuk tutup
-window.addEventListener("click", (e) => {
-  if (e.target === miniModal) miniModal.style.display = "none";
+  // Mouse keluar → sembunyikan modal
+  stat.addEventListener("mouseleave", () => {
+    miniModal.classList.remove("show");
+  });
 });
