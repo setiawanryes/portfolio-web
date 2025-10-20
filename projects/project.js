@@ -27,7 +27,7 @@ const lightboxImages = document.querySelectorAll(".lightbox-img");
 let currentIndex = 0;
 let scale = 1;
 
-// Open modal
+// Open modal saat gambar diklik
 lightboxImages.forEach((img, i) => {
   img.addEventListener("click", () => {
     modal.style.display = "flex";
@@ -40,7 +40,7 @@ lightboxImages.forEach((img, i) => {
 
 // Close modal
 closeBtn.addEventListener("click", (e) => {
-  e.stopPropagation(); // cegah bubbling ke modal
+  e.stopPropagation(); 
   modal.style.display = "none";
 });
 
@@ -49,7 +49,7 @@ modal.addEventListener("click", (e) => {
   if (e.target === modal) modal.style.display = "none";
 });
 
-// Prev/Next
+// Navigasi prev/next
 document.getElementById("prevImg").addEventListener("click", (e) => {
   e.stopPropagation();
   showImage(currentIndex - 1);
@@ -67,7 +67,7 @@ function showImage(index) {
   modalImg.style.transform = `scale(${scale})`;
 }
 
-// Zoom with mouse wheel
+// Zoom scroll
 modalImg.addEventListener("wheel", (e) => {
   e.preventDefault();
   if(e.deltaY < 0) scale += 0.1;
@@ -75,11 +75,11 @@ modalImg.addEventListener("wheel", (e) => {
   modalImg.style.transform = `scale(${scale})`;
 });
 
-// Swipe support for mobile
+// Swipe mobile
 let startX = 0;
 modalImg.addEventListener("touchstart", e => startX = e.touches[0].clientX);
 modalImg.addEventListener("touchend", e => {
   let endX = e.changedTouches[0].clientX;
-  if(endX - startX > 50) showImage(currentIndex - 1); // swipe right
-  else if(startX - endX > 50) showImage(currentIndex + 1); // swipe left
+  if(endX - startX > 50) showImage(currentIndex - 1);
+  else if(startX - endX > 50) showImage(currentIndex + 1);
 });

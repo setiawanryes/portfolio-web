@@ -484,14 +484,13 @@ body {
   transform: translate(-50%, -50%);
   width: 90%;
   max-width: 1800px;
-  aspect-ratio: 16 / 9; /* tetap proporsional */
+  aspect-ratio: 16 / 9;
   border-radius: 30px;
   box-shadow: 0 0 25px rgba(100, 100, 255, 0.25);
   background: radial-gradient(circle at top left, #1b1f3a, #0a0c1b 70%);
   display: none; /* default hidden */
   overflow: hidden;
   z-index: 999;
-  display: flex;
   align-items: center;
   justify-content: center;
   animation: fadeIn 0.3s ease-in-out;
@@ -511,7 +510,7 @@ body {
   transition: transform 0.3s ease, opacity 0.3s ease;
   cursor: grab;
   user-select: none;
-  pointer-events: auto; /* tetap bisa menerima wheel zoom */
+  pointer-events: auto;
   z-index: 999;
 }
 
@@ -526,7 +525,7 @@ body {
   cursor: pointer;
   transition: color 0.3s;
   pointer-events: auto;
-  z-index: 1001; /* pastikan di atas modal dan konten */
+  z-index: 1001;
 }
 
 .close:hover {
@@ -541,11 +540,11 @@ body {
   display: flex;
   justify-content: space-between;
   transform: translateY(-50%);
-  z-index: 1000; /* di bawah tombol close tapi di atas gambar */
+  z-index: 1000;
 }
 
 .modal-controls button {
-  pointer-events: all; /* tombol bisa diklik */
+  pointer-events: all;
   background: rgba(0,0,0,0.3);
   border: none;
   font-size: 50px;
@@ -564,5 +563,3 @@ body {
   background: rgba(255,255,255,0.2);
   color: #00f;
 }
-
-
