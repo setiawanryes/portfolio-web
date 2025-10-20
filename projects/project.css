@@ -577,7 +577,7 @@ body {
   box-shadow: 0 0 25px rgba(100, 100, 255, 0.3);
   color: #fff;
   z-index: 1000;
-  font-size: 15px;
+  font-size: 14px;
   line-height: 1.5;
   text-align: justify; /* teks rata kanan kiri */
   pointer-events: none; /* biar hover tetap smooth */
