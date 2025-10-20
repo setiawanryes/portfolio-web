@@ -89,21 +89,44 @@ const miniContent = document.getElementById("miniContent");
 const stats = document.querySelectorAll(".stat");
 
 stats.forEach(stat => {
-  // Mouse masuk → tampilkan modal
-  stat.addEventListener("mouseenter", (e) => {
+  stat.addEventListener("mouseenter", () => {
     const info = stat.getAttribute("data-info");
     miniContent.textContent = info;
 
-    // posisikan modal di atas elemen
-    const rect = stat.getBoundingClientRect();
-    miniModal.style.top = rect.bottom + window.scrollY + 10 + "px"; // 10px jarak
-    miniModal.style.left = rect.left + window.scrollX + "px";
-
+    // Tampilkan modal sementara untuk menghitung offsetHeight
+    miniModal.style.opacity = 0;
     miniModal.classList.add("show");
+
+    // Gunakan setTimeout 0ms agar browser render modal dulu
+    setTimeout(() => {
+      const rect = stat.getBoundingClientRect();
+      const offset = 10; // jarak modal dari elemen
+      const modalHeight = miniModal.offsetHeight;
+
+      // Default posisi di atas
+      let topPos = rect.top + window.scrollY - modalHeight - offset;
+
+      // Jika terlalu tinggi, tampilkan di bawah
+      if (topPos < window.scrollY) {
+        topPos = rect.bottom + window.scrollY + offset;
+      }
+
+      // Posisi horizontal
+      let leftPos = rect.left + window.scrollX;
+      if (leftPos + miniModal.offsetWidth > window.innerWidth) {
+        leftPos = window.innerWidth - miniModal.offsetWidth - 10;
+      }
+
+      miniModal.style.top = topPos + "px";
+      miniModal.style.left = leftPos + "px";
+
+      // Tampilkan modal sepenuhnya
+      miniModal.style.opacity = 1;
+    }, 0);
   });
 
-  // Mouse keluar → sembunyikan modal
   stat.addEventListener("mouseleave", () => {
+    miniModal.style.opacity = 0;
     miniModal.classList.remove("show");
   });
 });
