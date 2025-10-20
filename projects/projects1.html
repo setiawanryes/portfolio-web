@@ -48,21 +48,21 @@
     <span id="progress-text">0%</span>
   </div>
   
-  <!-- Hati -->
-<div class="like-dislike-container">
-  <button id="like-btn" class="reaction-btn like-theme">❤️</button>
-  <span id="like-count">0</span>
+  <!-- ❤️ dan 💬 -->
+              <div class="like-dislike-container">
+                <button id="like-btn" class="reaction-btn like-theme">❤️</button>
+                <span id="like-count">0</span>
 
-  <button id="komentar-btn" class="reaction-btn komentar-theme">💬</button>
-    <span id="komentar-count">0</span>
-  </div>
-</div>
-</div>
-      <div>
-  <!-- Daftar Komentar -->
-  <div id="comments-list"></div>
-</div>
-</div>
+                <button id="komentar-btn" class="reaction-btn komentar-theme">💬</button>
+                <span id="komentar-count">0</span>
+              </div>
+            </div>
+
+            <!-- 💬 Daftar Komentar -->
+            <div id="comments-list"></div>
+          </div>
+        </div>
+
 
   <!-- KANAN (preview) -->
   <div class="right-column" data-aos="fade-left">
@@ -124,6 +124,107 @@
   </div>
 </div>
 
+<script>// Variabel global
+let likeCount = 0;
+let komentarCount = 0;
+let replyToCmt = null;
+const defaultAvatarCmt = "images/default-avatar.png"; // pastikan ada gambar default di folder images
+
+// Tombol Like utama
+const likeBtn = document.getElementById("like-btn");
+const likeCountSpan = document.getElementById("like-count");
+if (likeBtn && likeCountSpan) {
+  likeBtn.addEventListener("click", () => {
+    likeCount++;
+    likeCountSpan.innerText = likeCount;
+  });
+}
+
+// Tombol buka modal komentar
+const komentarBtn = document.getElementById("komentar-btn");
+if (komentarBtn) {
+  komentarBtn.addEventListener("click", () => {
+    replyToCmt = null;
+    document.getElementById("cmtAppModalTitle").innerText = "Tulis Komentar";
+    document.getElementById("cmtAppModal").style.display = "flex";
+  });
+}
+
+// Tutup modal
+const closeModal = document.getElementById("close-cmtAppModal");
+if (closeModal) {
+  closeModal.addEventListener("click", () => {
+    document.getElementById("cmtAppModal").style.display = "none";
+  });
+}
+
+// Tombol kirim komentar
+const kirimBtn = document.getElementById("cmtAppKirim");
+if (kirimBtn) {
+  kirimBtn.addEventListener("click", () => {
+    const nama = document.getElementById("cmtAppNama").value.trim();
+    const isi = document.getElementById("cmtAppIsi").value.trim();
+    const fotoInput = document.getElementById("cmtAppFoto");
+
+    if (!nama) return alert("Nama wajib diisi!");
+
+    if (fotoInput.files.length > 0) {
+      const reader = new FileReader();
+      reader.onload = function () {
+        buatKomentarCmt(nama, isi, reader.result);
+      };
+      reader.readAsDataURL(fotoInput.files[0]);
+    } else {
+      buatKomentarCmt(nama, isi, defaultAvatarCmt);
+    }
+
+    // reset & tutup modal
+    document.getElementById("cmtAppModal").style.display = "none";
+    document.getElementById("cmtAppNama").value = "";
+    document.getElementById("cmtAppFoto").value = "";
+    document.getElementById("cmtAppIsi").value = "";
+  });
+}
+
+// Fungsi buat komentar baru
+function buatKomentarCmt(nama, isi, foto) {
+  const commentDiv = document.createElement("div");
+  commentDiv.classList.add("cmtApp-comment");
+
+  commentDiv.innerHTML = <div class="cmtApp-comment-header">
+      <img src="${foto}" alt="avatar">
+      <strong>${nama}</strong>
+    </div>
+    <div class="cmtApp-comment-body">${isi || "(Tanpa isi)"}</div>
+    <div class="cmtApp-comment-actions">
+      <button class="cmtApp-like-komentar">Suka</button>
+      <button class="cmtApp-balas-komentar">Balas</button>
+    </div>;
+
+  if (replyToCmt) {
+    replyToCmt.appendChild(commentDiv);
+    replyToCmt = null;
+  } else {
+    document.getElementById("comments-list").appendChild(commentDiv);
+    komentarCount++;
+    document.getElementById("komentar-count").innerText = komentarCount;
+  }
+}
+
+// Event delegation untuk Like & Balas komentar
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("cmtApp-like-komentar")) {
+    e.target.innerText =
+      e.target.innerText === "Suka" ? "❤️ Disukai" : "Suka";
+  }
+
+  if (e.target.classList.contains("cmtApp-balas-komentar")) {
+    replyToCmt = e.target.closest(".cmtApp-comment");
+    document.getElementById("cmtAppModalTitle").innerText = "Balas Komentar";
+    document.getElementById("cmtAppModal").style.display = "flex";
+  }
+});
+</script>
 <script src="project.js"></script>
 
 </body>
