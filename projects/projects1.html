@@ -53,16 +53,32 @@
   <button id="like-btn" class="reaction-btn like-theme">❤️</button>
   <span id="like-count">0</span>
 
-<button id="komentar-btn" class="reaction-btn komentar-theme">💬</button>
-<span id="komentar-count">0</span>
-</div>
-</div>
+  <button id="komentar-btn" class="reaction-btn komentar-theme">💬</button>
+  <span id="komentar-count">0</span>
 </div>
 
-<div class="comment-list">
-  <!-- Daftar komentar -->
-  <div id="comment-list"></div>
-</div>
+<!-- Daftar komentar -->
+<div id="comments-list" class="comments-container"></div>
+
+<!-- Modal Komentar -->
+<div id="komentarModal" class="custom-modal">
+  <div class="custom-modal-content">
+    <span id="close-komentar-modal" class="close-btn">&times;</span>
+    <h2 id="modal-title">Tulis Komentar</h2>
+
+    <form id="komentar-form">
+      <label>Nama <span style="color:red">*</span></label>
+      <input type="text" id="nama" required>
+
+      <label>Foto (opsional)</label>
+      <input type="file" id="foto" accept="image/*">
+
+      <label>Komentar</label>
+      <textarea id="isi" rows="3"></textarea>
+
+      <button type="button" id="kirim-btn">Kirim</button>
+    </form>
+  </div>
 </div>
 
   <!-- KANAN (preview) -->
@@ -96,18 +112,6 @@
 </div>
 </section>
 
-<!-- Modal komentar -->
-<div id="comment-modal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <form id="comment-form">
-      <input type="text" id="name-input" placeholder="Nama (wajib)" required>
-      <input type="file" id="photo-input" accept="image/*">
-      <textarea id="comment-input" placeholder="Tulis komentar..." required></textarea>
-      <button type="submit">Kirim</button>
-    </form>
-  </div>
-</div>
 <!-- Modal / Tooltip di dalam container -->
   <div id="miniModal" class="mini-modal">
     <div class="mini-content" id="miniContent"></div>
@@ -124,135 +128,101 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const komentarBtn = document.getElementById('komentar-btn');
-  const komentarCount = document.getElementById('komentar-count');
-  const komentarModal = document.getElementById('comment-modal');
-  const closeCommentModal = komentarModal.querySelector('.close');
-  const commentForm = document.getElementById('comment-form');
-  const commentList = document.getElementById('comment-list');
+// ====== Inisialisasi variabel global ======
+let likeCount = 0;
+let komentarCount = 0;
+let replyTo = null; // Menyimpan elemen komentar yang sedang dibalas
+const defaultAvatar = "images/default-avatar.png"; // Avatar default dari folder images
 
-  const defaultPhoto = 'https://via.placeholder.com/50';
-  let komentarNumber = 0;
-
-  // Buka modal komentar
-  komentarBtn.addEventListener('click', () => {
-    komentarModal.style.display = 'flex';
-  });
-
-  // Tutup modal komentar
-  closeCommentModal.addEventListener('click', () => {
-    komentarModal.style.display = 'none';
-  });
-  window.addEventListener('click', e => {
-    if(e.target === komentarModal) komentarModal.style.display = 'none';
-  });
-
-  // Submit komentar utama
-  commentForm.addEventListener('submit', e => {
-    e.preventDefault();
-    const name = document.getElementById('name-input').value.trim();
-    const text = document.getElementById('comment-input').value.trim();
-    const photoFile = document.getElementById('photo-input').files[0];
-    if(!name || !text) return;
-
-    const processComment = (photoURL) => {
-      addComment(name, text, photoURL);
-      commentForm.reset();
-      komentarModal.style.display = 'none';
-      komentarNumber++;
-      komentarCount.textContent = komentarNumber;
-    };
-
-    if(photoFile){
-      const reader = new FileReader();
-      reader.onload = event => processComment(event.target.result);
-      reader.readAsDataURL(photoFile);
-    } else {
-      processComment(defaultPhoto);
-    }
-  });
-
-  // Fungsi tambah komentar / reply
-  function addComment(name, text, photo){
-    const date = new Date().toLocaleString();
-    const commentItem = document.createElement('div');
-    commentItem.className = 'comment-item';
-    commentItem.innerHTML = `
-      <img src="${photo}" alt="Profile">
-      <div class="comment-content">
-        <div class="comment-header"><span>${name}</span><span>${date}</span></div>
-        <div class="comment-text">${text}</div>
-        <div class="comment-actions">
-          <span class="like-btn">❤️ Like (0)</span>
-          <span class="unlike-btn">👎 Unlike (0)</span>
-          <span class="reply-btn">💬 Balas</span>
-        </div>
-        <div class="reply-list"></div>
-      </div>
-    `;
-
-    const likeBtn = commentItem.querySelector('.like-btn');
-    const unlikeBtn = commentItem.querySelector('.unlike-btn');
-    const replyBtn = commentItem.querySelector('.reply-btn');
-    const replyList = commentItem.querySelector('.reply-list');
-
-    let likeCount=0, unlikeCount=0;
-    likeBtn.addEventListener('click', ()=>{ likeCount++; likeBtn.textContent=`❤️ Like (${likeCount})`; });
-    unlikeBtn.addEventListener('click', ()=>{ unlikeCount++; unlikeBtn.textContent=`👎 Unlike (${unlikeCount})`; });
-
-    // Reply komentar
-    replyBtn.addEventListener('click', ()=>{
-      komentarModal.style.display='flex';
-      const submitHandler = (e)=>{
-        e.preventDefault();
-        const replyName = document.getElementById('name-input').value.trim();
-        const replyText = document.getElementById('comment-input').value.trim();
-        const replyPhotoFile = document.getElementById('photo-input').files[0];
-        if(!replyName || !replyText) return;
-
-        const processReply = (photoURL)=>{
-          const replyItem = document.createElement('div');
-          replyItem.style.marginLeft='20px';
-          replyItem.style.marginTop='5px';
-          replyItem.className='comment-item';
-          replyItem.innerHTML=`
-            <img src="${photoURL}" alt="Profile">
-            <div class="comment-content">
-              <div class="comment-header"><span>${replyName}</span><span>${new Date().toLocaleString()}</span></div>
-              <div class="comment-text">${replyText}</div>
-              <div class="comment-actions">
-                <span class="like-btn">❤️ Like (0)</span>
-                <span class="unlike-btn">👎 Unlike (0)</span>
-              </div>
-            </div>
-          `;
-          let rLike=0,rUnlike=0;
-          replyItem.querySelector('.like-btn').addEventListener('click', e=>{ rLike++; e.target.textContent=`❤️ Like (${rLike})`; });
-          replyItem.querySelector('.unlike-btn').addEventListener('click', e=>{ rUnlike++; e.target.textContent=`👎 Unlike (${rUnlike})`; });
-
-          replyList.appendChild(replyItem);
-          komentarModal.style.display='none';
-          commentForm.removeEventListener('submit', submitHandler);
-          commentForm.reset();
-        };
-
-        if(replyPhotoFile){
-          const reader = new FileReader();
-          reader.onload = e=>processReply(e.target.result);
-          reader.readAsDataURL(replyPhotoFile);
-        } else {
-          processReply(defaultPhoto);
-        }
-      };
-      commentForm.addEventListener('submit', submitHandler);
-    });
-
-    commentList.prepend(commentItem);
-  }
+// ====== Tombol Like utama ======
+document.getElementById("like-btn").addEventListener("click", () => {
+  likeCount++;
+  document.getElementById("like-count").innerText = likeCount;
 });
 
+// ====== Buka Modal Komentar ======
+document.getElementById("komentar-btn").addEventListener("click", () => {
+  replyTo = null; // reset mode balasan
+  document.getElementById("modal-title").innerText = "Tulis Komentar";
+  document.getElementById("komentarModal").style.display = "flex";
+});
+
+// ====== Tutup Modal ======
+document.getElementById("close-komentar-modal").addEventListener("click", () => {
+  document.getElementById("komentarModal").style.display = "none";
+});
+
+// ====== Tombol Kirim Komentar ======
+document.getElementById("kirim-btn").addEventListener("click", () => {
+  const nama = document.getElementById("nama").value.trim();
+  const isi = document.getElementById("isi").value.trim();
+  const fotoInput = document.getElementById("foto");
+
+  if (!nama) return alert("Nama wajib diisi!"); // Validasi nama
+
+  // Jika user upload foto, pakai FileReader untuk preview
+  if (fotoInput.files.length > 0) {
+    const reader = new FileReader();
+    reader.onload = function() {
+      buatKomentar(nama, isi, reader.result);
+    };
+    reader.readAsDataURL(fotoInput.files[0]);
+  } else {
+    // Kalau tidak upload, pakai avatar default
+    buatKomentar(nama, isi, defaultAvatar);
+  }
+
+  // Tutup modal & reset form
+  document.getElementById("komentarModal").style.display = "none";
+  document.getElementById("nama").value = "";
+  document.getElementById("foto").value = "";
+  document.getElementById("isi").value = "";
+});
+
+// ====== Fungsi membuat komentar baru ======
+function buatKomentar(nama, isi, foto) {
+  const commentDiv = document.createElement("div");
+  commentDiv.classList.add("comment");
+
+  commentDiv.innerHTML = `
+    <div class="comment-header">
+      <img src="${foto}" alt="avatar">
+      <strong>${nama}</strong>
+    </div>
+    <div class="comment-body">${isi || "(Tanpa isi)"}</div>
+    <div class="comment-actions">
+      <button class="like-komentar">Suka</button>
+      <button class="balas-komentar">Balas</button>
+    </div>
+  `;
+
+  if (replyTo) {
+    replyTo.appendChild(commentDiv); // kalau ini balasan
+    replyTo = null;
+  } else {
+    document.getElementById("comments-list").appendChild(commentDiv); // komentar baru
+    komentarCount++;
+    document.getElementById("komentar-count").innerText = komentarCount;
+  }
+}
+
+// ====== Like & Balas Komentar (Event Delegation) ======
+document.addEventListener("click", (e) => {
+  // Like komentar
+  if (e.target.classList.contains("like-komentar")) {
+    const btn = e.target;
+    btn.innerText = btn.innerText === "Suka" ? "❤️ Disukai" : "Suka";
+  }
+
+  // Balas komentar
+  if (e.target.classList.contains("balas-komentar")) {
+    replyTo = e.target.closest(".comment");
+    document.getElementById("modal-title").innerText = "Balas Komentar";
+    document.getElementById("komentarModal").style.display = "flex";
+  }
+});
 </script>
+
 <script src="project.js"></script>
 
 </body>
