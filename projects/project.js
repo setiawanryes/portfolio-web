@@ -131,17 +131,17 @@ stats.forEach(stat => {
   });
 });
 
-// Progress Baterai
-const batteryLevel = document.getElementById('battery-level');
+// Progres Bar
+const progressBar = document.getElementById('progress-bar');
 const progressText = document.getElementById('progress-text');
 
 function setProgress(percent) {
-  batteryLevel.style.width = percent + '%';
+  progressBar.style.width = percent + '%';
   progressText.textContent = percent + '%';
 }
 
-// Contoh: progres 70%
-setProgress(70);
+// Contoh: progres 75%
+setProgress(75);
 
 // Tombol Hati
 const heartBtn = document.getElementById('heart-btn');
