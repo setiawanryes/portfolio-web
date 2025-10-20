@@ -143,12 +143,21 @@ function setProgress(percent) {
 // Contoh: progres 75%
 setProgress(75);
 
-// Tombol Hati
-const heartBtn = document.getElementById('heart-btn');
+const likeBtn = document.getElementById('like-btn');
+const dislikeBtn = document.getElementById('dislike-btn');
 const likeCount = document.getElementById('like-count');
-let count = 0;
+const dislikeCount = document.getElementById('dislike-count');
 
-heartBtn.addEventListener('click', () => {
-  count++;
-  likeCount.textContent = count;
+let likeNumber = 0;
+let dislikeNumber = 0;
+
+// Tambah count tiap klik
+likeBtn.addEventListener('click', () => {
+  likeNumber++;
+  likeCount.textContent = likeNumber;
+});
+
+dislikeBtn.addEventListener('click', () => {
+  dislikeNumber++;
+  dislikeCount.textContent = dislikeNumber;
 });
