@@ -30,7 +30,7 @@ let scale = 1;
 // Open modal
 lightboxImages.forEach((img, i) => {
   img.addEventListener("click", () => {
-    modal.style.display = "block";
+    modal.style.display = "flex";
     modalImg.src = img.src;
     currentIndex = i;
     scale = 1;
@@ -39,12 +39,26 @@ lightboxImages.forEach((img, i) => {
 });
 
 // Close modal
-closeBtn.onclick = () => modal.style.display = "none";
-modal.onclick = (e) => { if(e.target === modal) modal.style.display = "none"; };
+closeBtn.addEventListener("click", (e) => {
+  e.stopPropagation(); // cegah bubbling ke modal
+  modal.style.display = "none";
+});
+
+// Klik di luar gambar untuk tutup modal
+modal.addEventListener("click", (e) => {
+  if (e.target === modal) modal.style.display = "none";
+});
 
 // Prev/Next
-document.getElementById("prevImg").onclick = () => showImage(currentIndex - 1);
-document.getElementById("nextImg").onclick = () => showImage(currentIndex + 1);
+document.getElementById("prevImg").addEventListener("click", (e) => {
+  e.stopPropagation();
+  showImage(currentIndex - 1);
+});
+
+document.getElementById("nextImg").addEventListener("click", (e) => {
+  e.stopPropagation();
+  showImage(currentIndex + 1);
+});
 
 function showImage(index) {
   currentIndex = (index + lightboxImages.length) % lightboxImages.length;
