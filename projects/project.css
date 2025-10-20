@@ -507,10 +507,12 @@ body {
 .modal-content {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* tetap proporsional */
+  object-fit: contain;
   transition: transform 0.3s ease, opacity 0.3s ease;
   cursor: grab;
   user-select: none;
+  pointer-events: auto; /* tetap bisa menerima wheel zoom */
+  z-index: 999;
 }
 
 /* Tombol close */
@@ -523,6 +525,8 @@ body {
   color: #fff;
   cursor: pointer;
   transition: color 0.3s;
+  pointer-events: auto;
+  z-index: 1001; /* pastikan di atas modal dan konten */
 }
 
 .close:hover {
@@ -537,11 +541,11 @@ body {
   display: flex;
   justify-content: space-between;
   transform: translateY(-50%);
-  pointer-events: none; /* agar tombol tidak memblokir klik gambar */
+  z-index: 1000; /* di bawah tombol close tapi di atas gambar */
 }
 
 .modal-controls button {
-  pointer-events: all; /* aktifkan tombol */
+  pointer-events: all; /* tombol bisa diklik */
   background: rgba(0,0,0,0.3);
   border: none;
   font-size: 50px;
@@ -560,4 +564,5 @@ body {
   background: rgba(255,255,255,0.2);
   color: #00f;
 }
+
 
