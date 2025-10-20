@@ -83,3 +83,27 @@ modalImg.addEventListener("touchend", e => {
   if(endX - startX > 50) showImage(currentIndex - 1);
   else if(startX - endX > 50) showImage(currentIndex + 1);
 });
+
+const miniModal = document.getElementById("miniModal");
+const miniContent = document.getElementById("miniContent");
+const miniClose = document.getElementsByClassName("mini-close")[0];
+const stats = document.querySelectorAll(".stat");
+
+// Klik stat untuk buka modal
+stats.forEach(stat => {
+  stat.addEventListener("click", () => {
+    const info = stat.getAttribute("data-info");
+    miniContent.textContent = info;
+    miniModal.style.display = "block";
+  });
+});
+
+// Close modal
+miniClose.addEventListener("click", () => {
+  miniModal.style.display = "none";
+});
+
+// Klik di luar modal untuk tutup
+window.addEventListener("click", (e) => {
+  if (e.target === miniModal) miniModal.style.display = "none";
+});
