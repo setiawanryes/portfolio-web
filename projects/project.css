@@ -595,3 +595,54 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
+
+.project-buttons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Tombol Preview */
+.btn {
+  padding: 8px 16px;
+  border-radius: 5px;
+  text-decoration: none;
+  color: white;
+}
+.live { background-color: #4caf50; }
+
+/* Progress Baterai */
+.progress-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.battery {
+  width: 50px;
+  height: 25px;
+  border: 2px solid #333;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  background: #ccc;
+}
+
+.battery-level {
+  height: 100%;
+  width: 0%;
+  background: #4caf50;
+  transition: width 0.5s;
+}
+
+/* Tombol Hati */
+#heart-btn {
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+#like-count {
+  margin-left: 5px;
+  font-size: 18px;
+}

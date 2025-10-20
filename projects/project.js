@@ -130,3 +130,25 @@ stats.forEach(stat => {
     miniModal.classList.remove("show");
   });
 });
+
+// Progress Baterai
+const batteryLevel = document.getElementById('battery-level');
+const progressText = document.getElementById('progress-text');
+
+function setProgress(percent) {
+  batteryLevel.style.width = percent + '%';
+  progressText.textContent = percent + '%';
+}
+
+// Contoh: progres 70%
+setProgress(70);
+
+// Tombol Hati
+const heartBtn = document.getElementById('heart-btn');
+const likeCount = document.getElementById('like-count');
+let count = 0;
+
+heartBtn.addEventListener('click', () => {
+  count++;
+  likeCount.textContent = count;
+});
