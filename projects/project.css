@@ -286,7 +286,7 @@ body {
   background: #10142f;
   padding: 40px;
   border-radius: 20px;
-  max-width: 420px;
+  max-width: 720px;
   text-align: left;
   box-shadow: 0 0 25px rgba(100, 100, 255, 0.15);
   transition: background 0.3s ease, transform 0.3s ease;
@@ -301,6 +301,7 @@ body {
   color: #b7c5ff;
   margin-bottom: 20px;
   text-shadow: 0 0 8px rgba(110, 90, 255, 0.3);
+  font-size: 18px;
 }
 
 .key-features ul {
@@ -313,7 +314,7 @@ body {
   color: #9aa2d3;
   padding-left: 28px;
   position: relative;
-  font-size: 0.95rem;
+  font-size: 14px;
 }
 
 .key-features li::before {
