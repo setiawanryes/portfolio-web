@@ -73,3 +73,88 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+
+// === About Tabs ===
+const aboutTabs = document.querySelectorAll('.about-tabs .tab');
+const aboutContents = document.querySelectorAll('.about-content .tab-content');
+
+aboutTabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    // Remove active class dari semua tab dan konten
+    aboutTabs.forEach(t => t.classList.remove('active'));
+    aboutContents.forEach(c => c.classList.remove('active'));
+
+    // Tambahkan active ke tab yang diklik dan kontennya
+    tab.classList.add('active');
+    const target = document.getElementById(tab.dataset.tab);
+    target.classList.add('active');
+  });
+});
+
+// === Portfolio Tabs ===
+const portfolioTabs = document.querySelectorAll('.portfolio-tabs .tab-btn');
+const portfolioContents = document.querySelectorAll('.portfolio-section .tab-content');
+
+portfolioTabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    // Remove active class dari semua tab dan konten
+    portfolioTabs.forEach(t => t.classList.remove('active'));
+    portfolioContents.forEach(c => c.classList.remove('active'));
+
+    // Tambahkan active ke tab yang diklik dan kontennya
+    tab.classList.add('active');
+    const target = document.getElementById(tab.dataset.tab);
+    target.classList.add('active');
+  });
+});
+
+//===Slider
+const track = document.querySelector('.slider-track');
+const slides = Array.from(track.children);
+const nextBtn = document.querySelector('.next');
+const prevBtn = document.querySelector('.prev');
+
+let currentIndex = 0;
+
+// Tandai slide aktif
+function setActiveSlide(index) {
+  slides.forEach(slide => slide.classList.remove('active'));
+  slides[index].classList.add('active');
+}
+
+// Geser track
+function moveToSlide(index) {
+  const slideWidth = slides[0].getBoundingClientRect().width + 20; // +gap
+  track.style.transform = `translateX(-${slideWidth * index}px)`;
+  setActiveSlide(index);
+}
+
+// Tombol Next
+nextBtn.addEventListener('click', () => {
+  currentIndex = (currentIndex + 1) % slides.length;
+  moveToSlide(currentIndex);
+});
+
+// Tombol Prev
+prevBtn.addEventListener('click', () => {
+  currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+  moveToSlide(currentIndex);
+});
+
+// Auto play
+setInterval(() => {
+  currentIndex = (currentIndex + 1) % slides.length;
+  moveToSlide(currentIndex);
+}, 3000);
+
+// Klik langsung di slide untuk float effect
+slides.forEach((slide, index) => {
+  slide.addEventListener('click', () => {
+    currentIndex = index;
+    moveToSlide(currentIndex);
+  });
+});
+
+// Inisialisasi
+moveToSlide(0);
+

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aritmatika Solver | Roni Setiawan</title>
-  <link rel="stylesheet" href="../style.css">
+  <title>SI-TANDUR | Roni Setiawan</title>
+  <link rel="stylesheet" href="project.css">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
@@ -17,62 +17,70 @@
       <!-- NAV -->
       <div class="back-nav">
         <a href="../index.html#portfolio" class="back-btn">← Back</a>
-        <span>Projects / Aritmatika Solver</span>
+        <span>Projects / SI-TANDUR</span>
       </div>
 
-      <!-- HEADER -->
-      <div class="project-header">
-        <div class="project-info" data-aos="fade-right">
-          <h1>Aritmatika Solver</h1>
-          <p>
-            Aplikasi berbasis web yang dirancang untuk membantu pengguna menyelesaikan
-            perhitungan aritmatika secara otomatis, cepat, dan akurat.
-            Dibangun menggunakan teknologi web sederhana namun powerful.
-          </p>
+      <!-- MAIN LAYOUT (2 KOLOM) -->
+      <!-- ROW 1: INFO & PREVIEW -->
+    <div class="project-header">
+      <!-- KIRI -->
+      <div class="left-column" data-aos="fade-right">
+    <div class="project-info">
+      <h1>SI-TANDUR</h1>
+      <p>
+        Aplikasi berbasis web yang dirancang untuk membantu pengguna menyelesaikan
+        perhitungan aritmatika secara otomatis, cepat, dan akurat.
+      </p>
 
-          <div class="project-stats">
-            <div class="stat"><i class="fas fa-code"></i> 5 Teknologi</div>
-            <div class="stat"><i class="fas fa-cogs"></i> 3 Fitur Utama</div>
-          </div>
-
-          <div class="project-buttons">
-            <a href="#" class="btn live">🔗 Live Demo</a>
-            <a href="#" class="btn github">💻 GitHub</a>
-          </div>
-        </div>
-
-        <div class="project-preview" data-aos="fade-left">
-          <img src="../images/project1.jpg" alt="Aritmatika Solver">
-        </div>
+      <div class="project-stats">
+        <div class="stat"><i class="fas fa-code"></i> 5 Teknologi</div>
+        <div class="stat"><i class="fas fa-cogs"></i> 3 Fitur Utama</div>
       </div>
 
-      <!-- TECH STACK -->
-      <div class="tech-stack" data-aos="fade-up">
-        <h2>🧩 Technologies Used</h2>
-        <div class="tech-list">
-          <span>HTML</span>
-          <span>CSS</span>
-          <span>JavaScript</span>
-          <span>Bootstrap</span>
-          <span>Chart.js</span>
-        </div>
+      <div class="project-buttons">
+        <a href="#" class="btn live">🔗 Live Demo</a>
+        <a href="#" class="btn github">💻 GitHub</a>
       </div>
-
-      <!-- FEATURES -->
-      <div class="features" data-aos="fade-up">
-        <h2>⭐ Key Features</h2>
-        <ul>
-          <li>Input angka otomatis dan validasi real-time.</li>
-          <li>Animasi hasil perhitungan yang interaktif.</li>
-          <li>Mode dark/light untuk pengalaman pengguna modern.</li>
-        </ul>
-      </div>
-
     </div>
-  </section>
-  <script src="script.js" defer></script>
-  <script>
-    AOS.init({ duration: 1000, once: true });
-  </script>
+
+    <div class="tech-stack">
+      <h2>🧩 Technologies Used</h2>
+      <div class="tech-list">
+        <span>HTML</span>
+        <span>CSS</span>
+        <span>JavaScript</span>
+        <span>Bootstrap</span>
+        <span>Chart.js</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- KANAN (preview) -->
+  <div class="right-column" data-aos="fade-left">
+    <div class="project-preview">
+      <div class="slide-project">
+        <img src="../images/project1.png"alt="Preview 1">
+        <img src="../images/project1.png" alt="Preview 2">
+      </div>
+      <div class="slide-controls">
+        <button class="prev">❮</button>
+        <button class="next">❯</button>
+      </div>
+    </div>
+
+    <!-- KEY FEATURES -->
+    <div class="key-features">
+      <h2>⭐ Key Features</h2>
+      <ul>
+        <li>Auto calculation system</li>
+        <li>Responsive interface</li>
+        <li>Simple data visualization</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</section>
+<script src="project.js"></script>
+
 </body>
 </html>

@@ -1,0 +1,478 @@
+/* ==========================
+   🌌 GLOBAL RESET & BASE
+========================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: radial-gradient(circle at 20% 20%, #0e0c22, #050414 80%);
+  color: #e5e5ff;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ==========================
+   📦 PROJECT DETAIL WRAPPER
+========================== */
+.project-detail {
+  padding: 100px 8%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-container {
+  width: 100%;
+  max-width: 1100px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 60px;
+  box-shadow: 0 0 40px rgba(138, 110, 255, 0.15);
+  backdrop-filter: blur(10px);
+  transition: 0.4s ease;
+}
+
+.project-container:hover {
+  box-shadow: 0 0 55px rgba(138, 110, 255, 0.3);
+}
+
+.project-section {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+/* ==========================
+   🧭 NAVIGATION
+========================== */
+.back-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #aaaaff;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.back-nav .back-btn {
+  color: #8a7cff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.back-nav .back-btn:hover {
+  text-shadow: 0 0 10px #8a7cff;
+}
+
+/* ==========================
+   🧱 MAIN LAYOUT (2 COLUMN)
+========================== */
+.project-layout {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+
+.left-column {
+  flex: 1;
+  min-width: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.right-column {
+  flex: 1;
+  min-width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+/* ==========================
+   📘 PROJECT INFO
+========================== */
+.project-info h1 {
+  font-size: 2.6rem;
+  color: #fff;
+  text-shadow: 0 0 15px rgba(108, 80, 255, 0.8);
+  margin-bottom: 15px;
+}
+
+.project-info p {
+  color: #b8baf2;
+  font-size: 1rem;
+  margin-bottom: 30px;
+  text-shadow: 0 0 4px rgba(138, 110, 255, 0.3);
+}
+
+/* ==========================
+   📊 PROJECT STATS
+========================== */
+.project-stats {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+}
+
+.stat {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 8px 15px;
+  font-size: 0.9rem;
+  color: #a7a4ff;
+  transition: all 0.3s ease;
+}
+
+.stat:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
+}
+
+/* ==========================
+   🔘 BUTTONS
+========================== */
+.project-buttons {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.project-buttons .btn {
+  display: inline-block;
+  padding: 10px 22px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 500;
+  color: #fff;
+  transition: 0.3s;
+}
+
+.project-buttons .btn.live {
+  background: linear-gradient(90deg, #7c6aff, #9f88ff);
+}
+
+.project-buttons .btn.github {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.project-buttons .btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 15px #9f88ff;
+}
+
+/* ==========================
+   💻 TECH STACK
+========================== */
+.tech-stack {
+  text-align: center;
+}
+
+.tech-stack h2 {
+  font-size: 1.5rem;
+  color: #b7c5ff;
+  margin-bottom: 20px;
+  text-shadow: 0 0 10px rgba(110, 90, 255, 0.3);
+}
+
+.tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+}
+
+.tech-list span {
+  background: #151b3d;
+  border-radius: 10px;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  color: #a7b2ff;
+  box-shadow: 0 0 10px rgba(110, 90, 255, 0.25);
+  transition: all 0.3s ease;
+}
+
+.tech-list span:hover {
+  background: #1e2550;
+  color: #fff;
+  transform: translateY(-3px);
+}
+
+.tech-stack:hover {
+  background: #141a3b;
+  transform: translateY(-4px);
+
+}
+
+/* ==========================
+   🎨 PROJECT PREVIEW (SLIDER)
+========================== */
+.project-preview {
+  width: 100%;
+  max-width: 420px;
+  aspect-ratio: 16 / 9; /* tetap proporsional di semua layar */
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 0 25px rgba(100, 100, 255, 0.25);
+  background: radial-gradient(circle at top left, #1b1f3a, #0a0c1b 70%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slide-project {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  transition: transform 0.6s ease-in-out;
+}
+
+.slide-project img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* 🔹 biar gambar utuh, gak kepotong */
+  background-color: #0a0c1b; /* warna latar belakang agar rapi */
+  flex-shrink: 0;
+  border-radius: 20px;
+}
+
+/* Controls */
+.slide-controls {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+}
+
+.slide-controls button {
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 10px 14px;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.slide-controls button:hover {
+  background: rgba(138, 110, 255, 0.8);
+  box-shadow: 0 0 12px rgba(138, 110, 255, 0.6);
+}
+
+/* ==========================
+   ⭐ FEATURES
+========================== */
+.key-features {
+  width: 100%;
+  background: #10142f;
+  padding: 40px;
+  border-radius: 20px;
+  max-width: 420px;
+  text-align: left;
+  box-shadow: 0 0 25px rgba(100, 100, 255, 0.15);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.key-features:hover {
+  background: #141a3b;
+  transform: translateY(-4px);
+}
+
+.key-features h2 {
+  color: #b7c5ff;
+  margin-bottom: 20px;
+  text-shadow: 0 0 8px rgba(110, 90, 255, 0.3);
+}
+
+.key-features ul {
+  list-style: none;
+  padding: 0;
+}
+
+.key-features li {
+  margin-bottom: 12px;
+  color: #9aa2d3;
+  padding-left: 28px;
+  position: relative;
+  font-size: 0.95rem;
+}
+
+.key-features li::before {
+  content: "⭐";
+  position: absolute;
+  left: 0;
+  color: #ffd700;
+}
+
+/* ==========================
+   📱 RESPONSIVE
+========================== */
+@media (max-width: 900px) {
+  .project-layout {
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .left-column,
+  .right-column {
+    width: 100%;
+    align-items: center;
+  }
+
+  .project-preview,
+  .features {
+    max-width: 100%;
+  }
+}
+
+
+/* ==========================
+   🎞️ SLIDESHOW PREVIEW
+========================== */
+.project-preview {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 0 25px rgba(100, 100, 255, 0.25);
+  background: radial-gradient(circle at top left, #1b1f3a, #0a0c1b 70%);
+}
+
+.slide-project {
+  display: flex;
+  width: 300%;
+  transition: transform 0.6s ease-in-out;
+}
+
+.slide-project img {
+  width: 100%;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+/* Navigasi tombol slide */
+.slide-controls {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+  padding: 0 10px;
+}
+
+.slide-controls button {
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.slide-controls button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-bottom: 60px;
+}
+
+/* Row bawah: Tech stack & features */
+.project-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.tech-stack,
+.features {
+  flex: 1;
+  min-width: 280px;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 0 12px rgba(100, 100, 255, 0.15);
+}
+
+.tech-stack h2,
+.features h2 {
+  margin-bottom: 12px;
+  color: #9da8ff;
+}
+
+.tech-list span {
+  background: rgba(138, 110, 255, 0.1);
+  border: 1px solid rgba(138, 110, 255, 0.3);
+  border-radius: 8px;
+  padding: 6px 10px;
+  margin: 4px;
+  display: inline-block;
+}
+
+.left-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.divider {
+  border: none;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 15px 0;
+}
+
+.tech-stack {
+  margin-top: 10px;
+}
+
+.tech-stack h2 {
+  font-size: 1.2rem;
+  color: #9fa8ff;
+  margin-bottom: 8px;
+}
+
+.tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tech-list span {
+  background: rgba(100, 100, 255, 0.15);
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: #fff;
+  box-shadow: 0 0 8px rgba(100, 100, 255, 0.25);
+}
+

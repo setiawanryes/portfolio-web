@@ -423,7 +423,7 @@ input:focus, textarea:focus {
    ABOUT SECTION (Match Portfolio)
 ================================== */
 .about-glow {
-  background: radial-gradient(circle at top left, #0d1224, #090a12 60%);
+  background: radial-gradient(circle at top, #0d1224, #0a0f1a);
   color: #e4e8ff;
   font-family: 'Poppins', sans-serif;
   padding: 100px 40px;
@@ -548,6 +548,8 @@ input:focus, textarea:focus {
 .bio p {
   color: #aab0d6;
   line-height: 1.7;
+  font-size: 1rem;
+  text-align: justify;
 }
 
 /* INFO BOX */
@@ -623,7 +625,7 @@ input:focus, textarea:focus {
   background: rgba(255,255,255,0.02);
   border-radius: 12px;
   padding: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   border-left: 3px solid #786aff;
 }
 
@@ -635,6 +637,11 @@ input:focus, textarea:focus {
 .edu-item p {
   color: #aab0d6;
   font-size: 0.95rem;
+  line-height: 1.6;
+}
+.edu-item q {
+  color: #aab0d6;
+  font-size: 0.80rem;
   line-height: 1.6;
 }
 
@@ -932,19 +939,28 @@ input:focus, textarea:focus {
 }
 
 /* PROJECT IMAGE PREVIEW */
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideOut {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(-100%); opacity: 0; }
+}
+
 .project-preview {
-  flex: 1;
-  text-align: center;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
 }
 
 .project-preview img {
-  width: 360px;
-  border-radius: 16px;
-  box-shadow: 0 0 35px rgba(100, 120, 255, 0.3);
-  transition: transform 0.4s;
-}
-.project-preview img:hover {
-  transform: scale(1.03);
+  width: 100%;
+  border-radius: 10px;
+  transition: transform 0.4s ease;
 }
 
 /* TECH STACK */
@@ -1059,3 +1075,78 @@ body.loaded .page-transition {
   transform: translateY(20px);
   transition: opacity 0.8s ease, transform 0.8s ease;
 }
+
+/*The naked traveler slider*/
+.about-sidebar {
+  width: 300px; /* Atur lebar sidebar */
+  padding: 20px;
+  border-radius: 15px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Slider di sidebar */
+.traveler-slider {
+  width: 100%; /* full width sidebar */
+  margin-top: 20px;
+  position: relative;
+}
+
+.traveler-slider .slider-container {
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.traveler-slider .slider-track {
+  display: flex;
+  gap: 10px;
+  transition: transform 0.5s ease;
+}
+
+.traveler-slider .slider-track img {
+  width: 80px;       /* kecil agar pas sidebar */
+  height: 60px;      /* proporsional */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.traveler-slider .slider-track img.active {
+  transform: scale(1.2);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+.traveler-slider button.prev,
+.traveler-slider button.next {
+  position: absolute;
+  top: 75%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.249);
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 5px;
+}
+
+.traveler-slider button.prev { left: 2px; }
+.traveler-slider button.next { right: 2px; }
+
+/* Modal overlay */
+.modal {
+  display: none; /* hidden by default */
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.9);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
