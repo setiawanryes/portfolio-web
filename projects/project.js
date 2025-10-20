@@ -161,3 +161,88 @@ dislikeBtn.addEventListener('click', () => {
   dislikeNumber++;
   dislikeCount.textContent = dislikeNumber;
 });
+
+const commentForm = document.getElementById('comment-form');
+const commentList = document.getElementById('comment-list');
+
+const defaultPhoto = 'https://via.placeholder.com/50'; // Foto default
+
+commentForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  
+  const name = document.getElementById('name-input').value.trim();
+  const commentText = document.getElementById('comment-input').value.trim();
+  const photoFile = document.getElementById('photo-input').files[0];
+  
+  if (!name || !commentText) return;
+  
+  // Buat URL foto
+  const reader = new FileReader();
+  reader.onload = function(event) {
+    const photoURL = photoFile ? event.target.result : defaultPhoto;
+    addComment(name, commentText, photoURL);
+  };
+  
+  if (photoFile) reader.readAsDataURL(photoFile);
+  else addComment(name, commentText, defaultPhoto);
+  
+  commentForm.reset();
+});
+
+// Fungsi tambah komentar
+function addComment(name, text, photo) {
+  const date = new Date().toLocaleString();
+  
+  const commentItem = document.createElement('div');
+  commentItem.className = 'comment-item';
+  
+  commentItem.innerHTML = `
+    <img src="${photo}" alt="Profile">
+    <div class="comment-content">
+      <div class="comment-header">
+        <span>${name}</span>
+        <span>${date}</span>
+      </div>
+      <div class="comment-text">${text}</div>
+      <div class="comment-actions">
+        <span class="like-btn">Like (0)</span>
+        <span class="dislike-btn">Unlike (0)</span>
+        <span class="reply-btn">Balas</span>
+      </div>
+      <div class="reply-list"></div>
+    </div>
+  `;
+  
+  // Event Like/Unlike
+  const likeBtn = commentItem.querySelector('.like-btn');
+  const dislikeBtn = commentItem.querySelector('.dislike-btn');
+  let likeCount = 0;
+  let dislikeCount = 0;
+  
+  likeBtn.addEventListener('click', () => {
+    likeCount++;
+    likeBtn.textContent = `Like (${likeCount})`;
+  });
+  
+  dislikeBtn.addEventListener('click', () => {
+    dislikeCount++;
+    dislikeBtn.textContent = `Unlike (${dislikeCount})`;
+  });
+  
+  // Event Reply
+  const replyBtn = commentItem.querySelector('.reply-btn');
+  const replyList = commentItem.querySelector('.reply-list');
+  
+  replyBtn.addEventListener('click', () => {
+    const replyText = prompt('Tulis balasan:');
+    if (replyText) {
+      const replyItem = document.createElement('div');
+      replyItem.style.marginLeft = '20px';
+      replyItem.style.fontSize = '13px';
+      replyItem.textContent = replyText;
+      replyList.appendChild(replyItem);
+    }
+  });
+  
+  commentList.prepend(commentItem);
+}

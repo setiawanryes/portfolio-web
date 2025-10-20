@@ -59,19 +59,21 @@
 </div>
 </div>
 
-    <div class="tech-stack">
-      <h2>🧩 Technologies Used</h2>
-      <div class="tech-list">
-        <span>HTML</span>
-        <span>CSS</span>
-        <span>JavaScript</span>
-        <span>Bootstrap</span>
-        <span>Chart.js</span>
-        <span>Firebase</span>
-        <span>UX/UI</span>
-      </div>
-    </div>
-  </div>
+<div class="comment-section">
+  <h2>💬 Komentar</h2>
+  
+  <!-- Form Input -->
+  <form id="comment-form">
+    <input type="text" id="name-input" placeholder="Nama (wajib)" required>
+    <input type="file" id="photo-input" accept="image/*">
+    <textarea id="comment-input" placeholder="Tulis komentar..." required></textarea>
+    <button type="submit">Kirim</button>
+  </form>
+  
+  <!-- Daftar komentar -->
+  <div id="comment-list"></div>
+</div>
+</div>
 
   <!-- KANAN (preview) -->
   <div class="right-column" data-aos="fade-left">
@@ -86,7 +88,6 @@
       <button class="next">❯</button>
     </div>
   </div>
-
 
 
 
