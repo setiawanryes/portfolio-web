@@ -611,38 +611,53 @@ body {
 }
 .live { background-color: #4caf50; }
 
-/* Progress Baterai */
-.progress-container {
+.corner-widgets {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
   display: flex;
   align-items: center;
   gap: 10px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: rgba(0,0,0,0.2);
 }
 
-.battery {
-  width: 50px;
-  height: 25px;
-  border: 2px solid #333;
-  border-radius: 4px;
+/* Progres Balok */
+.progress-bar-container {
   position: relative;
-  overflow: hidden;
+  width: 120px;
+  height: 20px;
   background: #ccc;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-.battery-level {
+.progress-bar {
   height: 100%;
   width: 0%;
-  background: #4caf50;
+  background: linear-gradient(90deg, red, yellow, green);
   transition: width 0.5s;
 }
 
+#progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 12px;
+  color: #fff;
+}
+
 /* Tombol Hati */
-#heart-btn {
+.heart-btn {
   font-size: 24px;
   background: none;
   border: none;
   cursor: pointer;
+  color: #ff4d6d; /* tema */
 }
 #like-count {
-  margin-left: 5px;
-  font-size: 18px;
+  color: #fff;
+  font-size: 16px;
 }
