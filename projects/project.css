@@ -478,7 +478,7 @@ body {
 
 /* Modal style */
 .modal {
-  width: 100%;
+  width: 90%;
   max-width: 1800px;
   aspect-ratio: 16 / 9; /* tetap proporsional di semua layar */
   border-radius: 30px;
@@ -489,24 +489,26 @@ body {
   display: none;
   position: fixed;
   z-index: 999;
-  left: 0; top: 0;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
   background: radial-gradient(circle at top left, #1b1f3a, #0a0c1b 70%);
   overflow: hidden;
   animation: fadeIn 0.3s;
 }
 
+/* Gambar menyesuaikan modal */
+.modal-content {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* tetap proporsional */
+  transition: transform 0.3s ease, opacity 0.3s;
+  cursor: grab;
+}
+
+
 @keyframes fadeIn {
   from {opacity: 0;}
   to {opacity: 1;}
-}
-
-.modal-content {
-  margin: auto;
-  display: block;
-  max-width: 90%;
-  max-height: 80%;
-  transition: transform 0.3s ease, opacity 0.3s;
-  cursor: grab;
 }
 
 .close {
