@@ -18,3 +18,54 @@ document.querySelector('.prev').addEventListener('click', () => {
   index = (index - 1 + slides.length) % slides.length;
   showSlide(index);
 });
+
+const modal = document.getElementById("lightboxModal");
+const modalImg = document.getElementById("lightboxImg");
+const closeBtn = document.getElementsByClassName("close")[0];
+const lightboxImages = document.querySelectorAll(".lightbox-img");
+
+let currentIndex = 0;
+let scale = 1;
+
+// Open modal
+lightboxImages.forEach((img, i) => {
+  img.addEventListener("click", () => {
+    modal.style.display = "block";
+    modalImg.src = img.src;
+    currentIndex = i;
+    scale = 1;
+    modalImg.style.transform = `scale(${scale})`;
+  });
+});
+
+// Close modal
+closeBtn.onclick = () => modal.style.display = "none";
+modal.onclick = (e) => { if(e.target === modal) modal.style.display = "none"; };
+
+// Prev/Next
+document.getElementById("prevImg").onclick = () => showImage(currentIndex - 1);
+document.getElementById("nextImg").onclick = () => showImage(currentIndex + 1);
+
+function showImage(index) {
+  currentIndex = (index + lightboxImages.length) % lightboxImages.length;
+  modalImg.src = lightboxImages[currentIndex].src;
+  scale = 1;
+  modalImg.style.transform = `scale(${scale})`;
+}
+
+// Zoom with mouse wheel
+modalImg.addEventListener("wheel", (e) => {
+  e.preventDefault();
+  if(e.deltaY < 0) scale += 0.1;
+  else scale = Math.max(1, scale - 0.1);
+  modalImg.style.transform = `scale(${scale})`;
+});
+
+// Swipe support for mobile
+let startX = 0;
+modalImg.addEventListener("touchstart", e => startX = e.touches[0].clientX);
+modalImg.addEventListener("touchend", e => {
+  let endX = e.changedTouches[0].clientX;
+  if(endX - startX > 50) showImage(currentIndex - 1); // swipe right
+  else if(startX - endX > 50) showImage(currentIndex + 1); // swipe left
+});

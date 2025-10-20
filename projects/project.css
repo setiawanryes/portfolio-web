@@ -476,3 +476,51 @@ body {
   box-shadow: 0 0 8px rgba(100, 100, 255, 0.25);
 }
 
+/* Modal style */
+.modal {
+  width: 100%;
+  max-width: 1800px;
+  aspect-ratio: 16 / 9; /* tetap proporsional di semua layar */
+  border-radius: 30px;
+  box-shadow: 0 0 25px rgba(100, 100, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0; top: 0;
+  background: radial-gradient(circle at top left, #1b1f3a, #0a0c1b 70%);
+  overflow: hidden;
+  animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+.modal-content {
+  margin: auto;
+  display: block;
+  max-width: 90%;
+  max-height: 80%;
+  transition: transform 0.3s ease, opacity 0.3s;
+  cursor: grab;
+}
+
+.close {
+  position: absolute; top: 20px; right: 35px;
+  color: #fff; font-size: 40px; cursor: pointer;
+}
+
+.modal-controls {
+  position: absolute; top: 50%; width: 100%;
+  display: flex; justify-content: space-between;
+  transform: translateY(-50%);
+}
+
+.modal-controls button {
+  background: none; border: none;
+  font-size: 50px; color: #fff; cursor: pointer;
+}
