@@ -162,87 +162,143 @@ dislikeBtn.addEventListener('click', () => {
   dislikeCount.textContent = dislikeNumber;
 });
 
+const komentarBtn = document.getElementById('komentar-btn');
+const komentarCount = document.getElementById('komentar-count');
+const modal = document.getElementById('comment-modal');
+const closeModal = document.querySelector('.close');
 const commentForm = document.getElementById('comment-form');
 const commentList = document.getElementById('comment-list');
 
-const defaultPhoto = 'https://via.placeholder.com/50'; // Foto default
+const defaultPhoto = 'https://via.placeholder.com/50';
+let komentarNumber = 0;
 
+// Buka modal
+komentarBtn.addEventListener('click', () => { modal.style.display = 'flex'; });
+
+// Tutup modal
+closeModal.addEventListener('click', () => { modal.style.display = 'none'; });
+window.addEventListener('click', e => { if(e.target === modal) modal.style.display = 'none'; });
+
+// Submit komentar
 commentForm.addEventListener('submit', (e) => {
   e.preventDefault();
   
-  const name = document.getElementById('name-input').value.trim();
-  const commentText = document.getElementById('comment-input').value.trim();
-  const photoFile = document.getElementById('photo-input').files[0];
-  
-  if (!name || !commentText) return;
-  
-  // Buat URL foto
-  const reader = new FileReader();
-  reader.onload = function(event) {
-    const photoURL = photoFile ? event.target.result : defaultPhoto;
-    addComment(name, commentText, photoURL);
+  const nameInput = document.getElementById('name-input');
+  const commentInput = document.getElementById('comment-input');
+  const photoInput = document.getElementById('photo-input');
+
+  const name = nameInput.value.trim();
+  const text = commentInput.value.trim();
+  const photoFile = photoInput.files[0];
+
+  if(!name || !text) return;
+
+  // Fungsi untuk menambahkan komentar
+  const processComment = (photoURL) => {
+    addComment(name, text, photoURL);
+    commentForm.reset();
+    modal.style.display = 'none';
+    komentarNumber++;
+    komentarCount.textContent = komentarNumber;
   };
-  
-  if (photoFile) reader.readAsDataURL(photoFile);
-  else addComment(name, commentText, defaultPhoto);
-  
-  commentForm.reset();
+
+  if(photoFile){
+    const reader = new FileReader();
+    reader.onload = function(event){
+      processComment(event.target.result);
+    }
+    reader.readAsDataURL(photoFile);
+  } else {
+    processComment(defaultPhoto);
+  }
 });
 
-// Fungsi tambah komentar
-function addComment(name, text, photo) {
+// Fungsi tambah komentar / reply
+function addComment(name, text, photo){
   const date = new Date().toLocaleString();
-  
   const commentItem = document.createElement('div');
   commentItem.className = 'comment-item';
-  
-  commentItem.innerHTML = `
-    <img src="${photo}" alt="Profile">
+
+  commentItem.innerHTML = <img src="${photo}" alt="Profile">
     <div class="comment-content">
-      <div class="comment-header">
-        <span>${name}</span>
-        <span>${date}</span>
-      </div>
+      <div class="comment-header"><span>${name}</span><span>${date}</span></div>
       <div class="comment-text">${text}</div>
       <div class="comment-actions">
-        <span class="like-btn">Like (0)</span>
-        <span class="dislike-btn">Unlike (0)</span>
-        <span class="reply-btn">Balas</span>
+        <span class="like-btn">❤️ Like (0)</span>
+        <span class="unlike-btn">👎 Unlike (0)</span>
+        <span class="reply-btn">💬 Balas</span>
       </div>
       <div class="reply-list"></div>
-    </div>
-  `;
-  
-  // Event Like/Unlike
+    </div>;
+
   const likeBtn = commentItem.querySelector('.like-btn');
-  const dislikeBtn = commentItem.querySelector('.dislike-btn');
-  let likeCount = 0;
-  let dislikeCount = 0;
-  
-  likeBtn.addEventListener('click', () => {
-    likeCount++;
-    likeBtn.textContent = `Like (${likeCount})`;
-  });
-  
-  dislikeBtn.addEventListener('click', () => {
-    dislikeCount++;
-    dislikeBtn.textContent = `Unlike (${dislikeCount})`;
-  });
-  
-  // Event Reply
+  const unlikeBtn = commentItem.querySelector('.unlike-btn');
   const replyBtn = commentItem.querySelector('.reply-btn');
   const replyList = commentItem.querySelector('.reply-list');
-  
-  replyBtn.addEventListener('click', () => {
-    const replyText = prompt('Tulis balasan:');
-    if (replyText) {
-      const replyItem = document.createElement('div');
-      replyItem.style.marginLeft = '20px';
-      replyItem.style.fontSize = '13px';
-      replyItem.textContent = replyText;
-      replyList.appendChild(replyItem);
-    }
+
+  // Like / Unlike
+  let likeCount = 0, unlikeCount = 0;
+  likeBtn.addEventListener('click', () => {
+    likeCount++;
+    likeBtn.textContent = `❤️ Like (${likeCount})`;
   });
-  
+  unlikeBtn.addEventListener('click', () => {
+    unlikeCount++;
+    unlikeBtn.textContent = `👎 Unlike (${unlikeCount})`;
+  });
+
+  // Reply → buka modal, dan kirim reply sebagai komentar baru
+  replyBtn.addEventListener('click', () => {
+    modal.style.display = 'flex';
+
+    // Ganti event listener sementara agar reply masuk ke parent komentar
+    const submitHandler = (e) => {
+      e.preventDefault();
+      const replyName = document.getElementById('name-input').value.trim();
+      const replyText = document.getElementById('comment-input').value.trim();
+      const replyPhotoFile = document.getElementById('photo-input').files[0];
+      if(!replyName || !replyText) return;
+
+      const processReply = (photoURL) => {
+        const replyItem = document.createElement('div');
+        replyItem.style.marginLeft = '20px';
+        replyItem.style.marginTop = '5px';
+        replyItem.className = 'comment-item';
+        replyItem.innerHTML = <img src="${photoURL}" alt="Profile">
+          <div class="comment-content">
+            <div class="comment-header"><span>${replyName}</span><span>${new Date().toLocaleString()}</span></div>
+            <div class="comment-text">${replyText}</div>
+            <div class="comment-actions">
+              <span class="like-btn">❤️ Like (0)</span>
+              <span class="unlike-btn">👎 Unlike (0)</span>
+            </div>
+          </div>
+        `;
+        // Like / Unlike reply
+        let rLike=0,rUnlike=0;
+        replyItem.querySelector('.like-btn').addEventListener('click', e=>{
+          rLike++; e.target.textContent=`❤️ Like (${rLike})`;
+        });
+        replyItem.querySelector('.unlike-btn').addEventListener('click', e=>{
+          rUnlike++; e.target.textContent=`👎 Unlike (${rUnlike})`;
+        });
+        replyList.appendChild(replyItem);
+        modal.style.display='none';
+        commentForm.removeEventListener('submit', submitHandler);
+        commentForm.reset();
+      }
+
+      if(replyPhotoFile){
+        const reader = new FileReader();
+        reader.onload = e => processReply(e.target.result);
+        reader.readAsDataURL(replyPhotoFile);
+      } else {
+        processReply(defaultPhoto);
+      }
+    };
+
+    commentForm.addEventListener('submit', submitHandler);
+  });
+
   commentList.prepend(commentItem);
 }
