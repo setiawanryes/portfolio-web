@@ -163,8 +163,124 @@ dislikeBtn.addEventListener('click', () => {
 });
 
 
+/* ===============================
+   FITUR KOMENTAR (AMAN DARI BENTROK)
+   Namespace: cmtApp
+================================= */
+(() => {
+  const defaultAvatar = "images/default-avatar.png";
+  let komentarCount = 0;
+  let replyTo = null;
 
-// ===============================
-// KOMENTAR APP (AMAN & TERPISAH)
-// ===============================
+  // Tombol buka modal
+  const komentarBtn = document.getElementById("komentar-btn");
+  const komentarModal = document.getElementById("cmtAppModal");
+  const closeModalBtn = document.getElementById("close-cmtAppModal");
+  const kirimBtn = document.getElementById("cmtAppKirim");
 
+  // Form input
+  const namaInput = document.getElementById("cmtAppNama");
+  const fotoInput = document.getElementById("cmtAppFoto");
+  const isiInput = document.getElementById("cmtAppIsi");
+  const komentarList = document.getElementById("comments-list");
+  const komentarCountSpan = document.getElementById("komentar-count");
+
+  // === BUKA MODAL ===
+  komentarBtn.addEventListener("click", () => {
+    replyTo = null;
+    document.getElementById("cmtAppModalTitle").innerText = "Tulis Komentar";
+    komentarModal.style.display = "flex";
+  });
+
+  // === TUTUP MODAL ===
+  closeModalBtn.addEventListener("click", () => {
+    komentarModal.style.display = "none";
+  });
+
+  // Klik luar modal = tutup
+  window.addEventListener("click", (e) => {
+    if (e.target === komentarModal) komentarModal.style.display = "none";
+  });
+
+  // === KIRIM KOMENTAR ===
+  kirimBtn.addEventListener("click", () => {
+    const nama = namaInput.value.trim();
+    const isi = isiInput.value.trim();
+
+    if (!nama) return alert("Nama wajib diisi!");
+
+    // Handle foto upload (opsional)
+    if (fotoInput.files.length > 0) {
+      const reader = new FileReader();
+      reader.onload = function () {
+        buatKomentar(nama, isi, reader.result);
+      };
+      reader.readAsDataURL(fotoInput.files[0]);
+    } else {
+      buatKomentar(nama, isi, defaultAvatar);
+    }
+
+    // Reset form & tutup modal
+    namaInput.value = "";
+    fotoInput.value = "";
+    isiInput.value = "";
+    komentarModal.style.display = "none";
+  });
+
+  // === BUAT ELEMEN KOMENTAR ===
+  function buatKomentar(nama, isi, foto) {
+    const comment = document.createElement("div");
+    comment.classList.add("cmtApp-comment");
+
+    comment.innerHTML = `
+      <div class="cmtApp-comment-header">
+        <img src="${foto}" alt="avatar" />
+        <strong>${nama}</strong>
+      </div>
+      <div class="cmtApp-comment-body">${isi || "(Tanpa isi)"}</div>
+      <div class="cmtApp-comment-actions">
+        <button class="cmtApp-like">❤️ Suka</button>
+        <button class="cmtApp-reply">💬 Balas</button>
+      </div>
+    `;
+
+    // Kalau balasan
+    if (replyTo) {
+      const repliesContainer =
+        replyTo.querySelector(".cmtApp-replies") ||
+        (() => {
+          const div = document.createElement("div");
+          div.classList.add("cmtApp-replies");
+          replyTo.appendChild(div);
+          return div;
+        })();
+      repliesContainer.appendChild(comment);
+      replyTo = null;
+    } else {
+      komentarList.appendChild(comment);
+      komentarCount++;
+      komentarCountSpan.textContent = komentarCount;
+    }
+  }
+
+  // === EVENT SUKA & BALAS ===
+  komentarList.addEventListener("click", (e) => {
+    const target = e.target;
+
+    // Like komentar
+    if (target.classList.contains("cmtApp-like")) {
+      if (target.classList.toggle("liked")) {
+        target.textContent = "❤️ Disukai";
+      } else {
+        target.textContent = "❤️ Suka";
+      }
+    }
+
+    // Balas komentar
+    if (target.classList.contains("cmtApp-reply")) {
+      replyTo = target.closest(".cmtApp-comment");
+      document.getElementById("cmtAppModalTitle").innerText = "Balas Komentar";
+      komentarModal.style.display = "flex";
+    }
+  });
+})();

@@ -638,33 +638,62 @@ body {
   font-size:20px;
 }
 
-/* ===============================
-   KOMENTAR APP (AMAN & TERPISAH)
-   =============================== */
+/* ===========================
+   💬 KOMENTAR APP - Aman
+=========================== */
 
-/* ===== Modal Utama ===== */
+.cmtApp-container {
+  margin-top: 20px;
+  color: #fff;
+}
+
+/* Tombol Like & Komentar */
+.cmtApp-container .reaction-btn {
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s;
+  color: #7c6aff;
+}
+
+.cmtApp-container .reaction-btn:active {
+  transform: scale(1.2);
+}
+
+.cmtApp-container #cmtApp-likeCount,
+.cmtApp-container #cmtApp-komentarCount {
+  margin-right: 10px;
+  font-size: 16px;
+  color: #ddd;
+}
+
+/* ===== Modal ===== */
 .cmtApp-modal {
   display: none;
   position: fixed;
-  z-index: 1000;
   inset: 0;
   background: rgba(0, 0, 0, 0.6);
+  z-index: 2000;
   justify-content: center;
   align-items: center;
-  animation: fadeIn 0.3s ease-in-out;
+  animation: fadeInCmt 0.3s ease-in-out;
 }
 
 .cmtApp-modal-content {
   background: #fff;
+  color: #333;
   padding: 20px;
   border-radius: 12px;
   width: 320px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
-  animation: slideUp 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: slideUpCmt 0.3s ease-in-out;
 }
 
 .cmtApp-close {
-  float: right;
+  align-self: flex-end;
   font-size: 24px;
   cursor: pointer;
   color: #666;
@@ -674,40 +703,23 @@ body {
   color: #000;
 }
 
-/* ===== Form ===== */
-#cmtAppNama,
-#cmtAppFoto,
-#cmtAppIsi {
-  width: 100%;
-  margin-bottom: 10px;
-  padding: 8px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-family: inherit;
+@keyframes fadeInCmt {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-#cmtAppKirim {
-  width: 100%;
-  padding: 8px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
+@keyframes slideUpCmt {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
-#cmtAppKirim:hover {
-  background-color: #0056b3;
-}
-
-/* ===== Komentar ===== */
+/* ===== Komentar List ===== */
 .cmtApp-comment {
-  background: #f9f9f9;
+  background: rgba(255,255,255,0.1);
   border-radius: 8px;
   padding: 10px;
   margin-top: 10px;
-  animation: fadeIn 0.4s ease;
+  animation: fadeInCmt 0.4s ease;
 }
 
 .cmtApp-comment-header {
@@ -726,35 +738,24 @@ body {
 .cmtApp-comment-body {
   margin-top: 5px;
   padding-left: 50px;
-  color: #333;
+  color: #ddd;
 }
 
 .cmtApp-comment-actions {
-  margin-top: 8px;
   padding-left: 50px;
+  margin-top: 5px;
 }
 
 .cmtApp-comment-actions button {
-  margin-right: 10px;
-  cursor: pointer;
   background: none;
   border: none;
-  color: #007bff;
+  color: #7c6aff;
+  cursor: pointer;
   font-size: 14px;
+  margin-right: 10px;
 }
 
 .cmtApp-comment-actions button:hover {
   text-decoration: underline;
-}
-
-/* ===== Animasi ===== */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideUp {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
 }
 
