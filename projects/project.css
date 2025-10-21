@@ -769,23 +769,7 @@ cmtApp-close {
   color: #e74c3c;
 }
 
-/* Form field */
-.cmtApp-form input,
-.cmtApp-form textarea {
-  width: 100%;
-  padding: 10px 12px;
-  margin-bottom: 10px;
-  border: 1.5px solid #ccc;
-  border-radius: 8px;
-  font-size: 14px;
-  outline: none;
-  transition: border 0.2s ease;
-}
 
-.cmtApp-form input:focus,
-.cmtApp-form textarea:focus {
-  border-color: #3498db;
-}
 
 /* Kirim button */
 #cmtAppKirim {
@@ -852,6 +836,7 @@ cmtApp-close {
   align-items: center;
   gap: 10px;
   margin-bottom: 8px;
+  color: #eee;
 }
 
 .cmtApp-comment-header img {
@@ -904,11 +889,11 @@ cmtApp-close {
 
 .cmtApp-like:hover {
   background: #ffebee;
-  color: #e74c3c;
+  color: #756bff;
 }
 .cmtApp-reply:hover {
   background: #ecf4ff;
-  color: #3498db;
+  color: #756b;
 }
 
 .cmtApp-like.liked {
@@ -924,11 +909,26 @@ cmtApp-close {
 
 /* Reply nesting */
 .cmtApp-replies {
-  margin-left: 30px;
-  margin-top: 10px;
-  border-left: 2px solid #eee;
+
+.cmtApp-replies {
+  margin-left: 40px;
+  margin-top: 8px;
+  border-left: 2px solid #333;
   padding-left: 10px;
 }
+
+.cmtApp-replies .cmtApp-comment {
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: slideIn 0.3s forwards;
+}
+
+@keyframes slideIn {
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.cmtApp-time { font-size: 11px; color: #888; }
+
 
 /* =======================
    🔘 REACTION BUTTONS BAR
@@ -966,3 +966,4 @@ cmtApp-close {
   font-size: 14px;
   color: #555;
 }
+
