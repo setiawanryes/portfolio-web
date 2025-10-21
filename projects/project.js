@@ -289,11 +289,13 @@ komentarList.addEventListener("click", async (e) => {
   }
 
   // REPLY Handler
-  if (target.classList.contains("cmtApp-reply")) {
-    replyTo = comment;
-    document.getElementById("cmtAppModalTitle").innerText = "Balas Komentar";
-    komentarModal.style.display = "flex";
-  }
+ if (target.classList.contains("cmtApp-reply")) {
+  replyTo = comment;
+  document.getElementById("cmtAppModalTitle").innerText = "Balas Komentar";
+  komentarModal.classList.add("show"); // pakai class show, bukan style.display
+  // Fokus ke input komentar
+  isiInput.focus();
+}
 });
 
 // === Format waktu ===
