@@ -304,3 +304,24 @@ likeBtn.addEventListener('click', () => {
     });
   }, 60000);
 })();
+
+if (replyTo) {
+  const repliesContainer = replyTo.querySelector(".cmtApp-replies") || (() => {
+    const div = document.createElement("div");
+    div.classList.add("cmtApp-replies");
+    replyTo.appendChild(div);
+    return div;
+  })();
+  // gunakan prepend supaya balasan terbaru muncul di atas
+  repliesContainer.prepend(comment);
+
+  // update reply count parent
+  replyTo.dataset.replies = parseInt(replyTo.dataset.replies) + 1;
+  const replyBtn = replyTo.querySelector(".cmtApp-reply");
+  replyBtn.textContent = `💬 Balas (${replyTo.dataset.replies})`;
+
+  replyTo = null;
+} else {
+  // komentar utama, terbaru di atas
+  komentarList.prepend(comment);
+}
