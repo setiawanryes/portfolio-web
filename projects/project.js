@@ -192,12 +192,11 @@ likeBtn.addEventListener('click', () => {
     const isi = isiInput.value.trim();
     if (!nama) return alert("Nama wajib diisi!");
 
-    // avatar random otomatis
-    const avatar = `https://i.pravatar.cc/50?u=${Math.random()}`;
+    // avatar kartun random
+    const avatar = `https://avatars.dicebear.com/api/avataaars/${Math.random()}.svg`;
 
     buatKomentar(nama, isi, avatar);
 
-    // reset form
     namaInput.value = "";
     isiInput.value = "";
     komentarModal.style.display = "none";
@@ -229,6 +228,7 @@ likeBtn.addEventListener('click', () => {
     comment.dataset.likes = 0;
     comment.dataset.replies = 0;
 
+    // animasi masuk
     comment.style.opacity = 0;
     comment.style.transform = "translateY(20px)";
     setTimeout(() => {
@@ -236,6 +236,10 @@ likeBtn.addEventListener('click', () => {
       comment.style.opacity = 1;
       comment.style.transform = "translateY(0)";
     }, 10);
+
+    // update komentarCount global setiap komentar/reply
+    komentarCount++;
+    komentarCountSpan.textContent = komentarCount;
 
     // handle reply
     if (replyTo) {
@@ -247,6 +251,7 @@ likeBtn.addEventListener('click', () => {
       })();
       repliesContainer.appendChild(comment);
 
+      // update reply count parent
       replyTo.dataset.replies = parseInt(replyTo.dataset.replies) + 1;
       const replyBtn = replyTo.querySelector(".cmtApp-reply");
       replyBtn.textContent = `💬 Balas (${replyTo.dataset.replies})`;
@@ -254,8 +259,6 @@ likeBtn.addEventListener('click', () => {
       replyTo = null;
     } else {
       komentarList.appendChild(comment);
-      komentarCount++;
-      komentarCountSpan.textContent = komentarCount;
     }
   }
 
@@ -264,6 +267,7 @@ likeBtn.addEventListener('click', () => {
     const target = e.target;
     const comment = target.closest(".cmtApp-comment");
 
+    // like
     if (target.classList.contains("cmtApp-like")) {
       let likes = parseInt(comment.dataset.likes);
       if (target.classList.toggle("liked")) likes++;
@@ -272,6 +276,7 @@ likeBtn.addEventListener('click', () => {
       target.textContent = `👍 ${likes}`;
     }
 
+    // reply
     if (target.classList.contains("cmtApp-reply")) {
       replyTo = comment;
       document.getElementById("cmtAppModalTitle").innerText = "Balas Komentar";
