@@ -193,7 +193,7 @@ likeBtn.addEventListener('click', () => {
     if (!nama) return alert("Nama wajib diisi!");
 
     // avatar kartun random
-    const avatar = `https://avatars.dicebear.com/api/avataaars/${Math.random()}.svg`;
+     const avatar = `https://i.pravatar.cc/50?u=${Math.random()}`;
 
     buatKomentar(nama, isi, avatar);
 
