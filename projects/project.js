@@ -161,20 +161,20 @@ likeBtn.addEventListener('click', () => {
    FITUR KOMENTAR LANJUTAN
    Avatar random otomatis
 ================================= */
-// === Konfigurasi Firebase ===
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyBGS2_U6M-lC0YozJd0FCHpncyNLE1mE2g",
-  authDomain: "komentar-app.firebaseapp.com",
-  databaseURL: "https://komentar-app-default-rtdb.firebaseio.com",
-  projectId: "komentar-app",
-  storageBucket: "komentar-app.appspot.com",
-  messagingSenderId: "ISI_PUNYA_MU",
-  appId: "ISI_PUNYA_MU"
+  authDomain: "portfolio-setiawanryes.firebaseapp.com",
+  projectId: "portfolio-setiawanryes",
+  storageBucket: "portfolio-setiawanryes.firebasestorage.app",
+  messagingSenderId: "171755400027",
+  appId: "1:171755400027:web:6bbbbbda56613af0b4087e",
+  measurementId: "G-4R3C18RXW0"
 };
 
-// === Inisialisasi Firebase ===
-const app = firebase.initializeApp(firebaseConfig);
-const db = firebase.database(app);
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
 // === Ambil elemen DOM ===
 const komentarBtn = document.getElementById("komentar-btn");
