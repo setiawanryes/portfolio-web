@@ -669,31 +669,34 @@ body {
 }
 
 /* ===== Modal ===== */
+/* Modal dark mode compact */
 .cmtApp-modal {
   display: none;
   position: fixed;
   top:0; left:0;
-  width: 100%; height: 100%;
+  width: 100%;
+  height: 100%;
   background: rgba(0,0,0,0.7);
   justify-content: center;
   align-items: center;
   z-index: 999;
 }
 
-
 .cmtApp-modal-content {
   background: #2b2b42;
   border-radius: 12px;
-  padding: 20px;
+  padding: 15px 20px;
   width: 90%;
-  max-width: 400px;
+  max-width: 360px;
   display: flex;
   flex-direction: column;
   gap: 10px;
   color: #eee;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  position: relative;
 }
 
-
+/* Input & textarea */
 .cmtApp-modal-content input,
 .cmtApp-modal-content textarea {
   width: 100%;
@@ -711,12 +714,28 @@ body {
   border-color: #3f72af;
 }
 
+/* Tombol kirim compact */
+#cmtAppKirim {
+  background: #3f72af;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
+}
 
-/* Close button modal */
+#cmtAppKirim:hover {
+  background: #2c5282;
+}
+
+/* Tombol close modal */
 .cmtApp-close {
   position: absolute;
-  top: 8px; right: 12px;
-  font-size: 22px;
+  top: 8px;
+  right: 12px;
+  font-size: 20px;
   cursor: pointer;
   color: #eee;
   transition: color 0.2s;
@@ -726,21 +745,13 @@ body {
   color: #ff6b6b;
 }
 
-/* Button kirim modal */
-#cmtAppKirim {
-  background: #3f72af;
-  color: #fff;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.2s;
+/* Modal title */
+#cmtAppModalTitle {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  text-align: center;
 }
-
-#cmtAppKirim:hover {
-  background: #2c5282;
-}
-
 @keyframes fadeInCmt {
   from { opacity: 0; }
   to { opacity: 1; }
