@@ -161,22 +161,24 @@ likeBtn.addEventListener('click', () => {
    FITUR KOMENTAR LANJUTAN
    Avatar random otomatis
 ================================= */
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// ===== Firebase Setup =====
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+import { getFirestore, collection, addDoc, doc, updateDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
 const firebaseConfig = {
-  apiKey: "AIzaSyBGS2_U6M-lC0YozJd0FCHpncyNLE1mE2g",
+  apiKey: "ISI_API_KEY_KAMU",
   authDomain: "portfolio-setiawanryes.firebaseapp.com",
   projectId: "portfolio-setiawanryes",
   storageBucket: "portfolio-setiawanryes.firebasestorage.app",
-  messagingSenderId: "171755400027",
-  appId: "1:171755400027:web:6bbbbbda56613af0b4087e",
-  measurementId: "G-4R3C18RXW0"
+  messagingSenderId: "ISI_SENDER_ID_KAMU",
+  appId: "ISI_APP_ID_KAMU",
+  measurementId: "ISI_MEASUREMENT_ID_KAMU"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const db = getFirestore(app);
 
-// === Ambil elemen DOM ===
+// ===== Variabel DOM =====
 const komentarBtn = document.getElementById("komentar-btn");
 const komentarModal = document.getElementById("cmtAppModal");
 const closeModalBtn = document.getElementById("close-cmtAppModal");
@@ -188,125 +190,104 @@ const komentarCountSpan = document.getElementById("komentar-count");
 
 let replyTo = null;
 
-// === Buka / Tutup Modal ===
+// ===== Buka / Tutup Modal =====
 komentarBtn.addEventListener("click", () => {
   replyTo = null;
   document.getElementById("cmtAppModalTitle").innerText = "Tulis Komentar";
   komentarModal.style.display = "flex";
 });
 closeModalBtn.addEventListener("click", () => komentarModal.style.display = "none");
-window.addEventListener("click", e => { if (e.target === komentarModal) komentarModal.style.display = "none"; });
+window.addEventListener("click", e => { if(e.target === komentarModal) komentarModal.style.display = "none"; });
 
-// === Kirim Komentar ===
-kirimBtn.addEventListener("click", () => {
+// ===== Kirim Komentar =====
+kirimBtn.addEventListener("click", async () => {
   const nama = namaInput.value.trim();
   const isi = isiInput.value.trim();
-  if (!nama) return alert("Nama wajib diisi!");
+  if(!nama || !isi) return alert("Nama dan komentar wajib diisi!");
 
-  const avatar = `https://i.pravatar.cc/50?u=${Math.random()}`;
-  const waktu = new Date().toISOString();
+  const avatar = `https://i.pravatar.cc/50?u=${nama}`;
+  const timestamp = Date.now();
 
-  const newComment = {
+  await addDoc(collection(db, "comments"), {
     nama,
-    isi: isi || "(Tanpa isi)",
+    isi,
     avatar,
-    waktu,
+    timestamp,
     likes: 0,
-    replyTo: replyTo ? replyTo : null
-  };
+    replyTo: replyTo ? replyTo.dataset.id : null
+  });
 
-  db.ref("komentar").push(newComment);
-
+  // Reset form
   namaInput.value = "";
   isiInput.value = "";
   komentarModal.style.display = "none";
 });
 
-// === Render Komentar ===
-function tampilkanKomentar(snapshot) {
+// ===== Realtime Listener Komentar =====
+const q = query(collection(db, "comments"), orderBy("timestamp", "desc"));
+onSnapshot(q, (snapshot) => {
   komentarList.innerHTML = "";
-  const data = snapshot.val();
-  if (!data) return;
+  let count = 0;
+  snapshot.forEach((docSnap) => {
+    const data = docSnap.data();
+    count++;
+    const el = document.createElement("div");
+    el.classList.add("cmtApp-comment");
+    el.dataset.id = docSnap.id;
+    el.dataset.likes = data.likes;
 
-  const entries = Object.entries(data);
-  komentarCountSpan.textContent = entries.length;
-
-  const komentarUtama = entries.filter(([id, c]) => !c.replyTo);
-  const balasan = entries.filter(([id, c]) => c.replyTo);
-
-  komentarUtama.reverse().forEach(([id, c]) => {
-    const el = buatKomentarEl(id, c);
-    komentarList.appendChild(el);
-
-    const repliesContainer = document.createElement("div");
-    repliesContainer.classList.add("cmtApp-replies");
-
-    balasan.filter(([rid, rc]) => rc.replyTo === id)
-      .forEach(([rid, rc]) => {
-        repliesContainer.appendChild(buatKomentarEl(rid, rc));
-      });
-
-    if (repliesContainer.childNodes.length > 0) el.appendChild(repliesContainer);
-  });
-}
-
-function buatKomentarEl(id, c) {
-  const div = document.createElement("div");
-  div.classList.add("cmtApp-comment");
-  div.dataset.id = id;
-  div.dataset.likes = c.likes;
-
-  div.innerHTML = `
-    <div class="cmtApp-comment-header">
-      <img src="${c.avatar}" alt="avatar">
-      <strong>${c.nama}</strong>
-    </div>
-    <div class="cmtApp-comment-body">${c.isi}</div>
-    <div class="cmtApp-comment-footer">
-      <div class="cmtApp-comment-actions">
-        <button class="cmtApp-like">👍 ${c.likes}</button>
-        <button class="cmtApp-reply">💬 Balas</button>
+    el.innerHTML = `
+      <div class="cmtApp-comment-header">
+        <img src="${data.avatar}" alt="avatar" />
+        <strong>${data.nama}</strong>
       </div>
-      <span class="cmtApp-time">${formatWaktu(c.waktu)}</span>
-    </div>
-  `;
-  return div;
-}
+      <div class="cmtApp-comment-body">${data.isi}</div>
+      <div class="cmtApp-comment-footer">
+        <div class="cmtApp-comment-actions">
+          <button class="cmtApp-like">👍 ${data.likes}</button>
+          <button class="cmtApp-reply">💬 Balas</button>
+        </div>
+        <span class="cmtApp-time">${formatWaktu(data.timestamp)}</span>
+      </div>
+    `;
+    komentarList.appendChild(el);
+  });
+  komentarCountSpan.textContent = count;
+});
 
-// === Listener Real-Time ===
-db.ref("komentar").on("value", tampilkanKomentar);
-
-// === Like & Reply ===
-komentarList.addEventListener("click", e => {
+// ===== Like & Reply Handler =====
+komentarList.addEventListener("click", async (e) => {
   const target = e.target;
   const comment = target.closest(".cmtApp-comment");
-  if (!comment) return;
+  if(!comment) return;
 
-  const id = comment.dataset.id;
-
-  // Like
-  if (target.classList.contains("cmtApp-like")) {
-    const likes = parseInt(comment.dataset.likes) + (target.classList.toggle("liked") ? 1 : -1);
+  // === Like ===
+  if(target.classList.contains("cmtApp-like")){
+    let likes = parseInt(comment.dataset.likes);
+    const docRef = doc(db, "comments", comment.dataset.id);
+    likes += target.classList.toggle("liked") ? 1 : -1;
     comment.dataset.likes = likes;
     target.textContent = `👍 ${likes}`;
-    db.ref(`komentar/${id}/likes`).set(likes);
+    await updateDoc(docRef, { likes });
   }
 
-  // Reply
-  if (target.classList.contains("cmtApp-reply")) {
-    replyTo = id;
+  // === Reply ===
+  if(target.classList.contains("cmtApp-reply")){
+    replyTo = comment;
     document.getElementById("cmtAppModalTitle").innerText = "Balas Komentar";
     komentarModal.style.display = "flex";
   }
 });
 
-// === Format waktu ===
-function formatWaktu(iso) {
-  const d = new Date(iso);
-  const diff = Math.floor((Date.now() - d) / 1000);
+// ===== Format Waktu Relatif =====
+function formatWaktu(ts) {
+  const d = new Date(ts);
+  const now = new Date();
+  const diff = Math.floor((now - d) / 1000);
+
   if (diff < 60) return "baru saja";
-  if (diff < 3600) return `${Math.floor(diff / 60)} menit lalu`;
-  if (diff < 86400) return `${Math.floor(diff / 3600)} jam lalu`;
-  if (diff < 604800) return `${Math.floor(diff / 86400)} hari lalu`;
-  return d.toLocaleDateString("id-ID");
+  if (diff < 3600) return `${Math.floor(diff / 60)} menit yang lalu`;
+  if (diff < 86400) return `${Math.floor(diff / 3600)} jam yang lalu`;
+  if (diff < 604800) return `${Math.floor(diff / 86400)} hari yang lalu`;
+  return d.toLocaleDateString();
 }
