@@ -644,7 +644,7 @@ body {
 
 .cmtApp-container {
   margin-top: 20px;
-  color: #fff;
+  color: rgba(255, 255, 255, 0.05);
 }
 
 /* Tombol Like & Komentar */
