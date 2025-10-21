@@ -163,7 +163,9 @@ likeBtn.addEventListener('click', () => {
 ================================= */
 // Import Firebase SDK
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-import { getFirestore, collection, addDoc, doc, updateDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { 
+  getFirestore, collection, addDoc, doc, updateDoc, onSnapshot, query, orderBy, getDoc 
+} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -179,7 +181,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// DOM
+// DOM Elements
 const komentarBtn = document.getElementById("komentar-btn");
 const komentarModal = document.getElementById("cmtAppModal");
 const closeModalBtn = document.getElementById("close-cmtAppModal");
@@ -191,7 +193,7 @@ const komentarCountSpan = document.getElementById("komentar-count");
 
 let replyTo = null;
 
-// === Buka Modal ===
+// === Modal Open/Close ===
 komentarBtn.addEventListener("click", () => {
   replyTo = null;
   document.getElementById("cmtAppModalTitle").innerText = "Tulis Komentar";
@@ -211,28 +213,32 @@ kirimBtn.addEventListener("click", async () => {
   const avatar = `https://i.pravatar.cc/50?u=${nama}`;
   const timestamp = Date.now();
 
-  await addDoc(collection(db, "comments"), {
-    nama,
-    isi,
-    avatar,
-    timestamp,
-    likes: 0
-  });
-
-  namaInput.value = "";
-  isiInput.value = "";
-  komentarModal.style.display = "none";
+  try {
+    await addDoc(collection(db, "comments"), {
+      nama,
+      isi,
+      avatar,
+      timestamp,
+      likes: 0
+    });
+    namaInput.value = "";
+    isiInput.value = "";
+    komentarModal.style.display = "none";
+  } catch (err) {
+    console.error("Gagal menambahkan komentar:", err);
+  }
 });
 
-// === Menampilkan Komentar Real-time ===
+// === Tampilkan Komentar Realtime ===
 const q = query(collection(db, "comments"), orderBy("timestamp", "desc"));
 onSnapshot(q, (snapshot) => {
   komentarList.innerHTML = "";
   let count = 0;
   snapshot.forEach((docSnap) => {
     const data = docSnap.data();
-    const commentHTML = `
-      <div class="cmtApp-comment" data-id="${docSnap.id}" data-likes="${data.likes}">
+    const id = docSnap.id;
+    komentarList.innerHTML += `
+      <div class="cmtApp-comment" data-id="${id}" data-likes="${data.likes}">
         <div class="cmtApp-comment-header">
           <img src="${data.avatar}" alt="avatar" />
           <strong>${data.nama}</strong>
@@ -247,35 +253,40 @@ onSnapshot(q, (snapshot) => {
         </div>
       </div>
     `;
-    komentarList.innerHTML += commentHTML;
     count++;
   });
   komentarCountSpan.textContent = count;
 });
 
-// === Like & Reply Handler ===
+// === Handler Like & Reply ===
 komentarList.addEventListener("click", async (e) => {
   const target = e.target;
   const comment = target.closest(".cmtApp-comment");
   if (!comment) return;
 
-  // === LIKE ===
+  // LIKE Handler
   if (target.classList.contains("cmtApp-like")) {
     const id = comment.dataset.id;
     const docRef = doc(db, "comments", id);
 
-    // Ambil like terbaru dari Firestore dulu agar sinkron
-    const currentLikes = parseInt(comment.dataset.likes) || 0;
-    const isLiked = target.classList.toggle("liked");
-    const newLikes = isLiked ? currentLikes + 1 : currentLikes - 1;
+    try {
+      // Ambil data terkini dari Firestore
+      const docSnap = await getDoc(docRef);
+      if (!docSnap.exists()) return;
 
-    // Update UI dan Firestore
-    comment.dataset.likes = newLikes;
-    target.textContent = `👍 ${newLikes}`;
-    await updateDoc(docRef, { likes: newLikes });
+      const currentLikes = docSnap.data().likes || 0;
+      const newLikes = currentLikes + 1; // tambahkan 1 setiap klik
+
+      // Update Firestore
+      await updateDoc(docRef, { likes: newLikes });
+      console.log(`Like berhasil diupdate untuk ${id} = ${newLikes}`);
+
+    } catch (err) {
+      console.error("Gagal update like:", err);
+    }
   }
 
-  // === REPLY ===
+  // REPLY Handler
   if (target.classList.contains("cmtApp-reply")) {
     replyTo = comment;
     document.getElementById("cmtAppModalTitle").innerText = "Balas Komentar";
@@ -283,7 +294,7 @@ komentarList.addEventListener("click", async (e) => {
   }
 });
 
-// === Format Waktu ===
+// === Format waktu ===
 function formatWaktu(timestamp) {
   const d = new Date(timestamp);
   const now = new Date();
