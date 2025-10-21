@@ -148,6 +148,7 @@ setProgress(15);
    Avatar random otomatis
 ================================= */
 // Import Firebase SDK
+import { getDoc, setDoc, increment } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { 
   getFirestore, collection, addDoc, doc, updateDoc, onSnapshot, query, orderBy, getDoc 
@@ -178,10 +179,9 @@ const kirimBtn = document.getElementById("cmtAppKirim");
 const namaInput = document.getElementById("cmtAppNama");
 const isiInput = document.getElementById("cmtAppIsi");
 const komentarCountSpan = document.getElementById("komentar-count");
-const likeBtn = document.getElementById('like-btn');
-const likeCount = document.getElementById('like-count');
-const likeDocRef = doc(db, 'post_reactions', 'main'); // document untuk like global
-
+const likeBtn = document.getElementById("like-btn");
+const likeCount = document.getElementById("like-count");
+const likeDocRef = doc(db, "post_reactions", "main"); // Document global untuk like
 
 // ===============================
 // Modal Open/Close
@@ -199,9 +199,10 @@ window.addEventListener("click", e => {
 // ===============================
 // Fetch & realtime Like Global
 // ===============================
+// Inisialisasi dokumen jika belum ada
 async function initLike() {
   const docSnap = await getDoc(likeDocRef);
-  if(!docSnap.exists()) {
+  if (!docSnap.exists()) {
     await setDoc(likeDocRef, { likes: 0 }, { merge: true });
   }
 }
@@ -212,11 +213,14 @@ onSnapshot(likeDocRef, docSnap => {
   if(docSnap.exists()) likeCount.textContent = docSnap.data().likes || 0;
 });
 
-// Klik Like Global
-likeBtn.addEventListener('click', async () => {
+/// Klik tombol Like Global
+likeBtn.addEventListener("click", async () => {
   try {
     await updateDoc(likeDocRef, { likes: increment(1) });
-  } catch(err) { console.error("Gagal update like:", err); }
+    likeBtn.classList.add("liked");
+  } catch (err) {
+    console.error("Gagal update like:", err);
+  }
 });
 
 
