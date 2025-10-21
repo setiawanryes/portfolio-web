@@ -167,7 +167,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// DOM
+let replyTo = null; // komentar yang sedang dibalas
+
+// === DOM Elements ===
 const komentarList = document.getElementById("comments-list");
 const komentarModal = document.getElementById("cmtAppModal");
 const komentarBtn = document.getElementById("komentar-btn");
@@ -177,61 +179,90 @@ const namaInput = document.getElementById("cmtAppNama");
 const isiInput = document.getElementById("cmtAppIsi");
 const komentarCountSpan = document.getElementById("komentar-count");
 
+// Global Like
 const likeBtn = document.getElementById('like-btn');
 const likeCount = document.getElementById('like-count');
-const likeDocRef = doc(db, 'post_reactions', 'main');
+const likeDocRef = doc(db, 'post_reactions', 'main'); // document untuk like global
 
-let replyTo = null;
-
-// Modal
-komentarBtn.addEventListener("click", () => { replyTo = null; komentarModal.classList.add("show"); });
+// ===============================
+// Modal Open/Close
+// ===============================
+komentarBtn.addEventListener("click", () => {
+  replyTo = null;
+  document.getElementById("cmtAppModalTitle").innerText = "Tulis Komentar";
+  komentarModal.classList.add("show");
+});
 closeModalBtn.addEventListener("click", () => komentarModal.classList.remove("show"));
-window.addEventListener("click", e => { if(e.target === komentarModal) komentarModal.classList.remove("show"); });
-
-// ====================
-// Like Global
-// ====================
-async function initLike() {
-  const docSnap = await getDoc(likeDocRef);
-  if(!docSnap.exists()) await setDoc(likeDocRef, { likes: 0 });
-}
-initLike();
-
-onSnapshot(likeDocRef, docSnap => { if(docSnap.exists()) likeCount.textContent = docSnap.data().likes || 0; });
-
-likeBtn.addEventListener('click', async () => { 
-  try { await updateDoc(likeDocRef, { likes: increment(1) }); } 
-  catch(e){console.error(e);} 
+window.addEventListener("click", e => {
+  if (e.target === komentarModal) komentarModal.classList.remove("show");
 });
 
-// ====================
+// ===============================
+// Fetch & realtime Like Global
+// ===============================
+async function fetchGlobalLike() {
+  const docSnap = await getDoc(likeDocRef);
+  if(docSnap.exists()) {
+    likeCount.textContent = docSnap.data().likes || 0;
+  } else {
+    await setDoc(likeDocRef, { likes: 0 });
+    likeCount.textContent = 0;
+  }
+}
+fetchGlobalLike();
+
+likeBtn.addEventListener('click', async () => {
+  try {
+    await updateDoc(likeDocRef, { likes: increment(1) });
+  } catch(err) { console.error("Gagal update like:", err); }
+});
+
+onSnapshot(likeDocRef, docSnap => {
+  if(docSnap.exists()) likeCount.textContent = docSnap.data().likes || 0;
+});
+
+// ===============================
 // Kirim komentar / reply
-// ====================
+// ===============================
 kirimBtn.addEventListener("click", async () => {
   const nama = namaInput.value.trim();
   const isi = isiInput.value.trim();
   if(!nama || !isi) return alert("Nama dan komentar wajib diisi!");
+
   const avatar = `https://i.pravatar.cc/50?u=${nama}`;
   const timestamp = Date.now();
 
   try {
-    if(replyTo){
-      await addDoc(collection(db, "comments", replyTo.dataset.id, "replies"), { nama, isi, avatar, timestamp, likes:0 });
+    if(replyTo) {
+      // reply ke subcollection 'replies'
+      await addDoc(collection(db, "comments", replyTo.dataset.id, "replies"), {
+        nama, isi, avatar, timestamp, likes: 0
+      });
     } else {
-      await addDoc(collection(db, "comments"), { nama, isi, avatar, timestamp, likes:0 });
+      // komentar utama
+      await addDoc(collection(db, "comments"), { nama, isi, avatar, timestamp, likes: 0 });
     }
-    namaInput.value = ""; isiInput.value = ""; komentarModal.classList.remove("show"); replyTo=null;
-  } catch(e){console.error(e);}
+
+    namaInput.value = "";
+    isiInput.value = "";
+    komentarModal.classList.remove("show");
+    replyTo = null;
+
+  } catch(err) { console.error("Gagal kirim komentar/reply:", err); }
 });
 
-// ====================
-// Render komentar
-// ====================
-function createCommentDiv(data, id){
+// ===============================
+// Render komentar + nested reply
+// ===============================
+function renderComment(docSnap, container) {
+  const data = docSnap.data();
+  const id = docSnap.id;
+
   const div = document.createElement("div");
   div.classList.add("cmtApp-comment");
   div.dataset.id = id;
   div.dataset.replyCount = 0;
+
   div.innerHTML = `
     <div class="cmtApp-comment-header">
       <img src="${data.avatar}" alt="">
@@ -247,80 +278,82 @@ function createCommentDiv(data, id){
     </div>
     <div class="cmtApp-replies"></div>
   `;
-  return div;
-}
 
-function attachCommentEvents(div){
-  const id = div.dataset.id;
-  const likeBtn = div.querySelector(".cmtApp-like");
-  const replyBtn = div.querySelector(".cmtApp-reply");
+  container.appendChild(div);
+
   const repliesContainer = div.querySelector(".cmtApp-replies");
+  const replyBtn = div.querySelector(".cmtApp-reply");
 
   // Like per komentar
-  likeBtn.addEventListener("click", async () => {
+  div.querySelector(".cmtApp-like").addEventListener("click", async () => {
     const docRef = doc(db, "comments", id);
-    const snap = await getDoc(docRef);
-    if(snap.exists()) await updateDoc(docRef, { likes: (snap.data().likes ||0)+1 });
+    const docSnap = await getDoc(docRef);
+    if(!docSnap.exists()) return;
+    const newLikes = (docSnap.data().likes || 0) + 1;
+    await updateDoc(docRef, { likes: newLikes });
   });
 
   // Reply
   replyBtn.addEventListener("click", () => {
-    replyTo = div; komentarModal.classList.add("show"); isiInput.focus();
+    replyTo = div;
+    document.getElementById("cmtAppModalTitle").innerText = "Balas Komentar";
+    komentarModal.classList.add("show");
+    isiInput.focus();
   });
 
-  // Fetch nested replies (sekali, tidak memanggil renderComment recursive)
+  // Fetch nested replies
   const repliesRef = collection(db, "comments", id, "replies");
-  const q = query(repliesRef, orderBy("timestamp","asc"));
+  const q = query(repliesRef, orderBy("timestamp", "asc"));
+
   onSnapshot(q, snapshot => {
     repliesContainer.innerHTML = "";
     div.dataset.replyCount = snapshot.size;
     replyBtn.textContent = `💬 Balas (${snapshot.size})`;
-    snapshot.forEach(docSnap => {
-      const subDiv = createCommentDiv(docSnap.data(), docSnap.id);
-      attachCommentEvents(subDiv);
-      repliesContainer.appendChild(subDiv);
-    });
+
+    snapshot.forEach(subDoc => renderComment(subDoc, repliesContainer));
     updateTotalComments();
   });
 }
 
-// ====================
-// Fetch komentar utama
-// ====================
-const mainQuery = query(collection(db, "comments"), orderBy("timestamp","desc"));
-onSnapshot(mainQuery, snapshot => {
-  komentarList.innerHTML = "";
-  snapshot.forEach(docSnap => {
-    const div = createCommentDiv(docSnap.data(), docSnap.id);
-    attachCommentEvents(div);
-    komentarList.appendChild(div);
-  });
-  updateTotalComments();
-});
-
-// ====================
-// Total komentar
-// ====================
-function updateTotalComments(){
+// ===============================
+// Hitung total komentar + reply
+// ===============================
+function updateTotalComments() {
   let total = 0;
-  const allComments = komentarList.querySelectorAll(".cmtApp-comment");
-  allComments.forEach(c => {
-    total++;
-    const replies = c.querySelectorAll(".cmtApp-replies > .cmtApp-comment");
-    total += replies.length;
-  });
+
+  const countRecursive = (container) => {
+    container.forEach(comment => {
+      total++;
+      const replies = comment.querySelectorAll(":scope > .cmtApp-replies > .cmtApp-comment");
+      if(replies.length > 0) countRecursive(replies);
+    });
+  };
+
+  const topComments = Array.from(komentarList.querySelectorAll(":scope > .cmtApp-comment"));
+  countRecursive(topComments);
+
   komentarCountSpan.textContent = total;
 }
 
-// ====================
+// ===============================
+// Fetch komentar utama realtime
+// ===============================
+const mainQuery = query(collection(db, "comments"), orderBy("timestamp", "desc"));
+onSnapshot(mainQuery, snapshot => {
+  komentarList.innerHTML = "";
+  snapshot.forEach(docSnap => renderComment(docSnap, komentarList));
+  updateTotalComments();
+});
+
+// ===============================
 // Format waktu
-// ====================
-function formatWaktu(timestamp){
+// ===============================
+function formatWaktu(timestamp) {
   const d = new Date(timestamp), now = new Date();
-  const diff = Math.floor((now - d)/1000);
-  if(diff<60) return "baru saja";
-  if(diff<3600) return `${Math.floor(diff/60)} menit lalu`;
-  if(diff<86400) return `${Math.floor(diff/3600)} jam lalu`;
-  if(diff<604800) return `${Math.floor(diff/86400)} hari lalu`;
+  const diff = Math.floor((now - d) / 1000);
+  if(diff < 60) return "baru saja";
+  if(diff < 3600) return `${Math.floor(diff/60)} menit lalu`;
+  if(diff < 86400) return `${Math.floor(diff/3600)} jam lalu`;
+  if(diff < 604800) return `${Math.floor(diff/86400)} hari lalu`;
   return d.toLocaleDateString();
 }
