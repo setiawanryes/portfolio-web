@@ -182,6 +182,7 @@ const likeBtn = document.getElementById('like-btn');
 const likeCount = document.getElementById('like-count');
 const likeDocRef = doc(db, 'post_reactions', 'main'); // document untuk like global
 
+
 // ===============================
 // Modal Open/Close
 // ===============================
@@ -198,26 +199,26 @@ window.addEventListener("click", e => {
 // ===============================
 // Fetch & realtime Like Global
 // ===============================
-async function fetchGlobalLike() {
+async function initLike() {
   const docSnap = await getDoc(likeDocRef);
-  if(docSnap.exists()) {
-    likeCount.textContent = docSnap.data().likes || 0;
-  } else {
-    await setDoc(likeDocRef, { likes: 0 });
-    likeCount.textContent = 0;
+  if(!docSnap.exists()) {
+    await setDoc(likeDocRef, { likes: 0 }, { merge: true });
   }
 }
-fetchGlobalLike();
+initLike();
 
+// Realtime listener Like Global
+onSnapshot(likeDocRef, docSnap => {
+  if(docSnap.exists()) likeCount.textContent = docSnap.data().likes || 0;
+});
+
+// Klik Like Global
 likeBtn.addEventListener('click', async () => {
   try {
     await updateDoc(likeDocRef, { likes: increment(1) });
   } catch(err) { console.error("Gagal update like:", err); }
 });
 
-onSnapshot(likeDocRef, docSnap => {
-  if(docSnap.exists()) likeCount.textContent = docSnap.data().likes || 0;
-});
 
 // ===============================
 // Kirim komentar / reply
