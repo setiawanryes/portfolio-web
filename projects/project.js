@@ -235,7 +235,7 @@ kirimBtn.addEventListener("click", async () => {
 });
 
 // ===============================
-// Render komentar rekursif
+// Render komentar + hitung total komentar termasuk reply
 // ===============================
 function renderComment(docSnap, container) {
   const data = docSnap.data();
@@ -284,7 +284,7 @@ function renderComment(docSnap, container) {
     isiInput.focus();
   });
 
-  // === FETCH REPLIES REKURSIF + UPDATE REPLY COUNT ===
+  // === FETCH REPLIES REKURSIF + UPDATE REPLY COUNT + TOTAL KOMENTAR ===
   const repliesRef = collection(db, "comments", id, "replies");
   const q = query(repliesRef, orderBy("timestamp", "asc"));
 
@@ -294,7 +294,29 @@ function renderComment(docSnap, container) {
     replyBtn.textContent = `💬 Balas (${snapshot.size})`;
 
     snapshot.forEach(subDoc => renderComment(subDoc, repliesContainer));
+
+    updateTotalComments(); // update total komentar setiap ada perubahan reply
   });
+}
+
+// ===============================
+// Hitung total komentar termasuk reply
+// ===============================
+function updateTotalComments() {
+  let total = 0;
+
+  const countRecursive = (container) => {
+    container.forEach(comment => {
+      total++;
+      const replies = comment.querySelectorAll(":scope > .cmtApp-replies > .cmtApp-comment");
+      if(replies.length > 0) countRecursive(replies);
+    });
+  };
+
+  const topComments = Array.from(komentarList.querySelectorAll(":scope > .cmtApp-comment"));
+  countRecursive(topComments);
+
+  komentarCountSpan.textContent = total;
 }
 
 // ===============================
@@ -303,12 +325,8 @@ function renderComment(docSnap, container) {
 const mainQuery = query(collection(db, "comments"), orderBy("timestamp", "desc"));
 onSnapshot(mainQuery, snapshot => {
   komentarList.innerHTML = "";
-  let count = 0;
-  snapshot.forEach(docSnap => {
-    renderComment(docSnap, komentarList);
-    count++;
-  });
-  komentarCountSpan.textContent = count;
+  snapshot.forEach(docSnap => renderComment(docSnap, komentarList));
+  updateTotalComments();
 });
 
 // ===============================
