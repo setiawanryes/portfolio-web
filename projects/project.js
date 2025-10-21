@@ -157,13 +157,11 @@ likeBtn.addEventListener('click', () => {
   likeCount.textContent = likeNumber;
 });
 
-
 /* ===============================
    FITUR KOMENTAR LANJUTAN
-   Namespace: cmtApp
+   Avatar random otomatis
 ================================= */
 (() => {
-  const defaultAvatar = "images/default-avatar.png";
   let komentarCount = 0;
   let replyTo = null;
 
@@ -173,7 +171,6 @@ likeBtn.addEventListener('click', () => {
   const kirimBtn = document.getElementById("cmtAppKirim");
 
   const namaInput = document.getElementById("cmtAppNama");
-  const fotoInput = document.getElementById("cmtAppFoto");
   const isiInput = document.getElementById("cmtAppIsi");
   const komentarList = document.getElementById("comments-list");
   const komentarCountSpan = document.getElementById("komentar-count");
@@ -195,17 +192,13 @@ likeBtn.addEventListener('click', () => {
     const isi = isiInput.value.trim();
     if (!nama) return alert("Nama wajib diisi!");
 
-    if (fotoInput.files.length > 0) {
-      const reader = new FileReader();
-      reader.onload = function () { buatKomentar(nama, isi, reader.result); }
-      reader.readAsDataURL(fotoInput.files[0]);
-    } else {
-      buatKomentar(nama, isi, defaultAvatar);
-    }
+    // avatar random otomatis
+    const avatar = `https://i.pravatar.cc/50?u=${Math.random()}`;
+
+    buatKomentar(nama, isi, avatar);
 
     // reset form
     namaInput.value = "";
-    fotoInput.value = "";
     isiInput.value = "";
     komentarModal.style.display = "none";
   });
@@ -236,7 +229,6 @@ likeBtn.addEventListener('click', () => {
     comment.dataset.likes = 0;
     comment.dataset.replies = 0;
 
-    // animasi masuk
     comment.style.opacity = 0;
     comment.style.transform = "translateY(20px)";
     setTimeout(() => {
@@ -272,7 +264,6 @@ likeBtn.addEventListener('click', () => {
     const target = e.target;
     const comment = target.closest(".cmtApp-comment");
 
-    // like
     if (target.classList.contains("cmtApp-like")) {
       let likes = parseInt(comment.dataset.likes);
       if (target.classList.toggle("liked")) likes++;
@@ -281,7 +272,6 @@ likeBtn.addEventListener('click', () => {
       target.textContent = `👍 ${likes}`;
     }
 
-    // reply
     if (target.classList.contains("cmtApp-reply")) {
       replyTo = comment;
       document.getElementById("cmtAppModalTitle").innerText = "Balas Komentar";
@@ -289,7 +279,7 @@ likeBtn.addEventListener('click', () => {
     }
   });
 
-  // === WAKTU RELATIF ===
+  // === FORMAT WAKTU RELATIF ===
   function formatWaktu(iso) {
     const d = new Date(iso);
     const now = new Date();
@@ -308,5 +298,4 @@ likeBtn.addEventListener('click', () => {
       el.textContent = formatWaktu(el.dataset.time);
     });
   }, 60000);
-
 })();
