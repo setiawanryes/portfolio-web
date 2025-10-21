@@ -167,25 +167,26 @@ likeBtn.addEventListener('click', () => {
     import { getFirestore, collection, addDoc, doc, updateDoc, onSnapshot, query, orderBy
     } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
-    // 🔥 Ganti ini pakai konfigurasi kamu dari Firebase Console
-    const firebaseConfig = {
-      apiKey: "API_KEY_KAMU",
-      authDomain: "portfolio-setiawanryes.firebaseapp.com",
-      projectId: "portfolio-setiawanryes",
-      storageBucket: "portfolio-setiawanryes.appspot.com",
-      messagingSenderId: "MESSAGING_SENDER_ID_KAMU",
-      appId: "APP_ID_KAMU",
-      measurementId: "MEASUREMENT_ID_KAMU"
-    };
+    // Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBGS2_U6M-lC0YozJd0FCHpncyNLE1mE2g",
+  authDomain: "portfolio-setiawanryes.firebaseapp.com",
+  projectId: "portfolio-setiawanryes",
+  storageBucket: "portfolio-setiawanryes.firebasestorage.app",
+  messagingSenderId: "171755400027",
+  appId: "1:171755400027:web:6bbbbbda56613af0b4087e",
+  measurementId: "G-4R3C18RXW0"
+};
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+const db = getFirestore(app);
+
 
 (() => {
-  let komentarCount = 0;
-  let replyTo = null;
-
+ 
   const komentarBtn = document.getElementById("komentar-btn");
   const komentarModal = document.getElementById("cmtAppModal");
   const closeModalBtn = document.getElementById("close-cmtAppModal");
@@ -196,6 +197,7 @@ const analytics = getAnalytics(app);
   const komentarList = document.getElementById("comments-list");
   const komentarCountSpan = document.getElementById("komentar-count");
 
+  let replyTo = null;
   // === BUKA MODAL ===
   komentarBtn.addEventListener("click", () => {
     replyTo = null;
