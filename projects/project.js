@@ -148,10 +148,9 @@ setProgress(15);
    Avatar random otomatis
 ================================= */
 // Import Firebase SDK
-import { setDoc, increment } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { 
-  getFirestore, collection, addDoc, doc, updateDoc, onSnapshot, query, orderBy, getDoc 
+  getFirestore, doc, collection, getDoc, setDoc, addDoc, updateDoc, increment, onSnapshot, query, orderBy 
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
