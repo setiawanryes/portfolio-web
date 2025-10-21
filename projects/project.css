@@ -670,12 +670,84 @@ body {
 
 /* ===== Modal ===== */
 /* Modal dark mode compact */
+/* Komentar utama */
+.cmtApp-comment {
+  background: #1b1b2f;
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+  color: #eee;
+  font-family: Arial, sans-serif;
+  position: relative;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+}
+
+.cmtApp-comment-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.cmtApp-comment-header img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #555;
+}
+
+.cmtApp-comment-body { margin-bottom: 6px; font-size: 14px; line-height: 1.4; color: #ddd; }
+
+.cmtApp-comment-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: #aaa;
+}
+
+.cmtApp-comment-actions button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  margin-right: 8px;
+  transition: transform 0.2s, color 0.2s;
+  color: #ccc;
+}
+
+.cmtApp-comment-actions button:hover { transform: scale(1.1); color: #ff6b6b; }
+.cmtApp-like.liked { color: #ff6b6b; }
+
+.cmtApp-replies {
+  margin-left: 40px;
+  margin-top: 8px;
+  border-left: 2px solid #333;
+  padding-left: 10px;
+}
+
+.cmtApp-replies .cmtApp-comment {
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: slideIn 0.3s forwards;
+}
+
+@keyframes slideIn {
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.cmtApp-time { font-size: 11px; color: #888; }
+
+/* Modal dark + compact */
 .cmtApp-modal {
   display: none;
   position: fixed;
   top:0; left:0;
-  width: 100%;
-  height: 100%;
+  width: 100%; height: 100%;
   background: rgba(0,0,0,0.7);
   justify-content: center;
   align-items: center;
@@ -692,11 +764,10 @@ body {
   flex-direction: column;
   gap: 10px;
   color: #eee;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
   position: relative;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
 }
 
-/* Input & textarea */
 .cmtApp-modal-content input,
 .cmtApp-modal-content textarea {
   width: 100%;
@@ -710,11 +781,8 @@ body {
 }
 
 .cmtApp-modal-content input:focus,
-.cmtApp-modal-content textarea:focus {
-  border-color: #3f72af;
-}
+.cmtApp-modal-content textarea:focus { border-color: #3f72af; }
 
-/* Tombol kirim compact */
 #cmtAppKirim {
   background: #3f72af;
   color: #fff;
@@ -726,138 +794,17 @@ body {
   transition: background 0.2s;
 }
 
-#cmtAppKirim:hover {
-  background: #2c5282;
-}
+#cmtAppKirim:hover { background: #2c5282; }
 
-/* Tombol close modal */
 .cmtApp-close {
   position: absolute;
-  top: 8px;
-  right: 12px;
+  top: 8px; right: 12px;
   font-size: 20px;
   cursor: pointer;
   color: #eee;
   transition: color 0.2s;
 }
 
-.cmtApp-close:hover {
-  color: #ff6b6b;
-}
+.cmtApp-close:hover { color: #ff6b6b; }
 
-/* Modal title */
-#cmtAppModalTitle {
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 5px;
-  text-align: center;
-}
-@keyframes fadeInCmt {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideUpCmt {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-/* ===== Komentar List ===== */
-.cmtApp-comment {
-  background: #1b1b2f;
-  border-radius: 12px;
-  padding: 10px 12px;
-  margin-bottom: 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
-  font-family: Arial, sans-serif;
-  color: #eee;
-  position: relative;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.3s ease;
-}
-
-/* Header komentar */
-.cmtApp-comment-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 6px;
-}
-
-.cmtApp-comment-header img {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 1px solid #555;
-}
-
-/* Body komentar */
-.cmtApp-comment-body {
-  margin-bottom: 6px;
-  font-size: 14px;
-  line-height: 1.4;
-  color: #ddd;
-}
-/* Footer komentar */
-.cmtApp-comment-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 12px;
-  color: #aaa;
-}
-
-.cmtApp-comment-actions {
-  padding-left: 50px;
-  margin-top: 5px;
-}
-
-/* Like & Reply button */
-.cmtApp-comment-actions button {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  font-size: 14px;
-  margin-right: 8px;
-  transition: transform 0.2s, color 0.2s;
-  color: #ccc;
-}
-
-.cmtApp-comment-actions button:hover {
-  transform: scale(1.1);
-  color: #ff6b6b;
-}
-
-.cmtApp-like.liked {
-  color: #ff6b6b;
-}
-
-/* Nested replies */
-.cmtApp-replies {
-  margin-left: 40px;
-  margin-top: 8px;
-  border-left: 2px solid #333;
-  padding-left: 10px;
-}
-
-/* Animasi reply slide dari kiri */
-.cmtApp-replies .cmtApp-comment {
-  opacity: 0;
-  transform: translateX(-20px);
-  animation: slideIn 0.3s forwards;
-}
-
-@keyframes slideIn {
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-/* Timestamp */
-.cmtApp-time {
-  font-size: 11px;
-  color: #888;
-}
+#cmtAppModalTitle { font-size: 16px; font-weight: bold; text-align: center; margin-bottom: 5px; }
