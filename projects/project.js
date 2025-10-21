@@ -148,7 +148,7 @@ setProgress(15);
    Avatar random otomatis
 ================================= */
 // Import Firebase SDK
-import { getDoc, setDoc, increment } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+import { setDoc, increment } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { 
   getFirestore, collection, addDoc, doc, updateDoc, onSnapshot, query, orderBy, getDoc 
@@ -164,6 +164,7 @@ const firebaseConfig = {
   appId: "1:171755400027:web:6bbbbbda56613af0b4087e",
   measurementId: "G-4R3C18RXW0"
 };
+
 // Init Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
