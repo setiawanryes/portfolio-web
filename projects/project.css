@@ -672,35 +672,73 @@ body {
 .cmtApp-modal {
   display: none;
   position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 2000;
+  top:0; left:0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7);
   justify-content: center;
   align-items: center;
-  animation: fadeInCmt 0.3s ease-in-out;
+  z-index: 999;
 }
 
+
 .cmtApp-modal-content {
-  background: #fff;
-  color: #333;
-  padding: 20px;
+  background: #2b2b42;
   border-radius: 12px;
-  width: 320px;
+  padding: 20px;
+  width: 90%;
+  max-width: 400px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  animation: slideUpCmt 0.3s ease-in-out;
+  color: #eee;
 }
 
+
+.cmtApp-modal-content input,
+.cmtApp-modal-content textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #555;
+  font-size: 14px;
+  outline: none;
+  background: #1f1f35;
+  color: #eee;
+}
+
+.cmtApp-modal-content input:focus,
+.cmtApp-modal-content textarea:focus {
+  border-color: #3f72af;
+}
+
+
+/* Close button modal */
 .cmtApp-close {
-  align-self: flex-end;
-  font-size: 24px;
+  position: absolute;
+  top: 8px; right: 12px;
+  font-size: 22px;
   cursor: pointer;
-  color: #666;
+  color: #eee;
+  transition: color 0.2s;
 }
 
 .cmtApp-close:hover {
-  color: #000;
+  color: #ff6b6b;
+}
+
+/* Button kirim modal */
+#cmtAppKirim {
+  background: #3f72af;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#cmtAppKirim:hover {
+  background: #2c5282;
 }
 
 @keyframes fadeInCmt {
@@ -715,30 +753,49 @@ body {
 
 /* ===== Komentar List ===== */
 .cmtApp-comment {
-  background: rgba(255,255,255,0.1);
-  border-radius: 8px;
-  padding: 10px;
-  margin-top: 10px;
-  animation: fadeInCmt 0.4s ease;
+  background: #1b1b2f;
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+  font-family: Arial, sans-serif;
+  color: #eee;
+  position: relative;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
 }
 
+/* Header komentar */
 .cmtApp-comment-header {
   display: flex;
   align-items: center;
   gap: 10px;
+  margin-bottom: 6px;
 }
 
 .cmtApp-comment-header img {
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   object-fit: cover;
+  border: 1px solid #555;
 }
 
+/* Body komentar */
 .cmtApp-comment-body {
-  margin-top: 5px;
-  padding-left: 50px;
+  margin-bottom: 6px;
+  font-size: 14px;
+  line-height: 1.4;
   color: #ddd;
+}
+/* Footer komentar */
+.cmtApp-comment-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: #aaa;
 }
 
 .cmtApp-comment-actions {
@@ -746,16 +803,50 @@ body {
   margin-top: 5px;
 }
 
+/* Like & Reply button */
 .cmtApp-comment-actions button {
-  background: none;
+  background: transparent;
   border: none;
-  color: #7c6aff;
   cursor: pointer;
   font-size: 14px;
-  margin-right: 10px;
+  margin-right: 8px;
+  transition: transform 0.2s, color 0.2s;
+  color: #ccc;
 }
 
 .cmtApp-comment-actions button:hover {
-  text-decoration: underline;
+  transform: scale(1.1);
+  color: #ff6b6b;
 }
 
+.cmtApp-like.liked {
+  color: #ff6b6b;
+}
+
+/* Nested replies */
+.cmtApp-replies {
+  margin-left: 40px;
+  margin-top: 8px;
+  border-left: 2px solid #333;
+  padding-left: 10px;
+}
+
+/* Animasi reply slide dari kiri */
+.cmtApp-replies .cmtApp-comment {
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: slideIn 0.3s forwards;
+}
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Timestamp */
+.cmtApp-time {
+  font-size: 11px;
+  color: #888;
+}
