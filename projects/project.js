@@ -178,8 +178,6 @@ const kirimBtn = document.getElementById("cmtAppKirim");
 const namaInput = document.getElementById("cmtAppNama");
 const isiInput = document.getElementById("cmtAppIsi");
 const komentarCountSpan = document.getElementById("komentar-count");
-
-// Global Like
 const likeBtn = document.getElementById('like-btn');
 const likeCount = document.getElementById('like-count');
 const likeDocRef = doc(db, 'post_reactions', 'main'); // document untuk like global
