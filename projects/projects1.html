@@ -123,6 +123,61 @@
   </div>
 </div>
 
+<!-- Firebase SDK (v9 Modular) -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+  import { getFirestore, collection, addDoc, onSnapshot, updateDoc, doc, query, orderBy } 
+    from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+
+  // Ganti dengan config Firebase Roni
+  const firebaseConfig = {
+    apiKey: "API_KEY_ANDA",
+    authDomain: "portfolio-setiawanryes.firebaseapp.com",
+    projectId: "portfolio-setiawanryes",
+    storageBucket: "portfolio-setiawanryes.appspot.com",
+    messagingSenderId: "SENDER_ID",
+    appId: "APP_ID"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // ===== Variabel DOM =====
+  const komentarList = document.getElementById("comments-list");
+  const komentarCountSpan = document.getElementById("komentar-count");
+
+  // ===== Load komentar realtime =====
+  const q = query(collection(db,"comments"), orderBy("timestamp","desc"));
+  onSnapshot(q, snapshot => {
+    komentarList.innerHTML = "";
+    let count = 0;
+
+    snapshot.forEach(docSnap => {
+      const data = docSnap.data();
+      const commentDiv = document.createElement("div");
+      commentDiv.classList.add("cmtApp-comment");
+      commentDiv.dataset.id = docSnap.id;
+      commentDiv.innerHTML = `
+        <div class="cmtApp-comment-header">
+          <img src="${data.avatar}" alt="avatar"/>
+          <strong>${data.nama}</strong>
+        </div>
+        <div class="cmtApp-comment-body">${data.isi}</div>
+        <div class="cmtApp-comment-footer">
+          <div class="cmtApp-comment-actions">
+            <button class="cmtApp-like">👍 ${data.likes}</button>
+            <button class="cmtApp-reply">💬 Balas</button>
+          </div>
+          <span class="cmtApp-time">${new Date(data.timestamp).toLocaleString()}</span>
+        </div>
+      `;
+      komentarList.prepend(commentDiv); // terbaru di atas
+      count++;
+    });
+
+    komentarCountSpan.textContent = count;
+  });
+</script>
 
 <script src="project.js"></script>
 
