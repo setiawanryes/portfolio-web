@@ -141,7 +141,7 @@ function setProgress(percent) {
 }
 
 // Contoh: progres 75%
-setProgress(75);
+setProgress(15);
 
 const likeBtn = document.getElementById('like-btn');
 const dislikeBtn = document.getElementById('dislike-btn');
@@ -249,16 +249,16 @@ likeBtn.addEventListener('click', () => {
         replyTo.appendChild(div);
         return div;
       })();
-      repliesContainer.appendChild(comment);
+     repliesContainer.prepend(comment);
 
       // update reply count parent
-      replyTo.dataset.replies = parseInt(replyTo.dataset.replies) + 1;
-      const replyBtn = replyTo.querySelector(".cmtApp-reply");
-      replyBtn.textContent = `💬 Balas (${replyTo.dataset.replies})`;
-
-      replyTo = null;
+  replyTo.dataset.replies = parseInt(replyTo.dataset.replies) + 1;
+  const replyBtn = replyTo.querySelector(".cmtApp-reply");
+  replyBtn.textContent = `💬 Balas (${replyTo.dataset.replies})`;
+     
+    replyTo = null;
     } else {
-      komentarList.appendChild(comment);
+       komentarList.prepend(comment);
     }
   }
 
@@ -305,23 +305,3 @@ likeBtn.addEventListener('click', () => {
   }, 60000);
 })();
 
-if (replyTo) {
-  const repliesContainer = replyTo.querySelector(".cmtApp-replies") || (() => {
-    const div = document.createElement("div");
-    div.classList.add("cmtApp-replies");
-    replyTo.appendChild(div);
-    return div;
-  })();
-  // gunakan prepend supaya balasan terbaru muncul di atas
-  repliesContainer.prepend(comment);
-
-  // update reply count parent
-  replyTo.dataset.replies = parseInt(replyTo.dataset.replies) + 1;
-  const replyBtn = replyTo.querySelector(".cmtApp-reply");
-  replyBtn.textContent = `💬 Balas (${replyTo.dataset.replies})`;
-
-  replyTo = null;
-} else {
-  // komentar utama, terbaru di atas
-  komentarList.prepend(comment);
-}
