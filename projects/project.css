@@ -670,6 +670,13 @@ body {
 
 /* ===== Modal ===== */
 /* Komentar utama */
+#comments-list {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
 .cmtApp-comment {
   background: #1b1b2f;
   border-radius: 12px;
@@ -684,6 +691,7 @@ body {
   transition: all 0.3s ease;
 }
 
+/* Header: avatar + nama */
 .cmtApp-comment-header {
   display: flex;
   align-items: center;
@@ -699,8 +707,14 @@ body {
   border: 1px solid #555;
 }
 
+.cmtApp-comment-header strong {
+  font-size: 15px;
+  color: #333;
+}
+
 .cmtApp-comment-body { margin-bottom: 6px; font-size: 14px; line-height: 1.4; color: #ddd; }
 
+/* Footer */
 .cmtApp-comment-footer {
   display: flex;
   justify-content: space-between;
@@ -741,9 +755,11 @@ body {
 
 .cmtApp-time { font-size: 11px; color: #888; }
 
+.cmtApp-comment:hover {
+  transform: translateY(-2px);
+}
+
 /* Modal dark + compact */
-
-
 .cmtApp-modal {
   display: none;
   position: fixed;
