@@ -163,7 +163,7 @@ likeBtn.addEventListener('click', () => {
 ================================= */
 // === Konfigurasi Firebase ===
 const firebaseConfig = {
-  apiKey: "API_KEY_KAMU",
+  apiKey: "AIzaSyBGS2_U6M-lC0YozJd0FCHpncyNLE1mE2g",
   authDomain: "komentar-app.firebaseapp.com",
   databaseURL: "https://komentar-app-default-rtdb.firebaseio.com",
   projectId: "komentar-app",
