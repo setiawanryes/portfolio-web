@@ -309,3 +309,4 @@ function formatWaktu(timestamp) {
   if (diff < 604800) return `${Math.floor(diff / 86400)} hari lalu`;
   return d.toLocaleDateString();
 }
+
