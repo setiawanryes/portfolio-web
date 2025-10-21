@@ -879,3 +879,30 @@ body {
 #comments-list::-webkit-scrollbar-thumb:hover {
   background: #2c5282;
 }
+
+.cmtApp-reply-container textarea {
+  width: 100%;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #555;
+  margin-top: 6px;
+  background: #1f1f35;
+  color: #eee;
+  font-size: 14px;
+  outline: none;
+}
+
+.cmtApp-reply-container button {
+  margin-top: 4px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background: #3f72af;
+  color: #fff;
+  font-weight: bold;
+}
+
+.cmtApp-reply-container button:hover {
+  background: #2c5282;
+}
