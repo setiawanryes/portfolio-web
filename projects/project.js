@@ -305,3 +305,70 @@ likeBtn.addEventListener('click', () => {
   }, 60000);
 })();
 
+// ===== Variabel DOM =====
+const komentarBtn = document.getElementById("komentar-btn");
+const komentarModal = document.getElementById("cmtAppModal");
+const closeModalBtn = document.getElementById("close-cmtAppModal");
+const kirimBtn = document.getElementById("cmtAppKirim");
+const namaInput = document.getElementById("cmtAppNama");
+const isiInput = document.getElementById("cmtAppIsi");
+
+let replyTo = null;
+
+// ===== Buka & tutup modal =====
+komentarBtn.addEventListener("click", () => {
+  replyTo = null;
+  document.getElementById("cmtAppModalTitle").innerText = "Tulis Komentar";
+  komentarModal.style.display = "flex";
+});
+closeModalBtn.addEventListener("click", () => komentarModal.style.display = "none");
+window.addEventListener("click", e => { if(e.target === komentarModal) komentarModal.style.display = "none"; });
+
+// ===== Kirim komentar / reply =====
+kirimBtn.addEventListener("click", async () => {
+  const nama = namaInput.value.trim();
+  const isi = isiInput.value.trim();
+  if(!nama) return alert("Nama wajib diisi!");
+
+  const avatar = `https://avatars.dicebear.com/api/avataaars/${Math.random()}.svg`;
+  const timestamp = Date.now();
+
+  await addDoc(collection(db,"comments"), {
+    nama,
+    isi,
+    avatar,
+    timestamp,
+    likes: 0,
+    replyTo: replyTo ? replyTo.dataset.id : null
+  });
+
+  // Reset form & tutup modal
+  namaInput.value = "";
+  isiInput.value = "";
+  komentarModal.style.display = "none";
+});
+
+// ===== Like & Reply =====
+komentarList.addEventListener("click", async (e)=>{
+  const target = e.target;
+  const comment = target.closest(".cmtApp-comment");
+  if(!comment) return;
+
+  // ===== Like =====
+  if(target.classList.contains("cmtApp-like")){
+    let likes = parseInt(comment.dataset.likes) || 0;
+    likes += target.classList.toggle("liked") ? 1 : -1;
+    comment.dataset.likes = likes;
+    target.textContent = `👍 ${likes}`;
+
+    const docRef = doc(db,"comments",comment.dataset.id);
+    await updateDoc(docRef, {likes});
+  }
+
+  // ===== Reply =====
+  if(target.classList.contains("cmtApp-reply")){
+    replyTo = comment;
+    document.getElementById("cmtAppModalTitle").innerText = "Balas Komentar";
+    komentarModal.style.display = "flex";
+  }
+});
