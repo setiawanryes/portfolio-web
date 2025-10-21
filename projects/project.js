@@ -218,7 +218,15 @@ const db = getFirestore(app);
     // avatar kartun random
      const avatar = `https://i.pravatar.cc/50?u=${Math.random()}`;
 
+    await addDoc(collection(db, "comments"), {
+    nama,
+    isi,
+    avatar,
+    timestamp,
+    likes: 0
+  });
     buatKomentar(nama, isi, avatar);
+    
 
     namaInput.value = "";
     isiInput.value = "";
