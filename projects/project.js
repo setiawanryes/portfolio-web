@@ -187,6 +187,7 @@ const db = getFirestore(app);
 
 (() => {
  
+
   const komentarBtn = document.getElementById("komentar-btn");
   const komentarModal = document.getElementById("cmtAppModal");
   const closeModalBtn = document.getElementById("close-cmtAppModal");
@@ -217,23 +218,13 @@ const db = getFirestore(app);
 
     // avatar kartun random
      const avatar = `https://i.pravatar.cc/50?u=${Math.random()}`;
+
     buatKomentar(nama, isi, avatar);
-addDoc(collection(db, "comments"), {
-  nama,
-  isi,
-  avatar,
-  timestamp,
-  likes: 0
-})
-.then(() => console.log("Komentar tersimpan!"))
-.catch((e) => console.error("Gagal:", e));
 
     namaInput.value = "";
     isiInput.value = "";
     komentarModal.style.display = "none";
   });
-
-  
 
   // === BUAT KOMENTAR ===
   function buatKomentar(nama, isi, foto) {
@@ -361,18 +352,17 @@ window.addEventListener("click", e => { if(e.target === komentarModal) komentarM
 kirimBtn.addEventListener("click", async () => {
   const nama = namaInput.value.trim();
   const isi = isiInput.value.trim();
-  if(!nama) return alert("Nama wajib diisi!");
+  if(!nama || !isi) return alert("Nama dan komentar wajib diisi!");
 
-  const avatar = `https://avatars.dicebear.com/api/avataaars/${Math.random()}.svg`;
+  const avatar = `https://i.pravatar.cc/50?u=${nama}`;
   const timestamp = Date.now();
 
-  await addDoc(collection(db,"comments"), {
+  await addDoc(collection(db, "comments"), {
     nama,
     isi,
     avatar,
     timestamp,
-    likes: 0,
-    replyTo: replyTo ? replyTo.dataset.id : null
+    likes: 0
   });
 
   // Reset form & tutup modal
@@ -405,3 +395,4 @@ komentarList.addEventListener("click", async (e)=>{
     komentarModal.style.display = "flex";
   }
 });
+
