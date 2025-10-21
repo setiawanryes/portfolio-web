@@ -175,11 +175,11 @@ const firebaseConfig = {
   appId: "1:171755400027:web:6bbbbbda56613af0b4087e",
   measurementId: "G-4R3C18RXW0"
 };
-// Inisialisasi Firebase
+// Init Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// ===== Variabel DOM =====
+// DOM
 const komentarBtn = document.getElementById("komentar-btn");
 const komentarModal = document.getElementById("cmtAppModal");
 const closeModalBtn = document.getElementById("close-cmtAppModal");
@@ -191,18 +191,18 @@ const komentarCountSpan = document.getElementById("komentar-count");
 
 let replyTo = null;
 
-// ===== Buka & Tutup Modal =====
+// === Buka Modal ===
 komentarBtn.addEventListener("click", () => {
   replyTo = null;
   document.getElementById("cmtAppModalTitle").innerText = "Tulis Komentar";
   komentarModal.style.display = "flex";
 });
-closeModalBtn.addEventListener("click", () => (komentarModal.style.display = "none"));
+closeModalBtn.addEventListener("click", () => komentarModal.style.display = "none");
 window.addEventListener("click", (e) => {
   if (e.target === komentarModal) komentarModal.style.display = "none";
 });
 
-// ===== Kirim Komentar =====
+// === Kirim Komentar ===
 kirimBtn.addEventListener("click", async () => {
   const nama = namaInput.value.trim();
   const isi = isiInput.value.trim();
@@ -224,15 +224,15 @@ kirimBtn.addEventListener("click", async () => {
   komentarModal.style.display = "none";
 });
 
-// ===== Menampilkan Komentar Real-time =====
+// === Menampilkan Komentar Real-time ===
 const q = query(collection(db, "comments"), orderBy("timestamp", "desc"));
 onSnapshot(q, (snapshot) => {
-  komentarList.innerHTML = ""; // Kosongkan dulu
+  komentarList.innerHTML = "";
   let count = 0;
-  snapshot.forEach((doc) => {
-    const data = doc.data();
-    komentarList.innerHTML += `
-      <div class="cmtApp-comment" data-id="${doc.id}" data-likes="${data.likes}">
+  snapshot.forEach((docSnap) => {
+    const data = docSnap.data();
+    const commentHTML = `
+      <div class="cmtApp-comment" data-id="${docSnap.id}" data-likes="${data.likes}">
         <div class="cmtApp-comment-header">
           <img src="${data.avatar}" alt="avatar" />
           <strong>${data.nama}</strong>
@@ -247,30 +247,35 @@ onSnapshot(q, (snapshot) => {
         </div>
       </div>
     `;
+    komentarList.innerHTML += commentHTML;
     count++;
   });
   komentarCountSpan.textContent = count;
 });
 
-// ===== Like & Reply =====
+// === Like & Reply Handler ===
 komentarList.addEventListener("click", async (e) => {
   const target = e.target;
   const comment = target.closest(".cmtApp-comment");
   if (!comment) return;
 
-  // LIKE
+  // === LIKE ===
   if (target.classList.contains("cmtApp-like")) {
     const id = comment.dataset.id;
-    let likes = parseInt(comment.dataset.likes) || 0;
-    const isLiked = target.classList.toggle("liked");
-    likes += isLiked ? 1 : -1;
+    const docRef = doc(db, "comments", id);
 
-    comment.dataset.likes = likes;
-    target.textContent = `👍 ${likes}`;
-    await updateDoc(doc(db, "comments", id), { likes });
+    // Ambil like terbaru dari Firestore dulu agar sinkron
+    const currentLikes = parseInt(comment.dataset.likes) || 0;
+    const isLiked = target.classList.toggle("liked");
+    const newLikes = isLiked ? currentLikes + 1 : currentLikes - 1;
+
+    // Update UI dan Firestore
+    comment.dataset.likes = newLikes;
+    target.textContent = `👍 ${newLikes}`;
+    await updateDoc(docRef, { likes: newLikes });
   }
 
-  // REPLY
+  // === REPLY ===
   if (target.classList.contains("cmtApp-reply")) {
     replyTo = comment;
     document.getElementById("cmtAppModalTitle").innerText = "Balas Komentar";
@@ -278,7 +283,7 @@ komentarList.addEventListener("click", async (e) => {
   }
 });
 
-// ===== Format Waktu =====
+// === Format Waktu ===
 function formatWaktu(timestamp) {
   const d = new Date(timestamp);
   const now = new Date();
