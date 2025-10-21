@@ -184,6 +184,7 @@ const db = getFirestore(app);
 let replyTo = null; // komentar yang sedang dibalas
 
 // === DOM Elements ===
+
 const komentarList = document.getElementById("comments-list");
 const komentarModal = document.getElementById("cmtAppModal");
 const komentarBtn = document.getElementById("komentar-btn");
