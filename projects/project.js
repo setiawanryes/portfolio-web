@@ -200,40 +200,31 @@ window.addEventListener("click", e => {
 // ===============================
 // Fetch & realtime Like Global
 // ===============================
+// Buat dokumen Like Global jika belum ada
 async function initLike() {
   const snap = await getDoc(likeDocRef);
-  if (!snap.exists()) {
+  if(!snap.exists()) {
     await setDoc(likeDocRef, { likes: 0 });
     console.log("Dokumen Like Global dibuat");
   }
-  // Setelah dokumen pasti ada, pasang listener
-  listenLike();
 }
 
-function listenLike() {
-  onSnapshot(likeDocRef, snap => {
-    if (snap.exists()) likeCount.textContent = snap.data().likes || 0;
-  });
-}
-
-// Panggil saat load
+// Panggil saat halaman dimuat
 initLike();
 
-
-
-// Klik tombol Like
-likeBtn.addEventListener('click', async () => {
-  try {
-    await updateDoc(likeDocRef, { likes: increment(1) });
-  } catch(err) {
-    console.error("Gagal update Like Global:", err);
-  }
+// Realtime listener Like Global
+onSnapshot(likeDocRef, docSnap => {
+  if(docSnap.exists()) likeCount.textContent = docSnap.data().likes || 0;
 });
 
-// Realtime update
-onSnapshot(likeDocRef, snap => {
-  console.log("Data Like Global:", snap.data());
-  if (snap.exists()) likeCount.textContent = snap.data().likes || 0;
+/// Klik tombol Like Global
+likeBtn.addEventListener("click", async () => {
+  try {
+    await updateDoc(likeDocRef, { likes: increment(1) });
+    likeBtn.classList.add("liked");
+  } catch (err) {
+    console.error("Gagal update like:", err);
+  }
 });
 
 
