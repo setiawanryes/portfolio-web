@@ -197,11 +197,13 @@ let replyTo = null;
 komentarBtn.addEventListener("click", () => {
   replyTo = null;
   document.getElementById("cmtAppModalTitle").innerText = "Tulis Komentar";
-  komentarModal.style.display = "flex";
+  komentarModal.classList.add("show"); // gunakan class show
 });
-closeModalBtn.addEventListener("click", () => komentarModal.style.display = "none");
+
+closeModalBtn.addEventListener("click", () => komentarModal.classList.remove("show"));
+
 window.addEventListener("click", (e) => {
-  if (e.target === komentarModal) komentarModal.style.display = "none";
+  if (e.target === komentarModal) komentarModal.classList.remove("show");
 });
 
 // === Kirim Komentar ===
