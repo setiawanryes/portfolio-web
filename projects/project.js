@@ -233,6 +233,8 @@ addDoc(collection(db, "comments"), {
     komentarModal.style.display = "none";
   });
 
+  
+
   // === BUAT KOMENTAR ===
   function buatKomentar(nama, isi, foto) {
     const comment = document.createElement("div");
