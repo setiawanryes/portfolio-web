@@ -808,19 +808,39 @@ cmtApp-close {
    🗨️ COMMENT LIST
    ======================= */
 #comments-list {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+  max-height: 360px;  /* tinggi maksimal komentar, bisa disesuaikan */
+  overflow-y: auto;
+  padding-right: 5px; /* biar scrollbar tidak nempel */
+  margin-top: 15px;
+}
+
+/* Opsional: custom scrollbar untuk dark mode */
+#comments-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+#comments-list::-webkit-scrollbar-track {
+  background: #1b1b2f;
+  border-radius: 4px;
+}
+
+#comments-list::-webkit-scrollbar-thumb {
+  background: #3f72af;
+  border-radius: 4px;
+}
+
+#comments-list::-webkit-scrollbar-thumb:hover {
+  background: #2c5282;
 }
 
 .cmtApp-comment {
-  background: #f9f9f9;
-  border: 1px solid #eee;
+  background: #1b1b2f;
+  color: #eee;
   border-radius: 12px;
   padding: 12px 15px;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
   transition: all 0.3s ease;
+  font-family: Arial, sans-serif;
 }
 .cmtApp-comment:hover {
   transform: translateY(-2px);
