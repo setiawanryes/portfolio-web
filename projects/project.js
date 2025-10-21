@@ -234,7 +234,7 @@ likeBtn.addEventListener('click', () => {
       </div>
       <div class="cmtApp-comment-body">${isi || "(Tanpa isi)"}</div>
       <div class="cmtApp-comment-actions">
-        <button class="cmtApp-like">❤️ Suka</button>
+        <button class="cmtApp-like">👍 Suka</button>
         <button class="cmtApp-reply">💬 Balas</button>
       </div>
     `;
