@@ -161,6 +161,29 @@ likeBtn.addEventListener('click', () => {
    FITUR KOMENTAR LANJUTAN
    Avatar random otomatis
 ================================= */
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { getFirestore, collection, addDoc, doc, updateDoc, onSnapshot, query, orderBy } from "firebase/firestore";
+
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBGS2_U6M-lC0YozJd0FCHpncyNLE1mE2g",
+  authDomain: "portfolio-setiawanryes.firebaseapp.com",
+  projectId: "portfolio-setiawanryes",
+  storageBucket: "portfolio-setiawanryes.firebasestorage.app",
+  messagingSenderId: "171755400027",
+  appId: "1:171755400027:web:6bbbbbda56613af0b4087e",
+  measurementId: "G-4R3C18RXW0"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
 (() => {
   let komentarCount = 0;
