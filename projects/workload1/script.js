@@ -151,11 +151,11 @@ setProgress(100);
 
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-import { 
-  getFirestore, doc, deleteDoc, collection, getDoc, setDoc, addDoc, updateDoc, increment, onSnapshot, query, orderBy 
+import {
+  getFirestore, doc, collection, getDoc, setDoc, updateDoc, increment,
+  addDoc, onSnapshot, query, orderBy, serverTimestamp, getDocs, deleteDoc,
+  limit, startAfter
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
-import {serverTimestamp
-} from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -174,195 +174,390 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Ganti ini sesuai halaman
-const pageId = "workload1"; // misal halaman berbeda pakai "workload2", dst.
+/* ------------- PAGE ID (unik per halaman) -------------
+   Bisa ditetapkan lewat window.PAGE_ID, meta tag, atau fallback ke URL filename.
+*/
+const pageId = window.PAGE_ID
+  || document.querySelector('meta[name="workload"]')?.content
+  || (location.pathname.split('/').filter(Boolean).pop() || 'main');
 
-// ===============================
-// 🔧 Firestore References
-// ===============================
-const likeDocRef = doc(db, "post_reactions", pageId);
-const commentsRef = collection(db, "comments", pageId, "list");
+/* ------------- SETTINGS ------------- */
+const pageLikeDoc = doc(db, 'post_reactions', pageId);
+const commentsCollection = collection(db, 'comments', pageId, 'list');
 
-// ===============================
-// 🎯 DOM Elements
-// ===============================
-const komentarList = document.getElementById("comments-list");
-const komentarModal = document.getElementById("cmtAppModal");
-const komentarBtn = document.getElementById("komentar-btn");
-const closeModalBtn = document.getElementById("close-cmtAppModal");
-const kirimBtn = document.getElementById("cmtAppKirim");
-const namaInput = document.getElementById("cmtAppNama");
-const isiInput = document.getElementById("cmtAppIsi");
-const komentarCountSpan = document.getElementById("komentar-count");
-const likeBtn = document.getElementById("like-btn");
-const likeCount = document.getElementById("like-count");
+const pageSize = 6; // komentar per load (awal)
+let lastVisible = null; // untuk pagination
+let isLoadingMore = false;
 
-let replyTo = null; // komentar yang sedang dibalas
+/* ------------- DOM elements (guarded) ------------- */
+const komentarList = document.getElementById('comments-list');
+const komentarModal = document.getElementById('cmtAppModal');
+const komentarBtn = document.getElementById('komentar-btn');
+const closeModalBtn = document.getElementById('close-cmtAppModal');
+const kirimBtn = document.getElementById('cmtAppKirim');
+const namaInput = document.getElementById('cmtAppNama');
+const isiInput = document.getElementById('cmtAppIsi');
+const komentarCountSpan = document.getElementById('komentar-count');
+const likeBtn = document.getElementById('like-btn');
+const likeCount = document.getElementById('like-count');
 
-// ===============================
-// 🧩 Modal Open / Close
-// ===============================
-komentarBtn.addEventListener("click", () => {
-  replyTo = null;
-  document.getElementById("cmtAppModalTitle").innerText = "Tulis Komentar";
-  komentarModal.classList.add("show");
-});
-closeModalBtn.addEventListener("click", () => komentarModal.classList.remove("show"));
-window.addEventListener("click", e => {
-  if (e.target === komentarModal) komentarModal.classList.remove("show");
-});
+const sortingSelect = document.getElementById('comment-sorting'); // optional select element
+const loadMoreBtn = document.getElementById('load-more-comments'); // optional button for load more
+const notifyBadge = document.getElementById('comment-notify-badge'); // optional realtime badge
+const themeToggle = document.getElementById('comment-theme-toggle'); // optional theme toggle
 
-// ===============================
-// ❤️ Like System (Per Halaman)
-// ===============================
-async function initLike() {
-  const snap = await getDoc(likeDocRef);
-  if (!snap.exists()) {
-    await setDoc(likeDocRef, { likes: 0 });
+/* ------------- small guards if elements missing ------------- */
+function el(id) { return document.getElementById(id); }
+function safeAddEvent(elm, ev, cb) { if (elm) elm.addEventListener(ev, cb); }
+
+/* ------------- Utilities ------------- */
+function escapeHtml(s='') {
+  return String(s).replaceAll('&', '&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;')
+    .replaceAll('"','&quot;').replaceAll("'",'&#039;');
+}
+function formatWaktu(ts) {
+  const d = new Date(ts), now = new Date();
+  const diff = Math.floor((now - d) / 1000);
+  if (diff < 60) return "baru saja";
+  if (diff < 3600) return `${Math.floor(diff/60)} menit lalu`;
+  if (diff < 86400) return `${Math.floor(diff/3600)} jam lalu`;
+  if (diff < 604800) return `${Math.floor(diff/86400)} hari lalu`;
+  return d.toLocaleDateString();
+}
+
+/* ------------- Page Like System ------------- */
+async function ensurePageLikeDoc() {
+  const s = await getDoc(pageLikeDoc);
+  if (!s.exists()) {
+    await setDoc(pageLikeDoc, { likes: 0 });
   }
 }
-initLike();
-
-onSnapshot(likeDocRef, (docSnap) => {
-  if (docSnap.exists()) likeCount.textContent = docSnap.data().likes || 0;
-});
-
-likeBtn.addEventListener("click", async () => {
+async function initPageLike() {
   try {
-    await updateDoc(likeDocRef, { likes: increment(1) });
-    likeBtn.classList.add("liked");
-  } catch (err) {
-    console.error("Gagal update like:", err);
-  }
-});
+    await ensurePageLikeDoc();
+    // realtime update
+    onSnapshot(pageLikeDoc, snap => {
+      if (!snap.exists()) return;
+      if (likeCount) likeCount.textContent = snap.data().likes || 0;
+    });
+    safeAddEvent(likeBtn, 'click', async () => {
+      try {
+        await updateDoc(pageLikeDoc, { likes: increment(1) });
+        if (likeBtn) likeBtn.classList.add('liked');
+      } catch(e) { console.error('like page err', e); }
+    });
+  } catch(e) { console.error('initPageLike err', e); }
+}
+initPageLike();
 
-// ===============================
-// 💬 Kirim Komentar / Reply
-// ===============================
-kirimBtn.addEventListener("click", async () => {
-  const nama = namaInput.value.trim();
-  const isi = isiInput.value.trim();
-  if (!nama || !isi) return alert("Nama dan komentar wajib diisi!");
-
-  const avatar = `https://i.pravatar.cc/50?u=${nama}`;
-  const timestamp = Date.now();
-
+/* ------------- Comment rendering helpers ------------- */
+function canLikeCommentLocal(commentId) {
   try {
-    if (replyTo) {
-      const parentId = replyTo.dataset.id;
-      await addDoc(collection(db, "comments", pageId, "list", parentId, "replies"), {
-        nama,
-        isi,
-        avatar,
-        timestamp,
-        likes: 0
-      });
-    } else {
-      await addDoc(commentsRef, {
-        nama,
-        isi,
-        avatar,
-        timestamp,
-        likes: 0
-      });
-    }
+    return !localStorage.getItem(`${pageId}-liked-cmt-${commentId}`);
+  } catch { return true; }
+}
+function markLikedLocal(commentId) {
+  try { localStorage.setItem(`${pageId}-liked-cmt-${commentId}`, '1'); } catch {}
+}
+function unmarkLikedLocal(commentId) {
+  try { localStorage.removeItem(`${pageId}-liked-cmt-${commentId}`); } catch {}
+}
 
-    namaInput.value = "";
-    isiInput.value = "";
-    komentarModal.classList.remove("show");
-    replyTo = null;
-  } catch (err) {
-    console.error("Gagal kirim komentar/reply:", err);
-  }
-});
-
-// ===============================
-// 🧱 Render Komentar + Reply
-// ===============================
+/* Render a comment doc -> container element.
+   This handles: like per comment, reply button, edit, delete, and replies realtime.
+*/
 function renderComment(docSnap, container) {
   const data = docSnap.data();
   const id = docSnap.id;
+  const created = data.timestamp || Date.now();
 
-  const div = document.createElement("div");
-  div.classList.add("cmtApp-comment");
+  const div = document.createElement('div');
+  div.className = 'cmtApp-comment';
   div.dataset.id = id;
-
   div.innerHTML = `
     <div class="cmtApp-comment-header">
-      <img src="${data.avatar}" alt="">
-      <strong>${data.nama}</strong>
+      <img src="${escapeHtml(data.avatar || `https://i.pravatar.cc/50?u=${encodeURIComponent(data.nama||'anon')}`)}" alt="">
+      <strong>${escapeHtml(data.nama || 'Anonymous')}</strong>
     </div>
-    <div class="cmtApp-comment-body">${data.isi}</div>
+    <div class="cmtApp-comment-body">${escapeHtml(data.isi || data.message || '')}</div>
     <div class="cmtApp-comment-footer">
       <div class="cmtApp-comment-actions">
-        <button class="cmtApp-like">👍 ${data.likes || 0}</button>
+        <button class="cmtApp-like">${canLikeCommentLocal(id) ? '👍' : '💖'} ${data.likes || 0}</button>
         <button class="cmtApp-reply">💬 Balas (0)</button>
+        <button class="cmtApp-edit">✏️ Edit</button>
+        <button class="cmtApp-delete">🗑️ Hapus</button>
       </div>
-      <span class="cmtApp-time">${formatWaktu(data.timestamp)}</span>
+      <span class="cmtApp-time">${formatWaktu(created)}</span>
     </div>
     <div class="cmtApp-replies"></div>
   `;
+
   container.appendChild(div);
 
-  const repliesContainer = div.querySelector(".cmtApp-replies");
-  const replyBtn = div.querySelector(".cmtApp-reply");
+  // bind actions
+  const likeBtnLocal = div.querySelector('.cmtApp-like');
+  const replyBtn = div.querySelector('.cmtApp-reply');
+  const editBtn = div.querySelector('.cmtApp-edit');
+  const deleteBtn = div.querySelector('.cmtApp-delete');
+  const repliesContainer = div.querySelector('.cmtApp-replies');
 
-  // 👍 Like per komentar
-  div.querySelector(".cmtApp-like").addEventListener("click", async () => {
-    const docRef = doc(db, "comments", pageId, "list", id);
-    const docSnap = await getDoc(docRef);
-    if (!docSnap.exists()) return;
-    const newLikes = (docSnap.data().likes || 0) + 1;
-    await updateDoc(docRef, { likes: newLikes });
-  });
+  // Like per comment (1x via localStorage)
+  if (likeBtnLocal) {
+    likeBtnLocal.addEventListener('click', async () => {
+      try {
+        if (!canLikeCommentLocal(id)) {
+          // optional: toggle unlike? we keep single like only
+          alert('Kamu sudah memberi like untuk komentar ini.');
+          return;
+        }
+        const docRef = doc(db, 'comments', pageId, 'list', id);
+        await updateDoc(docRef, { likes: increment(1) });
+        markLikedLocal(id);
+        // update UI quickly
+        const current = parseInt(likeBtnLocal.textContent.replace(/\D/g,'')) || 0;
+        likeBtnLocal.textContent = `💖 ${current+1}`;
+      } catch(e) { console.error('like comment err', e); }
+    });
+  }
 
-  // 💬 Balas komentar
-  replyBtn.addEventListener("click", () => {
-    replyTo = div;
-    document.getElementById("cmtAppModalTitle").innerText = "Balas Komentar";
-    komentarModal.classList.add("show");
-    isiInput.focus();
-  });
+  // Reply - open modal and set replyTo
+  if (replyBtn) {
+    replyBtn.addEventListener('click', () => {
+      // set global replyTo element & open modal
+      window.CMT_REPLY_TO = { id, el: div };
+      if (document.getElementById('cmtAppModalTitle'))
+        document.getElementById('cmtAppModalTitle').innerText = `Balas ke ${data.nama}`;
+      if (komentarModal) komentarModal.classList.add('show');
+      if (isiInput) isiInput.focus();
+    });
+  }
 
-  // 🔁 Ambil reply realtime
-  const repliesRef = collection(db, "comments", pageId, "list", id, "replies");
-  const q = query(repliesRef, orderBy("timestamp", "asc"));
-  onSnapshot(q, (snapshot) => {
-    repliesContainer.innerHTML = "";
-    replyBtn.textContent = `💬 Balas (${snapshot.size})`;
-    snapshot.forEach((subDoc) => renderComment(subDoc, repliesContainer));
-    updateTotalComments();
-  });
+  // Edit - confirm name then edit content inline via modal
+  if (editBtn) {
+    editBtn.addEventListener('click', async () => {
+      try {
+        const confirmName = prompt('Konfirmasi edit: ketik nama pemilik komentar:');
+        if (!confirmName) return;
+        if (confirmName.trim() !== (data.nama || '').trim()) {
+          alert('Nama tidak cocok. Edit dibatalkan.');
+          return;
+        }
+        // prompt edit content
+        const newText = prompt('Ubah komentar:', data.isi || '');
+        if (newText === null) return; // cancel
+        const docRef = doc(db, 'comments', pageId, 'list', id);
+        await updateDoc(docRef, { isi: newText });
+        // UI akan update via realtime listener
+      } catch(e) { console.error('edit err', e); }
+    });
+  }
+
+  // Delete - confirm name then delete replies + doc
+  if (deleteBtn) {
+    deleteBtn.addEventListener('click', async () => {
+      try {
+        const confirmName = prompt('Konfirmasi hapus: ketik nama pemilik komentar:');
+        if (!confirmName) return;
+        if (confirmName.trim() !== (data.nama || '').trim()) {
+          alert('Nama tidak cocok. Hapus dibatalkan.');
+          return;
+        }
+        // delete replies first
+        const repliesRef = collection(db, 'comments', pageId, 'list', id, 'replies');
+        const repliesSnap = await getDocs(repliesRef);
+        for (const r of repliesSnap.docs) {
+          await deleteDoc(doc(db, 'comments', pageId, 'list', id, 'replies', r.id));
+        }
+        // delete main comment
+        await deleteDoc(doc(db, 'comments', pageId, 'list', id));
+        // remove local marker if any
+        unmarkLikedLocal(id);
+        // UI remove handled by realtime listener
+      } catch(e) { console.error('delete err', e); alert('Gagal menghapus. Cek console.'); }
+    });
+  }
+
+  // Realtime replies
+  try {
+    const repliesRefRealtime = collection(db, 'comments', pageId, 'list', id, 'replies');
+    const q = query(repliesRefRealtime, orderBy('timestamp','asc'));
+    onSnapshot(q, snap => {
+      repliesContainer.innerHTML = '';
+      replyBtn.textContent = `💬 Balas (${snap.size})`;
+      snap.forEach(subDoc => renderComment(subDoc, repliesContainer));
+    });
+  } catch(e) { console.error('replies realtime err', e); }
 }
 
-// ===============================
-// 🔢 Hitung total komentar
-// ===============================
-function updateTotalComments() {
-  const total = komentarList.querySelectorAll(".cmtApp-comment").length;
+/* ------------- Comments list management ------------- */
+let currentSort = 'newest'; // newest | oldest | popular
+
+function buildQueryForInitial() {
+  if (currentSort === 'popular') {
+    // popular: order by likes desc then timestamp desc
+    return query(commentsCollection, orderBy('likes','desc'), orderBy('timestamp','desc'), limit(pageSize));
+  } else if (currentSort === 'oldest') {
+    return query(commentsCollection, orderBy('timestamp','asc'), limit(pageSize));
+  } else { // newest
+    return query(commentsCollection, orderBy('timestamp','desc'), limit(pageSize));
+  }
+}
+
+/* initial realtime listener for first page (keeps UI realtime for newest pageSize)
+   For pagination we will fetch older docs by getDocs(startAfter)
+*/
+let unsubscribeInitial = null;
+function subscribeInitialComments() {
+  if (!komentarList) return;
+  if (unsubscribeInitial) unsubscribeInitial();
+
+  const q = buildQueryForInitial();
+  unsubscribeInitial = onSnapshot(q, snap => {
+    // realtime notify (new comments)
+    if (notifyBadge) {
+      const prevCount = parseInt(notifyBadge.dataset.count || '0', 10);
+      const newCount = snap.size;
+      if (newCount > prevCount) {
+        notifyBadge.style.display = 'inline-block';
+        notifyBadge.textContent = newCount - prevCount;
+      } else {
+        notifyBadge.style.display = 'none';
+      }
+      notifyBadge.dataset.count = newCount;
+    }
+
+    komentarList.innerHTML = '';
+    snap.forEach(docSnap => renderComment(docSnap, komentarList));
+    // set lastVisible for pagination
+    const docs = snap.docs;
+    lastVisible = docs.length ? docs[docs.length-1] : null;
+    updateCommentCountUI();
+  }, err => console.error('initial comments onSnapshot err', err));
+}
+subscribeInitialComments();
+
+/* Load more older comments (non-realtime fetch) */
+async function loadMoreComments() {
+  if (isLoadingMore) return;
+  if (!lastVisible) {
+    // no more
+    if (loadMoreBtn) loadMoreBtn.style.display = 'none';
+    return;
+  }
+  isLoadingMore = true;
+  try {
+    // build base query for older docs depending on sort
+    let q;
+    if (currentSort === 'oldest') {
+      // when sorting oldest (asc), load next docs after lastVisible by timestamp asc
+      q = query(commentsCollection, orderBy('timestamp','asc'), startAfter(lastVisible), limit(pageSize));
+    } else if (currentSort === 'popular') {
+      q = query(commentsCollection, orderBy('likes','desc'), orderBy('timestamp','desc'), startAfter(lastVisible), limit(pageSize));
+    } else {
+      // newest: load older by timestamp desc startAfter lastVisible
+      q = query(commentsCollection, orderBy('timestamp','desc'), startAfter(lastVisible), limit(pageSize));
+    }
+
+    const snap = await getDocs(q);
+    if (snap.empty) {
+      if (loadMoreBtn) loadMoreBtn.style.display = 'none';
+      lastVisible = null;
+    } else {
+      snap.forEach(docSnap => renderComment(docSnap, komentarList));
+      const docs = snap.docs;
+      lastVisible = docs[docs.length-1];
+    }
+  } catch(e) { console.error('loadMore err', e); }
+  isLoadingMore = false;
+}
+
+/* ------------- Send comment / reply ------------- */
+safeAddEvent(kirimBtn, 'click', async () => {
+  try {
+    const nama = (namaInput?.value || '').trim();
+    const isi = (isiInput?.value || '').trim();
+    if (!nama || !isi) return alert('Nama dan komentar wajib diisi!');
+
+    const avatar = `https://i.pravatar.cc/50?u=${encodeURIComponent(nama)}`;
+    const ts = Date.now();
+
+    // reply?
+    const replyTo = window.CMT_REPLY_TO || null;
+    if (replyTo && replyTo.id) {
+      // add to replies subcollection
+      await addDoc(collection(db, 'comments', pageId, 'list', replyTo.id, 'replies'), {
+        nama, isi, avatar, likes: 0, timestamp: ts
+      });
+      // reset replyTo
+      window.CMT_REPLY_TO = null;
+    } else {
+      // add top-level comment
+      await addDoc(commentsCollection, {
+        nama, isi, avatar, likes: 0, timestamp: ts
+      });
+    }
+
+    // reset modal fields + close
+    if (namaInput) namaInput.value = '';
+    if (isiInput) isiInput.value = '';
+    if (komentarModal) komentarModal.classList.remove('show');
+
+    // optionally scroll to top of comment list for newest sort
+    if (currentSort === 'newest' && komentarList) {
+      komentarList.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  } catch(e) { console.error('kirim err', e); alert('Gagal kirim komentar'); }
+});
+
+/* ------------- Sorting & UI helpers ------------- */
+function updateCommentCountUI() {
+  if (!komentarCountSpan || !komentarList) return;
+  const total = komentarList.querySelectorAll('.cmtApp-comment').length;
   komentarCountSpan.textContent = total;
 }
 
-// ===============================
-// 🕒 Ambil komentar utama realtime
-// ===============================
-const mainQuery = query(commentsRef, orderBy("timestamp", "desc"));
-onSnapshot(mainQuery, (snapshot) => {
-  komentarList.innerHTML = "";
-  snapshot.forEach((docSnap) => renderComment(docSnap, komentarList));
-  updateTotalComments();
+safeAddEvent(sortingSelect, 'change', () => {
+  currentSort = sortingSelect.value || 'newest';
+  // re-subscribe initial comments with new sort
+  subscribeInitialComments();
+  // reset pagination state
+  lastVisible = null;
+  if (loadMoreBtn) loadMoreBtn.style.display = 'inline-block';
 });
 
-// ===============================
-// ⏰ Format waktu
-// ===============================
-function formatWaktu(timestamp) {
-  const d = new Date(timestamp),
-    now = new Date();
-  const diff = Math.floor((now - d) / 1000);
-  if (diff < 60) return "baru saja";
-  if (diff < 3600) return `${Math.floor(diff / 60)} menit lalu`;
-  if (diff < 86400) return `${Math.floor(diff / 3600)} jam lalu`;
-  if (diff < 604800) return `${Math.floor(diff / 86400)} hari lalu`;
-  return d.toLocaleDateString();
+safeAddEvent(loadMoreBtn, 'click', () => loadMoreComments());
+
+/* realtime badge clear when user opens comments or modal */
+safeAddEvent(komentarBtn, 'click', () => {
+  if (notifyBadge) { notifyBadge.style.display = 'none'; notifyBadge.dataset.count = '0'; }
+});
+
+/* theme toggle: just toggle a class on komentarList (or project-container)
+   you should implement CSS for .comment-dark / .comment-light in CSS
+*/
+safeAddEvent(themeToggle, 'click', () => {
+  const container = document.querySelector('.project-container') || komentarList;
+  if (!container) return;
+  container.classList.toggle('comment-dark'); // toggle class for styling
+  container.classList.toggle('comment-light');
+});
+
+/* initialize UI states */
+if (loadMoreBtn) loadMoreBtn.style.display = 'inline-block';
+if (notifyBadge) { notifyBadge.style.display = 'none'; notifyBadge.dataset.count = '0'; }
+if (sortingSelect && sortingSelect.value) currentSort = sortingSelect.value;
+
+/* safety: if komentarList missing, don't run comment subscriptions */
+if (!kometarListExists()) {
+  console.warn('Komponen komentar tidak ditemukan pada halaman ini — fitur komentar tidak aktif.');
+}
+
+/* helper to check */
+function kometarListExists() {
+  return !!komentarList;
+}
+
+/* If komentarList exists, ensure initial subscription (already called above) */
+if (kometarListExists()) {
+  subscribeInitialComments();
 }
