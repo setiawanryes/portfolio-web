@@ -186,7 +186,8 @@ const isiInput = document.getElementById("cmtAppIsi");
 const komentarCountSpan = document.getElementById("komentar-count");
 const likeBtn = document.getElementById("like-btn");
 const likeCount = document.getElementById("like-count");
-const likeDocRef = doc(db, "post_reactions", "main"); // Document global untuk like
+const likeDocRef = doc(db, "post_reactions", pageId);
+const commentsRef = collection(db, "comments", pageId, "list");
 
 // ===============================
 // Modal Open/Close
