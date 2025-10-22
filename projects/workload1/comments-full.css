@@ -1,44 +1,3 @@
-/* ===============================
-   ✏️ TOMBOL EDIT & DELETE KOMENTAR
-=============================== */
-
-.comment-actions {
-  display: flex;
-  gap: 8px;
-  justify-content: flex-end;
-  margin-top: 8px;
-}
-
-.comment-actions button {
-  border: none;
-  border-radius: 6px;
-  padding: 5px 10px;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-/* Tombol Edit */
-.comment-actions .edit-btn {
-  background: #f0f4ff;
-  color: #0056d2;
-  border: 1px solid #c9d8ff;
-}
-
-.comment-actions .edit-btn:hover {
-  background: #e0ebff;
-}
-
-/* Tombol Delete */
-.comment-actions .delete-btn {
-  background: #fff2f2;
-  color: #d80000;
-  border: 1px solid #ffc2c2;
-}
-
-.comment-actions .delete-btn:hover {
-  background: #ffe1e1;
-}
 
 /* ===============================
    💬 KOMENTAR SECTION STYLING
@@ -48,7 +7,7 @@
   background: #f9fafb;
   padding: 20px;
   border-radius: 12px;
-  margin-top: 25px;
+  margin-top: 20px;
   box-shadow: 0 4px 14px rgba(0,0,0,0.08);
   transition: background 0.3s ease;
 }
