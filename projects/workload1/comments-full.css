@@ -82,7 +82,7 @@
   margin-bottom: 15px;
   flex-wrap: wrap;
   gap: 10px;
-}
+
 
 #comments-header h3 {
   font-size: 1.2rem;
@@ -123,7 +123,7 @@
   50% { transform: scale(1.2); opacity: 0.6; }
 }
 
-/* ===== LIST KOMENTAR ===== */
+
 
 /* ===== LOAD MORE BUTTON ===== */
 #load-more-comments {
@@ -143,6 +143,3 @@
 #load-more-comments:hover {
   background: #0056d2;
 }
-
-
-
