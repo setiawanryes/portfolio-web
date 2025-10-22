@@ -115,21 +115,18 @@
 #comments-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
   width: 100%;
   max-width: 800px; /* desktop max width */
   margin: 0 auto;
-  padding: 0 10px; /* spacing for mobile */
+  padding: 0 1px; /* spacing for mobile */
   box-sizing: border-box;
 }
 
 /* ===== SINGLE COMMENT ===== */
 .cmtApp-comment {
-  background: #1b163d; /* dark-glow theme */
-  color: #fff;
   border-radius: 10px;
   padding: 12px 15px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
   word-wrap: break-word;
   transition: transform 0.2s;
 }
@@ -144,6 +141,7 @@
   align-items: center;
   gap: 10px;
   margin-bottom: 6px;
+  font-size: 0.90rem;
 }
 
 .cmtApp-comment-header img {
@@ -151,11 +149,12 @@
   height: 35px;
   border-radius: 50%;
   object-fit: cover;
+  
 }
 
 /* ===== COMMENT BODY ===== */
 .cmtApp-comment-body {
-  font-size: 0.9rem;
+  font-size: 0.90rem;
   line-height: 1.4;
   margin-bottom: 8px;
   word-break: break-word;
@@ -170,13 +169,10 @@
 }
 
 .cmtApp-comment-actions button {
-  padding: 8px 12px;
-  font-size: 0.95rem;
+  font-size: 0.75rem;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  background: #292241;
-  color: #fff;
   transition: 0.2s;
 }
 
@@ -187,7 +183,7 @@
 /* ===== COMMENT TIME ===== */
 .cmtApp-time {
   font-size: 0.75rem;
-  color: #aaa;
+
 }
 
 /* ===== REPLIES ===== */
