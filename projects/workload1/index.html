@@ -48,22 +48,36 @@
     <div class="progress-bar" id="progress-bar"></div>
     <span id="progress-text">0%</span>
   </div>
-  
   <!-- ❤️ dan 💬 -->
-              <div class="like-dislike-container">
-                <button id="like-btn" class="reaction-btn like-theme">❤️</button>
-                <span id="like-count">0</span>
+<div class="like-dislike-container">
+  <button id="like-btn" class="reaction-btn like-theme">❤️</button>
+  <span id="like-count">0</span>
 
-                <button id="komentar-btn" class="reaction-btn komentar-theme">💬</button>
-                <span id="komentar-count">0</span>
-              </div>
-            </div>
+  <button id="komentar-btn" class="reaction-btn komentar-theme">💬</button>
+  <span id="komentar-count">0</span>
+</div>
 
-            <!-- 💬 Daftar Komentar -->
-            <div id="comments-list"></div>
-          </div>
-        </div>
+<!-- 💬 Komentar Lengkap -->
+<section id="comments-section">
+  <div id="comments-header">
+    <h3>Komentar (<span id="komentar-count">0</span>)</h3>
+    <div>
+      <select id="comment-sorting">
+        <option value="newest">Terbaru</option>
+        <option value="oldest">Terlama</option>
+        <option value="popular">Populer</option>
+      </select>
+      <button id="comment-theme-toggle">🌓</button>
+      <span id="comment-notify-badge"></span>
+    </div>
+  </div>
 
+  <div id="comments-list"></div>
+
+  <button id="load-more-comments">Muat Lebih Banyak</button>
+</section>
+
+        
   <!-- KANAN (preview) -->
   <div class="right-column" data-aos="fade-left">
   <div class="project-preview">
