@@ -1,77 +1,211 @@
+/* ===============================
+   ✏️ TOMBOL EDIT & DELETE KOMENTAR
+=============================== */
 
-/* Base button style */
-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-  font-weight: 500;
-  border-radius: 8px;
+.comment-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.comment-actions button {
   border: none;
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 0.85rem;
   cursor: pointer;
   transition: all 0.2s ease;
-  user-select: none;
-  text-align: center;
 }
 
-/* Default colors */
-button.like-btn {
-  background-color: #4f46e5;
-  color: #fff;
+/* Tombol Edit */
+.comment-actions .edit-btn {
+  background: #f0f4ff;
+  color: #0056d2;
+  border: 1px solid #c9d8ff;
 }
 
-button.reply-btn {
-  background-color: #10b981;
-  color: #fff;
+.comment-actions .edit-btn:hover {
+  background: #e0ebff;
 }
 
-button.edit-btn {
-  background-color: #f59e0b;
-  color: #fff;
+/* Tombol Delete */
+.comment-actions .delete-btn {
+  background: #fff2f2;
+  color: #d80000;
+  border: 1px solid #ffc2c2;
 }
 
-button.delete-btn {
-  background-color: #ef4444;
-  color: #fff;
+.comment-actions .delete-btn:hover {
+  background: #ffe1e1;
 }
 
-button.load-more-btn,
-button.read-more-btn {
-  background-color: #3b82f6;
-  color: #fff;
+/* ===== DARK MODE ===== */
+.dark-mode .comment-actions .edit-btn {
+  background: #1a2a48;
+  color: #9cc1ff;
+  border: 1px solid #2f4d7a;
 }
 
-/* Hover effect */
-button:hover {
+.dark-mode .comment-actions .edit-btn:hover {
+  background: #223a63;
+}
+
+.dark-mode .comment-actions .delete-btn {
+  background: #3a1a1a;
+  color: #ff9c9c;
+  border: 1px solid #5a2a2a;
+}
+
+.dark-mode .comment-actions .delete-btn:hover {
+  background: #4a2222;
+}
+
+/* ===============================
+   💬 KOMENTAR SECTION STYLING
+=============================== */
+
+#comments-section {
+  background: #f9fafb;
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 25px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+  transition: background 0.3s ease;
+}
+
+/* ===== HEADER KOMENTAR ===== */
+#comments-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+#comments-header h3 {
+  font-size: 1.2rem;
+  color: #ffffff;
+  margin: 0;
+}
+
+#comments-header select {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#comments-header select:hover {
+  border-color: #007bff;
+}
+
+/* ===== TOMBOL THEME ===== */
+#comment-theme-toggle {
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  margin-left: 8px;
+  transition: transform 0.2s ease;
+}
+
+#comment-theme-toggle:hover {
+  transform: scale(1.1);
+}
+
+/* ===== NOTIFY BADGE ===== */
+#comment-notify-badge {
+  display: inline-block;
+  background: #ff3b30;
+  color: white;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  margin-left: 5px;
+  vertical-align: top;
+  animation: pulse 1.2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.6; }
+}
+
+/* ===== LIST KOMENTAR ===== */
+#comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.comment-item {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 12px 15px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.comment-item:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-/* Active / ditekan */
-button:active {
-  transform: translateY(1px);
-  box-shadow: none;
+.comment-item .comment-name {
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 5px;
 }
 
-/* Disabled state */
-button:disabled {
-  background-color: #a1a1aa;
-  cursor: not-allowed;
-  opacity: 0.8;
+.comment-item .comment-text {
+  font-size: 0.95rem;
+  color: #444;
 }
 
-/* Icon + teks */
-button i {
-  margin-right: 6px;
-  font-size: 1.1em;
+/* ===== LOAD MORE BUTTON ===== */
+#load-more-comments {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  background: #007bff;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
 
-/* Responsive mobile / tablet */
-@media (max-width: 900px) {
-  button {
-    width: 100%;
-    font-size: 1.1rem;
-    padding: 14px 20px;
-  }
+#load-more-comments:hover {
+  background: #0056d2;
 }
+
+/* ===== DARK THEME MODE ===== */
+.dark-mode #comments-section {
+  background: #1c1c1c;
+  color: #e0e0e0;
+}
+
+.dark-mode #comments-header select {
+  background: #333;
+  color: #eee;
+  border: 1px solid #555;
+}
+
+.dark-mode .comment-item {
+  background: #2a2a2a;
+  color: #e0e0e0;
+}
+
+.dark-mode #load-more-comments {
+  background: #2e7dff;
+}
+
 

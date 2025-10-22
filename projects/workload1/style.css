@@ -161,7 +161,7 @@ body {
 .project-buttons .btn.live {
   background: linear-gradient(90deg, #7c6aff, #9f88ff);
   size: 12px;
-  margin-right: 20px;
+  margin-right: 5px;
 }
 
 .project-buttons .btn:hover {
@@ -574,7 +574,7 @@ body {
 /* Progres Balok */
 .progress-bar-container {
   position: relative;
-  width: 120px;
+  width: 90px;
   height: 20px;
   background: #ccc;
   border-radius: 10px;
@@ -583,7 +583,7 @@ body {
 
 .progress-bar {
   height: 100%;
-  width: 0%;
+  width: 10%;
   background: linear-gradient(90deg, red, yellow, green);
   transition: width 0.5s;
 }
@@ -628,7 +628,7 @@ body {
 
 #like-count,
 #dislike-count {
-  font-size: 16px;
+  font-size: 14px;
   margin-right: 8px;
   color: #f9f4f4;
 }
@@ -732,7 +732,7 @@ body {
 .cmtApp-container #cmtApp-likeCount,
 .cmtApp-container #cmtApp-komentarCount {
   margin-right: 10px;
-  font-size: 16px;
+  font-size: 14px;
   color: #ddd;
 }
 
@@ -1073,11 +1073,11 @@ body {
   }
 
   #progress-text {
-    font-size: 10px;
+    font-size: 14px;
   }
 
   .reaction-btn {
-    font-size: 20px;
+    font-size: 14px;
   }
 }
 
