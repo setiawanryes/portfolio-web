@@ -141,7 +141,7 @@ function setProgress(percent) {
 }
 
 // Contoh: progres 75%
-setProgress(15);
+setProgress(100);
 
 /* ===============================
    FITUR KOMENTAR LANJUTAN
