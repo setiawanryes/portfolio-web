@@ -82,7 +82,7 @@
   margin-bottom: 15px;
   flex-wrap: wrap;
   gap: 10px;
-
+}
 
 #comments-header h3 {
   font-size: 1.2rem;
@@ -143,3 +143,6 @@
 #load-more-comments:hover {
   background: #0056d2;
 }
+
+
+
