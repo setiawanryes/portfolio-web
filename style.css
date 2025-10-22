@@ -1153,25 +1153,69 @@ body.loaded .page-transition {
 /* ---- Dark Glow Project Progress Stars ---- */
 .project-progress-stars {
   display: flex;
-  gap: 6px;
+  gap: 8px;
   justify-content: center;
   align-items: center;
   padding: 8px 0;
+  cursor: default;
 }
 
 .project-progress-stars i {
-  font-size: 1.5rem;
-  color: #444; /* warna bintang belum selesai */
+  font-size: 1rem;
+  color: #444; /* bintang belum selesai */
   text-shadow: 0 0 4px #222, 0 0 8px #111;
   transition: color 0.3s, transform 0.2s, text-shadow 0.3s;
 }
 
 .project-progress-stars i.completed {
-  color: #facc15; /* warna bintang selesai */
-  text-shadow: 0 0 4px #facc1588, 0 0 8px #facc1544;
+  color: #facc15; /* bintang selesai */
+  text-shadow: 0 0 6px #facc1588, 0 0 12px #facc1544;
 }
 
+/* Hover effect */
 .project-progress-stars i:hover {
-  transform: scale(1.3);
-  text-shadow: 0 0 8px #facc15cc, 0 0 15px #facc15dd;
+  transform: scale(1.4);
+  text-shadow: 0 0 10px #facc15cc, 0 0 18px #facc15dd;
+}
+
+/* Tooltip style */
+.project-progress-stars[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  background: #111;
+  color: #facc15;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  top: -32px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.2s;
+}
+
+.project-footer {
+  display: flex;
+  align-items: center; /* sejajar vertikal */
+  justify-content: space-between; /* bintang kiri, tombol kanan */
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.project-footer .project-progress-stars {
+  margin: 0; /* hapus margin default */
+}
+
+.project-footer .details {
+  padding: 6px 14px;
+  background: #facc15; /* warna tombol sesuai tema */
+  color: #111;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.project-footer .details:hover {
+  background: #eab308;
 }
