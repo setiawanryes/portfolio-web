@@ -1,6 +1,6 @@
-/* ==========================
+/* ===================================================
    🌌 GLOBAL RESET & BASE
-========================== */
+=================================================== */
 * {
   margin: 0;
   padding: 0;
@@ -13,17 +13,18 @@ body {
   color: #e5e5ff;
   overflow-x: hidden;
   line-height: 1.6;
+  scroll-behavior: smooth;
 }
 
-/* ==========================
+/* ===================================================
    📦 PROJECT DETAIL WRAPPER
-========================== */
+=================================================== */
 .project-detail {
-  padding: 100px 8%;
+  padding: 80px 6%;
   min-height: 100vh;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: flex-start;
 }
 
 .project-container {
@@ -32,25 +33,26 @@ body {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
-  padding: 60px;
+  padding: 50px;
   box-shadow: 0 0 40px rgba(138, 110, 255, 0.15);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
   transition: 0.4s ease;
 }
 
 .project-container:hover {
-  box-shadow: 0 0 55px rgba(138, 110, 255, 0.3);
+  box-shadow: 0 0 60px rgba(138, 110, 255, 0.25);
 }
 
 .project-section {
   display: flex;
-  gap: 40px;
+  gap: 50px;
   flex-wrap: wrap;
   align-items: flex-start;
 }
-/* ==========================
+
+/* ===================================================
    🧭 NAVIGATION
-========================== */
+=================================================== */
 .back-nav {
   display: flex;
   align-items: center;
@@ -58,6 +60,7 @@ body {
   color: #aaaaff;
   margin-bottom: 40px;
   flex-wrap: wrap;
+  gap: 10px;
 }
 
 .back-nav .back-btn {
@@ -71,9 +74,9 @@ body {
   text-shadow: 0 0 10px #8a7cff;
 }
 
-/* ==========================
+/* ===================================================
    🧱 MAIN LAYOUT (2 COLUMN)
-========================== */
+=================================================== */
 .project-layout {
   display: flex;
   justify-content: space-between;
@@ -82,59 +85,49 @@ body {
   flex-wrap: wrap;
 }
 
-.left-column {
-  flex: 1;
-  min-width: 350px;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-
+.left-column,
 .right-column {
-  flex: 1;
-  min-width: 350px;
+  flex: 1 1 45%;
+  min-width: 320px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 30px;
 }
 
-/* ==========================
+/* ===================================================
    📘 PROJECT INFO
-========================== */
+=================================================== */
 .project-info h1 {
-  font-size: 2.6rem;
+  font-size: 2.4rem;
   color: #fff;
   text-shadow: 0 0 15px rgba(108, 80, 255, 0.8);
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 .project-info p {
   color: #b8baf2;
   font-size: 1rem;
-  margin-bottom: 30px;
-  text-shadow: 0 0 4px rgba(138, 110, 255, 0.3);
+  margin-bottom: 20px;
   text-align: justify;
 }
 
-/* ==========================
+/* ===================================================
    📊 PROJECT STATS
-========================== */
+=================================================== */
 .project-stats {
   display: flex;
-  gap: 15px;
+  gap: 10px;
   flex-wrap: wrap;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 
 .stat {
   background: rgba(255, 255, 255, 0.08);
   border-radius: 10px;
-  padding: 8px 15px;
-  font-size: 0.9rem;
+  padding: 8px 14px;
+  font-size: 0.85rem;
   color: #a7a4ff;
   transition: all 0.3s ease;
-  text-align: justify;
 }
 
 .stat:hover {
@@ -142,9 +135,9 @@ body {
   transform: translateY(-2px);
 }
 
-/* ==========================
+/* ===================================================
    🔘 BUTTONS
-========================== */
+=================================================== */
 .project-buttons {
   display: flex;
   gap: 15px;
@@ -176,15 +169,13 @@ body {
   box-shadow: 0 0 15px #9f88ff;
 }
 
-
-
-/* ==========================
+/* ===================================================
    🎨 PROJECT PREVIEW (SLIDER)
-========================== */
+=================================================== */
 .project-preview {
   width: 100%;
-  max-width: 420px;
-  aspect-ratio: 16 / 9; /* tetap proporsional di semua layar */
+  max-width: 500px;
+  aspect-ratio: 16/9;
   position: relative;
   overflow: hidden;
   border-radius: 20px;
@@ -205,13 +196,12 @@ body {
 .slide-project img {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* 🔹 biar gambar utuh, gak kepotong */
-  background-color: #0a0c1b; /* warna latar belakang agar rapi */
+  object-fit: contain;
+  background-color: #0a0c1b;
   flex-shrink: 0;
   border-radius: 20px;
 }
 
-/* Controls */
 .slide-controls {
   position: absolute;
   top: 50%;
@@ -219,13 +209,14 @@ body {
   display: flex;
   justify-content: space-between;
   transform: translateY(-50%);
+  padding: 0 10px;
 }
 
 .slide-controls button {
   background: rgba(0, 0, 0, 0.5);
   border: none;
   color: #fff;
-  font-size: 20px;
+  font-size: 22px;
   cursor: pointer;
   padding: 10px 14px;
   border-radius: 50%;
@@ -237,15 +228,14 @@ body {
   box-shadow: 0 0 12px rgba(138, 110, 255, 0.6);
 }
 
-/* ==========================
+/* ===================================================
    ⭐ FEATURES
-========================== */
+=================================================== */
 .key-features {
   width: 100%;
   background: #10142f;
-  padding: 40px;
+  padding: 30px;
   border-radius: 20px;
-  max-width: 720px;
   text-align: left;
   box-shadow: 0 0 25px rgba(100, 100, 255, 0.15);
   transition: background 0.3s ease, transform 0.3s ease;
@@ -258,22 +248,20 @@ body {
 
 .key-features h2 {
   color: #b7c5ff;
-  margin-bottom: 20px;
-  text-shadow: 0 0 8px rgba(110, 90, 255, 0.3);
-  font-size: 18px;
+  margin-bottom: 15px;
+  font-size: 1.1rem;
 }
 
 .key-features ul {
   list-style: none;
-  padding: 0;
 }
 
 .key-features li {
   margin-bottom: 12px;
   color: #9aa2d3;
-  padding-left: 28px;
+  padding-left: 25px;
   position: relative;
-  font-size: 14px;
+  font-size: 0.9rem;
 }
 
 .key-features li::before {
@@ -283,600 +271,97 @@ body {
   color: #ffd700;
 }
 
-/* ==========================
-   📱 RESPONSIVE
-========================== */
-@media (max-width: 900px) {
-  .project-layout {
-    flex-direction: column;
-    align-items: center;
-    gap: 40px;
-  }
-
-  .left-column,
-  .right-column {
-    width: 100%;
-    align-items: center;
-  }
-
-  .project-preview,
-  .features {
-    max-width: 100%;
-  }
-}
-
-
-/* ==========================
-   🎞️ SLIDESHOW PREVIEW
-========================== */
-.project-preview {
-  position: relative;
-  width: 100%;
-  max-width: 420px;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 0 25px rgba(100, 100, 255, 0.25);
-  background: radial-gradient(circle at top left, #1b1f3a, #0a0c1b 70%);
-}
-
-.slide-project {
-  display: flex;
-  width: 300%;
-  transition: transform 0.6s ease-in-out;
-}
-
-.slide-project img {
-  width: 100%;
-  border-radius: 20px;
-  object-fit: cover;
-}
-
-/* Navigasi tombol slide */
-.slide-controls {
-  position: absolute;
-  top: 50%;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  transform: translateY(-50%);
-  padding: 0 10px;
-}
-
-.slide-controls button {
-  background: rgba(0, 0, 0, 0.4);
-  color: #fff;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 1.2rem;
-  transition: all 0.3s ease;
-}
-
-.slide-controls button:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: scale(1.1);
-}
-
-.project-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 40px;
-  flex-wrap: wrap;
-  margin-bottom: 60px;
-}
-
-/* Row bawah: Tech stack & features */
-.project-bottom {
-  display: flex;
-  justify-content: space-between;
-  gap: 40px;
-  flex-wrap: wrap;
-}
-
-
-.features {
-  flex: 1;
-  min-width: 280px;
-  background: rgba(255, 255, 255, 0.03);
-  padding: 20px;
-  border-radius: 16px;
-  box-shadow: 0 0 12px rgba(100, 100, 255, 0.15);
-}
-
-
-.features h2 {
-  margin-bottom: 12px;
-  color: #9da8ff;
-}
-
-
-.left-column {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.divider {
-  border: none;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.2);
-  margin: 15px 0;
-}
-
-
-/* Modal utama */
-.modal {
-  position: fixed;
-  top: 50%; 
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90%;
-  max-width: 1800px;
-  aspect-ratio: 16 / 9;
-  border-radius: 30px;
-  box-shadow: 0 0 25px rgba(100, 100, 255, 0.25);
-  background: radial-gradient(circle at top left, #1b1f3a, #0a0c1b 70%);
-  display: none; /* default hidden */
-  overflow: hidden;
-  z-index: 999;
-  align-items: center;
-  justify-content: center;
-  animation: fadeIn 0.3s ease-in-out;
-}
-
-/* Animasi fade in */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translate(-50%, -48%); }
-  to { opacity: 1; transform: translate(-50%, -50%); }
-}
-
-/* Gambar menyesuaikan modal */
-.modal-content {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  cursor: grab;
-  user-select: none;
-  pointer-events: auto;
-  z-index: 999;
-}
-
-/* Tombol close */
-.close {
-  position: absolute;
-  top: 20px;
-  right: 35px;
-  font-size: 40px;
-  font-weight: bold;
-  color: #fff;
-  cursor: pointer;
-  transition: color 0.3s;
-  pointer-events: auto;
-  z-index: 1001;
-}
-
-.close:hover {
-  color: #bbb;
-}
-
-/* Kontrol navigasi */
-.modal-controls {
-  position: absolute;
-  top: 50%;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  transform: translateY(-50%);
-  z-index: 1000;
-}
-
-.modal-controls button {
-  pointer-events: all;
-  background: rgba(0,0,0,0.3);
-  border: none;
-  font-size: 50px;
-  color: #fff;
-  cursor: pointer;
-  border-radius: 50%;
-  width: 80px;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.3s, color 0.3s;
-}
-
-.modal-controls button:hover {
-  background: rgba(255,255,255,0.2);
-  color: #00f;
-}
-
-.mini-modal {
-  display: none; /* default hidden */
-  position: absolute; /* relatif terhadap window / parent */
-  width: 350px;
-  max-width: 90%;
-  padding: 15px 20px;
-  background: linear-gradient(90deg, #7c6aff, #9f88ff);
-  border-radius: 15px;
-  box-shadow: 0 0 25px rgba(100, 100, 255, 0.3);
-  color: #fff;
-  z-index: 1000;
-  font-size: 14px;
-  line-height: 1.5;
-  text-align: justify; /* teks rata kanan kiri */
-  pointer-events: none; /* biar hover tetap smooth */
-  transition: opacity 0.3s, transform 0.3s;
-  opacity: 0;
-  transform: translateY(-10px) scale(0.95);
-}
-
-/* muncul animasi */
-.mini-modal.show {
-  display: block;
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.project-buttons {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-/* Tombol Preview */
-.btn {
-  padding: 8px 16px;
-  border-radius: 5px;
-  text-decoration: none;
-  color: white;
-}
-.live { background-color: #4caf50; }
-
-.corner-widgets {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 12px;
-  border-radius: 12px;
-  background: rgba(0,0,0,0.2);
-}
-
-/* Progres Balok */
-.progress-bar-container {
-  position: relative;
-  width: 120px;
-  height: 20px;
-  background: #ccc;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.progress-bar {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, red, yellow, green);
-  transition: width 0.5s;
-}
-
-#progress-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 12px;
-  color: #fff;
-}
-
-.like-dislike-container {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.reaction-btn {
-  font-size: 24px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-.reaction-btn:active {
-  transform: scale(1.3);
-}
-
-/* Warna tema */
-.like-theme {
-  color: #4caf50; /* ganti sesuai tema utama */
-}
-.dislike-theme {
-  color: #f44336; /* ganti sesuai tema sekunder */
-}
-
-#like-count, #dislike-count {
-  font-size: 16px;
-  margin-right: 8px;
-  color: #f9f4f4;
-}
-
-/* Gap antar elemen */
-.project-buttons a.btn.live {
-  margin-right: 50px; /* Preview → Progress Bar */
-}
-
-.comment-modal {
-  display: none;
-  position: fixed;
-  top:0; left:0;
-  width:100%; height:100%;
-  background: rgba(0,0,0,0.5);
-  justify-content: center;
-  align-items: center;
-  z-index: 1000; /* pastikan di atas modal lain */
-}
-
-.comment-modal .modal-content {
-  background:white;
-  padding:20px;
-  border-radius:10px;
-  width:90%;
-  max-width:400px;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-.comment-modal .close {
-  align-self:flex-end;
-  cursor:pointer;
-  font-size:20px;
-}
-
-/* ===========================
-   💬 KOMENTAR APP - Aman
-=========================== */
-/* ===========================
-   💬 KOMENTAR APP - Aman (Enhanced)
-=========================== */
-
+/* ===================================================
+   💬 COMMENT AREA
+=================================================== */
 .cmtApp-container {
-  margin-top: 20px;
+  margin-top: 30px;
   color: #fff;
-  font-family: Arial, sans-serif;
+  font-family: "Poppins", sans-serif;
+  width: 100%;
 }
 
-/* Tombol Like & Komentar */
-.cmtApp-container .reaction-btn {
-  font-size: 24px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.2s, color 0.2s;
-  color: #7c6aff;
-}
-
-.cmtApp-container .reaction-btn:active {
-  transform: scale(1.2);
-}
-
-.cmtApp-container #cmtApp-likeCount,
-.cmtApp-container #cmtApp-komentarCount {
-  margin-right: 10px;
-  font-size: 16px;
-  color: #ddd;
-}
-
-/* ===== Komentar utama ===== */
 .cmtApp-comment {
   background: #1b1b2f;
-  border-radius: 12px;
+  border-radius: 10px;
   padding: 10px 12px;
-  margin-bottom: 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
-  color: #eee;
-  position: relative;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 0.3s forwards;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.5);
 }
 
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
+/* ===================================================
+   📱 RESPONSIVE DESIGN
+=================================================== */
+@media (max-width: 1024px) {
+  .project-container {
+    padding: 40px 35px;
+  }
+
+  .project-layout {
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .project-preview {
+    max-width: 90%;
+  }
+
+  .left-column, .right-column {
+    align-items: center;
+  }
+
+  .project-info h1 {
+    text-align: center;
   }
 }
 
-.cmtApp-comment-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 6px;
+@media (max-width: 700px) {
+  .project-container {
+    padding: 30px 20px;
+  }
+
+  .project-info h1 {
+    font-size: 1.8rem;
+  }
+
+  .project-info p {
+    font-size: 0.95rem;
+  }
+
+  .stat {
+    font-size: 0.8rem;
+  }
+
+  .btn {
+    font-size: 0.85rem;
+    padding: 8px 16px;
+  }
+
+  .key-features {
+    padding: 25px;
+  }
 }
 
-.cmtApp-comment-header img {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 1px solid #555;
+@media (max-width: 480px) {
+  .project-detail {
+    padding: 60px 5%;
+  }
+
+  .project-info h1 {
+    font-size: 1.5rem;
+  }
+
+  .project-info p {
+    text-align: left;
+  }
+
+  .key-features li {
+    font-size: 0.85rem;
+  }
+
+  .slide-controls button {
+    font-size: 18px;
+    padding: 8px 10px;
+  }
 }
-
-.cmtApp-comment-body {
-  margin-bottom: 6px;
-  font-size: 14px;
-  line-height: 1.4;
-  color: #ddd;
-}
-
-.cmtApp-comment-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 12px;
-  color: #aaa;
-}
-
-.cmtApp-comment-actions button {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  font-size: 14px;
-  margin-right: 8px;
-  transition: transform 0.2s, color 0.2s;
-  color: #ccc;
-}
-
-.cmtApp-comment-actions button:hover {
-  transform: scale(1.1);
-  color: #ff6b6b;
-}
-
-.cmtApp-like.liked {
-  color: #ff6b6b;
-}
-
-/* Reply / Subkomentar */
-.cmtApp-replies {
-  margin-left: 40px;
-  margin-top: 8px;
-  border-left: 2px solid #333;
-  padding-left: 10px;
-}
-
-.cmtApp-replies .cmtApp-comment {
-  opacity: 0;
-  transform: translateX(-20px);
-  animation: slideIn 0.3s forwards;
-}
-
-@keyframes slideIn {
-  to { opacity: 1; transform: translateX(0); }
-}
-
-.cmtApp-time { font-size: 11px; color: #888; }
-
-/* ===== Modal ===== */
-.cmtApp-modal {
-  display: none;
-  position: fixed;
-  top:0; left:0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.7);
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.cmtApp-modal.show {
-  display: flex;
-  opacity: 1;
-}
-
-.cmtApp-modal-content {
-  background: #2b2b42;
-  border-radius: 12px;
-  padding: 15px 20px;
-  width: 90%;
-  max-width: 360px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  color: #eee;
-  position: relative;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-  transform: translateY(-20px);
-  transition: transform 0.3s ease;
-}
-
-.cmtApp-modal.show .cmtApp-modal-content {
-  transform: translateY(0);
-}
-
-.cmtApp-modal-content input,
-.cmtApp-modal-content textarea {
-  width: 100%;
-  padding: 8px 10px;
-  border-radius: 8px;
-  border: 1px solid #555;
-  font-size: 14px;
-  outline: none;
-  background: #1f1f35;
-  color: #eee;
-}
-
-.cmtApp-modal-content input:focus,
-.cmtApp-modal-content textarea:focus {
-  border-color: #3f72af;
-}
-
-#cmtAppKirim {
-  background: #3f72af;
-  color: #fff;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background 0.2s;
-}
-
-#cmtAppKirim:hover {
-  background: #2c5282;
-}
-
-.cmtApp-close {
-  position: absolute;
-  top: 8px; right: 12px;
-  font-size: 20px;
-  cursor: pointer;
-  color: #eee;
-  transition: color 0.2s;
-}
-
-.cmtApp-close:hover {
-  color: #ff6b6b;
-}
-
-#cmtAppModalTitle {
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 5px;
-}
-
-/* Scrollable comment list */
-#comments-list {
-  max-height: 360px;
-  overflow-y: auto;
-  padding-right: 5px;
-  margin-top: 15px;
-}
-
-/* Custom scrollbar */
-#comments-list::-webkit-scrollbar {
-  width: 8px;
-}
-
-#comments-list::-webkit-scrollbar-track {
-  background: #1b1b2f;
-  border-radius: 4px;
-}
-
-#comments-list::-webkit-scrollbar-thumb {
-  background: #3f72af;
-  border-radius: 4px;
-}
-
-#comments-list::-webkit-scrollbar-thumb:hover {
-  background: #2c5282;
-}
-
