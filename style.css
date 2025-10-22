@@ -1150,3 +1150,34 @@ body.loaded .page-transition {
   align-items: center;
 }
 
+/* ---- Dark Glow “Done” Star ---- */
+.project-done {
+  display: inline-block;
+  background: #1b163d; /* sesuai dark-glow bg */
+  padding: 10px;
+  border-radius: 50%;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 0 0 8px #facc15aa, 0 0 15px #facc15bb;
+  transition: transform 0.2s, box-shadow 0.3s;
+}
+
+.project-done i {
+  color: #facc15; /* kuning bintang */
+  font-size: 1rem;
+}
+
+.project-done:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 12px #facc15cc, 0 0 20px #facc15dd;
+}
+
+.demo i {
+  color: #facc15; /* kuning gold */
+  font-size: 1.2rem;
+}
+.demo:hover i {
+  color: #fcd34d; /* sedikit lebih terang saat hover */
+  transform: scale(1.2);
+  transition: 0.2s;
+}
