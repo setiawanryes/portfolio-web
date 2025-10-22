@@ -265,12 +265,13 @@ body {
   font-size: 14px;
 }
 
-.key-features li::before {
-  content: "";
+.key-features li ::before {
+  content: "📝";
   position: absolute;
   left: 0;
   color: #ffd700;
 }
+
 
 /* ==========================
    📱 RESPONSIVE
