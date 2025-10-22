@@ -768,22 +768,6 @@ input:focus, textarea:focus {
   line-height: 1.5;
 }
 
-.card-links {
-  display: flex;
-  justify-content: space-between;
-}
-
-.card-links a {
-  color: #8da4ff;
-  text-decoration: none;
-  font-size: 0.9rem;
-  transition: 0.3s;
-}
-
-.card-links a:hover {
-  color: #b49aff;
-}
-
 /* RESPONSIVE */
 @media (max-width: 768px) {
   .portfolio-tabs {
@@ -1208,14 +1192,13 @@ body.loaded .page-transition {
 
 .project-footer .details {
   padding: 6px 14px;
-  background: #facc15; /* warna tombol sesuai tema */
-  color: #111;
+  color: #8da4ff;
   border-radius: 6px;
   text-decoration: none;
   font-weight: 600;
   transition: background 0.2s;
 }
 
-.project-footer .details:hover {
-  background: #eab308;
+.project-footer a:hover {
+  color: #b49aff;
 }
