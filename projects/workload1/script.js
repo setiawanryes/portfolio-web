@@ -185,7 +185,7 @@ const pageId = window.PAGE_ID
 const pageLikeDoc = doc(db, 'post_reactions', pageId);
 const commentsCollection = collection(db, 'comments', pageId, 'list');
 
-const pageSize = 6;
+const pageSize = 3;
 let lastVisible = null;
 let isLoadingMore = false;
 let currentSort = 'newest';
