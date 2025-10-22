@@ -880,3 +880,181 @@ body {
   background: #2c5282;
 }
 
+/* ==========================
+   📱 RESPONSIVE OPTIMIZATION
+========================== */
+
+/* Tablet & Laptop Medium */
+@media (max-width: 1024px) {
+  .project-detail {
+    padding: 80px 5%;
+  }
+
+  .project-container {
+    padding: 40px;
+  }
+
+  .project-info h1 {
+    font-size: 2.2rem;
+  }
+
+  .project-info p {
+    font-size: 0.95rem;
+  }
+
+  .key-features {
+    padding: 30px;
+  }
+}
+
+/* Mobile (Horizontal & Medium) */
+@media (max-width: 768px) {
+  .project-layout {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .left-column,
+  .right-column {
+    min-width: 100%;
+    align-items: center;
+    text-align: center;
+  }
+
+  .project-info h1 {
+    font-size: 2rem;
+  }
+
+  .project-info p {
+    font-size: 0.9rem;
+    text-align: justify;
+  }
+
+  .project-stats {
+    justify-content: center;
+  }
+
+  .project-buttons {
+    justify-content: center;
+  }
+
+  .project-preview {
+    max-width: 100%;
+  }
+
+  .key-features {
+    max-width: 100%;
+    padding: 25px;
+  }
+
+  .key-features h2 {
+    font-size: 16px;
+  }
+
+  .key-features li {
+    font-size: 13px;
+  }
+
+  /* Modal */
+  .modal {
+    width: 95%;
+    max-width: none;
+    aspect-ratio: auto;
+    height: 80vh;
+    border-radius: 16px;
+  }
+
+  .modal-controls button {
+    width: 50px;
+    height: 50px;
+    font-size: 30px;
+  }
+
+  .close {
+    font-size: 30px;
+    right: 20px;
+  }
+
+  /* Comment modal */
+  .cmtApp-modal-content {
+    width: 95%;
+    padding: 12px 15px;
+  }
+
+  #comments-list {
+    max-height: 280px;
+  }
+
+  /* Corner widgets (progress & reactions) */
+  .corner-widgets {
+    bottom: 15px;
+    right: 15px;
+    flex-direction: column;
+    gap: 8px;
+    background: rgba(0,0,0,0.3);
+  }
+
+  .progress-bar-container {
+    width: 100px;
+    height: 16px;
+  }
+
+  #progress-text {
+    font-size: 10px;
+  }
+
+  .reaction-btn {
+    font-size: 20px;
+  }
+}
+
+/* Small Mobile (≤480px) */
+@media (max-width: 480px) {
+  body {
+    line-height: 1.4;
+  }
+
+  .project-container {
+    padding: 25px;
+    border-radius: 16px;
+  }
+
+  .project-info h1 {
+    font-size: 1.7rem;
+  }
+
+  .project-info p {
+    font-size: 0.85rem;
+  }
+
+  .project-buttons .btn {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
+
+  .stat {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
+
+  .key-features {
+    padding: 20px;
+  }
+
+  .key-features li {
+    padding-left: 24px;
+  }
+
+  .mini-modal {
+    width: 85%;
+    font-size: 13px;
+  }
+
+  .cmtApp-comment {
+    padding: 8px 10px;
+  }
+
+  .cmtApp-comment-body {
+    font-size: 13px;
+  }
+}
