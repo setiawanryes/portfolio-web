@@ -667,6 +667,15 @@ body {
 }
 
 /* ===== HEADER KOMENTAR ===== */
+.custom-line {
+  height: 2px;
+  background: linear-gradient(to right,#2c5282,#050414);
+  width: 100%;
+  border-radius :4px;
+  margin-top: 20px;
+}
+
+/* ===== HEADER KOMENTAR ===== */
 #comments-header {
   display: flex;
   justify-content: space-between;
