@@ -168,14 +168,24 @@ const firebaseConfig = {
   measurementId: "G-4R3C18RXW0"
 };
 
-// Init Firebase
+// ===============================
+// 🔥 Firebase Init
+// ===============================
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-const pageId = "workload1";
 
-let replyTo = null; // komentar yang sedang dibalas
+// Ganti ini sesuai halaman
+const pageId = "workload1"; // misal halaman berbeda pakai "workload2", dst.
 
-// === DOM Elements ===
+// ===============================
+// 🔧 Firestore References
+// ===============================
+const likeDocRef = doc(db, "post_reactions", pageId);
+const commentsRef = collection(db, "comments", pageId, "list");
+
+// ===============================
+// 🎯 DOM Elements
+// ===============================
 const komentarList = document.getElementById("comments-list");
 const komentarModal = document.getElementById("cmtAppModal");
 const komentarBtn = document.getElementById("komentar-btn");
@@ -186,11 +196,11 @@ const isiInput = document.getElementById("cmtAppIsi");
 const komentarCountSpan = document.getElementById("komentar-count");
 const likeBtn = document.getElementById("like-btn");
 const likeCount = document.getElementById("like-count");
-const likeDocRef = doc(db, "post_reactions", pageId);
-const commentsRef = collection(db, "comments", pageId, "list");
+
+let replyTo = null; // komentar yang sedang dibalas
 
 // ===============================
-// Modal Open/Close
+// 🧩 Modal Open / Close
 // ===============================
 komentarBtn.addEventListener("click", () => {
   replyTo = null;
@@ -203,26 +213,20 @@ window.addEventListener("click", e => {
 });
 
 // ===============================
-// Fetch & realtime Like Global
+// ❤️ Like System (Per Halaman)
 // ===============================
-// Buat dokumen Like Global jika belum ada
 async function initLike() {
   const snap = await getDoc(likeDocRef);
-  if(!snap.exists()) {
+  if (!snap.exists()) {
     await setDoc(likeDocRef, { likes: 0 });
-    console.log("Dokumen Like Global dibuat");
   }
 }
-
-// Panggil saat halaman dimuat
 initLike();
 
-// Realtime listener Like Global
-onSnapshot(likeDocRef, docSnap => {
-  if(docSnap.exists()) likeCount.textContent = docSnap.data().likes || 0;
+onSnapshot(likeDocRef, (docSnap) => {
+  if (docSnap.exists()) likeCount.textContent = docSnap.data().likes || 0;
 });
 
-/// Klik tombol Like Global
 likeBtn.addEventListener("click", async () => {
   try {
     await updateDoc(likeDocRef, { likes: increment(1) });
@@ -232,39 +236,48 @@ likeBtn.addEventListener("click", async () => {
   }
 });
 
-
 // ===============================
-// Kirim komentar / reply
+// 💬 Kirim Komentar / Reply
 // ===============================
 kirimBtn.addEventListener("click", async () => {
   const nama = namaInput.value.trim();
   const isi = isiInput.value.trim();
-  if(!nama || !isi) return alert("Nama dan komentar wajib diisi!");
+  if (!nama || !isi) return alert("Nama dan komentar wajib diisi!");
 
   const avatar = `https://i.pravatar.cc/50?u=${nama}`;
   const timestamp = Date.now();
 
   try {
-    if(replyTo) {
-      // reply ke subcollection 'replies'
-      await addDoc(collection(db, "comments", replyTo.dataset.id, "replies"), {
-        nama, isi, avatar, timestamp, likes: 0
+    if (replyTo) {
+      const parentId = replyTo.dataset.id;
+      await addDoc(collection(db, "comments", pageId, "list", parentId, "replies"), {
+        nama,
+        isi,
+        avatar,
+        timestamp,
+        likes: 0
       });
     } else {
-      // komentar utama
-      await addDoc(collection(db, "comments"), { nama, isi, avatar, timestamp, likes: 0 });
+      await addDoc(commentsRef, {
+        nama,
+        isi,
+        avatar,
+        timestamp,
+        likes: 0
+      });
     }
 
     namaInput.value = "";
     isiInput.value = "";
     komentarModal.classList.remove("show");
     replyTo = null;
-
-  } catch(err) { console.error("Gagal kirim komentar/reply:", err); }
+  } catch (err) {
+    console.error("Gagal kirim komentar/reply:", err);
+  }
 });
 
 // ===============================
-// Render komentar + nested reply
+// 🧱 Render Komentar + Reply
 // ===============================
 function renderComment(docSnap, container) {
   const data = docSnap.data();
@@ -273,7 +286,6 @@ function renderComment(docSnap, container) {
   const div = document.createElement("div");
   div.classList.add("cmtApp-comment");
   div.dataset.id = id;
-  div.dataset.replyCount = 0;
 
   div.innerHTML = `
     <div class="cmtApp-comment-header">
@@ -290,22 +302,21 @@ function renderComment(docSnap, container) {
     </div>
     <div class="cmtApp-replies"></div>
   `;
-
   container.appendChild(div);
 
   const repliesContainer = div.querySelector(".cmtApp-replies");
   const replyBtn = div.querySelector(".cmtApp-reply");
 
-  // Like per komentar
+  // 👍 Like per komentar
   div.querySelector(".cmtApp-like").addEventListener("click", async () => {
-    const docRef = doc(db, "comments", id);
+    const docRef = doc(db, "comments", pageId, "list", id);
     const docSnap = await getDoc(docRef);
-    if(!docSnap.exists()) return;
+    if (!docSnap.exists()) return;
     const newLikes = (docSnap.data().likes || 0) + 1;
     await updateDoc(docRef, { likes: newLikes });
   });
 
-  // Reply
+  // 💬 Balas komentar
   replyBtn.addEventListener("click", () => {
     replyTo = div;
     document.getElementById("cmtAppModalTitle").innerText = "Balas Komentar";
@@ -313,59 +324,45 @@ function renderComment(docSnap, container) {
     isiInput.focus();
   });
 
-  // Fetch nested replies
-  const repliesRef = collection(db, "comments", id, "replies");
+  // 🔁 Ambil reply realtime
+  const repliesRef = collection(db, "comments", pageId, "list", id, "replies");
   const q = query(repliesRef, orderBy("timestamp", "asc"));
-
-  onSnapshot(q, snapshot => {
+  onSnapshot(q, (snapshot) => {
     repliesContainer.innerHTML = "";
-    div.dataset.replyCount = snapshot.size;
     replyBtn.textContent = `💬 Balas (${snapshot.size})`;
-
-    snapshot.forEach(subDoc => renderComment(subDoc, repliesContainer));
+    snapshot.forEach((subDoc) => renderComment(subDoc, repliesContainer));
     updateTotalComments();
   });
 }
 
 // ===============================
-// Hitung total komentar + reply
+// 🔢 Hitung total komentar
 // ===============================
 function updateTotalComments() {
-  let total = 0;
-
-  const countRecursive = (container) => {
-    container.forEach(comment => {
-      total++;
-      const replies = comment.querySelectorAll(":scope > .cmtApp-replies > .cmtApp-comment");
-      if(replies.length > 0) countRecursive(replies);
-    });
-  };
-
-  const topComments = Array.from(komentarList.querySelectorAll(":scope > .cmtApp-comment"));
-  countRecursive(topComments);
-
+  const total = komentarList.querySelectorAll(".cmtApp-comment").length;
   komentarCountSpan.textContent = total;
 }
 
 // ===============================
-// Fetch komentar utama realtime
+// 🕒 Ambil komentar utama realtime
 // ===============================
-const mainQuery = query(collection(db, "comments"), orderBy("timestamp", "desc"));
-onSnapshot(mainQuery, snapshot => {
+const mainQuery = query(commentsRef, orderBy("timestamp", "desc"));
+onSnapshot(mainQuery, (snapshot) => {
   komentarList.innerHTML = "";
-  snapshot.forEach(docSnap => renderComment(docSnap, komentarList));
+  snapshot.forEach((docSnap) => renderComment(docSnap, komentarList));
   updateTotalComments();
 });
 
 // ===============================
-// Format waktu
+// ⏰ Format waktu
 // ===============================
 function formatWaktu(timestamp) {
-  const d = new Date(timestamp), now = new Date();
+  const d = new Date(timestamp),
+    now = new Date();
   const diff = Math.floor((now - d) / 1000);
-  if(diff < 60) return "baru saja";
-  if(diff < 3600) return `${Math.floor(diff/60)} menit lalu`;
-  if(diff < 86400) return `${Math.floor(diff/3600)} jam lalu`;
-  if(diff < 604800) return `${Math.floor(diff/86400)} hari lalu`;
+  if (diff < 60) return "baru saja";
+  if (diff < 3600) return `${Math.floor(diff / 60)} menit lalu`;
+  if (diff < 86400) return `${Math.floor(diff / 3600)} jam lalu`;
+  if (diff < 604800) return `${Math.floor(diff / 86400)} hari lalu`;
   return d.toLocaleDateString();
 }
