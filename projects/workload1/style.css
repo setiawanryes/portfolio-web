@@ -1,6 +1,4 @@
-/* ==========================
-   🌌 GLOBAL RESET & BASE
-========================== */
+/* =========Area========= */
 * {
   margin: 0;
   padding: 0;
@@ -15,9 +13,7 @@ body {
   line-height: 1.6;
 }
 
-/* ==========================
-   📦 PROJECT DETAIL WRAPPER
-========================== */
+/* ==========Project======== */
 .project-detail {
   padding: 100px 8%;
   min-height: 100vh;
@@ -49,9 +45,7 @@ body {
   align-items: flex-start;
 }
 
-/* ==========================
-   🧭 NAVIGATION
-========================== */
+/* =======Navigasi======== */
 .back-nav {
   display: flex;
   align-items: center;
@@ -72,9 +66,7 @@ body {
   text-shadow: 0 0 10px #8a7cff;
 }
 
-/* ==========================
-   🧱 MAIN LAYOUT (2 COLUMN)
-========================== */
+/* ======Layout Page====== */
 .project-layout {
   display: flex;
   justify-content: space-between;
@@ -100,9 +92,7 @@ body {
   gap: 30px;
 }
 
-/* ==========================
-   📘 PROJECT INFO
-========================== */
+/* ======Project Info====== */
 .project-info h1 {
   font-size: 2.6rem;
   color: #fff;
@@ -118,9 +108,7 @@ body {
   text-align: justify;
 }
 
-/* ==========================
-   📊 PROJECT STATS
-========================== */
+/* =======Project Status======= */
 .project-stats {
   display: flex;
   gap: 15px;
@@ -143,15 +131,17 @@ body {
   transform: translateY(-2px);
 }
 
-/* ==========================
-   🔘 BUTTONS
-========================== */
+/* =================== */
 .project-buttons {
   display: flex;
   gap: 15px;
   flex-wrap: wrap;
   margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
+
 
 .project-buttons .btn {
   display: inline-block;
@@ -165,19 +155,14 @@ body {
 
 .project-buttons .btn.live {
   background: linear-gradient(90deg, #7c6aff, #9f88ff);
-}
-
-.project-buttons .btn.github {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  size: 12px;
+  margin-right: 50px;
 }
 
 .project-buttons .btn:hover {
   transform: translateY(-3px);
   box-shadow: 0 0 15px #9f88ff;
 }
-
-
 
 /* ==========================
    🎨 PROJECT PREVIEW (SLIDER)
@@ -423,7 +408,7 @@ body {
   box-shadow: 0 0 25px rgba(100, 100, 255, 0.25);
   background: radial-gradient(circle at top left, #1b1f3a, #0a0c1b 70%);
   display: none;
-  
+
   /* default hidden */
   overflow: hidden;
   z-index: 999;
@@ -538,11 +523,7 @@ body {
   transform: translateY(0);
 }
 
-.project-buttons {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
+
 
 /* Tombol Preview */
 .btn {
@@ -630,11 +611,6 @@ body {
   color: #f9f4f4;
 }
 
-/* Gap antar elemen */
-.project-buttons a.btn.live {
-  margin-right: 50px;
-  /* Preview → Progress Bar */
-}
 
 .comment-modal {
   display: none;
