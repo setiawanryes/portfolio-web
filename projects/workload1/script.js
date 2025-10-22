@@ -297,21 +297,6 @@ function renderComment(docSnap, container) {
   const deleteBtn = div.querySelector('.cmtApp-delete');
   const repliesContainer = div.querySelector('.cmtApp-replies');
 
-  // like per comment
-  if (likeBtnLocal) {
-    likeBtnLocal.addEventListener('click', async () => {
-      try {
-        if (!canLikeCommentLocal(id)) { alert('Kamu sudah memberi like untuk komentar ini.'); return; }
-        const docRef = doc(db, 'comments', pageId, 'list', id);
-        await updateDoc(docRef, { likes: increment(1) });
-        markLikedLocal(id);
-        // optimistic UI update
-        const current = parseInt(likeBtnLocal.textContent.replace(/\D/g,'')) || 0;
-        likeBtnLocal.textContent = `💖 ${current+1}`;
-      } catch(e) { console.error('like comment err', e); }
-    });
-  }
-
   // reply - open modal & set reply target
   if (replyBtn) {
     replyBtn.addEventListener('click', () => {
