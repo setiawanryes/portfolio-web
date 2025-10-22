@@ -161,7 +161,7 @@ body {
 .project-buttons .btn.live {
   background: linear-gradient(90deg, #7c6aff, #9f88ff);
   size: 12px;
-  margin-right: 50px;
+  margin-right: 20px;
 }
 
 .project-buttons .btn:hover {
