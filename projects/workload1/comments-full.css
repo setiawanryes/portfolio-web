@@ -1,0 +1,288 @@
+/* ============================
+   COMMENT SYSTEM STYLES
+   compatible with comments-full.js
+   ============================ */
+
+/* --- Wrapper --- */
+#comments-section {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: "Poppins", sans-serif;
+}
+
+/* --- Title & Header --- */
+#comments-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+#comments-header h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+/* --- Notification Badge --- */
+#comment-notify-badge {
+  display: none;
+  background: #ff4757;
+  color: white;
+  border-radius: 50%;
+  padding: 3px 7px;
+  font-size: 0.7rem;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+/* --- Comment List --- */
+#comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* --- Each Comment --- */
+.cmtApp-comment {
+  background: #f8fafc;
+  border-radius: 10px;
+  padding: 12px 15px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  transition: all 0.3s;
+}
+
+.cmtApp-comment:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* Header */
+.cmtApp-comment-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cmtApp-comment-header img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.cmtApp-comment-header strong {
+  color: #1f2937;
+}
+
+/* Body */
+.cmtApp-comment-body {
+  margin-top: 8px;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: #374151;
+}
+
+/* Footer */
+.cmtApp-comment-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.cmtApp-comment-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cmtApp-comment-actions button {
+  border: none;
+  background: none;
+  color: #2563eb;
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 3px 6px;
+  border-radius: 5px;
+  transition: background 0.2s;
+}
+
+.cmtApp-comment-actions button:hover {
+  background: rgba(37,99,235,0.08);
+}
+
+/* Replies */
+.cmtApp-replies {
+  margin-top: 10px;
+  margin-left: 45px;
+  border-left: 2px solid #e2e8f0;
+  padding-left: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* --- Modal --- */
+#cmtAppModal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+#cmtAppModal.show {
+  display: flex;
+}
+
+#cmtAppModal .modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 420px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  position: relative;
+  animation: popIn 0.25s ease-out;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+#close-cmtAppModal {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  color: #6b7280;
+}
+
+#cmtAppModal input,
+#cmtAppModal textarea {
+  width: 100%;
+  margin: 8px 0;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 0.9rem;
+}
+
+#cmtAppKirim {
+  background: #2563eb;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#cmtAppKirim:hover {
+  background: #1e40af;
+}
+
+/* --- Buttons --- */
+#load-more-comments {
+  margin: 15px auto 0;
+  display: block;
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#load-more-comments:hover {
+  background: #1e40af;
+}
+
+#comment-theme-toggle {
+  border: none;
+  background: #e5e7eb;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#comment-theme-toggle:hover {
+  background: #cbd5e1;
+}
+
+/* --- Sorting --- */
+#comment-sorting {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 0.85rem;
+  background: #f9fafb;
+  cursor: pointer;
+}
+
+/* --- Dark Mode --- */
+.comment-dark {
+  background: #0f172a !important;
+  color: #f1f5f9 !important;
+}
+
+.comment-dark .cmtApp-comment {
+  background: #1e293b;
+  color: #e2e8f0;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+
+.comment-dark .cmtApp-comment-actions button {
+  color: #60a5fa;
+}
+
+.comment-dark .cmtApp-comment-actions button:hover {
+  background: rgba(96,165,250,0.1);
+}
+
+.comment-dark #cmtAppModal .modal-content {
+  background: #1e293b;
+  color: #f8fafc;
+}
+
+.comment-dark input,
+.comment-dark textarea {
+  background: #0f172a;
+  color: #f8fafc;
+  border: 1px solid #334155;
+}
+
+.comment-dark #cmtAppKirim {
+  background: #3b82f6;
+}
+
+.comment-dark #cmtAppKirim:hover {
+  background: #2563eb;
+}
+
+/* --- Responsive --- */
+@media (max-width: 480px) {
+  .cmtApp-comment {
+    padding: 10px;
+  }
+  .cmtApp-comment-header img {
+    width: 30px;
+    height: 30px;
+  }
+  .cmtApp-comment-actions {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+}
