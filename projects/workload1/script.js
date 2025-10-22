@@ -534,3 +534,4 @@ try {
 
 // safety check
 if (!komentarList) console.warn('Komponen komentar tidak ditemukan — fitur komentar non-aktif di halaman ini.');
+
