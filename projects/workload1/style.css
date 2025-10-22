@@ -622,8 +622,7 @@ body {
 
 .dislike-theme {
   color: #f44336;
-  /* ganti sesuai tema sekunder */
-}
+  
 
 #like-count,
 #dislike-count {
@@ -632,7 +631,7 @@ body {
   color: #f9f4f4;
 }
 
-
+/* modal komen */
 .comment-modal {
   display: none;
   position: fixed;
@@ -644,19 +643,8 @@ body {
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  /* pastikan di atas modal lain */
 }
 
-.comment-modal .modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  width: 90%;
-  max-width: 400px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
 
 .comment-modal .close {
   align-self: flex-end;
