@@ -511,8 +511,15 @@ safeAddEvent(kirimBtn, 'click', async () => {
 
 /* ------------- Sorting & UI helpers ------------- */
 function updateCommentCountUI() {
-  if (!komentarCountSpan || !komentarList) return;
-  const total = komentarList.querySelectorAll('.cmtApp-comment').length;
+  if (!komentarCountSpan) return;
+
+  // Hitung semua komentar utama
+  const mainComments = document.querySelectorAll('#comments-list > .cmtApp-comment').length;
+
+  // Hitung semua reply di dalam .cmtApp-replies
+  const replies = document.querySelectorAll('#comments-list .cmtApp-replies .cmtApp-comment').length;
+
+  const total = mainComments + replies;
   komentarCountSpan.textContent = total;
 }
 
