@@ -104,19 +104,6 @@
   border-color: #007bff;
 }
 
-/* ===== TOMBOL THEME ===== */
-#comment-theme-toggle {
-  background: none;
-  border: none;
-  font-size: 1.3rem;
-  cursor: pointer;
-  margin-left: 8px;
-  transition: transform 0.2s ease;
-}
-
-#comment-theme-toggle:hover {
-  transform: scale(1.1);
-}
 
 /* ===== NOTIFY BADGE ===== */
 #comment-notify-badge {
@@ -137,12 +124,6 @@
 }
 
 /* ===== LIST KOMENTAR ===== */
-#comments-list {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-bottom: 15px;
-}
 
 .comment-item {
   background: #ffffff;
