@@ -151,7 +151,7 @@ setProgress(15);
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { 
-  getFirestore, doc, collection, getDoc, setDoc, addDoc, updateDoc, increment, onSnapshot, query, orderBy 
+  getFirestore, doc, collection, getDoc, setDoc, addDoc, updateDoc, increment, onSnapshot, query, orderBy,serverTimestamp
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -168,6 +168,7 @@ const firebaseConfig = {
 // Init Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const pageId = "workload1";
 
 let replyTo = null; // komentar yang sedang dibalas
 
