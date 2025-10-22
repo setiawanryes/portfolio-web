@@ -1150,34 +1150,28 @@ body.loaded .page-transition {
   align-items: center;
 }
 
-/* ---- Dark Glow “Done” Star ---- */
-.project-done {
-  display: inline-block;
-  background: #1b163d; /* sesuai dark-glow bg */
-  padding: 10px;
-  border-radius: 50%;
-  text-align: center;
-  text-decoration: none;
-  box-shadow: 0 0 8px #facc15aa, 0 0 15px #facc15bb;
-  transition: transform 0.2s, box-shadow 0.3s;
+/* ---- Dark Glow Project Progress Stars ---- */
+.project-progress-stars {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 0;
 }
 
-.project-done i {
-  color: #facc15; /* kuning bintang */
-  font-size: 1rem;
+.project-progress-stars i {
+  font-size: 1.5rem;
+  color: #444; /* warna bintang belum selesai */
+  text-shadow: 0 0 4px #222, 0 0 8px #111;
+  transition: color 0.3s, transform 0.2s, text-shadow 0.3s;
 }
 
-.project-done:hover {
-  transform: scale(1.2);
-  box-shadow: 0 0 12px #facc15cc, 0 0 20px #facc15dd;
+.project-progress-stars i.completed {
+  color: #facc15; /* warna bintang selesai */
+  text-shadow: 0 0 4px #facc1588, 0 0 8px #facc1544;
 }
 
-.demo i {
-  color: #facc15; /* kuning gold */
-  font-size: 1.2rem;
-}
-.demo:hover i {
-  color: #fcd34d; /* sedikit lebih terang saat hover */
-  transform: scale(1.2);
-  transition: 0.2s;
+.project-progress-stars i:hover {
+  transform: scale(1.3);
+  text-shadow: 0 0 8px #facc15cc, 0 0 15px #facc15dd;
 }

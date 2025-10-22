@@ -158,3 +158,13 @@ slides.forEach((slide, index) => {
 // Inisialisasi
 moveToSlide(0);
 
+
+// JS untuk menandai bintang sesuai progress
+document.querySelectorAll('.project-progress-stars').forEach(stars => {
+  const completed = parseInt(stars.dataset.completed || '0', 10);
+  stars.querySelectorAll('i').forEach((star, index) => {
+    if (index < completed) star.classList.add('completed');
+    else star.classList.remove('completed');
+  });
+});
+
