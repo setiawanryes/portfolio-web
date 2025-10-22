@@ -174,23 +174,22 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-/* ------------- PAGE ID (unik per halaman) -------------
-   Bisa ditetapkan lewat window.PAGE_ID, meta tag, atau fallback ke URL filename.
-*/
+// ----- PAGE ID UNIK -----
 const pageId = window.PAGE_ID
   || document.querySelector('meta[name="workload"]')?.content
   || (location.pathname.split('/').filter(Boolean).pop() || 'main');
 
-// --------------- SETTINGS -------------------------
+// ----- FIRESTORE REFERENCES -----
 const pageLikeDoc = doc(db, 'post_reactions', pageId);
 const commentsCollection = collection(db, 'comments', pageId, 'list');
 
+// ----- SETTINGS -----
 const pageSize = 3;
 let lastVisible = null;
 let isLoadingMore = false;
 let currentSort = 'newest';
 
-// --------------- DOM ELEMENTS ---------------------
+// ----- DOM ELEMENTS -----
 const komentarList = document.getElementById('comments-list');
 const komentarModal = document.getElementById('cmtAppModal');
 const komentarBtn = document.getElementById('komentar-btn');
@@ -201,31 +200,35 @@ const isiInput = document.getElementById('cmtAppIsi');
 const komentarCountSpan = document.getElementById('komentar-count');
 const likeBtn = document.getElementById('like-btn');
 const likeCount = document.getElementById('like-count');
-
 const sortingSelect = document.getElementById('comment-sorting');
 const loadMoreBtn = document.getElementById('load-more-comments');
 const notifyBadge = document.getElementById('comment-notify-badge');
 
-// safe event helper
+// helper untuk event aman
 function safeAddEvent(el, ev, cb) { if (el) el.addEventListener(ev, cb); }
 
-// --------------- UTILITIES ------------------------
-function escapeHtml(s='') {
-  return String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;')
-    .replaceAll('"','&quot;').replaceAll("'","&#039;");
+// ----- UTILITIES -----
+function escapeHtml(s = '') {
+  return String(s)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#039;');
 }
+
 function formatWaktu(ts) {
   if (!ts) return '';
   const d = new Date(ts), now = new Date();
   const diff = Math.floor((now - d) / 1000);
   if (diff < 60) return "baru saja";
-  if (diff < 3600) return `${Math.floor(diff/60)} menit lalu`;
-  if (diff < 86400) return `${Math.floor(diff/3600)} jam lalu`;
-  if (diff < 604800) return `${Math.floor(diff/86400)} hari lalu`;
+  if (diff < 3600) return `${Math.floor(diff / 60)} menit lalu`;
+  if (diff < 86400) return `${Math.floor(diff / 3600)} jam lalu`;
+  if (diff < 604800) return `${Math.floor(diff / 86400)} hari lalu`;
   return d.toLocaleDateString();
 }
 
-// local like tracking per comment (1x per browser)
+// local like tracking per komentar
 function canLikeCommentLocal(commentId) {
   try { return !localStorage.getItem(`${pageId}-liked-cmt-${commentId}`); } catch { return true; }
 }
@@ -236,7 +239,7 @@ function unmarkLikedLocal(commentId) {
   try { localStorage.removeItem(`${pageId}-liked-cmt-${commentId}`); } catch {}
 }
 
-// --------------- PAGE LIKE ------------------------
+// ----- PAGE LIKE -----
 async function ensurePageLikeDoc() {
   const s = await getDoc(pageLikeDoc);
   if (!s.exists()) await setDoc(pageLikeDoc, { likes: 0 });
@@ -255,23 +258,23 @@ async function initPageLike() {
         if (likeBtn) likeBtn.classList.add('liked');
       } catch (e) { console.error('initPageLike click err', e); }
     });
-  } catch(e) { console.error('initPageLike err', e); }
+  } catch (e) { console.error('initPageLike err', e); }
 }
 initPageLike();
 
-// --------------- RENDER COMMENT -------------------
-function renderComment(docSnap, container) {
-  const data = docSnap.data ? docSnap.data() : {}; // handle if docSnap is plain object
+// ----- RENDER KOMENTAR -----
+function renderComment(docSnap, container, parentId = null) {
+  const data = docSnap.data ? docSnap.data() : {};
   const id = docSnap.id || (docSnap._id || Math.random().toString(36).slice(2));
   const created = data.timestamp || Date.now();
 
-  // create element
   const div = document.createElement('div');
   div.className = 'cmtApp-comment';
   div.dataset.id = id;
+  div.dataset.parentId = parentId || '';
   div.innerHTML = `
     <div class="cmtApp-comment-header">
-      <img src="${escapeHtml(data.avatar || `https://i.pravatar.cc/50?u=${encodeURIComponent(data.nama||'anon')}`)}" alt="">
+      <img src="${escapeHtml(data.avatar || `https://i.pravatar.cc/50?u=${encodeURIComponent(data.nama || 'anon')}`)}" alt="">
       <strong>${escapeHtml(data.nama || 'Anonymous')}</strong>
     </div>
     <div class="cmtApp-comment-body">${escapeHtml(data.isi || data.message || '')}</div>
@@ -289,103 +292,117 @@ function renderComment(docSnap, container) {
 
   container.appendChild(div);
 
-  // bind actions
   const likeBtnLocal = div.querySelector('.cmtApp-like');
   const replyBtn = div.querySelector('.cmtApp-reply');
   const editBtn = div.querySelector('.cmtApp-edit');
   const deleteBtn = div.querySelector('.cmtApp-delete');
   const repliesContainer = div.querySelector('.cmtApp-replies');
 
-  // like per comment
+  // LIKE
   if (likeBtnLocal) {
     likeBtnLocal.addEventListener('click', async () => {
       try {
         if (!canLikeCommentLocal(id)) { alert('Kamu sudah memberi like untuk komentar ini.'); return; }
-        const docRef = doc(db, 'comments', pageId, 'list', id);
+        const docRef = parentId
+          ? doc(db, 'comments', pageId, 'list', parentId, 'replies', id)
+          : doc(db, 'comments', pageId, 'list', id);
         await updateDoc(docRef, { likes: increment(1) });
         markLikedLocal(id);
-        // optimistic UI update
-        const current = parseInt(likeBtnLocal.textContent.replace(/\D/g,'')) || 0;
-        likeBtnLocal.textContent = `💖 ${current+1}`;
-      } catch(e) { console.error('like comment err', e); }
+        const current = parseInt(likeBtnLocal.textContent.replace(/\D/g, '')) || 0;
+        likeBtnLocal.textContent = `💖 ${current + 1}`;
+      } catch (e) { console.error('like comment err', e); }
     });
   }
 
-  // reply - open modal & set reply target
+  // REPLY
   if (replyBtn) {
     replyBtn.addEventListener('click', () => {
       window.CMT_REPLY_TO = { id, el: div };
-      if (document.getElementById('cmtAppModalTitle')) document.getElementById('cmtAppModalTitle').innerText = `Balas ke ${data.nama}`;
+      if (document.getElementById('cmtAppModalTitle'))
+        document.getElementById('cmtAppModalTitle').innerText = `Balas ke ${data.nama}`;
       if (komentarModal) komentarModal.classList.add('show');
       if (isiInput) isiInput.focus();
     });
   }
 
-  // edit (confirm name)
+  // EDIT
   if (editBtn) {
     editBtn.addEventListener('click', async () => {
       try {
         const confirmName = prompt('Konfirmasi edit: ketik nama pemilik komentar:');
         if (!confirmName) return;
-        if (confirmName.trim() !== (data.nama || '').trim()) { alert('Nama tidak cocok. Edit dibatalkan.'); return; }
+        if (confirmName.trim() !== (data.nama || '').trim()) {
+          alert('Nama tidak cocok. Edit dibatalkan.');
+          return;
+        }
         const newText = prompt('Ubah komentar:', data.isi || '');
         if (newText === null) return;
-        const docRef = doc(db, 'comments', pageId, 'list', id);
+
+        const docRef = parentId
+          ? doc(db, 'comments', pageId, 'list', parentId, 'replies', id)
+          : doc(db, 'comments', pageId, 'list', id);
         await updateDoc(docRef, { isi: newText });
-      } catch(e) { console.error('edit err', e); }
+      } catch (e) { console.error('edit err', e); }
     });
   }
 
-  // delete (confirm name) + remove replies
+  // DELETE
   if (deleteBtn) {
     deleteBtn.addEventListener('click', async () => {
       try {
         const confirmName = prompt('Konfirmasi hapus: ketik nama pemilik komentar:');
         if (!confirmName) return;
-        if (confirmName.trim() !== (data.nama || '').trim()) { alert('Nama tidak cocok. Hapus dibatalkan.'); return; }
-
-        // delete replies
-        const repliesRef = collection(db, 'comments', pageId, 'list', id, 'replies');
-        const repliesSnap = await getDocs(repliesRef);
-        for (const r of repliesSnap.docs) {
-          await deleteDoc(doc(db, 'comments', pageId, 'list', id, 'replies', r.id));
+        if (confirmName.trim() !== (data.nama || '').trim()) {
+          alert('Nama tidak cocok. Hapus dibatalkan.');
+          return;
         }
-        // delete main
-        await deleteDoc(doc(db, 'comments', pageId, 'list', id));
+
+        const docRef = parentId
+          ? doc(db, 'comments', pageId, 'list', parentId, 'replies', id)
+          : doc(db, 'comments', pageId, 'list', id);
+
+        // hapus semua reply jika komentar utama
+        if (!parentId) {
+          const repliesRef = collection(db, 'comments', pageId, 'list', id, 'replies');
+          const repliesSnap = await getDocs(repliesRef);
+          for (const r of repliesSnap.docs) {
+            await deleteDoc(doc(db, 'comments', pageId, 'list', id, 'replies', r.id));
+          }
+        }
+
+        await deleteDoc(docRef);
         unmarkLikedLocal(id);
-      } catch(e) { console.error('delete err', e); alert('Gagal menghapus. Lihat console.'); }
+      } catch (e) { console.error('delete err', e); alert('Gagal menghapus. Lihat console.'); }
     });
   }
 
-  // realtime replies listener
+  // REALTIME REPLIES
   try {
     const repliesRefRealtime = collection(db, 'comments', pageId, 'list', id, 'replies');
-    const q = query(repliesRefRealtime, orderBy('timestamp','asc'));
+    const q = query(repliesRefRealtime, orderBy('timestamp', 'asc'));
     onSnapshot(q, snap => {
       repliesContainer.innerHTML = '';
       replyBtn.textContent = `💬 Balas (${snap.size})`;
-      snap.forEach(subDoc => renderComment(subDoc, repliesContainer));
-      // update counter whenever replies changed
+      snap.forEach(subDoc => renderComment(subDoc, repliesContainer, id)); // penting: pass parentId
       updateCommentCountUI();
     });
-  } catch(e) { console.error('replies realtime err', e); }
+  } catch (e) { console.error('replies realtime err', e); }
 
-  // update counter after rendering this comment
   updateCommentCountUI();
 }
 
-// --------------- QUERY BUILD ----------------------
+// ----- QUERY BUILDER -----
 function buildQueryForInitial() {
   if (currentSort === 'popular') {
-    return query(commentsCollection, orderBy('likes','desc'), orderBy('timestamp','desc'), limit(pageSize));
+    return query(commentsCollection, orderBy('likes', 'desc'), orderBy('timestamp', 'desc'), limit(pageSize));
   } else if (currentSort === 'oldest') {
-    return query(commentsCollection, orderBy('timestamp','asc'), limit(pageSize));
+    return query(commentsCollection, orderBy('timestamp', 'asc'), limit(pageSize));
   } else {
-    return query(commentsCollection, orderBy('timestamp','desc'), limit(pageSize));
+    return query(commentsCollection, orderBy('timestamp', 'desc'), limit(pageSize));
   }
 }
 
-// --------------- SUBSCRIBE INITIAL ----------------
+// ----- SUBSCRIBE INITIAL -----
 let unsubscribeInitial = null;
 function subscribeInitialComments() {
   if (!komentarList) return;
@@ -393,7 +410,6 @@ function subscribeInitialComments() {
 
   const q = buildQueryForInitial();
   unsubscribeInitial = onSnapshot(q, snap => {
-    // notify badge logic (simple)
     if (notifyBadge) {
       const prev = parseInt(notifyBadge.dataset.count || '0', 10);
       const nowCount = snap.size;
@@ -408,15 +424,14 @@ function subscribeInitialComments() {
 
     komentarList.innerHTML = '';
     snap.forEach(docSnap => renderComment(docSnap, komentarList));
-    // set lastVisible for pagination
     const docs = snap.docs;
-    lastVisible = docs.length ? docs[docs.length-1] : null;
+    lastVisible = docs.length ? docs[docs.length - 1] : null;
     updateCommentCountUI();
   }, err => console.error('initial comments onSnapshot err', err));
 }
 subscribeInitialComments();
 
-// --------------- LOAD MORE ------------------------
+// ----- LOAD MORE -----
 async function loadMoreComments() {
   if (isLoadingMore) return;
   if (!lastVisible) { if (loadMoreBtn) loadMoreBtn.style.display = 'none'; return; }
@@ -424,24 +439,24 @@ async function loadMoreComments() {
   try {
     let q;
     if (currentSort === 'oldest') {
-      q = query(commentsCollection, orderBy('timestamp','asc'), startAfter(lastVisible), limit(pageSize));
+      q = query(commentsCollection, orderBy('timestamp', 'asc'), startAfter(lastVisible), limit(pageSize));
     } else if (currentSort === 'popular') {
-      q = query(commentsCollection, orderBy('likes','desc'), orderBy('timestamp','desc'), startAfter(lastVisible), limit(pageSize));
+      q = query(commentsCollection, orderBy('likes', 'desc'), orderBy('timestamp', 'desc'), startAfter(lastVisible), limit(pageSize));
     } else {
-      q = query(commentsCollection, orderBy('timestamp','desc'), startAfter(lastVisible), limit(pageSize));
+      q = query(commentsCollection, orderBy('timestamp', 'desc'), startAfter(lastVisible), limit(pageSize));
     }
     const snap = await getDocs(q);
     if (snap.empty) { if (loadMoreBtn) loadMoreBtn.style.display = 'none'; lastVisible = null; }
     else {
       snap.forEach(docSnap => renderComment(docSnap, komentarList));
       const docs = snap.docs;
-      lastVisible = docs[docs.length-1];
+      lastVisible = docs[docs.length - 1];
     }
-  } catch(e) { console.error('loadMore err', e); }
+  } catch (e) { console.error('loadMore err', e); }
   isLoadingMore = false;
 }
 
-// --------------- SEND / REPLY ---------------------
+// ----- KIRIM KOMENTAR / REPLY -----
 safeAddEvent(kirimBtn, 'click', async () => {
   try {
     const nama = (namaInput?.value || '').trim();
@@ -450,8 +465,8 @@ safeAddEvent(kirimBtn, 'click', async () => {
 
     const avatar = `https://i.pravatar.cc/50?u=${encodeURIComponent(nama)}`;
     const ts = Date.now();
-
     const replyTo = window.CMT_REPLY_TO || null;
+
     if (replyTo && replyTo.id) {
       await addDoc(collection(db, 'comments', pageId, 'list', replyTo.id, 'replies'), {
         nama, isi, avatar, likes: 0, timestamp: ts
@@ -466,58 +481,47 @@ safeAddEvent(kirimBtn, 'click', async () => {
     if (komentarModal) komentarModal.classList.remove('show');
 
     if (currentSort === 'newest' && komentarList) komentarList.scrollTo({ top: 0, behavior: 'smooth' });
-  } catch(e) { console.error('kirim err', e); alert('Gagal kirim komentar'); }
+  } catch (e) { console.error('kirim err', e); alert('Gagal kirim komentar'); }
 });
 
-// --------------- COUNTER (main + replies) -----------
+// ----- COUNTER -----
 function updateCommentCountUI() {
   if (!komentarCountSpan) return;
-
-  // main comments directly under #comments-list
   const mainComments = document.querySelectorAll('#comments-list > .cmtApp-comment').length;
   const replies = document.querySelectorAll('#comments-list .cmtApp-replies .cmtApp-comment').length;
   const total = mainComments + replies;
-
   komentarCountSpan.textContent = total;
-
-  // small pop animation
   komentarCountSpan.classList.add('pop');
   setTimeout(() => komentarCountSpan.classList.remove('pop'), 220);
 }
 
-// --------------- SORT / UI HOOKS -------------------
+// ----- UI HANDLERS -----
 safeAddEvent(sortingSelect, 'change', () => {
   currentSort = sortingSelect.value || 'newest';
   lastVisible = null;
   if (loadMoreBtn) loadMoreBtn.style.display = 'inline-block';
   subscribeInitialComments();
 });
-
-safeAddEvent(loadMoreBtn, 'click', () => loadMoreComments());
-
+safeAddEvent(loadMoreBtn, 'click', loadMoreComments);
 safeAddEvent(komentarBtn, 'click', () => {
-  if (komentarModal) { komentarModal.classList.add('show'); if (isiInput) isiInput.focus(); }
+  if (komentarModal) { komentarModal.classList.add('show'); isiInput?.focus(); }
   if (notifyBadge) { notifyBadge.style.display = 'none'; notifyBadge.dataset.count = '0'; }
 });
-
 safeAddEvent(closeModalBtn, 'click', () => {
   if (komentarModal) komentarModal.classList.remove('show');
   window.CMT_REPLY_TO = null;
 });
-
-window.addEventListener('click', (e) => {
+window.addEventListener('click', e => {
   if (e.target === komentarModal) {
     komentarModal.classList.remove('show');
     window.CMT_REPLY_TO = null;
   }
 });
 
-// init UI states
+// init UI
 if (loadMoreBtn) loadMoreBtn.style.display = 'inline-block';
 if (notifyBadge) { notifyBadge.style.display = 'none'; notifyBadge.dataset.count = '0'; }
 if (sortingSelect && sortingSelect.value) currentSort = sortingSelect.value;
 
-
 // safety check
 if (!komentarList) console.warn('Komponen komentar tidak ditemukan — fitur komentar non-aktif di halaman ini.');
-
