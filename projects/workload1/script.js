@@ -511,8 +511,7 @@ safeAddEvent(kirimBtn, 'click', async () => {
 
 /* ------------- Sorting & UI helpers ------------- */
 function updateCommentCountUI() {
-  if (!komentarCountSpan) return;
-
+  if (!komentarCountSpan || !komentarList) return;
   // Hitung semua komentar utama
   const mainComments = document.querySelectorAll('#comments-list > .cmtApp-comment').length;
 
