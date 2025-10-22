@@ -561,3 +561,25 @@ function kometarListExists() {
 if (kometarListExists()) {
   subscribeInitialComments();
 }
+/* ===============================
+   🪟 Modal Komentar: Buka & Tutup
+================================ */
+safeAddEvent(komentarBtn, 'click', () => {
+  if (komentarModal) {
+    komentarModal.classList.add('show');
+    if (isiInput) isiInput.focus();
+  }
+});
+
+safeAddEvent(closeModalBtn, 'click', () => {
+  if (komentarModal) komentarModal.classList.remove('show');
+  window.CMT_REPLY_TO = null; // reset jika sempat balas
+});
+
+/* Tutup modal dengan klik di luar konten */
+window.addEventListener('click', (e) => {
+  if (e.target === komentarModal) {
+    komentarModal.classList.remove('show');
+    window.CMT_REPLY_TO = null;
+  }
+});
