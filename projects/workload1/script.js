@@ -525,3 +525,13 @@ if (sortingSelect && sortingSelect.value) currentSort = sortingSelect.value;
 
 // safety check
 if (!komentarList) console.warn('Komponen komentar tidak ditemukan — fitur komentar non-aktif di halaman ini.');
+
+const readMoreBtn = document.getElementById("readMoreBtn");
+const projectDescription = document.getElementById("projectDescription");
+
+readMoreBtn.addEventListener("click", () => {
+  projectDescription.classList.toggle("expanded");
+  readMoreBtn.textContent = projectDescription.classList.contains("expanded")
+    ? "Tutup"
+    : "Baca Selengkapnya";
+});

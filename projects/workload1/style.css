@@ -1126,3 +1126,44 @@ body {
     font-size: 13px;
   }
 }
+
+
+.project-description {
+  max-height: 120px;
+  overflow: hidden;
+  position: relative;
+  transition: max-height 0.4s ease;
+}
+
+.project-description.expanded {
+  max-height: 1000px;
+}
+
+.project-description::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+}
+
+.project-description.expanded::after {
+  opacity: 0;
+}
+
+.read-more-btn {
+  background: #4f46e5;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-top: 10px;
+  transition: background 0.3s;
+}
+
+.read-more-btn:hover {
+  background: #4338ca;
+}
