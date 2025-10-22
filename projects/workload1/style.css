@@ -423,6 +423,7 @@ body {
   box-shadow: 0 0 25px rgba(100, 100, 255, 0.25);
   background: radial-gradient(circle at top left, #1b1f3a, #0a0c1b 70%);
   display: none;
+  
   /* default hidden */
   overflow: hidden;
   z-index: 999;
