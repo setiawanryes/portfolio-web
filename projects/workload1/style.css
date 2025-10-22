@@ -263,13 +263,29 @@ body {
   padding-left: 28px;
   position: relative;
   font-size: 14px;
+  text-align: justify;
 }
 
-.key-features li ::before {
-  content: "📝";
-  position: absolute;
-  left: 0;
-  color: #ffd700;
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.feature-list li {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+.feature-list .icon {
+  flex-shrink: 0;
+  font-size: 1.3em;
+  margin-right: 5px;
+  width: 28px; 
+  text-align: center;
+  
 }
 
 
