@@ -329,10 +329,10 @@ function renderComment(docSnap, container, parentId = null) {
   if (editBtn) {
     editBtn.addEventListener('click', async () => {
       try {
-        const confirmName = prompt('Confirm Edit:Type your name in the comment:');
+        const confirmName = prompt('Type your name in the comment:');
         if (!confirmName) return;
         if (confirmName.trim() !== (data.nama || '').trim()) {
-          alert('Name mismatch.Please try again.');
+          alert('Name mismatch. Please try again.');
           return;
         }
         const newText = prompt('Edit comment:', data.isi || '');
@@ -350,10 +350,10 @@ function renderComment(docSnap, container, parentId = null) {
   if (deleteBtn) {
     deleteBtn.addEventListener('click', async () => {
       try {
-        const confirmName = prompt(': ketik nama pemilik komentar:');
+        const confirmName = prompt('Type your name in the comment');
         if (!confirmName) return;
         if (confirmName.trim() !== (data.nama || '').trim()) {
-          alert('Nama tidak cocok. Hapus dibatalkan.');
+          alert('Name mismatch. Please try again.');
           return;
         }
 
