@@ -181,15 +181,16 @@ const pageId = window.PAGE_ID
   || document.querySelector('meta[name="workload"]')?.content
   || (location.pathname.split('/').filter(Boolean).pop() || 'main');
 
-/* ------------- SETTINGS ------------- */
+// --------------- SETTINGS -------------------------
 const pageLikeDoc = doc(db, 'post_reactions', pageId);
 const commentsCollection = collection(db, 'comments', pageId, 'list');
 
-const pageSize = 6; // komentar per load (awal)
-let lastVisible = null; // untuk pagination
+const pageSize = 6;
+let lastVisible = null;
 let isLoadingMore = false;
+let currentSort = 'newest';
 
-/* ------------- DOM elements (guarded) ------------- */
+// --------------- DOM ELEMENTS ---------------------
 const komentarList = document.getElementById('comments-list');
 const komentarModal = document.getElementById('cmtAppModal');
 const komentarBtn = document.getElementById('komentar-btn');
@@ -201,21 +202,21 @@ const komentarCountSpan = document.getElementById('komentar-count');
 const likeBtn = document.getElementById('like-btn');
 const likeCount = document.getElementById('like-count');
 
-const sortingSelect = document.getElementById('comment-sorting'); // optional select element
-const loadMoreBtn = document.getElementById('load-more-comments'); // optional button for load more
-const notifyBadge = document.getElementById('comment-notify-badge'); // optional realtime badge
-const themeToggle = document.getElementById('comment-theme-toggle'); // optional theme toggle
+const sortingSelect = document.getElementById('comment-sorting');
+const loadMoreBtn = document.getElementById('load-more-comments');
+const notifyBadge = document.getElementById('comment-notify-badge');
+const themeToggle = document.getElementById('comment-theme-toggle');
 
-/* ------------- small guards if elements missing ------------- */
-function el(id) { return document.getElementById(id); }
-function safeAddEvent(elm, ev, cb) { if (elm) elm.addEventListener(ev, cb); }
+// safe event helper
+function safeAddEvent(el, ev, cb) { if (el) el.addEventListener(ev, cb); }
 
-/* ------------- Utilities ------------- */
+// --------------- UTILITIES ------------------------
 function escapeHtml(s='') {
-  return String(s).replaceAll('&', '&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;')
-    .replaceAll('"','&quot;').replaceAll("'",'&#039;');
+  return String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;')
+    .replaceAll('"','&quot;').replaceAll("'","&#039;");
 }
 function formatWaktu(ts) {
+  if (!ts) return '';
   const d = new Date(ts), now = new Date();
   const diff = Math.floor((now - d) / 1000);
   if (diff < 60) return "baru saja";
@@ -225,36 +226,9 @@ function formatWaktu(ts) {
   return d.toLocaleDateString();
 }
 
-/* ------------- Page Like System ------------- */
-async function ensurePageLikeDoc() {
-  const s = await getDoc(pageLikeDoc);
-  if (!s.exists()) {
-    await setDoc(pageLikeDoc, { likes: 0 });
-  }
-}
-async function initPageLike() {
-  try {
-    await ensurePageLikeDoc();
-    // realtime update
-    onSnapshot(pageLikeDoc, snap => {
-      if (!snap.exists()) return;
-      if (likeCount) likeCount.textContent = snap.data().likes || 0;
-    });
-    safeAddEvent(likeBtn, 'click', async () => {
-      try {
-        await updateDoc(pageLikeDoc, { likes: increment(1) });
-        if (likeBtn) likeBtn.classList.add('liked');
-      } catch(e) { console.error('like page err', e); }
-    });
-  } catch(e) { console.error('initPageLike err', e); }
-}
-initPageLike();
-
-/* ------------- Comment rendering helpers ------------- */
+// local like tracking per comment (1x per browser)
 function canLikeCommentLocal(commentId) {
-  try {
-    return !localStorage.getItem(`${pageId}-liked-cmt-${commentId}`);
-  } catch { return true; }
+  try { return !localStorage.getItem(`${pageId}-liked-cmt-${commentId}`); } catch { return true; }
 }
 function markLikedLocal(commentId) {
   try { localStorage.setItem(`${pageId}-liked-cmt-${commentId}`, '1'); } catch {}
@@ -263,14 +237,36 @@ function unmarkLikedLocal(commentId) {
   try { localStorage.removeItem(`${pageId}-liked-cmt-${commentId}`); } catch {}
 }
 
-/* Render a comment doc -> container element.
-   This handles: like per comment, reply button, edit, delete, and replies realtime.
-*/
+// --------------- PAGE LIKE ------------------------
+async function ensurePageLikeDoc() {
+  const s = await getDoc(pageLikeDoc);
+  if (!s.exists()) await setDoc(pageLikeDoc, { likes: 0 });
+}
+
+async function initPageLike() {
+  try {
+    await ensurePageLikeDoc();
+    onSnapshot(pageLikeDoc, snap => {
+      if (!snap.exists()) return;
+      if (likeCount) likeCount.textContent = snap.data().likes || 0;
+    });
+    safeAddEvent(likeBtn, 'click', async () => {
+      try {
+        await updateDoc(pageLikeDoc, { likes: increment(1) });
+        if (likeBtn) likeBtn.classList.add('liked');
+      } catch (e) { console.error('initPageLike click err', e); }
+    });
+  } catch(e) { console.error('initPageLike err', e); }
+}
+initPageLike();
+
+// --------------- RENDER COMMENT -------------------
 function renderComment(docSnap, container) {
-  const data = docSnap.data();
-  const id = docSnap.id;
+  const data = docSnap.data ? docSnap.data() : {}; // handle if docSnap is plain object
+  const id = docSnap.id || (docSnap._id || Math.random().toString(36).slice(2));
   const created = data.timestamp || Date.now();
 
+  // create element
   const div = document.createElement('div');
   div.className = 'cmtApp-comment';
   div.dataset.id = id;
@@ -301,83 +297,68 @@ function renderComment(docSnap, container) {
   const deleteBtn = div.querySelector('.cmtApp-delete');
   const repliesContainer = div.querySelector('.cmtApp-replies');
 
-  // Like per comment (1x via localStorage)
+  // like per comment
   if (likeBtnLocal) {
     likeBtnLocal.addEventListener('click', async () => {
       try {
-        if (!canLikeCommentLocal(id)) {
-          // optional: toggle unlike? we keep single like only
-          alert('Kamu sudah memberi like untuk komentar ini.');
-          return;
-        }
+        if (!canLikeCommentLocal(id)) { alert('Kamu sudah memberi like untuk komentar ini.'); return; }
         const docRef = doc(db, 'comments', pageId, 'list', id);
         await updateDoc(docRef, { likes: increment(1) });
         markLikedLocal(id);
-        // update UI quickly
+        // optimistic UI update
         const current = parseInt(likeBtnLocal.textContent.replace(/\D/g,'')) || 0;
         likeBtnLocal.textContent = `💖 ${current+1}`;
       } catch(e) { console.error('like comment err', e); }
     });
   }
 
-  // Reply - open modal and set replyTo
+  // reply - open modal & set reply target
   if (replyBtn) {
     replyBtn.addEventListener('click', () => {
-      // set global replyTo element & open modal
       window.CMT_REPLY_TO = { id, el: div };
-      if (document.getElementById('cmtAppModalTitle'))
-        document.getElementById('cmtAppModalTitle').innerText = `Balas ke ${data.nama}`;
+      if (document.getElementById('cmtAppModalTitle')) document.getElementById('cmtAppModalTitle').innerText = `Balas ke ${data.nama}`;
       if (komentarModal) komentarModal.classList.add('show');
       if (isiInput) isiInput.focus();
     });
   }
 
-  // Edit - confirm name then edit content inline via modal
+  // edit (confirm name)
   if (editBtn) {
     editBtn.addEventListener('click', async () => {
       try {
         const confirmName = prompt('Konfirmasi edit: ketik nama pemilik komentar:');
         if (!confirmName) return;
-        if (confirmName.trim() !== (data.nama || '').trim()) {
-          alert('Nama tidak cocok. Edit dibatalkan.');
-          return;
-        }
-        // prompt edit content
+        if (confirmName.trim() !== (data.nama || '').trim()) { alert('Nama tidak cocok. Edit dibatalkan.'); return; }
         const newText = prompt('Ubah komentar:', data.isi || '');
-        if (newText === null) return; // cancel
+        if (newText === null) return;
         const docRef = doc(db, 'comments', pageId, 'list', id);
         await updateDoc(docRef, { isi: newText });
-        // UI akan update via realtime listener
       } catch(e) { console.error('edit err', e); }
     });
   }
 
-  // Delete - confirm name then delete replies + doc
+  // delete (confirm name) + remove replies
   if (deleteBtn) {
     deleteBtn.addEventListener('click', async () => {
       try {
         const confirmName = prompt('Konfirmasi hapus: ketik nama pemilik komentar:');
         if (!confirmName) return;
-        if (confirmName.trim() !== (data.nama || '').trim()) {
-          alert('Nama tidak cocok. Hapus dibatalkan.');
-          return;
-        }
-        // delete replies first
+        if (confirmName.trim() !== (data.nama || '').trim()) { alert('Nama tidak cocok. Hapus dibatalkan.'); return; }
+
+        // delete replies
         const repliesRef = collection(db, 'comments', pageId, 'list', id, 'replies');
         const repliesSnap = await getDocs(repliesRef);
         for (const r of repliesSnap.docs) {
           await deleteDoc(doc(db, 'comments', pageId, 'list', id, 'replies', r.id));
         }
-        // delete main comment
+        // delete main
         await deleteDoc(doc(db, 'comments', pageId, 'list', id));
-        // remove local marker if any
         unmarkLikedLocal(id);
-        // UI remove handled by realtime listener
-      } catch(e) { console.error('delete err', e); alert('Gagal menghapus. Cek console.'); }
+      } catch(e) { console.error('delete err', e); alert('Gagal menghapus. Lihat console.'); }
     });
   }
 
-  // Realtime replies
+  // realtime replies listener
   try {
     const repliesRefRealtime = collection(db, 'comments', pageId, 'list', id, 'replies');
     const q = query(repliesRefRealtime, orderBy('timestamp','asc'));
@@ -385,27 +366,27 @@ function renderComment(docSnap, container) {
       repliesContainer.innerHTML = '';
       replyBtn.textContent = `💬 Balas (${snap.size})`;
       snap.forEach(subDoc => renderComment(subDoc, repliesContainer));
+      // update counter whenever replies changed
+      updateCommentCountUI();
     });
   } catch(e) { console.error('replies realtime err', e); }
+
+  // update counter after rendering this comment
+  updateCommentCountUI();
 }
 
-/* ------------- Comments list management ------------- */
-let currentSort = 'newest'; // newest | oldest | popular
-
+// --------------- QUERY BUILD ----------------------
 function buildQueryForInitial() {
   if (currentSort === 'popular') {
-    // popular: order by likes desc then timestamp desc
     return query(commentsCollection, orderBy('likes','desc'), orderBy('timestamp','desc'), limit(pageSize));
   } else if (currentSort === 'oldest') {
     return query(commentsCollection, orderBy('timestamp','asc'), limit(pageSize));
-  } else { // newest
+  } else {
     return query(commentsCollection, orderBy('timestamp','desc'), limit(pageSize));
   }
 }
 
-/* initial realtime listener for first page (keeps UI realtime for newest pageSize)
-   For pagination we will fetch older docs by getDocs(startAfter)
-*/
+// --------------- SUBSCRIBE INITIAL ----------------
 let unsubscribeInitial = null;
 function subscribeInitialComments() {
   if (!komentarList) return;
@@ -413,17 +394,17 @@ function subscribeInitialComments() {
 
   const q = buildQueryForInitial();
   unsubscribeInitial = onSnapshot(q, snap => {
-    // realtime notify (new comments)
+    // notify badge logic (simple)
     if (notifyBadge) {
-      const prevCount = parseInt(notifyBadge.dataset.count || '0', 10);
-      const newCount = snap.size;
-      if (newCount > prevCount) {
+      const prev = parseInt(notifyBadge.dataset.count || '0', 10);
+      const nowCount = snap.size;
+      if (nowCount > prev) {
         notifyBadge.style.display = 'inline-block';
-        notifyBadge.textContent = newCount - prevCount;
+        notifyBadge.textContent = nowCount - prev;
       } else {
         notifyBadge.style.display = 'none';
       }
-      notifyBadge.dataset.count = newCount;
+      notifyBadge.dataset.count = nowCount;
     }
 
     komentarList.innerHTML = '';
@@ -436,33 +417,23 @@ function subscribeInitialComments() {
 }
 subscribeInitialComments();
 
-/* Load more older comments (non-realtime fetch) */
+// --------------- LOAD MORE ------------------------
 async function loadMoreComments() {
   if (isLoadingMore) return;
-  if (!lastVisible) {
-    // no more
-    if (loadMoreBtn) loadMoreBtn.style.display = 'none';
-    return;
-  }
+  if (!lastVisible) { if (loadMoreBtn) loadMoreBtn.style.display = 'none'; return; }
   isLoadingMore = true;
   try {
-    // build base query for older docs depending on sort
     let q;
     if (currentSort === 'oldest') {
-      // when sorting oldest (asc), load next docs after lastVisible by timestamp asc
       q = query(commentsCollection, orderBy('timestamp','asc'), startAfter(lastVisible), limit(pageSize));
     } else if (currentSort === 'popular') {
       q = query(commentsCollection, orderBy('likes','desc'), orderBy('timestamp','desc'), startAfter(lastVisible), limit(pageSize));
     } else {
-      // newest: load older by timestamp desc startAfter lastVisible
       q = query(commentsCollection, orderBy('timestamp','desc'), startAfter(lastVisible), limit(pageSize));
     }
-
     const snap = await getDocs(q);
-    if (snap.empty) {
-      if (loadMoreBtn) loadMoreBtn.style.display = 'none';
-      lastVisible = null;
-    } else {
+    if (snap.empty) { if (loadMoreBtn) loadMoreBtn.style.display = 'none'; lastVisible = null; }
+    else {
       snap.forEach(docSnap => renderComment(docSnap, komentarList));
       const docs = snap.docs;
       lastVisible = docs[docs.length-1];
@@ -471,7 +442,7 @@ async function loadMoreComments() {
   isLoadingMore = false;
 }
 
-/* ------------- Send comment / reply ------------- */
+// --------------- SEND / REPLY ---------------------
 safeAddEvent(kirimBtn, 'click', async () => {
   try {
     const nama = (namaInput?.value || '').trim();
@@ -481,108 +452,60 @@ safeAddEvent(kirimBtn, 'click', async () => {
     const avatar = `https://i.pravatar.cc/50?u=${encodeURIComponent(nama)}`;
     const ts = Date.now();
 
-    // reply?
     const replyTo = window.CMT_REPLY_TO || null;
     if (replyTo && replyTo.id) {
-      // add to replies subcollection
       await addDoc(collection(db, 'comments', pageId, 'list', replyTo.id, 'replies'), {
         nama, isi, avatar, likes: 0, timestamp: ts
       });
-      // reset replyTo
       window.CMT_REPLY_TO = null;
     } else {
-      // add top-level comment
-      await addDoc(commentsCollection, {
-        nama, isi, avatar, likes: 0, timestamp: ts
-      });
+      await addDoc(commentsCollection, { nama, isi, avatar, likes: 0, timestamp: ts });
     }
 
-    // reset modal fields + close
     if (namaInput) namaInput.value = '';
     if (isiInput) isiInput.value = '';
     if (komentarModal) komentarModal.classList.remove('show');
 
-    // optionally scroll to top of comment list for newest sort
-    if (currentSort === 'newest' && komentarList) {
-      komentarList.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    if (currentSort === 'newest' && komentarList) komentarList.scrollTo({ top: 0, behavior: 'smooth' });
   } catch(e) { console.error('kirim err', e); alert('Gagal kirim komentar'); }
 });
 
-/* ------------- Sorting & UI helpers ------------- */
+// --------------- COUNTER (main + replies) -----------
 function updateCommentCountUI() {
-  if (!komentarCountSpan || !komentarList) return;
-  // Hitung semua komentar utama
+  if (!komentarCountSpan) return;
+
+  // main comments directly under #comments-list
   const mainComments = document.querySelectorAll('#comments-list > .cmtApp-comment').length;
-
-  // Hitung semua reply di dalam .cmtApp-replies
   const replies = document.querySelectorAll('#comments-list .cmtApp-replies .cmtApp-comment').length;
-
   const total = mainComments + replies;
+
   komentarCountSpan.textContent = total;
+
+  // small pop animation
+  komentarCountSpan.classList.add('pop');
+  setTimeout(() => komentarCountSpan.classList.remove('pop'), 220);
 }
 
+// --------------- SORT / UI HOOKS -------------------
 safeAddEvent(sortingSelect, 'change', () => {
   currentSort = sortingSelect.value || 'newest';
-  // re-subscribe initial comments with new sort
-  subscribeInitialComments();
-  // reset pagination state
   lastVisible = null;
   if (loadMoreBtn) loadMoreBtn.style.display = 'inline-block';
+  subscribeInitialComments();
 });
 
 safeAddEvent(loadMoreBtn, 'click', () => loadMoreComments());
 
-/* realtime badge clear when user opens comments or modal */
 safeAddEvent(komentarBtn, 'click', () => {
+  if (komentarModal) { komentarModal.classList.add('show'); if (isiInput) isiInput.focus(); }
   if (notifyBadge) { notifyBadge.style.display = 'none'; notifyBadge.dataset.count = '0'; }
-});
-
-/* theme toggle: just toggle a class on komentarList (or project-container)
-   you should implement CSS for .comment-dark / .comment-light in CSS
-*/
-safeAddEvent(themeToggle, 'click', () => {
-  const container = document.querySelector('.project-container') || komentarList;
-  if (!container) return;
-  container.classList.toggle('comment-dark'); // toggle class for styling
-  container.classList.toggle('comment-light');
-});
-
-/* initialize UI states */
-if (loadMoreBtn) loadMoreBtn.style.display = 'inline-block';
-if (notifyBadge) { notifyBadge.style.display = 'none'; notifyBadge.dataset.count = '0'; }
-if (sortingSelect && sortingSelect.value) currentSort = sortingSelect.value;
-
-/* safety: if komentarList missing, don't run comment subscriptions */
-if (!kometarListExists()) {
-  console.warn('Komponen komentar tidak ditemukan pada halaman ini — fitur komentar tidak aktif.');
-}
-
-/* helper to check */
-function kometarListExists() {
-  return !!komentarList;
-}
-
-/* If komentarList exists, ensure initial subscription (already called above) */
-if (kometarListExists()) {
-  subscribeInitialComments();
-}
-/* ===============================
-   🪟 Modal Komentar: Buka & Tutup
-================================ */
-safeAddEvent(komentarBtn, 'click', () => {
-  if (komentarModal) {
-    komentarModal.classList.add('show');
-    if (isiInput) isiInput.focus();
-  }
 });
 
 safeAddEvent(closeModalBtn, 'click', () => {
   if (komentarModal) komentarModal.classList.remove('show');
-  window.CMT_REPLY_TO = null; // reset jika sempat balas
+  window.CMT_REPLY_TO = null;
 });
 
-/* Tutup modal dengan klik di luar konten */
 window.addEventListener('click', (e) => {
   if (e.target === komentarModal) {
     komentarModal.classList.remove('show');
@@ -590,3 +513,24 @@ window.addEventListener('click', (e) => {
   }
 });
 
+// theme toggle
+safeAddEvent(themeToggle, 'click', () => {
+  const container = document.querySelector('.project-container') || document.body;
+  container.classList.toggle('dark-mode');
+  const isDark = container.classList.contains('dark-mode');
+  localStorage.setItem(`${pageId}-theme`, isDark ? 'dark' : 'light');
+});
+
+// init UI states
+if (loadMoreBtn) loadMoreBtn.style.display = 'inline-block';
+if (notifyBadge) { notifyBadge.style.display = 'none'; notifyBadge.dataset.count = '0'; }
+if (sortingSelect && sortingSelect.value) currentSort = sortingSelect.value;
+
+// restore theme from localStorage
+try {
+  const stored = localStorage.getItem(`${pageId}-theme`);
+  if (stored === 'dark') document.querySelector('.project-container')?.classList.add('dark-mode');
+} catch(e) { /* ignore */ }
+
+// safety check
+if (!komentarList) console.warn('Komponen komentar tidak ditemukan — fitur komentar non-aktif di halaman ini.');
