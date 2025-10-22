@@ -532,6 +532,6 @@ const projectDescription = document.getElementById("projectDescription");
 readMoreBtn.addEventListener("click", () => {
   projectDescription.classList.toggle("expanded");
   readMoreBtn.textContent = projectDescription.classList.contains("expanded")
-    ? "Tutup"
-    : "Baca Selengkapnya";
+    ? "Close"
+    : "Read more";
 });
