@@ -111,4 +111,133 @@
 }
 
 
+/* ===== COMMENT LIST CONTAINER ===== */
+#comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 800px; /* desktop max width */
+  margin: 0 auto;
+  padding: 0 10px; /* spacing for mobile */
+  box-sizing: border-box;
+}
+
+/* ===== SINGLE COMMENT ===== */
+.cmtApp-comment {
+  background: #1b163d; /* dark-glow theme */
+  color: #fff;
+  border-radius: 10px;
+  padding: 12px 15px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  word-wrap: break-word;
+  transition: transform 0.2s;
+}
+
+.cmtApp-comment:hover {
+  transform: translateY(-2px);
+}
+
+/* ===== COMMENT HEADER (AVATAR + NAME) ===== */
+.cmtApp-comment-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.cmtApp-comment-header img {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* ===== COMMENT BODY ===== */
+.cmtApp-comment-body {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin-bottom: 8px;
+  word-break: break-word;
+}
+
+/* ===== COMMENT ACTIONS ===== */
+.cmtApp-comment-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.cmtApp-comment-actions button {
+  padding: 8px 12px;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: #292241;
+  color: #fff;
+  transition: 0.2s;
+}
+
+.cmtApp-comment-actions button:hover {
+  background: #3a2c5a;
+}
+
+/* ===== COMMENT TIME ===== */
+.cmtApp-time {
+  font-size: 0.75rem;
+  color: #aaa;
+}
+
+/* ===== REPLIES ===== */
+.cmtApp-replies {
+  margin-top: 8px;
+  padding-left: 20px;
+  border-left: 2px solid #3a2c5a;
+}
+
+/* ===== NOTIFY BADGE ===== */
+#comment-notify-badge {
+  display: inline-block;
+  background: #ff3b30;
+  color: white;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  margin-left: 5px;
+  vertical-align: top;
+  animation: pulse 1.2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.6; }
+}
+
+/* ===== MEDIA QUERIES ===== */
+@media (max-width: 768px) {
+  .cmtApp-comment-actions button {
+    flex: 1 1 48%; /* 2 tombol per baris di HP */
+  }
+
+  .cmtApp-comment-body {
+    font-size: 0.85rem;
+  }
+
+  .cmtApp-comment-header img {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cmtApp-comment-actions button {
+    flex: 1 1 100%; /* tombol full width di HP kecil */
+  }
+  
+  #comments-list {
+    padding: 0 6px;
+  }
+}
 
