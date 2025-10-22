@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SI-TANDUR | Roni Setiawan</title>
-  <link rel="stylesheet" href="style.css">
+
+  <!-- STYLE -->
+  <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="comments-full.css" />
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <!-- LIBRARY -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
@@ -17,136 +21,141 @@
 
       <!-- NAV -->
       <div class="back-nav">
-        <a href="javacript:history.back()" class="back-btn">← Back</a>
+        <a href="javascript:history.back()" class="back-btn">← Back</a>
         <span>Projects / SI-TANDUR</span>
       </div>
 
-      <!-- MAIN LAYOUT (2 KOLOM) -->
-      <!-- ROW 1: INFO & PREVIEW -->
-    <div class="project-header">
-      <!-- KIRI -->
-      <div class="left-column" data-aos="fade-right">
-    <div class="project-info">
-      <h1>Workload Analyst</h1>
-      <p>
-       SI-TANDUR is an Integrated Agricultural Information System specifically designed for East Lampung to assist local farmers in monitoring and managing the planting process more efficiently. This system facilitates crop planning, real-time monitoring of plant conditions, and provides care and harvest recommendations based on collected data.
+      <!-- MAIN CONTENT -->
+      <div class="project-header">
 
-      <div class="project-stats" style="position: relative;">
-  <div class="stat" data-info="IoT sensors, cloud storage, and mobile/web apps to monitor crops and provide care tips, harvest forecasts, and alerts.">
-    <i class="fas fa-code"></i> 5 Teknologi
-  </div>
-  <div class="stat" data-info="Crop planning, monitoring, care recommendations, harvest forecasts, reports & statistics, critical alerts, farmer community, AI chat, MSME support, and agricultural store recommendations.">
-    <i class="fas fa-cogs"></i> 7 Fitur Utama
-  </div>
-</div>
+        <!-- KIRI -->
+        <div class="left-column" data-aos="fade-right">
+          <div class="project-info">
+            <h1>Workload Analyst</h1>
+            <p>
+              SI-TANDUR adalah Sistem Informasi Pertanian Terpadu yang dirancang khusus untuk membantu petani di Lampung Timur memantau dan mengelola proses tanam secara lebih efisien. Sistem ini memfasilitasi perencanaan tanam, pemantauan kondisi tanaman secara real-time, serta memberikan rekomendasi perawatan dan panen berdasarkan data yang dikumpulkan.
+            </p>
 
-<div class="project-buttons">
-  <a href="#" class="btn live">Preview</a>
-  
-  <!-- Progres Bar -->
-  <div class="progress-bar-container">
-    <div class="progress-bar" id="progress-bar"></div>
-    <span id="progress-text">0%</span>
-  </div>
-  <!-- ❤️ dan 💬 -->
-<div class="like-dislike-container">
-  <button id="like-btn" class="reaction-btn like-theme">❤️</button>
-  <span id="like-count">0</span>
+            <!-- STATISTIK -->
+            <div class="project-stats">
+              <div class="stat" data-info="IoT sensors, cloud storage, and mobile/web apps to monitor crops and provide care tips, harvest forecasts, and alerts.">
+                <i class="fas fa-code"></i> 5 Teknologi
+              </div>
+              <div class="stat" data-info="Crop planning, monitoring, care recommendations, harvest forecasts, reports & statistics, critical alerts, farmer community, AI chat, MSME support, and agricultural store recommendations.">
+                <i class="fas fa-cogs"></i> 7 Fitur Utama
+              </div>
+            </div>
 
-  <button id="komentar-btn" class="reaction-btn komentar-theme">💬</button>
-  <span id="komentar-count">0</span>
-</div>
+            <!-- BUTTON -->
+            <div class="project-buttons">
+              <a href="#" class="btn live">Preview</a>
 
-<!-- 💬 Komentar Lengkap -->
-<section id="comments-section">
-  <div id="comments-header">
-    <h3>Komentar (<span id="komentar-count">0</span>)</h3>
-    <div>
-      <select id="comment-sorting">
-        <option value="newest">Terbaru</option>
-        <option value="oldest">Terlama</option>
-        <option value="popular">Populer</option>
-      </select>
-      <button id="comment-theme-toggle">🌓</button>
-      <span id="comment-notify-badge"></span>
+              <!-- Progress Bar -->
+              <div class="progress-bar-container">
+                <div class="progress-bar" id="progress-bar"></div>
+                <span id="progress-text">0%</span>
+              </div>
+
+              <!-- ❤️ dan 💬 -->
+              <div class="like-dislike-container">
+                <button id="like-btn" class="reaction-btn like-theme">❤️</button>
+                <span id="like-count">0</span>
+
+                <button id="komentar-btn" class="reaction-btn komentar-theme">💬</button>
+                <span id="komentar-count">0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- KANAN -->
+        <div class="right-column" data-aos="fade-left">
+          <div class="project-preview">
+            <div class="slide-project">
+              <img src="../../images/workload1/workloada1.png" alt="Preview 1" class="lightbox-img" />
+              <img src="../../images/workload1/workloada2.png" alt="Preview 2" class="lightbox-img" />
+              <img src="../../images/workload1/workloada3.png" alt="Preview 3" class="lightbox-img" />
+              <img src="../../images/workload1/workloada4.png" alt="Preview 4" class="lightbox-img" />
+              <img src="../../images/workload1/workloada5.png" alt="Preview 5" class="lightbox-img" />
+              <img src="../../images/workload1/workloada6.png" alt="Preview 6" class="lightbox-img" />
+            </div>
+            <div class="slide-controls">
+              <button class="prev">❮</button>
+              <button class="next">❯</button>
+            </div>
+          </div>
+
+          <!-- KEY FEATURES -->
+          <div class="key-features">
+            <h2>Key Features of SI-TANDUR</h2>
+            <ul>
+              <li>Real-Time Crop Monitoring – Track crop conditions instantly.</li>
+              <li>Care & Harvest Recommendations – Advice on fertilization, watering, and harvest forecasts.</li>
+              <li>Crop Planning – Schedule planting and select seeds.</li>
+              <li>AI Chat – Virtual agricultural consultation.</li>
+              <li>MSME Support & Store Recommendations – Market harvests and find nearby agricultural stores.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 💬 KOMENTAR -->
+  <section id="comments-section">
+    <div id="comments-header">
+      <h3>Komentar (<span id="komentar-count">0</span>)</h3>
+      <div>
+        <select id="comment-sorting">
+          <option value="newest">Terbaru</option>
+          <option value="oldest">Terlama</option>
+          <option value="popular">Populer</option>
+        </select>
+        <button id="comment-theme-toggle">🌓</button>
+        <span id="comment-notify-badge"></span>
+      </div>
+    </div>
+
+    <div id="comments-list"></div>
+    <button id="load-more-comments">Muat Lebih Banyak</button>
+  </section>
+
+  <!-- MODAL KOMENTAR -->
+  <div class="cmtApp-modal" id="cmtAppModal">
+    <div class="cmtApp-modal-content">
+      <span class="cmtApp-close" id="close-cmtAppModal">&times;</span>
+      <div id="cmtAppModalTitle">Tulis Komentar</div>
+      <input type="text" id="cmtAppNama" placeholder="Nama" />
+      <textarea id="cmtAppIsi" rows="4" placeholder="Komentar..."></textarea>
+      <button id="cmtAppKirim">Kirim</button>
     </div>
   </div>
 
-  <div id="comments-list"></div>
-
-  <button id="load-more-comments">Muat Lebih Banyak</button>
-</section>
-
-        
-  <!-- KANAN (preview) -->
-  <div class="right-column" data-aos="fade-left">
-  <div class="project-preview">
-    <div class="slide-project">
-      <img src="../../images/workload1/workloada1.png" alt="Preview 1" class="lightbox-img">
-      <img src="../../images/workload1/workloada2.png" alt="Preview 2" class="lightbox-img">
-      <img src="../../images/workload1/workloada3.png" alt="Preview 3" class="lightbox-img">
-      <img src="../../images/workload1/workloada4.png" alt="Preview 4" class="lightbox-img">
-      <img src="../../images/workload1/workloada5.png" alt="Preview 5" class="lightbox-img">
-      <img src="../../images/workload1/workloada6.png" alt="Preview 6" class="lightbox-img">
-    </div>
-    <div class="slide-controls">
-      <button class="prev">❮</button>
-      <button class="next">❯</button>
-    </div>
-  </div>
-
-
-
-    <!-- KEY FEATURES -->
-    <div class="key-features">
-      <h2>Key Features of SI-TANDUR</h2>
-      <ul>
-        <li>Real-Time Crop Monitoring – Track crop conditions instantly.</li>
-        <li>Care & Harvest Recommendations – Advice on fertilization, watering, and harvest forecasts.</li>
-        <li>Crop Planning – Schedule planting and select seeds.</li>
-        <li>AI Chat – Virtual agricultural consultation.</li>
-        <li>MSME Support & Store Recommendations – Market harvests and find nearby agricultural stores.</li>
-     </ul>
-    </div>
-  </div>
-</div>
-</section>
-
-<div class="cmtApp-modal" id="cmtAppModal">
-  <div class="cmtApp-modal-content">
-    <span class="cmtApp-close" id="close-cmtAppModal">&times;</span>
-    <div id="cmtAppModalTitle">Tulis Komentar</div>
-    <input type="text" id="cmtAppNama" placeholder="Nama">
-    <textarea id="cmtAppIsi" rows="4" placeholder="Komentar..."></textarea>
-    <button id="cmtAppKirim">Kirim</button>
-  </div>
-</div>
-
-<!-- Modal / Tooltip di dalam container -->
+  <!-- MINI TOOLTIP -->
   <div id="miniModal" class="mini-modal">
     <div class="mini-content" id="miniContent"></div>
   </div>
-</div>
-<!-- Modal lightbox -->
-<div id="lightboxModal" class="modal">
-  <span class="close">&times;</span>
-  <img class="modal-content" id="lightboxImg">
-  <div class="modal-controls">
-    <button id="prevImg">❮</button>
-    <button id="nextImg">❯</button>
+
+  <!-- LIGHTBOX -->
+  <div id="lightboxModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="lightboxImg" />
+    <div class="modal-controls">
+      <button id="prevImg">❮</button>
+      <button id="nextImg">❯</button>
+    </div>
   </div>
-</div>
 
+  <!-- FIREBASE -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js"></script>
 
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js"></script>
-
-<script src="script.js"></script>
-<script type="module" src="script.js"></script>
-<script type="module" src="app.js"></script>
-<script>window.PAGE_ID = "workload1"; </script>
-
-
-
+  <!-- SCRIPT -->
+  <script type="module" src="app.js"></script>
+  <script src="script.js"></script>
+  <script>
+    AOS.init();
+    window.PAGE_ID = "workload1";
+  </script>
 </body>
 </html>
