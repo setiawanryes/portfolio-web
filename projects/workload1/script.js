@@ -152,7 +152,7 @@ setProgress(100);
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { 
-  getFirestore, doc, collection, getDoc, setDoc, addDoc, updateDoc, increment, onSnapshot, query, orderBy 
+  getFirestore, doc, deleteDoc, collection, getDoc, setDoc, addDoc, updateDoc, increment, onSnapshot, query, orderBy 
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 import {serverTimestamp
 } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
