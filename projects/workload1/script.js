@@ -281,9 +281,9 @@ function renderComment(docSnap, container, parentId = null) {
     <div class="cmtApp-comment-footer">
       <div class="cmtApp-comment-actions">
         <button class="cmtApp-like">${canLikeCommentLocal(id) ? '👍' : '💖'} ${data.likes || 0}</button>
-        <button class="cmtApp-reply">💬 Balas (0)</button>
+        <button class="cmtApp-reply">💬 Reply (0)</button>
         <button class="cmtApp-edit">✏️ Edit</button>
-        <button class="cmtApp-delete">🗑️ Hapus</button>
+        <button class="cmtApp-delete">🗑️ Delete</button>
       </div>
       <span class="cmtApp-time">${formatWaktu(created)}</span>
     </div>
@@ -302,7 +302,7 @@ function renderComment(docSnap, container, parentId = null) {
   if (likeBtnLocal) {
     likeBtnLocal.addEventListener('click', async () => {
       try {
-        if (!canLikeCommentLocal(id)) { alert('Kamu sudah memberi like untuk komentar ini.'); return; }
+        if (!canLikeCommentLocal(id)) { alert('You have already liked this comment'); return; }
         const docRef = parentId
           ? doc(db, 'comments', pageId, 'list', parentId, 'replies', id)
           : doc(db, 'comments', pageId, 'list', id);
@@ -329,13 +329,13 @@ function renderComment(docSnap, container, parentId = null) {
   if (editBtn) {
     editBtn.addEventListener('click', async () => {
       try {
-        const confirmName = prompt('Konfirmasi edit: ketik nama pemilik komentar:');
+        const confirmName = prompt('Confirm Edit:Type your name in the comment:');
         if (!confirmName) return;
         if (confirmName.trim() !== (data.nama || '').trim()) {
-          alert('Nama tidak cocok. Edit dibatalkan.');
+          alert('Name mismatch.Please try again.');
           return;
         }
-        const newText = prompt('Ubah komentar:', data.isi || '');
+        const newText = prompt('Edit comment:', data.isi || '');
         if (newText === null) return;
 
         const docRef = parentId
@@ -350,7 +350,7 @@ function renderComment(docSnap, container, parentId = null) {
   if (deleteBtn) {
     deleteBtn.addEventListener('click', async () => {
       try {
-        const confirmName = prompt('Konfirmasi hapus: ketik nama pemilik komentar:');
+        const confirmName = prompt(': ketik nama pemilik komentar:');
         if (!confirmName) return;
         if (confirmName.trim() !== (data.nama || '').trim()) {
           alert('Nama tidak cocok. Hapus dibatalkan.');
