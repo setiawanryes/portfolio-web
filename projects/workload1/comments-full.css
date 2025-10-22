@@ -43,68 +43,26 @@
 }
 
 
-/* ===== COMMENT LIST CONTAINER ===== */
-#comments-list {
+/* ===== COMMENT ACTIONS + TIME SEJAJAR ===== */
+.cmtApp-comment-footer {
   display: flex;
-  flex-direction: column;
-  gap: 16px;          /* jarak antar komentar lebih lega */
-  width: 100%;
-  max-width: 900px;   /* desktop max width */
-  margin: 0 auto;
-  padding: 0 10px;    /* spacing nyaman di mobile */
-  box-sizing: border-box;
-}
-
-/* ===== SINGLE COMMENT ===== */
-.cmtApp-comment {
-  background: #1b163d;       /* dark-glow theme */
-  color: #fff;
-  border-radius: 12px;
-  padding: 15px 18px;        /* lebih lega */
-  word-wrap: break-word;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.5);
-  transition: transform 0.2s, background 0.2s;
-}
-
-.cmtApp-comment:hover {
-  transform: translateY(-2px);
-  background: #2a1f55;
-}
-
-/* ===== COMMENT HEADER (AVATAR + NAME) ===== */
-.cmtApp-comment-header {
-  display: flex;
+  flex-wrap: wrap;         /* biar bisa pindah baris kalau sempit */
   align-items: center;
-  gap: 12px;
-  margin-bottom: 8px;
-  font-size: 0.95rem;
-}
-
-.cmtApp-comment-header img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-/* ===== COMMENT BODY ===== */
-.cmtApp-comment-body {
-  font-size: 0.95rem;
-  line-height: 1.5;
-  margin-bottom: 10px;
-  word-break: break-word;
-}
-
-/* ===== COMMENT ACTIONS ===== */
-.cmtApp-comment-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+  justify-content: space-between; /* aksi kiri, waktu kanan */
+  gap: 6px;
   margin-bottom: 6px;
 }
 
+/* Aksi tombol di kiri */
+.cmtApp-comment-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* Tombol */
 .cmtApp-comment-actions button {
-  padding: 8px 14px;        /* touch friendly */
+  padding: 8px 12px;
   font-size: 0.85rem;
   border: none;
   border-radius: 6px;
@@ -118,47 +76,26 @@
   background: #3a2c5a;
 }
 
-/* ===== COMMENT TIME ===== */
+/* Waktu di kanan */
 .cmtApp-time {
   font-size: 0.75rem;
   color: #aaa;
+  white-space: nowrap;      /* jangan pecah baris */
 }
 
-/* ===== REPLIES ===== */
-.cmtApp-replies {
-  margin-top: 10px;
-  padding-left: 20px;
-  border-left: 2px solid #3a2c5a;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;  /* jarak antar reply */
-}
-
-/* ===== MEDIA QUERIES (Responsive) ===== */
-@media (max-width: 768px) {
-  .cmtApp-comment-header img {
-    width: 35px;
-    height: 35px;
-  }
-  
-  .cmtApp-comment-body {
-    font-size: 0.9rem;
-  }
-
-  .cmtApp-comment-actions button {
-    flex: 1 1 48%; /* 2 tombol per baris di HP */
-    padding: 8px 10px;
-    font-size: 0.85rem;
-  }
-}
-
+/* RESPONSIVE: HP kecil */
 @media (max-width: 480px) {
-  .cmtApp-comment-actions button {
-    flex: 1 1 100%; /* tombol full width di HP kecil */
+  .cmtApp-comment-footer {
+    flex-direction: column;  /* baris di HP kecil supaya tetap readable */
+    align-items: flex-start;
   }
 
-  #comments-list {
-    padding: 0 6px;
+  .cmtApp-time {
+    margin-top: 4px;
+  }
+
+  .cmtApp-comment-actions button {
+    flex: 1 1 48%;  /* 2 tombol per baris */
   }
 }
 
