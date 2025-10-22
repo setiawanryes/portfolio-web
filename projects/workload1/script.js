@@ -205,7 +205,6 @@ const likeCount = document.getElementById('like-count');
 const sortingSelect = document.getElementById('comment-sorting');
 const loadMoreBtn = document.getElementById('load-more-comments');
 const notifyBadge = document.getElementById('comment-notify-badge');
-const themeToggle = document.getElementById('comment-theme-toggle');
 
 // safe event helper
 function safeAddEvent(el, ev, cb) { if (el) el.addEventListener(ev, cb); }
@@ -513,24 +512,11 @@ window.addEventListener('click', (e) => {
   }
 });
 
-// theme toggle
-safeAddEvent(themeToggle, 'click', () => {
-  const container = document.querySelector('.project-container') || document.body;
-  container.classList.toggle('dark-mode');
-  const isDark = container.classList.contains('dark-mode');
-  localStorage.setItem(`${pageId}-theme`, isDark ? 'dark' : 'light');
-});
-
 // init UI states
 if (loadMoreBtn) loadMoreBtn.style.display = 'inline-block';
 if (notifyBadge) { notifyBadge.style.display = 'none'; notifyBadge.dataset.count = '0'; }
 if (sortingSelect && sortingSelect.value) currentSort = sortingSelect.value;
 
-// restore theme from localStorage
-try {
-  const stored = localStorage.getItem(`${pageId}-theme`);
-  if (stored === 'dark') document.querySelector('.project-container')?.classList.add('dark-mode');
-} catch(e) { /* ignore */ }
 
 // safety check
 if (!komentarList) console.warn('Komponen komentar tidak ditemukan — fitur komentar non-aktif di halaman ini.');
