@@ -736,6 +736,7 @@ body {
   opacity: 0;
   transform: translateY(20px);
   animation: fadeInUp 0.3s forwards;
+  
 }
 .cmtApp-comment:hover {
   transform: translateY(-2px);
@@ -786,6 +787,8 @@ body {
   font-size: 14px;
   line-height: 1.4;
   color: #ddd;
+  flex-wrap: nowrap; /* Jangan pindah ke baris baru */
+  
 }
 
 /* ===== Comment Footer ===== */
@@ -837,7 +840,7 @@ body {
 
 /* ===== Replies / Subkomentar ===== */
 .cmtApp-replies {
-  margin-left: 40px; /* indent untuk reply */
+  margin-left: 20px; /* indent untuk reply */
   border-left: 2px solid #333;
   padding-left: 10px;
   margin-top: 8px;
@@ -856,7 +859,7 @@ body {
 
 /* ===== Comment Time ===== */
 .cmtApp-time {
-  font-size: 11px;
+  font-size: 12px;
   color: #888;
 }
 
