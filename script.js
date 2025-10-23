@@ -189,21 +189,21 @@ window.addEventListener("click", e => {
 
 
 
-document.querySelectorAll('.experience-slider').forEach(slider => {
-  const track = slider.querySelector('.slider-track');
-  const imgs = track.querySelectorAll('img');
-  const next = slider.querySelector('.next');
-  const prev = slider.querySelector('.prev');
-  const imgWidth = imgs[0].offsetWidth;
+document.querySelectorAll('.exp-item').forEach(item => {
+  const track = item.querySelector('.slider-track');
+  const next = item.querySelector('.next');
+  const prev = item.querySelector('.prev');
+  const imgWidth = track.children[0].offsetWidth + 5; // width + gap
   let index = 0;
+  const total = track.children.length;
 
   next.addEventListener('click', () => {
-    index = (index + 1) % imgs.length;
+    index = (index + 1) % total;
     track.style.transform = `translateX(-${index * imgWidth}px)`;
   });
 
   prev.addEventListener('click', () => {
-    index = (index - 1 + imgs.length) % imgs.length;
+    index = (index - 1 + total) % total;
     track.style.transform = `translateX(-${index * imgWidth}px)`;
   });
 });
