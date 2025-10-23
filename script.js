@@ -207,3 +207,4 @@ document.querySelectorAll('.exp-item').forEach(item => {
     track.style.transform = `translateX(-${index * imgWidth}px)`;
   });
 });
+
