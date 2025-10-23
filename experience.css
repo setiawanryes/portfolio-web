@@ -1,3 +1,347 @@
+
+#experience {
+  padding: 50px 20px;
+  background: #0a081a;
+  color: #eee;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 40px;
+  color: #fff;
+  text-shadow: 0 0 10px #6b5b95;
+}
+
+/* Grid 3 kolom */
+.exp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+/* Card */
+.exp-item {
+  background: #1b163d;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 0 15px rgba(107, 91, 149, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.exp-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 25px rgba(107, 91, 149, 0.8);
+}
+
+/* Top: logo + info */
+.exp-top {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.exp-logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  margin-right: 12px;
+}
+
+.exp-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.role-title {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #f0f0f0;
+}
+
+.exp-meta {
+  font-size: 0.8rem;
+  color: #ccc;
+}
+
+/* Company & location */
+.exp-company {
+  font-weight: 600;
+  margin-bottom: 3px;
+  color: #f0f0f0;
+}
+
+.exp-location {
+  font-size: 0.8rem;
+  color: #aaa;
+  margin-bottom: 10px;
+}
+
+/* Role description */
+.role-desc {
+  font-size: 0.85rem;
+  color: #ddd;
+  margin-bottom: 10px;
+}
+
+/* Skills line */
+.skills-line {
+  font-size: 0.85rem;
+  color: #eee;
+}
+
+.skills-line i {
+  margin-right: 5px;
+  color: #f9d423;
+}
+
+.skill-trigger {
+  cursor: pointer;
+  text-decoration: underline;
+  color: #f0f0f0;
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+  background: #1b163d;
+  color: #eee;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  text-align: left;
+}
+
+.modal-content .close {
+  color: #f0f0f0;
+  float: right;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.modal-content .close:hover {
+  color: #f9d423;
+}
+.exp-item {
+  background: #1b163d;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 0 15px rgba(107, 91, 149, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.exp-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 25px rgba(107, 91, 149, 0.8);
+}
+
+/* Top: logo + info */
+.exp-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.exp-logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+}
+
+.exp-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.role-title {
+  font-weight: bold;
+  color: #f0f0f0;
+}
+
+.exp-meta {
+  font-size: 0.85rem;
+  color: #ccc;
+}
+
+/* Company & location */
+.exp-company {
+  font-weight: 600;
+  color: #f0f0f0;
+}
+
+.exp-location {
+  font-size: 0.8rem;
+  color: #aaa;
+}
+
+.role-desc {
+  font-size: 0.85rem;
+  color: #ddd;
+}
+
+/* Slider */
+.experience-slider {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  position: relative;
+}
+
+.slider-container {
+  overflow: hidden;
+  flex: 1;
+  border-radius: 8px;
+  background: #0a081a;
+}
+
+.slider-track {
+  display: flex;
+  transition: transform 0.3s ease-in-out;
+  gap: 5px;
+}
+
+.slider-track img {
+  width: 100px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.slider-track img:hover {
+  transform: scale(1.1);
+}
+
+.prev, .next {
+  background: rgba(107, 91, 149, 0.8);
+  border: none;
+  color: #fff;
+  font-size: 1.2rem;
+  padding: 5px 8px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.3s;
+}
+
+.prev:hover, .next:hover {
+  background: rgba(107, 91, 149, 1);
+}
+
+/* Skills + footer */
+.skills-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.skills-line i {
+  color: #f9d423;
+}
+
+.skill-trigger {
+  cursor: pointer;
+  text-decoration: underline;
+  color: #f0f0f0;
+}
+
+.experience-footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.project-progress-stars i {
+  color: #f9d423;
+}
+
+.details {
+  background: #6b5b95;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.details:hover {
+  background: #f9d423;
+  color: #1b163d;
+}
+
+.exp-item {
+  background: #1b163d;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 0 15px rgba(107, 91, 149, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.exp-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 25px rgba(107, 91, 149, 0.8);
+}
+
+.exp-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.exp-logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+}
+
+.exp-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.role-title {
+  font-weight: bold;
+  color: #f0f0f0;
+}
+
+.exp-meta {
+  font-size: 0.85rem;
+  color: #ccc;
+}
+
+.exp-company {
+  font-weight: 600;
+  color: #f0f0f0;
+}
+
+.exp-location {
+  font-size: 0.8rem;
+  color: #aaa;
+}
+
+
+
 .exp-body-grid {
   display: grid;
   grid-template-columns: 1fr 150px; /* deskripsi + slider */
