@@ -1212,6 +1212,12 @@ body.loaded .page-transition {
   margin-top: 20px;
 }
 
+#experience .slider-container-main {
+  max-width: 320px; /* 300px card + 20px gap */
+  overflow: hidden;
+  margin: auto;
+}
+
 
 /* Slider utama */
 .experience-slider-main {
