@@ -791,40 +791,48 @@ body {
 /* ===== Comment Footer ===== */
 .cmtApp-comment-footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* Like/Reply/Buttons di kiri, time di kanan */
   align-items: center;
-  flex-wrap: wrap; /* responsive */
-  gap: 6px;
-  font-size: 12px;
+  flex-wrap: nowrap; /* Jangan pindah ke baris baru */
+  gap: 8px;
+  font-size: 0.85rem;
   color: #aaa;
+ 
 }
-
 
 /* ===== Comment Actions ===== */
 .cmtApp-comment-actions {
   display: flex;
-  flex-wrap: wrap;
+  align-items: center;
   gap: 6px;
+  flex-shrink: 0; /* jangan kecilkan ukuran tombol */
 }
-
 .cmtApp-comment-actions button {
-  font-size: 13px;
-  padding: 4px 8px; /* touch friendly */
+  font-size: 0.85rem;
+  padding: 4px 8px;
   border-radius: 6px;
   border: none;
   background: #2c2c4400;
   color: #ccc;
   cursor: pointer;
   transition: transform 0.2s, background 0.2s, color 0.2s;
+  white-space: nowrap; /* jangan wrap teks tombol */
 }
 
 .cmtApp-comment-actions button:hover {
   transform: scale(1.1);
-  background: #3a2c5a;
-  color: #fff;
+  background: #5a2c2c00;
+  color: #de1414;
 }
+
 .cmtApp-like.liked {
   color: #ff6b6b;
+}
+.cmtApp-time {
+  font-size: 0.8rem;
+  color: #888;
+  flex-shrink: 0;
+  white-space: nowrap; /* biar tetap di satu baris */
 }
 
 /* ===== Replies / Subkomentar ===== */
