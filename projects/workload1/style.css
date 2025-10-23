@@ -1248,6 +1248,24 @@ body {
     font-size: 0.9rem;
     line-height: 1.4;
   }
+  .project-info h1 {
+    font-size: 1.8rem;
+  }
+
+  .project-info p {
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+
+  .stat {
+    font-size: 0.8rem;
+    padding: 6px 10px;
+  }
+
+  .project-buttons .btn {
+    padding: 8px 16px;
+    font-size: 0.85rem;
+  }
 }
 
 /* Project Description Read More */
