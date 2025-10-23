@@ -94,3 +94,101 @@
 }
 
 
+/* ===== Layout Project ===== */
+.project-layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center; /* agar kolom selalu center */
+}
+
+.left-column,
+.right-column {
+  flex: 1 1 300px; /* fleksibel, min 300px */
+  max-width: 100%;
+  align-items: center;
+  text-align: center;
+}
+
+/* ===== Project Header ===== */
+.project-header {
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+/* ===== Project Description ===== */
+.project-description {
+  max-height: 150px; /* default lebih nyaman */
+  overflow: hidden;
+  position: relative;
+  transition: max-height 0.4s ease;
+}
+
+.project-description.expanded {
+  max-height: 1000px; /* tetap bisa expand */
+}
+
+.project-description::after {
+  height: 50px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.5));
+}
+
+/* ===== Responsive Project Description ===== */
+@media (max-width: 768px) {
+  .project-description {
+    max-height: 120px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  
+  .project-description.expanded {
+    max-height: 900px;
+  }
+}
+
+@media (max-width: 480px) {
+  .project-description {
+    max-height: 100px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  .project-description.expanded {
+    max-height: 800px;
+  }
+}
+
+/* ===== Project Preview (Slider) ===== */
+.project-preview {
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: auto; /* otomatis ikut lebar */
+}
+
+/* ===== Modal Responsif ===== */
+.modal {
+  width: 95%;
+  max-width: 95%;
+  height: auto;
+  max-height: 90vh;
+  border-radius: 16px;
+}
+
+.modal-content {
+  width: 100%;
+  height: auto;
+  max-height: 85vh;
+}
+
+/* ===== Tombol & Buttons ===== */
+.project-buttons {
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.project-buttons .btn {
+  padding: 8px 16px;
+  font-size: 0.85rem;
+}
