@@ -3,6 +3,7 @@
   padding: 50px 20px;
   background: #0a081a;
   color: #eee;
+  position: relative;
 }
 
 .section-title {
@@ -13,15 +14,18 @@
   text-shadow: 0 0 10px #6b5b95;
 }
 
-/* Grid container untuk semua card */
-.exp-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+/* Slider utama */
+.experience-slider-main {
+  display: flex;
+  overflow: hidden;
   gap: 20px;
+  scroll-behavior: smooth;
 }
 
 /* Card */
 .exp-item {
+  min-width: 100%; /* satu card tampil full */
+  flex-shrink: 0;
   background: #1b163d;
   border-radius: 12px;
   padding: 15px;
@@ -42,6 +46,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  margin-bottom: 10px;
 }
 
 .exp-logo {
@@ -74,12 +79,13 @@
 .exp-location {
   font-size: 0.8rem;
   color: #aaa;
+  margin-bottom: 10px;
 }
 
-/* Grid: deskripsi + slider */
+/* Grid: deskripsi + slider per card */
 .exp-body-grid {
   display: grid;
-  grid-template-columns: 1fr 150px; /* Deskripsi lebih besar, slider kecil di samping */
+  grid-template-columns: 1fr 150px; /* Deskripsi + slider kecil */
   gap: 15px;
   align-items: start;
 }
@@ -87,9 +93,10 @@
 .role-desc {
   font-size: 0.85rem;
   color: #ddd;
+  margin-bottom: 10px;
 }
 
-/* Slider */
+/* Slider foto per card */
 .experience-slider {
   display: flex;
   flex-direction: column;
@@ -99,7 +106,7 @@
 }
 
 .slider-container {
-  width: 150px;  /* hanya 1 foto tampil */
+  width: 150px;  /* satu foto tampil */
   height: 100px;
   overflow: hidden;
   border-radius: 8px;
@@ -145,6 +152,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
 .skills-line i {
@@ -183,35 +191,39 @@
   color: #1b163d;
 }
 
-#experience { padding:50px 20px; background:#0a081a; color:#eee; }
-.section-title { text-align:center; font-size:2rem; margin-bottom:40px; color:#fff; text-shadow:0 0 10px #6b5b95; }
+/* Tombol navigasi slider utama */
+.main-slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(107,91,149,0.8);
+  color: #fff;
+  border: none;
+  font-size: 1.5rem;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 6px;
+  z-index: 10;
+}
 
-/* Slider utama */
-.experience-slider-main { display:flex; overflow:hidden; gap:20px; position:relative; }
-.exp-item { min-width:100%; flex-shrink:0; background:#1b163d; border-radius:12px; padding:15px; box-shadow:0 0 15px rgba(107,91,149,0.5); display:flex; flex-direction:column; gap:10px; transition:0.3s; }
+#prev-card { left: 0; }
+#next-card { right: 0; }
 
-/* Card top */
-.exp-top { display:flex; align-items:center; gap:12px; margin-bottom:10px; }
-.exp-logo { width:48px; height:48px; border-radius:8px; }
-.exp-info { display:flex; flex-direction:column; }
-.role-title { font-weight:bold; color:#f0f0f0; }
-.exp-meta { font-size:0.85rem; color:#ccc; }
-.exp-company { font-weight:600; color:#f0f0f0; }
-.exp-location { font-size:0.8rem; color:#aaa; margin-bottom:10px; }
-.role-desc { font-size:0.85rem; color:#ddd; margin-bottom:10px; }
+.main-slider-btn:hover {
+  background: rgba(107,91,149,1);
+}
 
-/* Slider foto per card */
-.exp-body-grid { display:grid; grid-template-columns:1fr 150px; gap:15px; align-items:start; }
-.experience-slider { position:relative; display:flex; flex-direction:column; gap:5px; }
-.slider-container { width:150px; height:100px; overflow:hidden; border-radius:8px; background:#0a081a; }
-.slider-track { display:flex; transition:transform 0.3s ease-in-out; }
-.slider-track img { width:150px; height:100px; object-fit:cover; border-radius:6px; cursor:pointer; transition:0.3s; }
-.slider-track img:hover { transform:scale(1.1); }
-.prev, .next { margin-top:5px; background:rgba(107,91,149,0.8); border:none; color:#fff; font-size:1rem; padding:3px 6px; cursor:pointer; border-radius:6px; }
-.prev:hover, .next:hover { background:rgba(107,91,149,1); }
-
-/* Navigasi slider utama */
-.main-slider-btn { position:absolute; top:50%; transform:translateY(-50%); background:rgba(107,91,149,0.8); color:#fff; border:none; font-size:1.5rem; padding:10px; cursor:pointer; border-radius:6px; z-index:10; }
-#prev-card { left:0; }
-#next-card { right:0; }
-.main-slider-btn:hover { background:rgba(107,91,149,1); }
+/* Responsive: mobile slider */
+@media(max-width:768px){
+  .exp-body-grid {
+    grid-template-columns: 1fr; /* deskripsi + slider di bawah */
+  }
+  .slider-container {
+    width: 100%;
+    height: 150px;
+  }
+  .slider-track img {
+    width: 100%;
+    height: 150px;
+  }
+}
