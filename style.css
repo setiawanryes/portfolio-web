@@ -1212,14 +1212,13 @@ body.loaded .page-transition {
   margin-top: 20px;
 }
 
-/* ===== EXPERIENCE SECTION DARK GLOW ===== */
+/* ===== EXPERIENCE SECTION SIMPEL DARK GLOW ===== */
 #experience {
   background: #0a081a;
   color: #e0e0ff;
   padding: 50px 20px;
   border-radius: 12px;
-  box-shadow: 0 0 30px #4c3cff44;
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 40px auto;
   font-family: 'Segoe UI', sans-serif;
 }
@@ -1228,20 +1227,26 @@ body.loaded .page-transition {
   text-align: center;
   font-size: 2rem;
   color: #a5a0ff;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
   text-shadow: 0 0 10px #4c3cff88;
 }
 
-/* Experience Card */
+.exp-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
 .exp-item {
-  display: flex;
-  gap: 20px;
   background: #141025;
-  padding: 20px;
   border-radius: 12px;
-  margin-bottom: 25px;
+  padding: 20px;
   box-shadow: 0 0 15px #4c3cff55;
   transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .exp-item:hover {
@@ -1249,50 +1254,33 @@ body.loaded .page-transition {
   box-shadow: 0 0 25px #4c3cff99;
 }
 
-/* Logo */
 .exp-logo {
-  border-radius: 10px;
   width: 60px;
   height: 60px;
   object-fit: contain;
+  margin-bottom: 15px;
 }
 
-/* Body */
-.exp-body {
-  flex: 1;
-}
-
-/* Title & Company */
 .role-title {
   font-weight: bold;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   color: #d0cfff;
-  margin-bottom: 3px;
+  margin-bottom: 5px;
 }
 
 .exp-company {
   font-size: 0.95rem;
   color: #a5a0ffaa;
-  margin-bottom: 3px;
+  margin-bottom: 5px;
 }
 
 .exp-meta {
   font-size: 0.85rem;
   color: #8888ffaa;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
-.role-desc ul {
-  list-style-type: disc;
-  padding-left: 20px;
-  color: #e0e0ffcc;
-  font-size: 0.95rem;
-  line-height: 1.5;
-}
-
-/* Skills line */
 .skills-line {
-  margin-top: 10px;
   font-size: 0.9rem;
   color: #c0c0ff;
 }
@@ -1303,78 +1291,20 @@ body.loaded .page-transition {
   color: #a5a0ff;
 }
 
-/* Hover effect on skill trigger */
 .skill-trigger:hover {
   color: #ffffff;
   text-shadow: 0 0 5px #4c3cffaa;
 }
 
-/* Gallery images */
-.exp-gallery {
-  display: flex;
-  gap: 10px;
-  margin-top: 15px;
-  flex-wrap: wrap;
-}
-
-.exp-gallery img {
-  width: 100px;
-  height: 70px;
-  object-fit: cover;
-  border-radius: 8px;
-  box-shadow: 0 0 8px #4c3cff55;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.exp-gallery img:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 15px #4c3cff88;
-}
-
-/* Modal styling for skill popup (optional) */
-.skills-box {
-  background: #141025;
-  color: #e0e0ff;
-  padding: 20px;
-  border-radius: 10px;
-  max-width: 500px;
-  box-shadow: 0 0 25px #4c3cff88;
-}
-
-.skills-box h4 {
-  color: #a5a0ff;
-  margin-bottom: 10px;
-}
-
-.skills-box ul {
-  list-style-type: disc;
-  padding-left: 20px;
-  margin-bottom: 15px;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .exp-item {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .exp-gallery img {
-    width: 80px;
-    height: 60px;
+/* RESPONSIVE */
+@media (max-width: 992px) {
+  .exp-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 480px) {
-  #experience {
-    padding: 30px 15px;
-  }
-
-  .section-title {
-    font-size: 1.75rem;
-  }
-
-  .role-title {
-    font-size: 1.1rem;
+@media (max-width: 600px) {
+  .exp-grid {
+    grid-template-columns: 1fr;
   }
 }
