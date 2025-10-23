@@ -755,7 +755,7 @@ body {
   align-items: center;
   gap: 10px;
   margin-bottom: 6px;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
 }
 
 .cmtApp-comment-header img {
@@ -768,6 +768,9 @@ body {
 
 /* ===== Comment Body ===== */
 .cmtApp-comment-body {
+  text-align: left;
+  font-size: 0.85rem;
+  line-height: 2;
   white-space: nowrap;         
   overflow-x: auto;            
   overflow-y: hidden;          
@@ -804,7 +807,7 @@ body {
   align-items: center;
   flex-wrap: nowrap;
   gap: 8px;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   color: #aaa;
 }
 
