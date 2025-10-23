@@ -98,8 +98,6 @@
   max-height: 120px;
   overflow: hidden;
   position: relative;
-  width: 100%; /* PENTING agar ikut container */
-  box-sizing: border-box; /* padding tidak membuat melebar */
   transition: max-height 0.4s ease;
 }
 
@@ -121,6 +119,8 @@
   opacity: 0;
 }
 
+
+
 /* Button Read More */
 .read-more-btn {
   background: #4f46e5;
@@ -136,6 +136,9 @@
   width: auto;
 }
 
+.read-more-btn:hover {
+  background: #4338ca;
+}
 /* ===== Responsive Layout ===== */
 
 /* Tablet & Laptop Medium (≤1024px) */
@@ -174,6 +177,64 @@
 
   .project-description.expanded {
     max-height: 600px; /* lebih kecil supaya gak terlalu panjang di HP kecil */
+  }
+
+  .read-more-btn {
+    font-size: 0.8rem;
+    padding: 5px 10px;
+  }
+}
+
+
+
+
+
+
+
+@media (max-width: 768px) {
+  .project-layout {
+    flex-direction: column; /* kolom stack */
+    align-items: center;
+    gap: 30px;
+  }
+
+  .left-column,
+  .right-column {
+    width: 100%; /* full width */
+    align-items: center;
+  }
+
+  .project-description {
+    max-height: 100px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .read-more-btn {
+    font-size: 0.85rem;
+    padding: 6px 12px;
+  }
+
+  .project-buttons {
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+  }
+
+  .project-preview {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .project-description {
+    max-height: 90px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  .project-description.expanded {
+    max-height: 800px;
   }
 
   .read-more-btn {

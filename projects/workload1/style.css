@@ -73,18 +73,17 @@ body {
   align-items: flex-start;
   gap: 60px;
   flex-wrap: wrap;
-  width: 100%;
-  box-sizing: border-box;
-  margin: 0 auto;
 }
 
 .left-column,
 .right-column {
   flex: 1 1 300px; /* fleksibel: grow, shrink, basis */
-  min-width: 0; /* penting agar gak overflow */
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 30px;
+}
+.right-column {
+  align-items: center;
 }
 
 /* Responsif untuk layar ≤768px */
@@ -182,6 +181,7 @@ body {
 }
 
 
+
 /* ==========================
    🎨 PROJECT PREVIEW (SLIDER)
 ========================== */
@@ -189,7 +189,6 @@ body {
   width: 100%;
   max-width: 420px;
   aspect-ratio: 16 / 9;
-  /* tetap proporsional di semua layar */
   position: relative;
   overflow: hidden;
   border-radius: 20px;
