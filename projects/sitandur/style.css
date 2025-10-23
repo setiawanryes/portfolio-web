@@ -48,6 +48,7 @@ body {
   flex-wrap: wrap;
   align-items: flex-start;
 }
+
 /* ==========================
    🧭 NAVIGATION
 ========================== */
@@ -126,7 +127,7 @@ body {
   gap: 15px;
   flex-wrap: wrap;
   margin-bottom: 25px;
-  position: relative; 
+  position: relative;
   margin-top: 20px
 }
 
@@ -151,7 +152,7 @@ body {
 /* =================== */
 .project-buttons {
   display: flex;
-  gap: 15px;
+  gap: 10px;
   flex-wrap: wrap;
   margin-top: 10px;
   display: flex;
@@ -226,7 +227,8 @@ body {
 .project-preview {
   width: 100%;
   max-width: 420px;
-  aspect-ratio: 16 / 9; /* tetap proporsional di semua layar */
+  aspect-ratio: 16 / 9;
+  /* tetap proporsional di semua layar */
   position: relative;
   overflow: hidden;
   border-radius: 20px;
@@ -247,8 +249,10 @@ body {
 .slide-project img {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* 🔹 biar gambar utuh, gak kepotong */
-  background-color: #0a0c1b; /* warna latar belakang agar rapi */
+  object-fit: contain;
+  /* 🔹 biar gambar utuh, gak kepotong */
+  background-color: #0a0c1b;
+  /* warna latar belakang agar rapi */
   flex-shrink: 0;
   border-radius: 20px;
 }
@@ -336,9 +340,9 @@ body {
   flex-shrink: 0;
   font-size: 1.3em;
   margin-right: 5px;
-  width: 28px; 
+  width: 28px;
   text-align: center;
-  
+
 }
 
 
@@ -468,7 +472,7 @@ body {
 /* Modal utama */
 .modal {
   position: fixed;
-  top: 50%; 
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 90%;
@@ -477,7 +481,8 @@ body {
   border-radius: 30px;
   box-shadow: 0 0 25px rgba(100, 100, 255, 0.25);
   background: radial-gradient(circle at top left, #1b1f3a, #0a0c1b 70%);
-  display: none; /* default hidden */
+  display: none;
+  /* default hidden */
   overflow: hidden;
   z-index: 999;
   align-items: center;
@@ -487,8 +492,15 @@ body {
 
 /* Animasi fade in */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translate(-50%, -48%); }
-  to { opacity: 1; transform: translate(-50%, -50%); }
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
 }
 
 /* Gambar menyesuaikan modal */
@@ -534,7 +546,7 @@ body {
 
 .modal-controls button {
   pointer-events: all;
-  background: rgba(0,0,0,0.3);
+  background: rgba(0, 0, 0, 0.3);
   border: none;
   font-size: 50px;
   color: #fff;
@@ -549,13 +561,15 @@ body {
 }
 
 .modal-controls button:hover {
-  background: rgba(255,255,255,0.2);
+  background: rgba(255, 255, 255, 0.2);
   color: #00f;
 }
 
 .mini-modal {
-  display: none; /* default hidden */
-  position: absolute; /* relatif terhadap window / parent */
+  display: none;
+  /* default hidden */
+  position: absolute;
+  /* relatif terhadap window / parent */
   width: 350px;
   max-width: 90%;
   padding: 15px 20px;
@@ -566,8 +580,10 @@ body {
   z-index: 1000;
   font-size: 14px;
   line-height: 1.5;
-  text-align: justify; /* teks rata kanan kiri */
-  pointer-events: none; /* biar hover tetap smooth */
+  text-align: justify;
+  /* teks rata kanan kiri */
+  pointer-events: none;
+  /* biar hover tetap smooth */
   transition: opacity 0.3s, transform 0.3s;
   opacity: 0;
   transform: translateY(-10px) scale(0.95);
@@ -593,24 +609,27 @@ body {
   text-decoration: none;
   color: white;
 }
-.live { background-color: #4caf50; }
+
+.live {
+  background-color: #4caf50;
+}
 
 .corner-widgets {
   position: fixed;
   bottom: 20px;
-  right: 20px;
+  right: 0px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: px;
   padding: 8px 12px;
   border-radius: 12px;
-  background: rgba(0,0,0,0.2);
+  background: rgba(0, 0, 0, 0.2);
 }
 
 /* Progres Balok */
 .progress-bar-container {
   position: relative;
-  width: 120px;
+  width: 100px;
   height: 20px;
   background: #ccc;
   border-radius: 10px;
@@ -637,6 +656,8 @@ body {
   display: flex;
   align-items: center;
   gap: 5px;
+  font-size: 12;
+
 }
 
 .reaction-btn {
@@ -653,13 +674,17 @@ body {
 
 /* Warna tema */
 .like-theme {
-  color: #4caf50; /* ganti sesuai tema utama */
-}
-.dislike-theme {
-  color: #f44336; /* ganti sesuai tema sekunder */
+  color: #4caf50;
+  /* ganti sesuai tema utama */
 }
 
-#like-count, #dislike-count {
+.dislike-theme {
+  color: #f44336;
+  /* ganti sesuai tema sekunder */
+}
+
+#like-count,
+#dislike-count {
   font-size: 16px;
   margin-right: 8px;
   color: #f9f4f4;
@@ -667,34 +692,39 @@ body {
 
 /* Gap antar elemen */
 .project-buttons a.btn.live {
-  margin-right: 50px; /* Preview → Progress Bar */
+  margin-right: 50px;
+  /* Preview → Progress Bar */
 }
 
 .comment-modal {
   display: none;
   position: fixed;
-  top:0; left:0;
-  width:100%; height:100%;
-  background: rgba(0,0,0,0.5);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* pastikan di atas modal lain */
+  z-index: 1000;
+  /* pastikan di atas modal lain */
 }
 
 .comment-modal .modal-content {
-  background:white;
-  padding:20px;
-  border-radius:10px;
-  width:90%;
-  max-width:400px;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
+
 .comment-modal .close {
-  align-self:flex-end;
-  cursor:pointer;
-  font-size:20px;
+  align-self: flex-end;
+  cursor: pointer;
+  font-size: 20px;
 }
 
 /* ===========================
@@ -737,7 +767,7 @@ body {
   border-radius: 12px;
   padding: 10px 12px;
   margin-bottom: 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
   color: #eee;
   position: relative;
   opacity: 0;
@@ -781,7 +811,7 @@ body {
   align-items: center;
   font-size: 12px;
   text-align: left;
-  color: #aaa;  
+  color: #aaa;
   line-height: 1.4;
 }
 
@@ -793,7 +823,7 @@ body {
   margin-right: 5px;
   transition: transform 0.2s, color 0.2s;
   color: #ccc;
-  
+
 }
 
 .cmtApp-comment-actions button:hover {
@@ -805,505 +835,550 @@ body {
   color: #ff6b6b;
 }
 
-/* Reply / Subkomentar */
+/* Reply / Subkomentar - responsive */
 .cmtApp-replies {
-  margin-left: 20px;
-  margin-top: 5px;
-  border-left: 2px solid #333;
-  padding-left: 5px;
+  margin-left: 25px;       
+  margin-top: 10px;        
+  border-left: 2px solid #555; 
+  padding-left: 5px;      
+  border-radius: 5px;      
+  word-wrap: break-word;
+ 
 }
 
-.cmtApp-replies .cmtApp-comment {
-  opacity: 0;
-  transform: translateX(-20px);
-  animation: slideIn 0.3s forwards;
+/* Tablet / layar sedang */
+@media (max-width: 992px) {
+  .cmtApp-replies {
+    margin-left: 20px;
+    padding-left: 8px;
+  }
 }
 
-@keyframes slideIn {
-  to { opacity: 1; transform: translateX(0); }
+/* Mobile / layar kecil */
+@media (max-width: 576px) {
+  .cmtApp-replies {
+    margin-left: 15px;
+    padding-left: 6px;
+  }
 }
 
-.cmtApp-time { font-size: 11px; color: #888; }
+  .cmtApp-replies .cmtApp-comment {
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: slideIn 0.3s forwards;
+  }
 
-/* ===== Modal ===== */
-.cmtApp-modal {
-  display: none;
-  position: fixed;
-  top:0; left:0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.7);
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
+  @keyframes slideIn {
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
 
-.cmtApp-modal.show {
-  display: flex;
-  opacity: 1;
-}
+  .cmtApp-time {
+    font-size: 12px;
+    color: #888;
+  }
 
-.cmtApp-modal-content {
-  background: #2b2b42;
-  border-radius: 12px;
-  padding: 15px 20px;
-  width: 90%;
-  max-width: 360px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  color: #eee;
-  position: relative;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-  transform: translateY(-20px);
-  transition: transform 0.3s ease;
-}
+  /* ===== Modal ===== */
+  .cmtApp-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
 
-.cmtApp-modal.show .cmtApp-modal-content {
-  transform: translateY(0);
-}
+  .cmtApp-modal.show {
+    display: flex;
+    opacity: 1;
+  }
 
-.cmtApp-modal-content input,
-.cmtApp-modal-content textarea {
-  width: 100%;
-  padding: 8px 10px;
-  border-radius: 8px;
-  border: 1px solid #555;
-  font-size: 14px;
-  outline: none;
-  background: #1f1f35;
-  color: #eee;
-}
+  .cmtApp-modal-content {
+    background: #2b2b42;
+    border-radius: 12px;
+    padding: 15px 20px;
+    width: 90%;
+    max-width: 360px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: #eee;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+  }
 
-.cmtApp-modal-content input:focus,
-.cmtApp-modal-content textarea:focus {
-  border-color: #3f72af;
-}
+  .cmtApp-modal.show .cmtApp-modal-content {
+    transform: translateY(0);
+  }
 
-#cmtAppKirim {
-  background: #3f72af;
-  color: #fff;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background 0.2s;
-}
+  .cmtApp-modal-content input,
+  .cmtApp-modal-content textarea {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid #555;
+    font-size: 14px;
+    outline: none;
+    background: #1f1f35;
+    color: #eee;
+  }
 
-#cmtAppKirim:hover {
-  background: #2c5282;
-}
+  .cmtApp-modal-content input:focus,
+  .cmtApp-modal-content textarea:focus {
+    border-color: #3f72af;
+  }
 
-.cmtApp-close {
-  position: absolute;
-  top: 8px; right: 12px;
-  font-size: 20px;
-  cursor: pointer;
-  color: #eee;
-  transition: color 0.2s;
-}
+  #cmtAppKirim {
+    background: #3f72af;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+  }
 
-.cmtApp-close:hover {
-  color: #ff6b6b;
-}
+  #cmtAppKirim:hover {
+    background: #2c5282;
+  }
 
-#cmtAppModalTitle {
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 5px;
-}
+  .cmtApp-close {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #eee;
+    transition: color 0.2s;
+  }
 
-/* Scrollable comment list */
-#comments-list {
-  max-height: 360px;
-  overflow-y: auto;
-  padding-right: 5px;
-  margin-top: 15px;
-}
+  .cmtApp-close:hover {
+    color: #ff6b6b;
+  }
 
-/* Custom scrollbar */
-#comments-list::-webkit-scrollbar {
-  width: 8px;
-}
+  #cmtAppModalTitle {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 5px;
+  }
 
-#comments-list::-webkit-scrollbar-track {
-  background: #1b1b2f;
-  border-radius: 4px;
-}
+  /* Scrollable comment list */
+  #comments-list {
+    max-height: 360px;
+    overflow-y: auto;
+    padding-right: 5px;
+    margin-top: 15px;
+  }
 
-#comments-list::-webkit-scrollbar-thumb {
-  background: #3f72af;
-  border-radius: 4px;
-}
+  /* Custom scrollbar */
+  #comments-list::-webkit-scrollbar {
+    width: 8px;
+  }
 
-#comments-list::-webkit-scrollbar-thumb:hover {
-  background: #2c5282;
-}
+  #comments-list::-webkit-scrollbar-track {
+    background: #1b1b2f;
+    border-radius: 4px;
+  }
 
-/* ==========================
+  #comments-list::-webkit-scrollbar-thumb {
+    background: #3f72af;
+    border-radius: 4px;
+  }
+
+  #comments-list::-webkit-scrollbar-thumb:hover {
+    background: #2c5282;
+  }
+
+  /* ==========================
    📱 RESPONSIVE OPTIMIZATION
 ========================== */
 
-/* Tablet & Laptop Medium */
-@media (max-width: 1024px) {
-  .project-detail {
-    padding: 80px 5%;
+  /* Tablet & Laptop Medium */
+  @media (max-width: 1024px) {
+    .project-detail {
+      padding: 80px 5%;
+    }
+
+    .project-container {
+      padding: 40px;
+    }
+
+    .project-info h1 {
+      font-size: 2.2rem;
+    }
+
+    .project-info p {
+      font-size: 0.95rem;
+    }
+
+    .key-features {
+      padding: 30px;
+    }
   }
 
-  .project-container {
-    padding: 40px;
+  /* Mobile (Horizontal & Medium) */
+  @media (max-width: 768px) {
+    .project-layout {
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .left-column,
+    .right-column {
+      min-width: 100%;
+      align-items: center;
+      text-align: center;
+    }
+
+    .project-info h1 {
+      font-size: 2rem;
+    }
+
+    .project-info p {
+      font-size: 0.9rem;
+      text-align: justify;
+    }
+
+    .project-stats {
+      justify-content: center;
+    }
+
+    .project-buttons {
+      justify-content: center;
+    }
+
+    .project-preview {
+      max-width: 100%;
+    }
+
+    .key-features {
+      max-width: 100%;
+      padding: 25px;
+    }
+
+    .key-features h2 {
+      font-size: 16px;
+    }
+
+    .key-features li {
+      font-size: 13px;
+    }
+
+    /* Modal */
+    .modal {
+      width: 95%;
+      max-width: none;
+      aspect-ratio: auto;
+      height: 80vh;
+      border-radius: 16px;
+    }
+
+    .modal-controls button {
+      width: 50px;
+      height: 50px;
+      font-size: 30px;
+    }
+
+    .close {
+      font-size: 30px;
+      right: 20px;
+    }
+
+    /* Comment modal */
+    .cmtApp-modal-content {
+      width: 95%;
+      padding: 12px 15px;
+    }
+
+    #comments-list {
+      max-height: 280px;
+    }
+
+    /* Corner widgets (progress & reactions) */
+    .corner-widgets {
+      bottom: 15px;
+      right: 15px;
+      flex-direction: column;
+      gap: 8px;
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    .progress-bar-container {
+      width: 100px;
+      height: 16px;
+    }
+
+    #progress-text {
+      font-size: 10px;
+    }
+
+    .reaction-btn {
+      font-size: 20px;
+    }
   }
 
-  .project-info h1 {
-    font-size: 2.2rem;
+  /* Small Mobile (≤480px) */
+  @media (max-width: 480px) {
+    body {
+      line-height: 1.4;
+    }
+
+    .project-container {
+      padding: 25px;
+      border-radius: 16px;
+    }
+
+    .project-info h1 {
+      font-size: 1.7rem;
+    }
+
+    .project-info p {
+      font-size: 0.85rem;
+    }
+
+    .project-buttons .btn {
+      padding: 8px 16px;
+      font-size: 0.85rem;
+    }
+
+    .stat {
+      padding: 6px 10px;
+      font-size: 0.8rem;
+    }
+
+    .key-features {
+      padding: 20px;
+    }
+
+    .key-features li {
+      padding-left: 24px;
+    }
+
+    .mini-modal {
+      width: 85%;
+      font-size: 13px;
+    }
+
+    .cmtApp-comment {
+      padding: 8px 10px;
+    }
+
+    .cmtApp-comment-body {
+      font-size: 13px;
+    }
   }
 
-  .project-info p {
-    font-size: 0.95rem;
-  }
-
-  .key-features {
-    padding: 30px;
-  }
-}
-
-/* Mobile (Horizontal & Medium) */
-@media (max-width: 768px) {
-  .project-layout {
-    flex-direction: column;
-    gap: 40px;
-  }
-
-  .left-column,
-  .right-column {
-    min-width: 100%;
-    align-items: center;
-    text-align: center;
-  }
-
-  .project-info h1 {
-    font-size: 2rem;
-  }
-
-  .project-info p {
-    font-size: 0.9rem;
-    text-align: justify;
-  }
-
-  .project-stats {
-    justify-content: center;
-  }
-
-  .project-buttons {
-    justify-content: center;
-  }
-
-  .project-preview {
-    max-width: 100%;
-  }
-
-  .key-features {
-    max-width: 100%;
-    padding: 25px;
-  }
-
-  .key-features h2 {
-    font-size: 16px;
-  }
-
-  .key-features li {
-    font-size: 13px;
-  }
-
-  /* Modal */
-  .modal {
-    width: 95%;
-    max-width: none;
-    aspect-ratio: auto;
-    height: 80vh;
-    border-radius: 16px;
-  }
-
-  .modal-controls button {
-    width: 50px;
-    height: 50px;
-    font-size: 30px;
-  }
-
-  .close {
-    font-size: 30px;
-    right: 20px;
-  }
-
-  /* Comment modal */
-  .cmtApp-modal-content {
-    width: 95%;
-    padding: 12px 15px;
-  }
-
-  #comments-list {
-    max-height: 280px;
-  }
-
-  /* Corner widgets (progress & reactions) */
-  .corner-widgets {
-    bottom: 15px;
-    right: 15px;
-    flex-direction: column;
-    gap: 8px;
-    background: rgba(0,0,0,0.3);
-  }
-
-  .progress-bar-container {
-    width: 100px;
-    height: 16px;
-  }
-
-  #progress-text {
-    font-size: 10px;
-  }
-
-  .reaction-btn {
-    font-size: 20px;
-  }
-}
-
-/* Small Mobile (≤480px) */
-@media (max-width: 480px) {
-  body {
-    line-height: 1.4;
-  }
-
-  .project-container {
-    padding: 25px;
-    border-radius: 16px;
-  }
-
-  .project-info h1 {
-    font-size: 1.7rem;
-  }
-
-  .project-info p {
-    font-size: 0.85rem;
-  }
-
-  .project-buttons .btn {
-    padding: 8px 16px;
-    font-size: 0.85rem;
-  }
-
-  .stat {
-    padding: 6px 10px;
-    font-size: 0.8rem;
-  }
-
-  .key-features {
-    padding: 20px;
-  }
-
-  .key-features li {
-    padding-left: 24px;
-  }
-
-  .mini-modal {
-    width: 85%;
-    font-size: 13px;
-  }
-
-  .cmtApp-comment {
-    padding: 8px 10px;
-  }
-
-  .cmtApp-comment-body {
-    font-size: 13px;
-  }
-}
-
-/* ===== Project Description Read More ===== */
-.project-description {
-  max-height: 120px;
-  overflow: hidden;
-  position: relative;
-  transition: max-height 0.4s ease;
-}
-
-.project-description.expanded {
-  max-height: 1000px;
-}
-
-.project-description::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 60px;
-  background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.5));
-}
-
-.project-description.expanded::after {
-  opacity: 0;
-}
-
-
-
-/* Button Read More */
-.read-more-btn {
-  background: #4f46e5;
-  color: #fff;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  margin-top: 10px;
-  transition: background 0.3s, transform 0.2s;
-  display: inline-block;
-  width: auto;
-}
-
-.read-more-btn:hover {
-  background: #4338ca;
-}
-/* ===== Responsive Layout ===== */
-
-/* Tablet & Laptop Medium (≤1024px) */
-@media (max-width: 1024px) {
+  /* ===== Project Description Read More ===== */
   .project-description {
-    max-height: 110px;
-  }
-
-  .read-more-btn {
-    font-size: 0.85rem;
-    padding: 7px 12px;
-  }
-}
-
-/* Tablet & Mobile (≤768px) */
-@media (max-width: 768px) {
-  .project-description {
-    max-height: 100px;
-    font-size: 0.95rem;
-    line-height: 1.5;
-  }
-
-  .read-more-btn {
-    font-size: 0.85rem;
-    padding: 6px 12px;
-  }
-}
-
-/* Small Mobile (≤480px) */
-@media (max-width: 480px) {
-  .project-description {
-    max-height: 90px;
-    font-size: 0.9rem;
-    line-height: 1.4;
+    max-height: 120px;
+    overflow: hidden;
+    position: relative;
+    transition: max-height 0.4s ease;
   }
 
   .project-description.expanded {
-    max-height: 600px; /* lebih kecil supaya gak terlalu panjang di HP kecil */
+    max-height: 1000px;
   }
 
+  .project-description::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
+  }
+
+  .project-description.expanded::after {
+    opacity: 0;
+  }
+
+
+
+  /* Button Read More */
   .read-more-btn {
-    font-size: 0.8rem;
-    padding: 5px 10px;
-  }
-}
-
-
-/* ===== MEDIA QUERIES ===== */
-@media (max-width: 768px) {
-  .cmtApp-comment-actions button {
-    flex: 1 1 48%; /* 2 tombol per baris di HP */
-  }
-
-  .cmtApp-comment-body {
-    font-size: 0.85rem;
+    background: #4f46e5;
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    transition: background 0.3s, transform 0.2s;
+    display: inline-block;
+    width: auto;
   }
 
-  .cmtApp-comment-header img {
-    width: 30px;
-    height: 30px;
+  .read-more-btn:hover {
+    background: #4338ca;
   }
-}
 
-@media (max-width: 480px) {
-  .cmtApp-comment-actions button {
-    flex: 1 1 100%; /* tombol full width di HP kecil */
+  /* ===== Responsive Layout ===== */
+
+  /* Tablet & Laptop Medium (≤1024px) */
+  @media (max-width: 1024px) {
+    .project-description {
+      max-height: 110px;
+    }
+
+    .read-more-btn {
+      font-size: 0.85rem;
+      padding: 7px 12px;
+    }
   }
-  
-  #comments-list {
-    padding: 0 6px;
+
+  /* Tablet & Mobile (≤768px) */
+  @media (max-width: 768px) {
+    .project-description {
+      max-height: 100px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .read-more-btn {
+      font-size: 0.85rem;
+      padding: 6px 12px;
+    }
   }
-}
 
-/* ===== LOAD MORE BUTTON ===== */
-#load-more-comments {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  border-radius: 8px;
-  background: #007bff;
-  color: #fff;
-  font-size: 0.95rem;
-  font-weight: 500;
-  border: none;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
+  /* Small Mobile (≤480px) */
+  @media (max-width: 480px) {
+    .project-description {
+      max-height: 90px;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
 
-#load-more-comments:hover {
-  background: #0056d2;
-}
+    .project-description.expanded {
+      max-height: 600px;
+      /* lebih kecil supaya gak terlalu panjang di HP kecil */
+    }
 
+    .read-more-btn {
+      font-size: 0.8rem;
+      padding: 5px 10px;
+    }
+  }
 
 
-/* ===== NOTIFY BADGE UPGRADE ===== */
-#comment-notify-badge {
-  display: inline-block;
-  background: #ff3b30;
-  color: white;
-  border-radius: 50%;
-  font-size: 0.75rem;
-  font-weight: bold;
-  padding: 4px 8px;
-  min-width: 20px;
-  height: 20px;
-  line-height: 1;
-  text-align: center;
-  margin-left: 6px;
-  vertical-align: top;
-  box-shadow: 0 0 6px rgba(255, 59, 48, 0.6);
-  animation: pulseGlow 1.2s infinite;
-  transform-origin: center;
-  transition: transform 0.2s ease, opacity 0.2s ease;
-}
+  /* ===== MEDIA QUERIES ===== */
+  @media (max-width: 768px) {
+    .cmtApp-comment-actions button {
+      flex: 1 1 48%;
+      /* 2 tombol per baris di HP */
+    }
 
-/* Smooth pulse + glow */
-@keyframes pulseGlow {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 1;
+    .cmtApp-comment-body {
+      font-size: 0.85rem;
+    }
+
+    .cmtApp-comment-header img {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .cmtApp-comment-actions button {
+      flex: 1 1 100%;
+      /* tombol full width di HP kecil */
+    }
+
+    #comments-list {
+      padding: 0 6px;
+    }
+  }
+
+  /* ===== LOAD MORE BUTTON ===== */
+  #load-more-comments {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    background: #007bff;
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  #load-more-comments:hover {
+    background: #0056d2;
+  }
+
+
+
+  /* ===== NOTIFY BADGE UPGRADE ===== */
+  #comment-notify-badge {
+    display: inline-block;
+    background: #ff3b30;
+    color: white;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 4px 8px;
+    min-width: 20px;
+    height: 20px;
+    line-height: 1;
+    text-align: center;
+    margin-left: 6px;
+    vertical-align: top;
     box-shadow: 0 0 6px rgba(255, 59, 48, 0.6);
+    animation: pulseGlow 1.2s infinite;
+    transform-origin: center;
+    transition: transform 0.2s ease, opacity 0.2s ease;
   }
-  50% {
-    transform: scale(1.3);
-    opacity: 0.8;
-    box-shadow: 0 0 12px rgba(255, 59, 48, 0.9);
+
+  /* Smooth pulse + glow */
+  @keyframes pulseGlow {
+
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 1;
+      box-shadow: 0 0 6px rgba(255, 59, 48, 0.6);
+    }
+
+    50% {
+      transform: scale(1.3);
+      opacity: 0.8;
+      box-shadow: 0 0 12px rgba(255, 59, 48, 0.9);
+    }
   }
-}
 
-/* Optional: appear animation */
-#comment-notify-badge.show {
-  animation: popIn 0.3s ease forwards;
-}
+  /* Optional: appear animation */
+  #comment-notify-badge.show {
+    animation: popIn 0.3s ease forwards;
+  }
 
-@keyframes popIn {
-  0% { transform: scale(0); opacity: 0; }
-  60% { transform: scale(1.2); opacity: 1; }
-  100% { transform: scale(1); }
-}
+  @keyframes popIn {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+
+    60% {
+      transform: scale(1.2);
+      opacity: 1;
+    }
+
+    100% {
+      transform: scale(1);
+    }
+  }
