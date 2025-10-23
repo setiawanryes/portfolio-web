@@ -87,28 +87,26 @@ document.querySelectorAll('.experience-slider').forEach(slider => {
   });
 });
 
-// Slider utama (experience-slider-main)
 const sliderMain = document.querySelector('.experience-slider-main');
-const mainPrevBtn = document.getElementById('prev-card');
-const mainNextBtn = document.getElementById('next-card');
-let mainIndex = 0;
+const prevBtn = document.getElementById('prev-card');
+const nextBtn = document.getElementById('next-card');
+let index = 0;
 
 function showSlide() {
-  const cardWidth = sliderMain.children[0].offsetWidth + 20; // +gap
-  sliderMain.style.transform = `translateX(-${mainIndex * cardWidth}px)`;
+  const cardWidth = sliderMain.children[0].offsetWidth;
+  const gap = 20; // sama dengan CSS
+  sliderMain.style.transform = `translateX(-${index * (cardWidth + gap)}px)`;
 }
 
-// Tombol Prev
-mainPrevBtn.addEventListener('click', () => {
-  mainIndex = (mainIndex > 0) ? mainIndex - 1 : sliderMain.children.length - 1;
+prevBtn.addEventListener('click', () => {
+  index = (index > 0) ? index - 1 : sliderMain.children.length - 1;
   showSlide();
 });
 
-// Tombol Next
-mainNextBtn.addEventListener('click', () => {
-  mainIndex = (mainIndex < sliderMain.children.length - 1) ? mainIndex + 1 : 0;
+nextBtn.addEventListener('click', () => {
+  index = (index < sliderMain.children.length - 1) ? index + 1 : 0;
   showSlide();
 });
 
-// Inisialisasi
+// inisialisasi
 showSlide();
