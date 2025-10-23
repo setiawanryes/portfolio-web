@@ -1212,99 +1212,118 @@ body.loaded .page-transition {
   margin-top: 20px;
 }
 
-/* ===== EXPERIENCE SECTION SIMPEL DARK GLOW ===== */
+/* === General === */
 #experience {
-  background: #0a081a;
-  color: #e0e0ff;
   padding: 50px 20px;
-  border-radius: 12px;
-  max-width: 1200px;
-  margin: 40px auto;
-  font-family: 'Segoe UI', sans-serif;
+  background: #0a081a;
+  color: #eee;
 }
 
 .section-title {
-  text-align: center;
   font-size: 2rem;
-  color: #a5a0ff;
+  text-align: center;
   margin-bottom: 40px;
-  text-shadow: 0 0 10px #4c3cff88;
+  color: #fff;
+  text-shadow: 0 0 10px #6b5b95;
 }
 
+/* === Grid === */
 .exp-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 25px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
 }
 
+/* === Card === */
 .exp-item {
-  background: #141025;
+  background: #1b163d;
   border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 0 15px #4c3cff55;
-  transition: transform 0.3s, box-shadow 0.3s;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+  padding: 15px;
+  box-shadow: 0 0 15px rgba(107, 91, 149, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .exp-item:hover {
   transform: translateY(-5px);
-  box-shadow: 0 0 25px #4c3cff99;
+  box-shadow: 0 0 25px rgba(107, 91, 149, 0.8);
 }
 
+/* === Logo === */
 .exp-logo {
-  width: 60px;
-  height: 60px;
-  object-fit: contain;
-  margin-bottom: 15px;
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  display: block;
 }
 
+/* === Text === */
 .role-title {
+  font-size: 1.1rem;
   font-weight: bold;
-  font-size: 1.2rem;
-  color: #d0cfff;
   margin-bottom: 5px;
+  color: #f0f0f0;
 }
 
 .exp-company {
-  font-size: 0.95rem;
-  color: #a5a0ffaa;
+  font-size: 0.9rem;
+  color: #ccc;
   margin-bottom: 5px;
 }
 
 .exp-meta {
-  font-size: 0.85rem;
-  color: #8888ffaa;
+  font-size: 0.8rem;
+  color: #aaa;
   margin-bottom: 10px;
 }
 
+/* === Skills === */
 .skills-line {
-  font-size: 0.9rem;
-  color: #c0c0ff;
+  font-size: 0.85rem;
+  margin-top: 10px;
+  color: #eee;
+}
+
+.skills-line i {
+  margin-right: 5px;
+  color: #f9d423;
 }
 
 .skill-trigger {
   cursor: pointer;
   text-decoration: underline;
-  color: #a5a0ff;
+  color: #f0f0f0;
 }
 
-.skill-trigger:hover {
-  color: #ffffff;
-  text-shadow: 0 0 5px #4c3cffaa;
+/* === Modal === */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.7);
 }
 
-/* RESPONSIVE */
-@media (max-width: 992px) {
-  .exp-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.modal-content {
+  background: #1b163d;
+  color: #eee;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  text-align: left;
 }
 
-@media (max-width: 600px) {
-  .exp-grid {
-    grid-template-columns: 1fr;
-  }
+.modal-content .close {
+  color: #f0f0f0;
+  float: right;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.modal-content .close:hover {
+  color: #f9d423;
 }

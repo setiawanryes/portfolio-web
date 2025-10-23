@@ -168,3 +168,21 @@ document.querySelectorAll('.project-progress-stars').forEach(stars => {
     else star.classList.remove('completed');
   });
 });
+
+
+// Modal script
+const modal = document.getElementById("skill-modal");
+const modalContent = document.getElementById("skill-detail");
+const closeBtn = document.querySelector(".modal .close");
+
+document.querySelectorAll(".skill-trigger").forEach(trigger => {
+  trigger.addEventListener("click", () => {
+    modalContent.innerHTML = trigger.getAttribute("data-skill");
+    modal.style.display = "block";
+  });
+});
+
+closeBtn.addEventListener("click", () => modal.style.display = "none");
+window.addEventListener("click", e => {
+  if (e.target === modal) modal.style.display = "none";
+});
