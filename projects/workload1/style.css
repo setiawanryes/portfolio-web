@@ -1171,7 +1171,11 @@ body {
   line-height: 1.5;
   margin-bottom: 8px;
   word-break: break-word;
+  display: inline-block; /* biar lebarnya sesuai konten */
+  white-space: nowrap;   /* jangan wrap teks */
+  overflow-x: auto;      /* scroll horizontal jika teks terlalu panjang */
 }
+
 }
 
 
