@@ -821,8 +821,8 @@ body {
 }
 
 .cmtApp-comment-actions button {
-  font-size: 0.85rem;
-  padding: 4px 8px;
+  font-size: 0.75rem;
+  padding: 2px 4px;
   border-radius: 6px;
   border: none;
   background: #2c2c4400;
