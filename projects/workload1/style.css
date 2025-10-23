@@ -966,6 +966,7 @@ body {
   box-sizing: border-box;
   overflow-y: auto;
   max-height: 500px; /* Bisa scroll jika banyak komentar */
+
 }
 
 /* ===== Custom Scrollbar ===== */
