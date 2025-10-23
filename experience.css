@@ -237,3 +237,46 @@
   background: rgba(0,0,0,0.7);
   z-index: 10000; /* pastikan lebih tinggi dari slider */
 }
+
+#experience .slider-container-main {
+  max-width: 320px; /* 300px card + 20px gap */
+  overflow: hidden;
+  margin: auto;
+}
+
+
+
+/* Tombol navigasi slider utama */
+
+.slider-wrapper {
+  width: 380px;       /* sama dengan lebar card */
+  overflow: hidden;   /* sembunyikan card yang diluar */
+  position: relative; /* supaya tombol bisa absolute */
+  margin: auto;
+}
+
+/* Slider utama */
+.experience-slider-main {
+  display: flex;
+  overflow: hidden;
+  gap: 20px;
+ transition: transform 0.3s ease;
+}
+
+.experience-slider-main .exp-item {
+  flex: 0 0 380px;
+  min-width: 380px;
+  max-width: 380px;
+  background: #1b163d;
+  color: #fff;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 0 15px rgba(107,91,149,0.5);
+  text-align:justify;
+}
+
+.experience-slider-main {
+  display: flex;
+  transition: transform 0.3s ease;
+  gap: 20px;
+}
