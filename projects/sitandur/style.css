@@ -181,6 +181,45 @@ body {
   box-shadow: 0 0 15px #9f88ff;
 }
 
+/* ===== Header Komentar ===== */
+.custom-line {
+  height: 2px;
+  background: linear-gradient(to right, #2c5282, #050414);
+  width: 100%;
+  border-radius: 4px;
+  margin-top: 20px;
+}
+
+#comments-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0 15px 0;
+}
+
+#comments-header h3 {
+  font-size: 1.2rem;
+  color: #ffffff;
+  margin: 0;
+}
+
+#comments-header select {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#comments-header select:hover {
+  border-color: #007bff;
+}
+
+
 /* ==========================
    🎨 PROJECT PREVIEW (SLIDER)
 ========================== */
