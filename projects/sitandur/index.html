@@ -98,21 +98,23 @@
       </div>
   </section>
 
+<!-- KUMPULAN MODAL -->
+  <!-- Kolom Komentar -->
   <div class="cmtApp-modal" id="cmtAppModal">
     <div class="cmtApp-modal-content">
       <span class="cmtApp-close" id="close-cmtAppModal">&times;</span>
-      <div id="cmtAppModalTitle">Tulis Komentar</div>
-      <input type="text" id="cmtAppNama" placeholder="Nama">
-      <textarea id="cmtAppIsi" rows="4" placeholder="Komentar..."></textarea>
-      <button id="cmtAppKirim">Kirim</button>
+      <div id="cmtAppModalTitle">Write a Comment</div>
+      <input type="text" id="cmtAppNama" placeholder="Enter your name">
+      <textarea id="cmtAppIsi" rows="4" placeholder="Comment..."></textarea>
+      <button id="cmtAppKirim">Send</button>
     </div>
   </div>
 
-  <!-- Modal / Tooltip di dalam container -->
+  <!-- Float Modal -->
   <div id="miniModal" class="mini-modal">
     <div class="mini-content" id="miniContent"></div>
   </div>
-  </div>
+
   <!-- Modal lightbox -->
   <div id="lightboxModal" class="modal">
     <span class="close">&times;</span>
@@ -126,14 +128,10 @@
 
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js"></script>
-
   <script src="script.js"></script>
   <script type="module" src="script.js"></script>
+  <script>window.PAGE_ID = "sitandur"</script>
   <script type="module" src="app.js"></script>
-
-
-
-
 
 </body>
 
