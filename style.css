@@ -1212,7 +1212,6 @@ body.loaded .page-transition {
   margin-top: 20px;
 }
 
-/* === General === */
 #experience {
   padding: 50px 20px;
   background: #0a081a;
@@ -1220,21 +1219,21 @@ body.loaded .page-transition {
 }
 
 .section-title {
-  font-size: 2rem;
   text-align: center;
+  font-size: 2rem;
   margin-bottom: 40px;
   color: #fff;
   text-shadow: 0 0 10px #6b5b95;
 }
 
-/* === Grid === */
+/* Grid 3 kolom */
 .exp-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
 }
 
-/* === Card === */
+/* Card */
 .exp-item {
   background: #1b163d;
   border-radius: 12px;
@@ -1248,39 +1247,59 @@ body.loaded .page-transition {
   box-shadow: 0 0 25px rgba(107, 91, 149, 0.8);
 }
 
-/* === Logo === */
+/* Top: logo + info */
+.exp-top {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
 .exp-logo {
   width: 48px;
   height: 48px;
   border-radius: 8px;
-  margin-bottom: 12px;
-  display: block;
+  margin-right: 12px;
 }
 
-/* === Text === */
+.exp-info {
+  display: flex;
+  flex-direction: column;
+}
+
 .role-title {
-  font-size: 1.1rem;
   font-weight: bold;
-  margin-bottom: 5px;
+  font-size: 1rem;
   color: #f0f0f0;
 }
 
-.exp-company {
-  font-size: 0.9rem;
+.exp-meta {
+  font-size: 0.8rem;
   color: #ccc;
-  margin-bottom: 5px;
 }
 
-.exp-meta {
+/* Company & location */
+.exp-company {
+  font-weight: 600;
+  margin-bottom: 3px;
+  color: #f0f0f0;
+}
+
+.exp-location {
   font-size: 0.8rem;
   color: #aaa;
   margin-bottom: 10px;
 }
 
-/* === Skills === */
+/* Role description */
+.role-desc {
+  font-size: 0.85rem;
+  color: #ddd;
+  margin-bottom: 10px;
+}
+
+/* Skills line */
 .skills-line {
   font-size: 0.85rem;
-  margin-top: 10px;
   color: #eee;
 }
 
@@ -1295,7 +1314,7 @@ body.loaded .page-transition {
   color: #f0f0f0;
 }
 
-/* === Modal === */
+/* Modal */
 .modal {
   display: none;
   position: fixed;
