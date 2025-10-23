@@ -114,7 +114,7 @@ body {
   gap: 15px;
   flex-wrap: wrap;
   margin-bottom: 25px;
-  position: relative; 
+  position: relative;
   margin-top: 20px
 }
 
@@ -288,9 +288,9 @@ body {
   flex-shrink: 0;
   font-size: 1.3em;
   margin-right: 5px;
-  width: 28px; 
+  width: 28px;
   text-align: center;
-  
+
 }
 
 
@@ -749,12 +749,12 @@ body {
   text-align: left;
   font-size: 0.85rem;
   line-height: 2;
-  white-space: nowrap;         
-  overflow-x: auto;            
-  overflow-y: hidden;          
-  -webkit-overflow-scrolling: touch; 
-  padding: 0 6px;              
-  max-width: 100%;             
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 6px;
+  max-width: 100%;
   box-sizing: border-box;
   scrollbar-width: thin;
   scrollbar-color: #3f72af #1b1b2f;
@@ -769,7 +769,7 @@ body {
   width: 40px;
   height: 100%;
   pointer-events: none;
-  background: linear-gradient(to left, #1b1b2f 0%, rgba(27,27,47,0) 100%);
+  background: linear-gradient(to left, #1b1b2f 0%, rgba(27, 27, 47, 0) 100%);
 }
 
 .cmtApp-comment-body.scroll-left::before {
@@ -780,7 +780,7 @@ body {
   width: 40px;
   height: 100%;
   pointer-events: none;
-  background: linear-gradient(to right, #1b1b2f 0%, rgba(27,27,47,0) 100%);
+  background: linear-gradient(to right, #1b1b2f 0%, rgba(27, 27, 47, 0) 100%);
 }
 
 /* ===== Scrollbar Webkit ===== */
@@ -808,24 +808,7 @@ body {
   scrollbar-color: #3f72af #1b1b2f;
 }
 
-/* ===== Responsive Font Sizes ===== */
-@media (max-width: 1024px) {
-  .cmtApp-comment-body {
-    font-size: 1rem;
-  }
-}
 
-@media (max-width: 768px) {
-  .cmtApp-comment-body {
-    font-size: 0.95rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .cmtApp-comment-body {
-    font-size: 0.9rem;
-  }
-}
 
 /* ===== Comment Footer ===== */
 .cmtApp-comment-footer {
@@ -838,7 +821,7 @@ body {
   color: #aaa;
 }
 
-.cmtApp-comment-footer > * {
+.cmtApp-comment-footer>* {
   min-width: 0;
 }
 
@@ -893,7 +876,10 @@ body {
 }
 
 @keyframes slideIn {
-  to { transform: translateX(0); opacity: 1; }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 /* ===== Comment Time ===== */
@@ -1032,12 +1018,24 @@ body {
 }
 
 
-/* ===========================
-   📱 RESPONSIVE OPTIMIZATION - Consolidated & Updated
-=========================== */
+/* ===== Responsive Font Sizes ===== */
+
 
 /* Tablet & Laptop Medium (≤1024px) */
 @media (max-width: 1024px) {
+  .project-description {
+    max-height: 140px;
+  }
+
+  .read-more-btn {
+    font-size: 0.88rem;
+    padding: 7px 12px;
+  }
+
+  .cmtApp-comment-body {
+    font-size: 1rem;
+  }
+
   .project-detail {
     padding: 80px 5%;
   }
@@ -1086,120 +1084,156 @@ body {
 
 /* Mobile & Medium (≤768px) */
 @media (max-width: 768px) {
-  .project-layout {
-    flex-direction: column;
-    gap: 40px;
+  .project-description {
+    max-height: 130px;
+    font-size: 0.95rem;
   }
 
-  .left-column,
-  .right-column {
-    min-width: 100%;
-    align-items: center;
-    text-align: center;
+  .project-description.expanded {
+    max-height: 900px;
   }
 
-  .project-info h1 {
-    font-size: 2rem;
+  .read-more-btn {
+    font-size: 0.85rem;
+    padding: 6px 12px;
   }
 
-  .project-info p {
-    font-size: 0.9rem;
-    text-align: justify;
-  }
-
-  .project-stats,
-  .project-buttons {
-    justify-content: center;
-  }
-
-  .project-preview {
-    max-width: 100%;
-  }
-
-  .key-features {
-    max-width: 100%;
-    padding: 25px;
-  }
-
-  .key-features h2 {
-    font-size: 16px;
-  }
-
-  .key-features li {
-    font-size: 13px;
-  }
-
-  /* Modal */
-  .modal {
-    width: 95%;
-    max-width: none;
-    aspect-ratio: auto;
-    height: 80vh;
-    border-radius: 16px;
-  }
-
-  .modal-controls button {
-    width: 50px;
-    height: 50px;
-    font-size: 30px;
-  }
-
-  .close {
-    font-size: 30px;
-    right: 20px;
-  }
-
-  /* Comment Modal */
-  .cmtApp-modal-content {
-    width: 95%;
-    padding: 12px 15px;
-    max-height: 90vh;
-    overflow-y: auto;
-  }
-
-  #comments-list {
-    max-height: 280px;
-    padding: 0 8px;
-  }
-
-  /* Komentar Body */
   .cmtApp-comment-body {
     font-size: 0.95rem;
-    line-height: 1.5;
-    white-space: nowrap;
-    overflow-x: auto;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
-    padding: 0 6px;
-    max-width: 100%;
-    box-sizing: border-box;
-  }
-
-  /* Corner Widgets */
-  .corner-widgets {
-    bottom: 15px;
-    right: 15px;
-    flex-direction: column;
-    gap: 8px;
-    background: rgba(0, 0, 0, 0.3);
-  }
-
-  .progress-bar-container {
-    width: 100px;
-    height: 16px;
-  }
-
-  #progress-text {
-    font-size: 14px;
-  }
-
-  .reaction-btn {
-    font-size: 14px;
   }
 }
 
+.project-layout {
+  flex-direction: column;
+  gap: 40px;
+}
+
+.left-column,
+.right-column {
+  min-width: 100%;
+  align-items: center;
+  text-align: center;
+}
+
+.project-info h1 {
+  font-size: 2rem;
+}
+
+.project-info p {
+  font-size: 0.9rem;
+  text-align: justify;
+}
+
+.project-stats,
+.project-buttons {
+  justify-content: center;
+}
+
+.project-preview {
+  max-width: 100%;
+}
+
+.key-features {
+  max-width: 100%;
+  padding: 25px;
+}
+
+.key-features h2 {
+  font-size: 16px;
+}
+
+.key-features li {
+  font-size: 13px;
+}
+
+/* Modal */
+.modal {
+  width: 95%;
+  max-width: none;
+  aspect-ratio: auto;
+  height: 80vh;
+  border-radius: 16px;
+}
+
+.modal-controls button {
+  width: 50px;
+  height: 50px;
+  font-size: 30px;
+}
+
+.close {
+  font-size: 30px;
+  right: 20px;
+}
+
+/* Comment Modal */
+.cmtApp-modal-content {
+  width: 95%;
+  padding: 12px 15px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+#comments-list {
+  max-height: 280px;
+  padding: 0 8px;
+}
+
+/* Komentar Body */
+.cmtApp-comment-body {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 6px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Corner Widgets */
+.corner-widgets {
+  bottom: 15px;
+  right: 15px;
+  flex-direction: column;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.progress-bar-container {
+  width: 100px;
+  height: 16px;
+}
+
+#progress-text {
+  font-size: 14px;
+}
+
+.reaction-btn {
+  font-size: 14px;
+}
+
+
 /* Small Mobile (≤480px) */
 @media (max-width: 480px) {
+  .project-description {
+    max-height: 110px;
+    font-size: 0.9rem;
+  }
+
+  .project-description.expanded {
+    max-height: 800px;
+  }
+
+  .read-more-btn {
+    font-size: 0.8rem;
+    padding: 5px 10px;
+  }
+   .cmtApp-comment-body {
+    font-size: 0.9rem;
+  }
+
   body {
     line-height: 1.4;
   }
@@ -1248,6 +1282,7 @@ body {
     font-size: 0.9rem;
     line-height: 1.4;
   }
+
   .project-info h1 {
     font-size: 1.8rem;
   }
