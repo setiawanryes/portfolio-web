@@ -68,24 +68,6 @@ window.addEventListener("click", e => {
   if (e.target === modal) modal.style.display = "none";
 });
 
-// === Slider per card (foto) ===
-document.querySelectorAll('.experience-slider').forEach(slider => {
-  const track = slider.querySelector('.slider-track');
-  const prev = slider.querySelector('.prev');
-  const next = slider.querySelector('.next');
-  let pos = 0;
-  const slideWidth = 150 + 5; // width + gap
-
-  prev.addEventListener('click', () => {
-    pos = Math.min(pos + slideWidth, 0);
-    track.style.transform = `translateX(${pos}px)`;
-  });
-
-  next.addEventListener('click', () => {
-    pos = Math.max(pos - slideWidth, -(track.scrollWidth - slideWidth));
-    track.style.transform = `translateX(${pos}px)`;
-  });
-});
 
 const sliderMain = document.querySelector('.experience-slider-main');
 const prevBtn = document.getElementById('prev-card');
