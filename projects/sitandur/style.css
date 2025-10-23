@@ -1209,3 +1209,97 @@ body {
     padding: 5px 10px;
   }
 }
+
+
+/* ===== MEDIA QUERIES ===== */
+@media (max-width: 768px) {
+  .cmtApp-comment-actions button {
+    flex: 1 1 48%; /* 2 tombol per baris di HP */
+  }
+
+  .cmtApp-comment-body {
+    font-size: 0.85rem;
+  }
+
+  .cmtApp-comment-header img {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cmtApp-comment-actions button {
+    flex: 1 1 100%; /* tombol full width di HP kecil */
+  }
+  
+  #comments-list {
+    padding: 0 6px;
+  }
+}
+
+/* ===== LOAD MORE BUTTON ===== */
+#load-more-comments {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  background: #007bff;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#load-more-comments:hover {
+  background: #0056d2;
+}
+
+
+
+/* ===== NOTIFY BADGE UPGRADE ===== */
+#comment-notify-badge {
+  display: inline-block;
+  background: #ff3b30;
+  color: white;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 4px 8px;
+  min-width: 20px;
+  height: 20px;
+  line-height: 1;
+  text-align: center;
+  margin-left: 6px;
+  vertical-align: top;
+  box-shadow: 0 0 6px rgba(255, 59, 48, 0.6);
+  animation: pulseGlow 1.2s infinite;
+  transform-origin: center;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* Smooth pulse + glow */
+@keyframes pulseGlow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: 0 0 6px rgba(255, 59, 48, 0.6);
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 0.8;
+    box-shadow: 0 0 12px rgba(255, 59, 48, 0.9);
+  }
+}
+
+/* Optional: appear animation */
+#comment-notify-badge.show {
+  animation: popIn 0.3s ease forwards;
+}
+
+@keyframes popIn {
+  0% { transform: scale(0); opacity: 0; }
+  60% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); }
+}
