@@ -783,13 +783,33 @@ body {
 
 /* ===== Comment Body ===== */
 .cmtApp-comment-body {
-  margin-bottom: 6px;
-  font-size: 14px;
-  line-height: 1.4;
-  color: #ddd;
-  flex-wrap: nowrap; /* Jangan pindah ke baris baru */
-  
+  white-space: nowrap;         /* teks tetap satu baris */
+  overflow-x: auto;            /* scroll horizontal jika terlalu panjang */
+  -webkit-overflow-scrolling: touch; /* smooth scroll di HP */
+  padding-right: 6px;          /* space supaya scrollbar nggak nempel teks */
+  max-width: 100%;             /* biar nggak keluar container */
+  box-sizing: border-box;
 }
+
+/* Optional: scrollbar custom untuk horizontal scroll */
+.cmtApp-comment-body::-webkit-scrollbar {
+  height: 6px;
+}
+
+.cmtApp-comment-body::-webkit-scrollbar-track {
+  background: #1b1b2f;
+  border-radius: 4px;
+}
+
+.cmtApp-comment-body::-webkit-scrollbar-thumb {
+  background: #3f72af;
+  border-radius: 4px;
+}
+
+.cmtApp-comment-body::-webkit-scrollbar-thumb:hover {
+  background: #2c5282;
+}
+
 
 /* ===== Comment Footer ===== */
 .cmtApp-comment-footer {
@@ -1171,11 +1191,7 @@ body {
   line-height: 1.5;
   margin-bottom: 8px;
   word-break: break-word;
-  display: inline-block; /* biar lebarnya sesuai konten */
-  white-space: nowrap;   /* jangan wrap teks */
-  overflow-x: auto;      /* scroll horizontal jika teks terlalu panjang */
 }
-
 }
 
 
@@ -1218,3 +1234,4 @@ body {
 .read-more-btn:hover {
   background: #4338ca;
 }
+
