@@ -1213,3 +1213,42 @@ body.loaded .page-transition {
 }
 
 
+/* Slider utama */
+.experience-slider-main {
+  display: flex;
+  overflow: hidden;
+  gap: 20px;
+  width: 100%;
+}
+
+/* Setiap card lebih kecil, bukan full width */
+.experience-slider-main .exp-item {
+  flex: 0 0 300px; /* Lebar card 300px, bisa sesuaikan */
+  min-width: 300px;
+  max-width: 300px;
+  background: #1b163d;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 0 15px rgba(107,91,149,0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Tombol navigasi slider utama */
+.main-slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(107,91,149,0.8);
+  color: #fff;
+  border: none;
+  font-size: 1.5rem;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 6px;
+  z-index: 10;
+}
+#prev-card { left: -10px; }
+#next-card { right: -10px; }

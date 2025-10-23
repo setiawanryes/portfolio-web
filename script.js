@@ -87,22 +87,28 @@ document.querySelectorAll('.experience-slider').forEach(slider => {
   });
 });
 
-// === Slider utama (experience-slider-main) ===
+// Slider utama (experience-slider-main)
 const sliderMain = document.querySelector('.experience-slider-main');
 const mainPrevBtn = document.getElementById('prev-card');
 const mainNextBtn = document.getElementById('next-card');
 let mainIndex = 0;
 
 function showSlide() {
-  sliderMain.style.transform = `translateX(-${mainIndex * 100}%)`;
+  const cardWidth = sliderMain.children[0].offsetWidth + 20; // +gap
+  sliderMain.style.transform = `translateX(-${mainIndex * cardWidth}px)`;
 }
 
+// Tombol Prev
 mainPrevBtn.addEventListener('click', () => {
   mainIndex = (mainIndex > 0) ? mainIndex - 1 : sliderMain.children.length - 1;
   showSlide();
 });
 
+// Tombol Next
 mainNextBtn.addEventListener('click', () => {
   mainIndex = (mainIndex < sliderMain.children.length - 1) ? mainIndex + 1 : 0;
   showSlide();
 });
+
+// Inisialisasi
+showSlide();
