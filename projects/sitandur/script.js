@@ -141,7 +141,7 @@ function setProgress(percent) {
 }
 
 // Contoh: progres 75%
-setProgress(15);
+setProgress(100);
 
 /* ===============================
    FITUR KOMENTAR LANJUTAN
@@ -149,9 +149,12 @@ setProgress(15);
 ================================= */
 // Import Firebase SDK
 
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-import { 
-  getFirestore, doc, collection, getDoc, setDoc, addDoc, updateDoc, increment, onSnapshot, query, orderBy,serverTimestamp
+import {
+  getFirestore, doc, collection, getDoc, setDoc, updateDoc, increment,
+  addDoc, onSnapshot, query, orderBy, serverTimestamp, getDocs, deleteDoc,
+  limit, startAfter
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -164,197 +167,59 @@ const firebaseConfig = {
   appId: "1:171755400027:web:6bbbbbda56613af0b4087e",
   measurementId: "G-4R3C18RXW0"
 };
+
 // ===============================
 // 🔥 Firebase Init
 // ===============================
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Ganti ini sesuai halaman
-const pageId = "sitandur"; // misal halaman berbeda pakai "workload2", dst.
+// ----- PAGE ID UNIK -----
+const pageId = window.PAGE_ID
+  || document.querySelector('meta[name="sitandur"]')?.content
+  || (location.pathname.split('/').filter(Boolean).pop() || 'main');
 
-// ===============================
-// 🔧 Firestore References
-// ===============================
-const likeDocRef = doc(db, "post_reactions", pageId);
-const commentsRef = collection(db, "comments", pageId, "list");
+// ----- FIRESTORE REFERENCES -----
+const pageLikeDoc = doc(db, 'post_reactions', pageId);
+const commentsCollection = collection(db, 'comments', pageId, 'list');
 
-// ===============================
-// 🎯 DOM Elements
-// ===============================
-const komentarList = document.getElementById("comments-list");
-const komentarModal = document.getElementById("cmtAppModal");
-const komentarBtn = document.getElementById("komentar-btn");
-const closeModalBtn = document.getElementById("close-cmtAppModal");
-const kirimBtn = document.getElementById("cmtAppKirim");
-const namaInput = document.getElementById("cmtAppNama");
-const isiInput = document.getElementById("cmtAppIsi");
-const komentarCountSpan = document.getElementById("komentar-count");
-const likeBtn = document.getElementById("like-btn");
-const likeCount = document.getElementById("like-count");
+// ----- SETTINGS -----
+const pageSize = 3;
+let lastVisible = null;
+let isLoadingMore = false;
+let currentSort = 'newest';
 
-let replyTo = null; // komentar yang sedang dibalas
+// ----- DOM ELEMENTS -----
+const komentarList = document.getElementById('comments-list');
+const komentarModal = document.getElementById('cmtAppModal');
+const komentarBtn = document.getElementById('komentar-btn');
+const closeModalBtn = document.getElementById('close-cmtAppModal');
+const kirimBtn = document.getElementById('cmtAppKirim');
+const namaInput = document.getElementById('cmtAppNama');
+const isiInput = document.getElementById('cmtAppIsi');
+const komentarCountSpan = document.getElementById('komentar-count');
+const likeBtn = document.getElementById('like-btn');
+const likeCount = document.getElementById('like-count');
+const sortingSelect = document.getElementById('comment-sorting');
+const loadMoreBtn = document.getElementById('load-more-comments');
+const notifyBadge = document.getElementById('comment-notify-badge');
 
-// ===============================
-// 🧩 Modal Open / Close
-// ===============================
-komentarBtn.addEventListener("click", () => {
-  replyTo = null;
-  document.getElementById("cmtAppModalTitle").innerText = "Tulis Komentar";
-  komentarModal.classList.add("show");
-});
-closeModalBtn.addEventListener("click", () => komentarModal.classList.remove("show"));
-window.addEventListener("click", e => {
-  if (e.target === komentarModal) komentarModal.classList.remove("show");
-});
+// helper untuk event aman
+function safeAddEvent(el, ev, cb) { if (el) el.addEventListener(ev, cb); }
 
-// ===============================
-// ❤️ Like System (Per Halaman)
-// ===============================
-async function initLike() {
-  const snap = await getDoc(likeDocRef);
-  if (!snap.exists()) {
-    await setDoc(likeDocRef, { likes: 0 });
-  }
-}
-initLike();
-
-onSnapshot(likeDocRef, (docSnap) => {
-  if (docSnap.exists()) likeCount.textContent = docSnap.data().likes || 0;
-});
-
-likeBtn.addEventListener("click", async () => {
-  try {
-    await updateDoc(likeDocRef, { likes: increment(1) });
-    likeBtn.classList.add("liked");
-  } catch (err) {
-    console.error("Gagal update like:", err);
-  }
-});
-
-// ===============================
-// 💬 Kirim Komentar / Reply
-// ===============================
-kirimBtn.addEventListener("click", async () => {
-  const nama = namaInput.value.trim();
-  const isi = isiInput.value.trim();
-  if (!nama || !isi) return alert("Nama dan komentar wajib diisi!");
-
-  const avatar = `https://i.pravatar.cc/50?u=${nama}`;
-  const timestamp = Date.now();
-
-  try {
-    if (replyTo) {
-      const parentId = replyTo.dataset.id;
-      await addDoc(collection(db, "comments", pageId, "list", parentId, "replies"), {
-        nama,
-        isi,
-        avatar,
-        timestamp,
-        likes: 0
-      });
-    } else {
-      await addDoc(commentsRef, {
-        nama,
-        isi,
-        avatar,
-        timestamp,
-        likes: 0
-      });
-    }
-
-    namaInput.value = "";
-    isiInput.value = "";
-    komentarModal.classList.remove("show");
-    replyTo = null;
-  } catch (err) {
-    console.error("Gagal kirim komentar/reply:", err);
-  }
-});
-
-// ===============================
-// 🧱 Render Komentar + Reply
-// ===============================
-function renderComment(docSnap, container) {
-  const data = docSnap.data();
-  const id = docSnap.id;
-
-  const div = document.createElement("div");
-  div.classList.add("cmtApp-comment");
-  div.dataset.id = id;
-
-  div.innerHTML = `
-    <div class="cmtApp-comment-header">
-      <img src="${data.avatar}" alt="">
-      <strong>${data.nama}</strong>
-    </div>
-    <div class="cmtApp-comment-body">${data.isi}</div>
-    <div class="cmtApp-comment-footer">
-      <div class="cmtApp-comment-actions">
-        <button class="cmtApp-like">👍 ${data.likes || 0}</button>
-        <button class="cmtApp-reply">💬 Balas (0)</button>
-      </div>
-      <span class="cmtApp-time">${formatWaktu(data.timestamp)}</span>
-    </div>
-    <div class="cmtApp-replies"></div>
-  `;
-  container.appendChild(div);
-
-  const repliesContainer = div.querySelector(".cmtApp-replies");
-  const replyBtn = div.querySelector(".cmtApp-reply");
-
-  // 👍 Like per komentar
-  div.querySelector(".cmtApp-like").addEventListener("click", async () => {
-    const docRef = doc(db, "comments", pageId, "list", id);
-    const docSnap = await getDoc(docRef);
-    if (!docSnap.exists()) return;
-    const newLikes = (docSnap.data().likes || 0) + 1;
-    await updateDoc(docRef, { likes: newLikes });
-  });
-
-  // 💬 Balas komentar
-  replyBtn.addEventListener("click", () => {
-    replyTo = div;
-    document.getElementById("cmtAppModalTitle").innerText = "Balas Komentar";
-    komentarModal.classList.add("show");
-    isiInput.focus();
-  });
-
-  // 🔁 Ambil reply realtime
-  const repliesRef = collection(db, "comments", pageId, "list", id, "replies");
-  const q = query(repliesRef, orderBy("timestamp", "asc"));
-  onSnapshot(q, (snapshot) => {
-    repliesContainer.innerHTML = "";
-    replyBtn.textContent = `💬 Balas (${snapshot.size})`;
-    snapshot.forEach((subDoc) => renderComment(subDoc, repliesContainer));
-    updateTotalComments();
-  });
+// ----- UTILITIES -----
+function escapeHtml(s = '') {
+  return String(s)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#039;');
 }
 
-// ===============================
-// 🔢 Hitung total komentar
-// ===============================
-function updateTotalComments() {
-  const total = komentarList.querySelectorAll(".cmtApp-comment").length;
-  komentarCountSpan.textContent = total;
-}
-
-// ===============================
-// 🕒 Ambil komentar utama realtime
-// ===============================
-const mainQuery = query(commentsRef, orderBy("timestamp", "desc"));
-onSnapshot(mainQuery, (snapshot) => {
-  komentarList.innerHTML = "";
-  snapshot.forEach((docSnap) => renderComment(docSnap, komentarList));
-  updateTotalComments();
-});
-
-// ===============================
-// ⏰ Format waktu
-// ===============================
-function formatWaktu(timestamp) {
-  const d = new Date(timestamp),
-    now = new Date();
+function formatWaktu(ts) {
+  if (!ts) return '';
+  const d = new Date(ts), now = new Date();
   const diff = Math.floor((now - d) / 1000);
   if (diff < 60) return "baru saja";
   if (diff < 3600) return `${Math.floor(diff / 60)} menit lalu`;
@@ -362,6 +227,304 @@ function formatWaktu(timestamp) {
   if (diff < 604800) return `${Math.floor(diff / 86400)} hari lalu`;
   return d.toLocaleDateString();
 }
+
+// local like tracking per komentar
+function canLikeCommentLocal(commentId) {
+  try { return !localStorage.getItem(`${pageId}-liked-cmt-${commentId}`); } catch { return true; }
+}
+function markLikedLocal(commentId) {
+  try { localStorage.setItem(`${pageId}-liked-cmt-${commentId}`, '1'); } catch {}
+}
+function unmarkLikedLocal(commentId) {
+  try { localStorage.removeItem(`${pageId}-liked-cmt-${commentId}`); } catch {}
+}
+
+// ----- PAGE LIKE -----
+async function ensurePageLikeDoc() {
+  const s = await getDoc(pageLikeDoc);
+  if (!s.exists()) await setDoc(pageLikeDoc, { likes: 0 });
+}
+
+async function initPageLike() {
+  try {
+    await ensurePageLikeDoc();
+    onSnapshot(pageLikeDoc, snap => {
+      if (!snap.exists()) return;
+      if (likeCount) likeCount.textContent = snap.data().likes || 0;
+    });
+    safeAddEvent(likeBtn, 'click', async () => {
+      try {
+        await updateDoc(pageLikeDoc, { likes: increment(1) });
+        if (likeBtn) likeBtn.classList.add('liked');
+      } catch (e) { console.error('initPageLike click err', e); }
+    });
+  } catch (e) { console.error('initPageLike err', e); }
+}
+initPageLike();
+
+// ----- RENDER KOMENTAR -----
+function renderComment(docSnap, container, parentId = null) {
+  const data = docSnap.data ? docSnap.data() : {};
+  const id = docSnap.id || (docSnap._id || Math.random().toString(36).slice(2));
+  const created = data.timestamp || Date.now();
+
+  const div = document.createElement('div');
+  div.className = 'cmtApp-comment';
+  div.dataset.id = id;
+  div.dataset.parentId = parentId || '';
+  div.innerHTML = `
+    <div class="cmtApp-comment-header">
+      <img src="${escapeHtml(data.avatar || `https://i.pravatar.cc/50?u=${encodeURIComponent(data.nama || 'anon')}`)}" alt="">
+      <strong>${escapeHtml(data.nama || 'Anonymous')}</strong>
+    </div>
+    <div class="cmtApp-comment-body">${escapeHtml(data.isi || data.message || '')}</div>
+    <div class="cmtApp-comment-footer">
+      <div class="cmtApp-comment-actions">
+        <button class="cmtApp-like">${canLikeCommentLocal(id) ? '👍' : '💖'} ${data.likes || 0}</button>
+        <button class="cmtApp-reply">💬 Reply (0)</button>
+        <button class="cmtApp-edit">✏️ Edit</button>
+        <button class="cmtApp-delete">🗑️ Delete</button>
+      </div>
+      <span class="cmtApp-time">${formatWaktu(created)}</span>
+    </div>
+    <div class="cmtApp-replies"></div>
+  `;
+
+  container.appendChild(div);
+
+  const likeBtnLocal = div.querySelector('.cmtApp-like');
+  const replyBtn = div.querySelector('.cmtApp-reply');
+  const editBtn = div.querySelector('.cmtApp-edit');
+  const deleteBtn = div.querySelector('.cmtApp-delete');
+  const repliesContainer = div.querySelector('.cmtApp-replies');
+
+  // LIKE
+  if (likeBtnLocal) {
+    likeBtnLocal.addEventListener('click', async () => {
+      try {
+        if (!canLikeCommentLocal(id)) { alert('You have already liked this comment'); return; }
+        const docRef = parentId
+          ? doc(db, 'comments', pageId, 'list', parentId, 'replies', id)
+          : doc(db, 'comments', pageId, 'list', id);
+        await updateDoc(docRef, { likes: increment(1) });
+        markLikedLocal(id);
+        const current = parseInt(likeBtnLocal.textContent.replace(/\D/g, '')) || 0;
+        likeBtnLocal.textContent = `💖 ${current + 1}`;
+      } catch (e) { console.error('like comment err', e); }
+    });
+  }
+
+  // REPLY
+  if (replyBtn) {
+    replyBtn.addEventListener('click', () => {
+      window.CMT_REPLY_TO = { id, el: div };
+      if (document.getElementById('cmtAppModalTitle'))
+        document.getElementById('cmtAppModalTitle').innerText = `Balas ke ${data.nama}`;
+      if (komentarModal) komentarModal.classList.add('show');
+      if (isiInput) isiInput.focus();
+    });
+  }
+
+  // EDIT
+  if (editBtn) {
+    editBtn.addEventListener('click', async () => {
+      try {
+        const confirmName = prompt('Type your name in the comment:');
+        if (!confirmName) return;
+        if (confirmName.trim() !== (data.nama || '').trim()) {
+          alert('Name mismatch. Please try again.');
+          return;
+        }
+        const newText = prompt('Edit comment:', data.isi || '');
+        if (newText === null) return;
+
+        const docRef = parentId
+          ? doc(db, 'comments', pageId, 'list', parentId, 'replies', id)
+          : doc(db, 'comments', pageId, 'list', id);
+        await updateDoc(docRef, { isi: newText });
+      } catch (e) { console.error('edit err', e); }
+    });
+  }
+
+  // DELETE
+  if (deleteBtn) {
+    deleteBtn.addEventListener('click', async () => {
+      try {
+        const confirmName = prompt('Type your name in the comment');
+        if (!confirmName) return;
+        if (confirmName.trim() !== (data.nama || '').trim()) {
+          alert('Name mismatch. Please try again.');
+          return;
+        }
+
+        const docRef = parentId
+          ? doc(db, 'comments', pageId, 'list', parentId, 'replies', id)
+          : doc(db, 'comments', pageId, 'list', id);
+
+        // hapus semua reply jika komentar utama
+        if (!parentId) {
+          const repliesRef = collection(db, 'comments', pageId, 'list', id, 'replies');
+          const repliesSnap = await getDocs(repliesRef);
+          for (const r of repliesSnap.docs) {
+            await deleteDoc(doc(db, 'comments', pageId, 'list', id, 'replies', r.id));
+          }
+        }
+
+        await deleteDoc(docRef);
+        unmarkLikedLocal(id);
+      } catch (e) { console.error('delete err', e); alert('Gagal menghapus. Lihat console.'); }
+    });
+  }
+
+  // REALTIME REPLIES
+  try {
+    const repliesRefRealtime = collection(db, 'comments', pageId, 'list', id, 'replies');
+    const q = query(repliesRefRealtime, orderBy('timestamp', 'asc'));
+    onSnapshot(q, snap => {
+      repliesContainer.innerHTML = '';
+      replyBtn.textContent = `💬 Balas (${snap.size})`;
+      snap.forEach(subDoc => renderComment(subDoc, repliesContainer, id)); // penting: pass parentId
+      updateCommentCountUI();
+    });
+  } catch (e) { console.error('replies realtime err', e); }
+
+  updateCommentCountUI();
+}
+
+// ----- QUERY BUILDER -----
+function buildQueryForInitial() {
+  if (currentSort === 'popular') {
+    return query(commentsCollection, orderBy('likes', 'desc'), orderBy('timestamp', 'desc'), limit(pageSize));
+  } else if (currentSort === 'oldest') {
+    return query(commentsCollection, orderBy('timestamp', 'asc'), limit(pageSize));
+  } else {
+    return query(commentsCollection, orderBy('timestamp', 'desc'), limit(pageSize));
+  }
+}
+
+// ----- SUBSCRIBE INITIAL -----
+let unsubscribeInitial = null;
+function subscribeInitialComments() {
+  if (!komentarList) return;
+  if (unsubscribeInitial) unsubscribeInitial();
+
+  const q = buildQueryForInitial();
+  unsubscribeInitial = onSnapshot(q, snap => {
+    if (notifyBadge) {
+      const prev = parseInt(notifyBadge.dataset.count || '0', 10);
+      const nowCount = snap.size;
+      if (nowCount > prev) {
+        notifyBadge.style.display = 'inline-block';
+        notifyBadge.textContent = nowCount - prev;
+      } else {
+        notifyBadge.style.display = 'none';
+      }
+      notifyBadge.dataset.count = nowCount;
+    }
+
+    komentarList.innerHTML = '';
+    snap.forEach(docSnap => renderComment(docSnap, komentarList));
+    const docs = snap.docs;
+    lastVisible = docs.length ? docs[docs.length - 1] : null;
+    updateCommentCountUI();
+  }, err => console.error('initial comments onSnapshot err', err));
+}
+subscribeInitialComments();
+
+// ----- LOAD MORE -----
+async function loadMoreComments() {
+  if (isLoadingMore) return;
+  if (!lastVisible) { if (loadMoreBtn) loadMoreBtn.style.display = 'none'; return; }
+  isLoadingMore = true;
+  try {
+    let q;
+    if (currentSort === 'oldest') {
+      q = query(commentsCollection, orderBy('timestamp', 'asc'), startAfter(lastVisible), limit(pageSize));
+    } else if (currentSort === 'popular') {
+      q = query(commentsCollection, orderBy('likes', 'desc'), orderBy('timestamp', 'desc'), startAfter(lastVisible), limit(pageSize));
+    } else {
+      q = query(commentsCollection, orderBy('timestamp', 'desc'), startAfter(lastVisible), limit(pageSize));
+    }
+    const snap = await getDocs(q);
+    if (snap.empty) { if (loadMoreBtn) loadMoreBtn.style.display = 'none'; lastVisible = null; }
+    else {
+      snap.forEach(docSnap => renderComment(docSnap, komentarList));
+      const docs = snap.docs;
+      lastVisible = docs[docs.length - 1];
+    }
+  } catch (e) { console.error('loadMore err', e); }
+  isLoadingMore = false;
+}
+
+// ----- KIRIM KOMENTAR / REPLY -----
+safeAddEvent(kirimBtn, 'click', async () => {
+  try {
+    const nama = (namaInput?.value || '').trim();
+    const isi = (isiInput?.value || '').trim();
+    if (!nama || !isi) return alert('Nama dan komentar wajib diisi!');
+
+    const avatar = `https://i.pravatar.cc/50?u=${encodeURIComponent(nama)}`;
+    const ts = Date.now();
+    const replyTo = window.CMT_REPLY_TO || null;
+
+    if (replyTo && replyTo.id) {
+      await addDoc(collection(db, 'comments', pageId, 'list', replyTo.id, 'replies'), {
+        nama, isi, avatar, likes: 0, timestamp: ts
+      });
+      window.CMT_REPLY_TO = null;
+    } else {
+      await addDoc(commentsCollection, { nama, isi, avatar, likes: 0, timestamp: ts });
+    }
+
+    if (namaInput) namaInput.value = '';
+    if (isiInput) isiInput.value = '';
+    if (komentarModal) komentarModal.classList.remove('show');
+
+    if (currentSort === 'newest' && komentarList) komentarList.scrollTo({ top: 0, behavior: 'smooth' });
+  } catch (e) { console.error('kirim err', e); alert('Gagal kirim komentar'); }
+});
+
+// ----- COUNTER -----
+function updateCommentCountUI() {
+  if (!komentarCountSpan) return;
+  const mainComments = document.querySelectorAll('#comments-list > .cmtApp-comment').length;
+  const replies = document.querySelectorAll('#comments-list .cmtApp-replies .cmtApp-comment').length;
+  const total = mainComments + replies;
+  komentarCountSpan.textContent = total;
+  komentarCountSpan.classList.add('pop');
+  setTimeout(() => komentarCountSpan.classList.remove('pop'), 220);
+}
+
+// ----- UI HANDLERS -----
+safeAddEvent(sortingSelect, 'change', () => {
+  currentSort = sortingSelect.value || 'newest';
+  lastVisible = null;
+  if (loadMoreBtn) loadMoreBtn.style.display = 'inline-block';
+  subscribeInitialComments();
+});
+safeAddEvent(loadMoreBtn, 'click', loadMoreComments);
+safeAddEvent(komentarBtn, 'click', () => {
+  if (komentarModal) { komentarModal.classList.add('show'); isiInput?.focus(); }
+  if (notifyBadge) { notifyBadge.style.display = 'none'; notifyBadge.dataset.count = '0'; }
+});
+safeAddEvent(closeModalBtn, 'click', () => {
+  if (komentarModal) komentarModal.classList.remove('show');
+  window.CMT_REPLY_TO = null;
+});
+window.addEventListener('click', e => {
+  if (e.target === komentarModal) {
+    komentarModal.classList.remove('show');
+    window.CMT_REPLY_TO = null;
+  }
+});
+
+// init UI
+if (loadMoreBtn) loadMoreBtn.style.display = 'inline-block';
+if (notifyBadge) { notifyBadge.style.display = 'none'; notifyBadge.dataset.count = '0'; }
+if (sortingSelect && sortingSelect.value) currentSort = sortingSelect.value;
+
+// safety check
+if (!komentarList) console.warn('Komponen komentar tidak ditemukan — fitur komentar non-aktif di halaman ini.');
 
 const readMoreBtn = document.getElementById("readMoreBtn");
 const projectDescription = document.getElementById("projectDescription");
@@ -372,3 +535,16 @@ readMoreBtn.addEventListener("click", () => {
     ? "Close"
     : "Read more";
 });
+
+const comments = document.querySelectorAll('.cmtApp-comment-body');
+
+comments.forEach(comment => {
+  comment.addEventListener('scroll', () => {
+    if(comment.scrollLeft > 0) {
+      comment.classList.add('scroll-left');
+    } else {
+      comment.classList.remove('scroll-left');
+    }
+  });
+});
+
