@@ -622,7 +622,8 @@ body {
 
 .dislike-theme {
   color: #f44336;
-  
+  /* ganti sesuai tema sekunder */
+}
 
 #like-count,
 #dislike-count {
@@ -631,7 +632,7 @@ body {
   color: #f9f4f4;
 }
 
-/* modal komen */
+
 .comment-modal {
   display: none;
   position: fixed;
@@ -643,6 +644,7 @@ body {
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  /* pastikan di atas modal lain */
 }
 
 
@@ -652,24 +654,26 @@ body {
   font-size: 20px;
 }
 
-/* ===== HEADER KOMENTAR ===== */
+/* ===========================
+   💬 KOMENTAR APP - Dark Glow Theme
+=========================== */
+
+/* ===== Header Komentar ===== */
 .custom-line {
   height: 2px;
-  background: linear-gradient(to right,#2c5282,#050414);
+  background: linear-gradient(to right, #2c5282, #050414);
   width: 100%;
-  border-radius :4px;
+  border-radius: 4px;
   margin-top: 20px;
 }
 
-/* ===== HEADER KOMENTAR ===== */
 #comments-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
   flex-wrap: wrap;
   gap: 10px;
-  margin-top: 20px;
+  margin: 20px 0 15px 0;
 }
 
 #comments-header h3 {
@@ -692,10 +696,7 @@ body {
   border-color: #007bff;
 }
 
-/* ===========================
-   💬 KOMENTAR APP - Aman (Enhanced)
-=========================== */
-
+/* ===== Container ===== */
 .cmtApp-container {
   margin-top: 20px;
   color: #fff;
@@ -723,7 +724,7 @@ body {
   color: #ddd;
 }
 
-/* ===== Komentar utama ===== */
+/* ===== Single Comment ===== */
 .cmtApp-comment {
   background: #1b1b2f;
   border-radius: 12px;
@@ -744,6 +745,7 @@ body {
   }
 }
 
+/* ===== Comment Header ===== */
 .cmtApp-comment-header {
   display: flex;
   align-items: center;
@@ -759,6 +761,7 @@ body {
   border: 1px solid #555;
 }
 
+/* ===== Comment Body ===== */
 .cmtApp-comment-body {
   margin-bottom: 6px;
   font-size: 14px;
@@ -766,12 +769,20 @@ body {
   color: #ddd;
 }
 
+/* ===== Comment Footer ===== */
 .cmtApp-comment-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 12px;
   color: #aaa;
+}
+
+/* ===== Comment Actions ===== */
+.cmtApp-comment-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 
 .cmtApp-comment-actions button {
@@ -793,7 +804,7 @@ body {
   color: #ff6b6b;
 }
 
-/* Reply / Subkomentar */
+/* ===== Replies / Subkomentar ===== */
 .cmtApp-replies {
   margin-left: 40px;
   margin-top: 8px;
@@ -814,6 +825,7 @@ body {
   }
 }
 
+/* ===== Comment Time ===== */
 .cmtApp-time {
   font-size: 11px;
   color: #888;
@@ -913,15 +925,21 @@ body {
   margin-bottom: 5px;
 }
 
-/* Scrollable comment list */
+/* ===== Scrollable Comment List ===== */
 #comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 800px;
+  margin: 15px auto 0 auto;
+  padding: 0 8px;
+  box-sizing: border-box;
   max-height: 360px;
   overflow-y: auto;
-  padding-right: 5px;
-  margin-top: 15px;
 }
 
-/* Custom scrollbar */
+/* ===== Custom Scrollbar ===== */
 #comments-list::-webkit-scrollbar {
   width: 8px;
 }
@@ -939,6 +957,7 @@ body {
 #comments-list::-webkit-scrollbar-thumb:hover {
   background: #2c5282;
 }
+
 
 /* ==========================
    📱 RESPONSIVE OPTIMIZATION
