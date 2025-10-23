@@ -1,6 +1,4 @@
-/* ==========================
-   🌌 GLOBAL RESET & BASE
-========================== */
+/* =========Area========= */
 * {
   margin: 0;
   padding: 0;
@@ -15,9 +13,7 @@ body {
   line-height: 1.6;
 }
 
-/* ==========================
-   📦 PROJECT DETAIL WRAPPER
-========================== */
+/* ==========Project======== */
 .project-detail {
   padding: 100px 8%;
   min-height: 100vh;
@@ -48,9 +44,8 @@ body {
   flex-wrap: wrap;
   align-items: flex-start;
 }
-/* ==========================
-   🧭 NAVIGATION
-========================== */
+
+/* =======Navigasi======== */
 .back-nav {
   display: flex;
   align-items: center;
@@ -71,9 +66,7 @@ body {
   text-shadow: 0 0 10px #8a7cff;
 }
 
-/* ==========================
-   🧱 MAIN LAYOUT (2 COLUMN)
-========================== */
+/* ======Layout Page====== */
 .project-layout {
   display: flex;
   justify-content: space-between;
@@ -82,26 +75,35 @@ body {
   flex-wrap: wrap;
 }
 
-.left-column {
-  flex: 1;
-  min-width: 350px;
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-}
-
+.left-column,
 .right-column {
-  flex: 1;
-  min-width: 350px;
+  flex: 1 1 300px; /* fleksibel: grow, shrink, basis */
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 30px;
 }
+.right-column {
+  align-items: center;
+}
 
-/* ==========================
-   📘 PROJECT INFO
-========================== */
+/* Responsif untuk layar ≤768px */
+@media (max-width: 768px) {
+  .project-layout {
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+  }
+
+  .left-column,
+  .right-column {
+    width: 100%;
+    min-width: 0;
+    align-items: center;
+  }
+}
+
+
+/* ======Project Info====== */
 .project-info h1 {
   font-size: 2.6rem;
   color: #fff;
@@ -117,9 +119,6 @@ body {
   text-align: justify;
 }
 
-/* ==========================
-   📊 PROJECT STATS
-========================== */
 /* =======Project Status======= */
 .project-stats {
   display: flex;
@@ -181,43 +180,6 @@ body {
   box-shadow: 0 0 15px #9f88ff;
 }
 
-/* ===== Header Komentar ===== */
-.custom-line {
-  height: 2px;
-  background: linear-gradient(to right, #2c5282, #050414);
-  width: 100%;
-  border-radius: 4px;
-  margin-top: 20px;
-}
-
-#comments-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 20px 0 15px 0;
-}
-
-#comments-header h3 {
-  font-size: 1.2rem;
-  color: #ffffff;
-  margin: 0;
-}
-
-#comments-header select {
-  padding: 6px 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 0.9rem;
-  background: #fff;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-#comments-header select:hover {
-  border-color: #007bff;
-}
 
 
 /* ==========================
@@ -226,7 +188,7 @@ body {
 .project-preview {
   width: 100%;
   max-width: 420px;
-  aspect-ratio: 16 / 9; /* tetap proporsional di semua layar */
+  aspect-ratio: 16 / 9;
   position: relative;
   overflow: hidden;
   border-radius: 20px;
@@ -247,8 +209,10 @@ body {
 .slide-project img {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* 🔹 biar gambar utuh, gak kepotong */
-  background-color: #0a0c1b; /* warna latar belakang agar rapi */
+  object-fit: contain;
+  /* 🔹 biar gambar utuh, gak kepotong */
+  background-color: #0a0c1b;
+  /* warna latar belakang agar rapi */
   flex-shrink: 0;
   border-radius: 20px;
 }
@@ -315,37 +279,32 @@ body {
   color: #9aa2d3;
   padding-left: 28px;
   position: relative;
-  font-size: 14px;
+  font-size: 15px;
+  text-align: justify;
 }
 
-.key-features li::before {
-  content: "⭐";
-  position: absolute;
-  left: 0;
-  color: #ffd700;
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
 }
 
-/* ==========================
-   📱 RESPONSIVE
-========================== */
-@media (max-width: 900px) {
-  .project-layout {
-    flex-direction: column;
-    align-items: center;
-    gap: 40px;
-  }
-
-  .left-column,
-  .right-column {
-    width: 100%;
-    align-items: center;
-  }
-
-  .project-preview,
-  .features {
-    max-width: 100%;
-  }
+.feature-list li {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  line-height: 1.6;
 }
+
+.feature-list .icon {
+  flex-shrink: 0;
+  font-size: 1.3em;
+  margin-right: 5px;
+  width: 28px; 
+  text-align: center;
+  
+}
+
 
 
 /* ==========================
@@ -451,7 +410,7 @@ body {
 /* Modal utama */
 .modal {
   position: fixed;
-  top: 50%; 
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 90%;
@@ -460,7 +419,9 @@ body {
   border-radius: 30px;
   box-shadow: 0 0 25px rgba(100, 100, 255, 0.25);
   background: radial-gradient(circle at top left, #1b1f3a, #0a0c1b 70%);
-  display: none; /* default hidden */
+  display: none;
+
+  /* default hidden */
   overflow: hidden;
   z-index: 999;
   align-items: center;
@@ -470,8 +431,15 @@ body {
 
 /* Animasi fade in */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translate(-50%, -48%); }
-  to { opacity: 1; transform: translate(-50%, -50%); }
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
 }
 
 /* Gambar menyesuaikan modal */
@@ -517,7 +485,7 @@ body {
 
 .modal-controls button {
   pointer-events: all;
-  background: rgba(0,0,0,0.3);
+  background: rgba(0, 0, 0, 0.3);
   border: none;
   font-size: 50px;
   color: #fff;
@@ -532,13 +500,15 @@ body {
 }
 
 .modal-controls button:hover {
-  background: rgba(255,255,255,0.2);
+  background: rgba(255, 255, 255, 0.2);
   color: #00f;
 }
 
 .mini-modal {
-  display: none; /* default hidden */
-  position: absolute; /* relatif terhadap window / parent */
+  display: none;
+  /* default hidden */
+  position: absolute;
+  /* relatif terhadap window / parent */
   width: 350px;
   max-width: 90%;
   padding: 15px 20px;
@@ -549,8 +519,10 @@ body {
   z-index: 1000;
   font-size: 14px;
   line-height: 1.5;
-  text-align: justify; /* teks rata kanan kiri */
-  pointer-events: none; /* biar hover tetap smooth */
+  text-align: justify;
+  /* teks rata kanan kiri */
+  pointer-events: none;
+  /* biar hover tetap smooth */
   transition: opacity 0.3s, transform 0.3s;
   opacity: 0;
   transform: translateY(-10px) scale(0.95);
@@ -563,11 +535,6 @@ body {
   transform: translateY(0);
 }
 
-.project-buttons {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
 
 /* Tombol Preview */
 .btn {
@@ -576,7 +543,10 @@ body {
   text-decoration: none;
   color: white;
 }
-.live { background-color: #4caf50; }
+
+.live {
+  background-color: #4caf50;
+}
 
 .corner-widgets {
   position: fixed;
@@ -587,13 +557,13 @@ body {
   gap: 10px;
   padding: 8px 12px;
   border-radius: 12px;
-  background: rgba(0,0,0,0.2);
+  background: rgba(0, 0, 0, 0.2);
 }
 
 /* Progres Balok */
 .progress-bar-container {
   position: relative;
-  width: 120px;
+  width: 90px;
   height: 20px;
   background: #ccc;
   border-radius: 10px;
@@ -602,7 +572,7 @@ body {
 
 .progress-bar {
   height: 100%;
-  width: 0%;
+  width: 10%;
   background: linear-gradient(90deg, red, yellow, green);
   transition: width 0.5s;
 }
@@ -636,57 +606,87 @@ body {
 
 /* Warna tema */
 .like-theme {
-  color: #4caf50; /* ganti sesuai tema utama */
-}
-.dislike-theme {
-  color: #f44336; /* ganti sesuai tema sekunder */
+  color: #4caf50;
+  /* ganti sesuai tema utama */
 }
 
-#like-count, #dislike-count {
-  font-size: 16px;
+.dislike-theme {
+  color: #f44336;
+  /* ganti sesuai tema sekunder */
+}
+
+#like-count,
+#dislike-count {
+  font-size: 14px;
   margin-right: 8px;
   color: #f9f4f4;
 }
 
-/* Gap antar elemen */
-.project-buttons a.btn.live {
-  margin-right: 50px; /* Preview → Progress Bar */
-}
 
 .comment-modal {
   display: none;
   position: fixed;
-  top:0; left:0;
-  width:100%; height:100%;
-  background: rgba(0,0,0,0.5);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* pastikan di atas modal lain */
+  z-index: 1000;
+  /* pastikan di atas modal lain */
 }
 
-.comment-modal .modal-content {
-  background:white;
-  padding:20px;
-  border-radius:10px;
-  width:90%;
-  max-width:400px;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
+
 .comment-modal .close {
-  align-self:flex-end;
-  cursor:pointer;
-  font-size:20px;
+  align-self: flex-end;
+  cursor: pointer;
+  font-size: 20px;
 }
 
 /* ===========================
-   💬 KOMENTAR APP - Aman
-=========================== */
-/* ===========================
-   💬 KOMENTAR APP - Aman (Enhanced)
+   💬 KOMENTAR APP - Dark Glow Theme
 =========================== */
 
+/* ===== Header Komentar ===== */
+.custom-line {
+  height: 2px;
+  background: linear-gradient(to right, #2c5282, #050414);
+  width: 100%;
+  border-radius: 4px;
+  margin-top: 20px;
+}
+
+#comments-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0 15px 0;
+}
+
+#comments-header h3 {
+  font-size: 1.2rem;
+  color: #ffffff;
+  margin: 0;
+}
+
+#comments-header select {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#comments-header select:hover {
+  border-color: #007bff;
+}
+
+/* ===== Container ===== */
 .cmtApp-container {
   margin-top: 20px;
   color: #fff;
@@ -710,22 +710,26 @@ body {
 .cmtApp-container #cmtApp-likeCount,
 .cmtApp-container #cmtApp-komentarCount {
   margin-right: 10px;
-  font-size: 16px;
+  font-size: 14px;
   color: #ddd;
 }
 
-/* ===== Komentar utama ===== */
+/* ===== Single Comment ===== */
 .cmtApp-comment {
   background: #1b1b2f;
   border-radius: 12px;
   padding: 10px 12px;
   margin-bottom: 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
   color: #eee;
   position: relative;
   opacity: 0;
   transform: translateY(20px);
   animation: fadeInUp 0.3s forwards;
+}
+
+.cmtApp-comment:hover {
+  transform: translateY(-2px);
 }
 
 @keyframes fadeInUp {
@@ -735,82 +739,190 @@ body {
   }
 }
 
+/* ===== Comment Header ===== */
 .cmtApp-comment-header {
   display: flex;
   align-items: center;
   gap: 10px;
   margin-bottom: 6px;
+  font-size: 0.85rem;
 }
 
 .cmtApp-comment-header img {
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   object-fit: cover;
   border: 1px solid #555;
 }
 
+/* ===== Comment Body ===== */
 .cmtApp-comment-body {
-  margin-bottom: 6px;
-  font-size: 14px;
-  line-height: 1.4;
-  color: #ddd;
+  text-align: left;
+  font-size: 0.85rem;
+  line-height: 2;
+  white-space: nowrap;         
+  overflow-x: auto;            
+  overflow-y: hidden;          
+  -webkit-overflow-scrolling: touch; 
+  padding: 0 6px;              
+  max-width: 100%;             
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: #3f72af #1b1b2f;
 }
 
+/* ===== Gradient Fade ===== */
+.cmtApp-comment-body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 100%;
+  pointer-events: none;
+  background: linear-gradient(to left, #1b1b2f 0%, rgba(27,27,47,0) 100%);
+}
+
+.cmtApp-comment-body.scroll-left::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 100%;
+  pointer-events: none;
+  background: linear-gradient(to right, #1b1b2f 0%, rgba(27,27,47,0) 100%);
+}
+
+/* ===== Scrollbar Webkit ===== */
+.cmtApp-comment-body::-webkit-scrollbar {
+  height: 6px;
+}
+
+.cmtApp-comment-body::-webkit-scrollbar-track {
+  background: #1b1b2f;
+  border-radius: 4px;
+}
+
+.cmtApp-comment-body::-webkit-scrollbar-thumb {
+  background: #3f72af;
+  border-radius: 4px;
+}
+
+.cmtApp-comment-body::-webkit-scrollbar-thumb:hover {
+  background: #2c5282;
+}
+
+/* ===== Scrollbar Firefox ===== */
+.cmtApp-comment-body {
+  scrollbar-width: thin;
+  scrollbar-color: #3f72af #1b1b2f;
+}
+
+/* ===== Responsive Font Sizes ===== */
+@media (max-width: 1024px) {
+  .cmtApp-comment-body {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .cmtApp-comment-body {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .cmtApp-comment-body {
+    font-size: 0.9rem;
+  }
+}
+
+/* ===== Comment Footer ===== */
 .cmtApp-comment-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 12px;
+  flex-wrap: nowrap;
+  gap: 8px;
+  font-size: 0.75rem;
   color: #aaa;
 }
 
+.cmtApp-comment-footer > * {
+  min-width: 0;
+}
+
+/* ===== Comment Actions ===== */
+.cmtApp-comment-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
 .cmtApp-comment-actions button {
-  background: transparent;
+  font-size: 0.75rem;
+  padding: 2px 4px;
+  border-radius: 6px;
   border: none;
-  cursor: pointer;
-  font-size: 14px;
-  margin-right: 8px;
-  transition: transform 0.2s, color 0.2s;
+  background: #2c2c4400;
   color: #ccc;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s, color 0.2s;
+  white-space: nowrap;
 }
 
 .cmtApp-comment-actions button:hover {
   transform: scale(1.1);
-  color: #ff6b6b;
+  background: #5a2c2c00;
+  color: #de1414;
 }
 
 .cmtApp-like.liked {
   color: #ff6b6b;
 }
 
-/* Reply / Subkomentar */
+.cmtApp-time {
+  font-size: 0.8rem;
+  color: #888;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* ===== Replies / Subkomentar ===== */
 .cmtApp-replies {
-  margin-left: 40px;
-  margin-top: 8px;
+  margin-left: 20px;
   border-left: 2px solid #333;
   padding-left: 10px;
+  margin-top: 8px;
 }
 
 .cmtApp-replies .cmtApp-comment {
-  opacity: 0;
   transform: translateX(-20px);
   animation: slideIn 0.3s forwards;
 }
 
 @keyframes slideIn {
-  to { opacity: 1; transform: translateX(0); }
+  to { transform: translateX(0); opacity: 1; }
 }
 
-.cmtApp-time { font-size: 11px; color: #888; }
+/* ===== Comment Time ===== */
+.cmtApp-time {
+  font-size: 12px;
+  color: #888;
+}
 
 /* ===== Modal ===== */
 .cmtApp-modal {
   display: none;
   position: fixed;
-  top:0; left:0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.7);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
   justify-content: center;
   align-items: center;
   z-index: 999;
@@ -834,9 +946,11 @@ body {
   gap: 10px;
   color: #eee;
   position: relative;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
   transform: translateY(-20px);
   transition: transform 0.3s ease;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .cmtApp-modal.show .cmtApp-modal-content {
@@ -877,7 +991,8 @@ body {
 
 .cmtApp-close {
   position: absolute;
-  top: 8px; right: 12px;
+  top: 8px;
+  right: 12px;
   font-size: 20px;
   cursor: pointer;
   color: #eee;
@@ -895,15 +1010,21 @@ body {
   margin-bottom: 5px;
 }
 
-/* Scrollable comment list */
+/* ===== Scrollable Comment List ===== */
 #comments-list {
-  max-height: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 10px;
+  box-sizing: border-box;
   overflow-y: auto;
-  padding-right: 5px;
-  margin-top: 15px;
+  max-height: 500px;
 }
 
-/* Custom scrollbar */
+/* ===== Custom Scrollbar ===== */
 #comments-list::-webkit-scrollbar {
   width: 8px;
 }
@@ -922,9 +1043,10 @@ body {
   background: #2c5282;
 }
 
-/* ==========================
-   📱 RESPONSIVE OPTIMIZATION
-========================== */
+
+/* ===========================
+   📱 RESPONSIVE OPTIMIZATION - Updated
+=========================== */
 
 /* Tablet & Laptop Medium */
 @media (max-width: 1024px) {
@@ -946,6 +1068,11 @@ body {
 
   .key-features {
     padding: 30px;
+  }
+
+  /* Komentar */
+  .cmtApp-comment-body {
+    font-size: 1rem;
   }
 }
 
@@ -1021,19 +1148,35 @@ body {
   .cmtApp-modal-content {
     width: 95%;
     padding: 12px 15px;
+    max-height: 90vh;
+    overflow-y: auto;
   }
 
   #comments-list {
     max-height: 280px;
+    padding: 0 8px;
   }
 
-  /* Corner widgets (progress & reactions) */
+  /* Komentar Body */
+  .cmtApp-comment-body {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 6px;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Corner widgets */
   .corner-widgets {
     bottom: 15px;
     right: 15px;
     flex-direction: column;
     gap: 8px;
-    background: rgba(0,0,0,0.3);
+    background: rgba(0, 0, 0, 0.3);
   }
 
   .progress-bar-container {
@@ -1042,11 +1185,11 @@ body {
   }
 
   #progress-text {
-    font-size: 10px;
+    font-size: 14px;
   }
 
   .reaction-btn {
-    font-size: 20px;
+    font-size: 14px;
   }
 }
 
@@ -1097,98 +1240,14 @@ body {
   }
 
   .cmtApp-comment-body {
-    font-size: 13px;
-  }
-}
-
-/* ===== Project Description Read More ===== */
-.project-description {
-  max-height: 120px;
-  overflow: hidden;
-  position: relative;
-  transition: max-height 0.4s ease;
-}
-
-.project-description.expanded {
-  max-height: 1000px;
-}
-
-.project-description::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 60px;
-  background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.5));
-}
-
-.project-description.expanded::after {
-  opacity: 0;
-}
-
-
-
-/* Button Read More */
-.read-more-btn {
-  background: #4f46e5;
-  color: #fff;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  margin-top: 10px;
-  transition: background 0.3s, transform 0.2s;
-  display: inline-block;
-  width: auto;
-}
-
-.read-more-btn:hover {
-  background: #4338ca;
-}
-/* ===== Responsive Layout ===== */
-
-/* Tablet & Laptop Medium (≤1024px) */
-@media (max-width: 1024px) {
-  .project-description {
-    max-height: 110px;
-  }
-
-  .read-more-btn {
-    font-size: 0.85rem;
-    padding: 7px 12px;
-  }
-}
-
-/* Tablet & Mobile (≤768px) */
-@media (max-width: 768px) {
-  .project-description {
-    max-height: 100px;
-    font-size: 0.95rem;
-    line-height: 1.5;
-  }
-
-  .read-more-btn {
-    font-size: 0.85rem;
-    padding: 6px 12px;
-  }
-}
-
-/* Small Mobile (≤480px) */
-@media (max-width: 480px) {
-  .project-description {
-    max-height: 90px;
     font-size: 0.9rem;
     line-height: 1.4;
-  }
-
-  .project-description.expanded {
-    max-height: 600px; /* lebih kecil supaya gak terlalu panjang di HP kecil */
-  }
-
-  .read-more-btn {
-    font-size: 0.8rem;
-    padding: 5px 10px;
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0 6px;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 }
+
