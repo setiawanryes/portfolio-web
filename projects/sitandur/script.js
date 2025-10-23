@@ -362,3 +362,13 @@ function formatWaktu(timestamp) {
   if (diff < 604800) return `${Math.floor(diff / 86400)} hari lalu`;
   return d.toLocaleDateString();
 }
+
+const readMoreBtn = document.getElementById("readMoreBtn");
+const projectDescription = document.getElementById("projectDescription");
+
+readMoreBtn.addEventListener("click", () => {
+  projectDescription.classList.toggle("expanded");
+  readMoreBtn.textContent = projectDescription.classList.contains("expanded")
+    ? "Close"
+    : "Read more";
+});
