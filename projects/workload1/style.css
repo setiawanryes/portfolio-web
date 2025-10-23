@@ -1021,6 +1021,12 @@ body {
 /* ===== Responsive Font Sizes ===== */
 
 
+@media (max-width: 480px) {
+  .cmtApp-comment-body {
+    font-size: 0.9rem;
+  }
+}
+
 /* Tablet & Laptop Medium (≤1024px) */
 @media (max-width: 1024px) {
   .cmtApp-comment-body {
@@ -1075,13 +1081,6 @@ body {
 
 /* Mobile & Medium (≤768px) */
 @media (max-width: 768px) {
-    .project-header {
-    flex-direction: column;
-    align-items: center;
-    gap: 25px;
-    margin-bottom: 40px;
-  }
- 
   .cmtApp-comment-body {
     font-size: 0.95rem;
   }
@@ -1197,19 +1196,10 @@ body {
 .reaction-btn {
   font-size: 14px;
 }
-
+}
 
 /* Small Mobile (≤480px) */
 @media (max-width: 480px) {
-  .project-header {
-    gap: 20px;
-    margin-bottom: 30px;
-  }
-
-  .cmtApp-comment-body {
-    font-size: 0.9rem;
-  }
-
   body {
     line-height: 1.4;
   }
@@ -1279,16 +1269,16 @@ body {
   }
 }
 
-/* ===== Project Description Read More ===== */
+/* Project Description Read More */
 .project-description {
   max-height: 120px;
   overflow: hidden;
   position: relative;
-  transition: max-height 0.4s ease, font-size 0.3s ease, line-height 0.3s ease;
+  transition: max-height 0.4s ease;
 }
 
 .project-description.expanded {
-  max-height: 1000px; /* default desktop */
+  max-height: 1000px;
 }
 
 .project-description::after {
@@ -1298,8 +1288,6 @@ body {
   left: 0;
   width: 100%;
   height: 60px;
-  background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.5));
-  transition: opacity 0.3s ease;
 }
 
 .project-description.expanded::after {
@@ -1315,66 +1303,9 @@ body {
   cursor: pointer;
   font-size: 0.9rem;
   margin-top: 10px;
-  transition: background 0.3s, transform 0.2s;
+  transition: background 0.3s;
 }
 
 .read-more-btn:hover {
   background: #4338ca;
-  transform: translateY(-2px);
-}
-
-/* ===== Responsive ===== */
-
-/* Tablet & Laptop Medium (≤1024px) */
-@media (max-width: 1024px) {
-  .project-description {
-    max-height: 110px;
-    font-size: 0.95rem;
-    line-height: 1.5;
-  }
-
-  .project-description.expanded {
-    max-height: 900px;
-  }
-
-  .read-more-btn {
-    font-size: 0.85rem;
-    padding: 7px 12px;
-  }
-}
-
-/* Mobile (≤768px) */
-@media (max-width: 768px) {
-  .project-description {
-    max-height: 100px;
-    font-size: 0.95rem;
-    line-height: 1.45;
-  }
-
-  .project-description.expanded {
-    max-height: 850px;
-  }
-
-  .read-more-btn {
-    font-size: 0.85rem;
-    padding: 6px 12px;
-  }
-}
-
-/* Small Mobile (≤480px) */
-@media (max-width: 480px) {
-  .project-description {
-    max-height: 90px;
-    font-size: 0.9rem;
-    line-height: 1.4;
-  }
-
-  .project-description.expanded {
-    max-height: 800px;
-  }
-
-  .read-more-btn {
-    font-size: 0.8rem;
-    padding: 5px 10px;
-  }
 }

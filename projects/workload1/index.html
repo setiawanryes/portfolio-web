@@ -74,81 +74,82 @@
               <!-- tombolnya tetap bekerja -->
               <button id="readMoreBtn" class="read-more-btn">Read more</button>
             </div>
-          
 
-          <!-- Preview -->
-          <div class="project-buttons">
-            <a href="#" class="btn live">Preview</a>
 
-            <!-- Progres Bar -->
-            <div class="progress-bar-container">
-              <div class="progress-bar" id="progress-bar"></div>
-              <span id="progress-text">0%</span>
+            <!-- Preview -->
+            <div class="project-buttons">
+              <a href="#" class="btn live">Preview</a>
+
+              <!-- Progres Bar -->
+              <div class="progress-bar-container">
+                <div class="progress-bar" id="progress-bar"></div>
+                <span id="progress-text">0%</span>
+              </div>
+
+
+              <!-- Tombol Like & Komen -->
+              <div class="like-dislike-container">
+                <button id="like-btn" class="reaction-btn like-theme">❤️</button>
+                <span id="like-count">0</span>
+                <button id="komentar-btn" class="reaction-btn komentar-theme">💬</button>
+                <span id="comment-notify-badge"></span>
+              </div>
             </div>
 
+            <!-- Pemisah -->
+            <div class="custom-line"></div>
+            <!-- Header Komentar -->
+            <div id="comments-header">
+              <h3>Comments (<span id="komentar-count">0</span>)</h3>
+              <div>
+                <select id="comment-sorting">
+                  <option value="newest">Newest</option>
+                  <option value="oldest">Oldest</option>
+                  <option value="popular">Popular</option>
+                </select>
+              </div>
+            </div>
 
-            <!-- Tombol Like & Komen -->
-            <div class="like-dislike-container">
-              <button id="like-btn" class="reaction-btn like-theme">❤️</button>
-              <span id="like-count">0</span>
-              <button id="komentar-btn" class="reaction-btn komentar-theme">💬</button>
-              <span id="comment-notify-badge"></span>
+            <!-- Isi Komentar -->
+            <div id="comments-list"></div>
+            <button id="load-more-comments">Load more</button>
+          </div>
+
+
+          <!-- LAYOUT KANAN -->
+          <div class="right-column" data-aos="fade-left">
+            <!-- Galeri Project -->
+            <div class="project-preview">
+              <div class="slide-project">
+                <img src="../../images/workload1/workloada1.png" alt="Preview 1" class="lightbox-img">
+                <img src="../../images/workload1/workloada2.png" alt="Preview 2" class="lightbox-img">
+                <img src="../../images/workload1/workloada3.png" alt="Preview 3" class="lightbox-img">
+                <img src="../../images/workload1/workloada4.png" alt="Preview 4" class="lightbox-img">
+                <img src="../../images/workload1/workloada5.png" alt="Preview 5" class="lightbox-img">
+                <img src="../../images/workload1/workloada6.png" alt="Preview 6" class="lightbox-img">
+              </div>
+              <div class="slide-controls">
+                <button class="prev">❮</button>
+                <button class="next">❯</button>
+              </div>
+            </div>
+
+            <!-- Manfaat Project -->
+            <div class="key-features">
+              <h2>🧩Key Feature of TMS & Workload Analyst</h2>
+              <ul class="feature-list">
+                <li><span class="icon">📝</span> Task Tracking – Monitoring work progress and task timelines.</li>
+                <li><span class="icon">⚖️</span> Workload Analysis – Evaluating workload distribution for efficiency and
+                  balance.</li>
+                <li><span class="icon">🔔</span> Notifications & Reminders – Identifying task priorities and critical
+                  points.</li>
+                <li><span class="icon">🤝</span> Collaboration Insights – Understanding teamwork and communication flow.
+                </li>
+                <li><span class="icon">📈</span> Reports & Insights – Providing data-driven recommendations for
+                  improvement.</li>
+              </ul>
             </div>
           </div>
-
-          <!-- Pemisah -->
-          <div class="custom-line"></div>
-          <!-- Header Komentar -->
-          <div id="comments-header">
-            <h3>Comments (<span id="komentar-count">0</span>)</h3>
-            <div>
-              <select id="comment-sorting">
-                <option value="newest">Newest</option>
-                <option value="oldest">Oldest</option>
-                <option value="popular">Popular</option>
-              </select>
-            </div>
-          </div>
-
-          <!-- Isi Komentar -->
-          <div id="comments-list"></div>
-          <button id="load-more-comments">Load more</button>
-        </div>
-      </div>
-
-      <!-- LAYOUT KANAN -->
-      <div class="right-column" data-aos="fade-left">
-        <!-- Galeri Project -->
-        <div class="project-preview">
-          <div class="slide-project">
-            <img src="../../images/workload1/workloada1.png" alt="Preview 1" class="lightbox-img">
-            <img src="../../images/workload1/workloada2.png" alt="Preview 2" class="lightbox-img">
-            <img src="../../images/workload1/workloada3.png" alt="Preview 3" class="lightbox-img">
-            <img src="../../images/workload1/workloada4.png" alt="Preview 4" class="lightbox-img">
-            <img src="../../images/workload1/workloada5.png" alt="Preview 5" class="lightbox-img">
-            <img src="../../images/workload1/workloada6.png" alt="Preview 6" class="lightbox-img">
-          </div>
-          <div class="slide-controls">
-            <button class="prev">❮</button>
-            <button class="next">❯</button>
-          </div>
-        </div>
-
-        <!-- Manfaat Project -->
-        <div class="key-features">
-          <h2>🧩Key Feature of TMS & Workload Analyst</h2>
-          <ul class="feature-list">
-            <li><span class="icon">📝</span> Task Tracking – Monitoring work progress and task timelines.</li>
-            <li><span class="icon">⚖️</span> Workload Analysis – Evaluating workload distribution for efficiency and
-              balance.</li>
-            <li><span class="icon">🔔</span> Notifications & Reminders – Identifying task priorities and critical
-              points.</li>
-            <li><span class="icon">🤝</span> Collaboration Insights – Understanding teamwork and communication flow.
-            </li>
-            <li><span class="icon">📈</span> Reports & Insights – Providing data-driven recommendations for
-              improvement.</li>
-          </ul>
-        </div>
   </section>
 
   <!-- KUMPULAN MODAL -->
