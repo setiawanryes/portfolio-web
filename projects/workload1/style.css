@@ -760,19 +760,18 @@ body {
   scrollbar-color: #3f72af #1b1b2f;
 }
 
-/* Gradient overlay di kanan */
+/* ===== Gradient Fade ===== */
 .cmtApp-comment-body::after {
   content: "";
   position: absolute;
   top: 0;
   right: 0;
-  width: 40px; /* Lebar fade */
+  width: 40px;
   height: 100%;
-  pointer-events: none; /* biar scroll tetap bisa */
+  pointer-events: none;
   background: linear-gradient(to left, #1b1b2f 0%, rgba(27,27,47,0) 100%);
 }
 
-/* Optional: gradient di kiri (kalau mau terlihat ada scroll kiri) */
 .cmtApp-comment-body.scroll-left::before {
   content: "";
   position: absolute;
@@ -784,6 +783,7 @@ body {
   background: linear-gradient(to right, #1b1b2f 0%, rgba(27,27,47,0) 100%);
 }
 
+/* ===== Scrollbar Webkit ===== */
 .cmtApp-comment-body::-webkit-scrollbar {
   height: 6px;
 }
@@ -800,6 +800,31 @@ body {
 
 .cmtApp-comment-body::-webkit-scrollbar-thumb:hover {
   background: #2c5282;
+}
+
+/* ===== Scrollbar Firefox ===== */
+.cmtApp-comment-body {
+  scrollbar-width: thin;
+  scrollbar-color: #3f72af #1b1b2f;
+}
+
+/* ===== Responsive Font Sizes ===== */
+@media (max-width: 1024px) {
+  .cmtApp-comment-body {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .cmtApp-comment-body {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .cmtApp-comment-body {
+    font-size: 0.9rem;
+  }
 }
 
 /* ===== Comment Footer ===== */
