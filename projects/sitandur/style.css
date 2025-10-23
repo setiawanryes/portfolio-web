@@ -317,7 +317,7 @@ body {
 .key-features li {
   margin-bottom: 12px;
   color: #9aa2d3;
-  padding-left: 28px;
+  padding-left: 8px;
   position: relative;
   font-size: 15px;
   text-align: justify;
@@ -325,7 +325,7 @@ body {
 
 .feature-list {
   list-style: none;
-  padding: 0;
+  padding: 10;
   margin: 20px 0;
 }
 
@@ -339,9 +339,10 @@ body {
 .feature-list .icon {
   flex-shrink: 0;
   font-size: 1.3em;
-  margin-right: 5px;
+  margin-right: 10px;
   width: 28px;
-  text-align: center;
+  text-align: left;
+
 
 }
 
