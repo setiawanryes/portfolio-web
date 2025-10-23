@@ -1223,7 +1223,7 @@ body.loaded .page-transition {
 /* Tombol navigasi slider utama */
 
 .slider-wrapper {
-  width: 300px;       /* sama dengan lebar card */
+  width: 480px;       /* sama dengan lebar card */
   overflow: hidden;   /* sembunyikan card yang diluar */
   position: relative; /* supaya tombol bisa absolute */
   margin: auto;
@@ -1238,15 +1238,15 @@ body.loaded .page-transition {
 }
 
 .experience-slider-main .exp-item {
-  flex: 0 0 300px;
-  min-width: 300px;
-  max-width: 300px;
+  flex: 0 0 480px;
+  min-width: 480px;
+  max-width: 480px;
   background: #1b163d;
   color: #fff;
   border-radius: 12px;
   padding: 15px;
   box-shadow: 0 0 15px rgba(107,91,149,0.5);
-  text-align: left;
+  text-align:justify;
 }
 
 .experience-slider-main {
