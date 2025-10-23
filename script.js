@@ -189,22 +189,39 @@ window.addEventListener("click", e => {
 
 
 
-document.querySelectorAll('.exp-item').forEach(item => {
-  const track = item.querySelector('.slider-track');
-  const next = item.querySelector('.next');
-  const prev = item.querySelector('.prev');
-  const imgWidth = track.children[0].offsetWidth + 5; // width + gap
-  let index = 0;
-  const total = track.children.length;
+const sliderMain = document.querySelector('.experience-slider-main');
+const prevBtn = document.getElementById('prev-card');
+const nextBtn = document.getElementById('next-card');
 
-  next.addEventListener('click', () => {
-    index = (index + 1) % total;
-    track.style.transform = `translateX(-${index * imgWidth}px)`;
-  });
+let index = 0;
 
-  prev.addEventListener('click', () => {
-    index = (index - 1 + total) % total;
-    track.style.transform = `translateX(-${index * imgWidth}px)`;
-  });
+function showSlide() {
+  sliderMain.style.transform = `translateX(-${index * 100}%)`;
+}
+
+prevBtn.addEventListener('click', () => {
+  index = (index > 0) ? index - 1 : sliderMain.children.length - 1;
+  showSlide();
 });
 
+nextBtn.addEventListener('click', () => {
+  index = (index < sliderMain.children.length - 1) ? index + 1 : 0;
+  showSlide();
+});
+
+/* Slider per card */
+document.querySelectorAll('.experience-slider').forEach(slider => {
+  const track = slider.querySelector('.slider-track');
+  const prev = slider.querySelector('.prev');
+  const next = slider.querySelector('.next');
+  let pos = 0;
+
+  prev.addEventListener('click', () => {
+    pos = Math.min(pos + 150, 0);
+    track.style.transform = `translateX(${pos}px)`;
+  });
+  next.addEventListener('click', () => {
+    pos = Math.max(pos - 150, -(track.scrollWidth - 150));
+    track.style.transform = `translateX(${pos}px)`;
+  });
+});
