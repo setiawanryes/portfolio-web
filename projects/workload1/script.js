@@ -535,3 +535,15 @@ readMoreBtn.addEventListener("click", () => {
     ? "Close"
     : "Read more";
 });
+
+const comments = document.querySelectorAll('.cmtApp-comment-body');
+
+comments.forEach(comment => {
+  comment.addEventListener('scroll', () => {
+    if(comment.scrollLeft > 0) {
+      comment.classList.add('scroll-left');
+    } else {
+      comment.classList.remove('scroll-left');
+    }
+  });
+});
