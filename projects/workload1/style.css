@@ -1033,10 +1033,10 @@ body {
 
 
 /* ===========================
-   📱 RESPONSIVE OPTIMIZATION - Updated
+   📱 RESPONSIVE OPTIMIZATION - Consolidated & Updated
 =========================== */
 
-/* Tablet & Laptop Medium */
+/* Tablet & Laptop Medium (≤1024px) */
 @media (max-width: 1024px) {
   .project-detail {
     padding: 80px 5%;
@@ -1064,7 +1064,27 @@ body {
   }
 }
 
-/* Mobile (Horizontal & Medium) */
+/* Tablet & Small Laptop (≤900px) */
+@media (max-width: 900px) {
+  .project-layout {
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .left-column,
+  .right-column {
+    width: 100%;
+    align-items: center;
+  }
+
+  .project-preview,
+  .features {
+    max-width: 100%;
+  }
+}
+
+/* Mobile & Medium (≤768px) */
 @media (max-width: 768px) {
   .project-layout {
     flex-direction: column;
@@ -1087,10 +1107,7 @@ body {
     text-align: justify;
   }
 
-  .project-stats {
-    justify-content: center;
-  }
-
+  .project-stats,
   .project-buttons {
     justify-content: center;
   }
@@ -1132,7 +1149,7 @@ body {
     right: 20px;
   }
 
-  /* Comment modal */
+  /* Comment Modal */
   .cmtApp-modal-content {
     width: 95%;
     padding: 12px 15px;
@@ -1158,7 +1175,7 @@ body {
     box-sizing: border-box;
   }
 
-  /* Corner widgets */
+  /* Corner Widgets */
   .corner-widgets {
     bottom: 15px;
     right: 15px;
@@ -1230,12 +1247,6 @@ body {
   .cmtApp-comment-body {
     font-size: 0.9rem;
     line-height: 1.4;
-    white-space: nowrap;
-    overflow-x: auto;
-    overflow-y: hidden;
-    padding: 0 6px;
-    max-width: 100%;
-    box-sizing: border-box;
   }
 }
 
@@ -1278,24 +1289,4 @@ body {
 
 .read-more-btn:hover {
   background: #4338ca;
-}
-
-/* Additional Responsive Layout */
-@media (max-width: 900px) {
-  .project-layout {
-    flex-direction: column;
-    align-items: center;
-    gap: 40px;
-  }
-
-  .left-column,
-  .right-column {
-    width: 100%;
-    align-items: center;
-  }
-
-  .project-preview,
-  .features {
-    max-width: 100%;
-  }
 }
