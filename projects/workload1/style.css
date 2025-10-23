@@ -73,24 +73,36 @@ body {
   align-items: flex-start;
   gap: 60px;
   flex-wrap: wrap;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 auto;
 }
 
-.left-column {
-  flex: 1;
-  min-width: 350px;
+.left-column,
+.right-column {
+  flex: 1 1 300px; /* fleksibel: grow, shrink, basis */
+  min-width: 0; /* penting agar gak overflow */
   display: flex;
   flex-direction: column;
   gap: 40px;
 }
 
-.right-column {
-  flex: 1;
-  min-width: 350px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 30px;
+/* Responsif untuk layar ≤768px */
+@media (max-width: 768px) {
+  .project-layout {
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+  }
+
+  .left-column,
+  .right-column {
+    width: 100%;
+    min-width: 0;
+    align-items: center;
+  }
 }
+
 
 /* ======Project Info====== */
 .project-info h1 {
@@ -168,6 +180,7 @@ body {
   transform: translateY(-3px);
   box-shadow: 0 0 15px #9f88ff;
 }
+
 
 /* ==========================
    🎨 PROJECT PREVIEW (SLIDER)
