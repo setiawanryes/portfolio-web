@@ -186,3 +186,24 @@ closeBtn.addEventListener("click", () => modal.style.display = "none");
 window.addEventListener("click", e => {
   if (e.target === modal) modal.style.display = "none";
 });
+
+
+
+document.querySelectorAll('.experience-slider').forEach(slider => {
+  const track = slider.querySelector('.slider-track');
+  const imgs = track.querySelectorAll('img');
+  const next = slider.querySelector('.next');
+  const prev = slider.querySelector('.prev');
+  const imgWidth = imgs[0].offsetWidth;
+  let index = 0;
+
+  next.addEventListener('click', () => {
+    index = (index + 1) % imgs.length;
+    track.style.transform = `translateX(-${index * imgWidth}px)`;
+  });
+
+  prev.addEventListener('click', () => {
+    index = (index - 1 + imgs.length) % imgs.length;
+    track.style.transform = `translateX(-${index * imgWidth}px)`;
+  });
+});

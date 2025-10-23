@@ -1,0 +1,47 @@
+.exp-body-grid {
+  display: grid;
+  grid-template-columns: 1fr 150px; /* deskripsi + slider */
+  gap: 15px;
+  align-items: start;
+}
+
+.slider-container {
+  width: 150px;  /* satu foto tampil */
+  height: 100px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #0a081a;
+}
+
+.slider-track {
+  display: flex;
+  transition: transform 0.3s ease-in-out;
+}
+
+.slider-track img {
+  width: 150px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.slider-track img:hover {
+  transform: scale(1.1);
+}
+
+.prev, .next {
+  margin-top: 5px;
+  background: rgba(107,91,149,0.8);
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  padding: 3px 6px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.prev:hover, .next:hover {
+  background: rgba(107,91,149,1);
+}
