@@ -736,26 +736,10 @@ body {
   opacity: 0;
   transform: translateY(20px);
   animation: fadeInUp 0.3s forwards;
-  
 }
+
 .cmtApp-comment:hover {
   transform: translateY(-2px);
-}
-
-.cmtApp-comment-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 8px;
-  font-size: 0.95rem;
-}
-
-.cmtApp-comment-header img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 1px solid #555;
 }
 
 @keyframes fadeInUp {
@@ -771,11 +755,12 @@ body {
   align-items: center;
   gap: 10px;
   margin-bottom: 6px;
+  font-size: 0.95rem;
 }
 
 .cmtApp-comment-header img {
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   object-fit: cover;
   border: 1px solid #555;
@@ -783,15 +768,17 @@ body {
 
 /* ===== Comment Body ===== */
 .cmtApp-comment-body {
-  white-space: nowrap;         /* teks tetap satu baris */
-  overflow-x: auto;            /* scroll horizontal jika terlalu panjang */
-  -webkit-overflow-scrolling: touch; /* smooth scroll di HP */
-  padding-right: 6px;          /* space supaya scrollbar nggak nempel teks */
-  max-width: 100%;             /* biar nggak keluar container */
+  white-space: nowrap;         
+  overflow-x: auto;            
+  overflow-y: hidden;          
+  -webkit-overflow-scrolling: touch; 
+  padding: 0 6px;              
+  max-width: 100%;             
   box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: #3f72af #1b1b2f;
 }
 
-/* Optional: scrollbar custom untuk horizontal scroll */
 .cmtApp-comment-body::-webkit-scrollbar {
   height: 6px;
 }
@@ -810,17 +797,19 @@ body {
   background: #2c5282;
 }
 
-
 /* ===== Comment Footer ===== */
 .cmtApp-comment-footer {
   display: flex;
-  justify-content: space-between; /* Like/Reply/Buttons di kiri, time di kanan */
+  justify-content: space-between;
   align-items: center;
-  flex-wrap: nowrap; /* Jangan pindah ke baris baru */
+  flex-wrap: nowrap;
   gap: 8px;
   font-size: 0.85rem;
   color: #aaa;
- 
+}
+
+.cmtApp-comment-footer > * {
+  min-width: 0;
 }
 
 /* ===== Comment Actions ===== */
@@ -828,8 +817,9 @@ body {
   display: flex;
   align-items: center;
   gap: 6px;
-  flex-shrink: 0; /* jangan kecilkan ukuran tombol */
+  flex-shrink: 0;
 }
+
 .cmtApp-comment-actions button {
   font-size: 0.85rem;
   padding: 4px 8px;
@@ -839,7 +829,7 @@ body {
   color: #ccc;
   cursor: pointer;
   transition: transform 0.2s, background 0.2s, color 0.2s;
-  white-space: nowrap; /* jangan wrap teks tombol */
+  white-space: nowrap;
 }
 
 .cmtApp-comment-actions button:hover {
@@ -851,16 +841,17 @@ body {
 .cmtApp-like.liked {
   color: #ff6b6b;
 }
+
 .cmtApp-time {
   font-size: 0.8rem;
   color: #888;
   flex-shrink: 0;
-  white-space: nowrap; /* biar tetap di satu baris */
+  white-space: nowrap;
 }
 
 /* ===== Replies / Subkomentar ===== */
 .cmtApp-replies {
-  margin-left: 20px; /* indent untuk reply */
+  margin-left: 20px;
   border-left: 2px solid #333;
   padding-left: 10px;
   margin-top: 8px;
@@ -871,11 +862,9 @@ body {
   animation: slideIn 0.3s forwards;
 }
 
-
 @keyframes slideIn {
   to { transform: translateX(0); opacity: 1; }
 }
-
 
 /* ===== Comment Time ===== */
 .cmtApp-time {
@@ -918,6 +907,8 @@ body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
   transform: translateY(-20px);
   transition: transform 0.3s ease;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .cmtApp-modal.show .cmtApp-modal-content {
@@ -983,13 +974,12 @@ body {
   flex-direction: column;
   gap: 12px;
   width: 100%;
-  max-width: 800px; /* Desktop */
+  max-width: 800px;
   margin: 0 auto;
-  padding: 0 10px; /* Lebih lega di HP */
+  padding: 0 10px;
   box-sizing: border-box;
   overflow-y: auto;
-  max-height: 500px; /* Bisa scroll jika banyak komentar */
-
+  max-height: 500px;
 }
 
 /* ===== Custom Scrollbar ===== */
