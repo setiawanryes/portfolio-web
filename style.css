@@ -1313,7 +1313,6 @@ body.loaded .page-transition {
 
 
 /*Birtday*/
-
 .card-header {
   padding-bottom: 0.5rem;
   margin-bottom: 0.5rem;
@@ -1350,7 +1349,6 @@ body.loaded .page-transition {
  
 }
 
-
 .birthday-info {
   display: flex;
   align-items: center;
@@ -1358,15 +1356,6 @@ body.loaded .page-transition {
   margin-bottom: 10px;
 }
 
-.birthday-photo {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-
-  object-fit: cover;
-  border: 2px solid #ccc;
-
-}
 
 .birthday-info-container {
   display: flex;
