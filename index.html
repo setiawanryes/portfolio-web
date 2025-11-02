@@ -621,25 +621,25 @@
           <p id="modal-text"></p>
         </div>
       </div>
-      <script>document.addEventListener("DOMContentLoaded", () => {
+      <script>
+        document.addEventListener("DOMContentLoaded", () => {
           const navLinks = document.querySelectorAll(".nav-links a");
           const sections = document.querySelectorAll("section");
 
-          // Fungsi menampilkan section sesuai target
           function showSection(targetId) {
-            sections.forEach(sec => {
-              if (sec.id === targetId) {
-                sec.classList.remove("hidden");
+            sections.forEach(section => {
+              if (section.id === targetId) {
+                section.classList.remove("hidden");
               } else {
-                sec.classList.add("hidden");
+                section.classList.add("hidden");
               }
             });
           }
 
-          // Saat pertama kali load, tampilkan #home
+          // Default: tampilkan home
           showSection("home");
 
-          // Event klik pada menu navbar
+          // Klik navigasi
           navLinks.forEach(link => {
             link.addEventListener("click", e => {
               e.preventDefault();
@@ -649,6 +649,7 @@
           });
         });
       </script>
+
       <script>
         AOS.init({ duration: 1000, once: true });
       </script>
