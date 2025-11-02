@@ -23,14 +23,13 @@
       <ul class="nav-links">
         <li><a href="#home">Home</a></li>
         <li><a href="#about">About</a></li>
-        <li><a href="#services">Services</a></li>
         <li><a href="#portfolio">Portfolio</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
   </header>
 
-          
+
   <!-- HOME -->
   <section id="home" class="hero">
     <div class="hero-text">
@@ -622,88 +621,34 @@
           <p id="modal-text"></p>
         </div>
       </div>
+      <script>document.addEventListener("DOMContentLoaded", () => {
+          const navLinks = document.querySelectorAll(".nav-links a");
+          const sections = document.querySelectorAll("section");
 
-
-      <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-      <script>
-        // Ambil elemen
-        const commentForm = document.getElementById("commentForm");
-        const commentList = document.getElementById("commentList");
-        const defaultAvatar = "images/default-avatar.png"; // ganti sesuai lokasi gambar default kamu
-
-        // Saat form dikirim
-        commentForm.addEventListener("submit", function (e) {
-          e.preventDefault();
-
-          // Ambil data input
-          const name = document.getElementById("commentName").value.trim();
-          const text = document.getElementById("commentText").value.trim();
-          const photoInput = document.getElementById("profilePhoto");
-
-          if (!name || !text) {
-            alert("Please fill out name and comment!");
-            return;
+          // Fungsi menampilkan section sesuai target
+          function showSection(targetId) {
+            sections.forEach(sec => {
+              if (sec.id === targetId) {
+                sec.classList.remove("hidden");
+              } else {
+                sec.classList.add("hidden");
+              }
+            });
           }
 
-          // Buat URL foto profil
-          let photoURL = defaultAvatar;
-          if (photoInput.files && photoInput.files[0]) {
-            photoURL = URL.createObjectURL(photoInput.files[0]);
-          }
+          // Saat pertama kali load, tampilkan #home
+          showSection("home");
 
-          // Buat elemen komentar baru
-          const newComment = document.createElement("div");
-          newComment.classList.add("comment-item");
-          newComment.innerHTML = `
-    <img src="${photoURL}" alt="avatar">
-    <div class="comment-content">
-      <h4>${name}</h4>
-      <p>${text}</p>
-      <span class="comment-time">just now</span>
-    </div>
-  `;
-
-          // Masukkan ke daftar komentar
-          commentList.prepend(newComment);
-
-          // Reset form
-          commentForm.reset();
-
-          // Simpan ke localStorage biar gak hilang saat reload
-          saveComment(name, text, photoURL);
-        });
-
-        // Simpan komentar ke localStorage
-        function saveComment(name, text, photoURL) {
-          let comments = JSON.parse(localStorage.getItem("comments")) || [];
-          comments.unshift({ name, text, photoURL });
-          localStorage.setItem("comments", JSON.stringify(comments));
-        }
-
-        // Tampilkan komentar dari localStorage saat halaman dibuka
-        function loadComments() {
-          let comments = JSON.parse(localStorage.getItem("comments")) || [];
-          commentList.innerHTML = "";
-          comments.forEach(c => {
-            const div = document.createElement("div");
-            div.classList.add("comment-item");
-            div.innerHTML = `
-      <img src="${c.photoURL || defaultAvatar}" alt="avatar">
-      <div class="comment-content">
-        <h4>${c.name}</h4>
-        <p>${c.text}</p>
-        <span class="comment-time">previously</span>
-      </div>
-    `;
-            commentList.appendChild(div);
+          // Event klik pada menu navbar
+          navLinks.forEach(link => {
+            link.addEventListener("click", e => {
+              e.preventDefault();
+              const targetId = link.getAttribute("href").replace("#", "");
+              showSection(targetId);
+            });
           });
-        }
-
-        // Jalankan pas halaman dimuat
-        document.addEventListener("DOMContentLoaded", loadComments);
+        });
       </script>
-
       <script>
         AOS.init({ duration: 1000, once: true });
       </script>
