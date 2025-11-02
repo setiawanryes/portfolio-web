@@ -1,11 +1,12 @@
 #experience {
-  display: flex;
-  align-items: center;
-  gap: 25px;
-  background: rgba(255,255,255,0.02);
   padding: 30px;
+  background: rgba(255, 255, 255, 0.02);
+  color: #eee;
+  position: relative;
+  gap: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;
-  border: 1px solid rgba(255,255,255,0.08);
+  align-items: center;
 }
 
 .section-title {
@@ -34,18 +35,18 @@
 .exp-item {
   flex: 0 0 560px;
   min-width: 380px;
-  background: #1b163d;
-  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 16px;
   padding: 15px;
   color: #fff;
   text-align: justify;
-  box-shadow: 0 0 15px rgba(107,91,149,0.5);
+  box-shadow: 0 0 15px rgba(107, 91, 149, 0.5);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .exp-item:hover {
   transform: translateY(-5px);
-  box-shadow: 0 0 25px rgba(107,91,149,0.8);
+  box-shadow: 0 0 25px rgba(107, 91, 149, 0.8);
 }
 
 /* Header */
@@ -132,19 +133,21 @@
 }
 
 /* Tombol kecil per card */
-.prev, .next {
+.prev,
+.next {
   margin-top: 5px;
-  background: rgba(107,91,149,0.8);
+  background: rgba(107, 91, 149, 0.8);
   border: none;
   color: #fff;
   font-size: 1rem;
-  padding: 3px 6px;
+  padding: 30px;
   cursor: pointer;
   border-radius: 6px;
 }
 
-.prev:hover, .next:hover {
-  background: rgba(107,91,149,1);
+.prev:hover,
+.next:hover {
+  background: rgba(107, 91, 149, 1);
 }
 
 /* Footer */
@@ -179,7 +182,7 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(107,91,149,0.8);
+  background: rgba(107, 91, 149, 0.8);
   color: #fff;
   border: none;
   font-size: 1.5rem;
@@ -189,18 +192,30 @@
   z-index: 10;
 }
 
-#prev-card { left: 0; }
-#next-card { right: 0; }
+#prev-card {
+  left: 0;
+}
+
+#next-card {
+  right: 0;
+}
 
 .main-slider-btn:hover {
-  background: rgba(107,91,149,1);
+  background: rgba(107, 91, 149, 1);
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .slider-wrapper { width: 100%; }
-  .exp-body-grid { grid-template-columns: 1fr; }
-  .slider-container, .slider-track img {
+  .slider-wrapper {
+    width: 100%;
+  }
+
+  .exp-body-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .slider-container,
+  .slider-track img {
     width: 100%;
     height: 150px;
   }
