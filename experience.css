@@ -1,4 +1,7 @@
-/* Experience Section */
+/* ===============================
+   🌟 EXPERIENCE SECTION STYLING
+   =============================== */
+
 #experience {
   padding: 50px 20px;
   background: #0a081a;
@@ -14,25 +17,34 @@
   text-shadow: 0 0 10px #6b5b95;
 }
 
-/* Slider utama */
-.experience-slider-main {
-  display: flex;
+/* ===============================
+   🎞️ SLIDER UTAMA (Card Experience)
+   =============================== */
+
+.slider-wrapper {
+  width: 380px;
   overflow: hidden;
-  gap: 20px;
-  scroll-behavior: smooth;
+  position: relative;
+  margin: auto;
 }
 
-/* Card */
+.experience-slider-main {
+  display: flex;
+  gap: 20px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
 .exp-item {
-  min-width: 100%; /* satu card tampil full */
-  flex-shrink: 0;
+  flex: 0 0 380px;
+  min-width: 380px;
+  max-width: 380px;
   background: #1b163d;
   border-radius: 12px;
   padding: 15px;
+  color: #fff;
+  text-align: justify;
   box-shadow: 0 0 15px rgba(107,91,149,0.5);
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -41,7 +53,10 @@
   box-shadow: 0 0 25px rgba(107,91,149,0.8);
 }
 
-/* Top: logo + info */
+/* ===============================
+   👔 HEADER CARD (Logo & Info)
+   =============================== */
+
 .exp-top {
   display: flex;
   align-items: center;
@@ -60,7 +75,8 @@
   flex-direction: column;
 }
 
-.role-title {
+.role-title,
+.exp-company {
   font-weight: bold;
   color: #f0f0f0;
 }
@@ -70,22 +86,19 @@
   color: #ccc;
 }
 
-/* Company & location */
-.exp-company {
-  font-weight: 600;
-  color: #f0f0f0;
-}
-
 .exp-location {
   font-size: 0.8rem;
   color: #aaa;
   margin-bottom: 10px;
 }
 
-/* Grid: deskripsi + slider per card */
+/* ===============================
+   📋 DESKRIPSI & SLIDER DALAM CARD
+   =============================== */
+
 .exp-body-grid {
   display: grid;
-  grid-template-columns: 1fr 150px; /* Deskripsi + slider kecil */
+  grid-template-columns: 1fr 150px;
   gap: 15px;
   align-items: start;
 }
@@ -96,7 +109,10 @@
   margin-bottom: 10px;
 }
 
-/* Slider foto per card */
+/* ===============================
+   🖼️ SLIDER FOTO PER CARD
+   =============================== */
+
 .experience-slider {
   display: flex;
   flex-direction: column;
@@ -106,7 +122,7 @@
 }
 
 .slider-container {
-  width: 150px;  /* satu foto tampil */
+  width: 150px;
   height: 100px;
   overflow: hidden;
   border-radius: 8px;
@@ -140,13 +156,17 @@
   padding: 3px 6px;
   cursor: pointer;
   border-radius: 6px;
+  transition: background 0.3s ease;
 }
 
 .prev:hover, .next:hover {
   background: rgba(107,91,149,1);
 }
 
-/* Skills + footer */
+/* ===============================
+   ⚙️ FOOTER CARD (Skill, Link, dsb)
+   =============================== */
+
 .skills-line {
   display: flex;
   align-items: center;
@@ -191,7 +211,10 @@
   color: #1b163d;
 }
 
-/* Tombol navigasi slider utama */
+/* ===============================
+   ⬅️➡️ TOMBOL SLIDER UTAMA
+   =============================== */
+
 .main-slider-btn {
   position: absolute;
   top: 50%;
@@ -204,6 +227,7 @@
   cursor: pointer;
   border-radius: 6px;
   z-index: 10;
+  transition: background 0.3s ease;
 }
 
 #prev-card { left: 0; }
@@ -213,21 +237,33 @@
   background: rgba(107,91,149,1);
 }
 
-/* Responsive: mobile slider */
-@media(max-width:768px){
+/* ===============================
+   📱 RESPONSIVE
+   =============================== */
+
+@media (max-width: 768px) {
   .exp-body-grid {
-    grid-template-columns: 1fr; /* deskripsi + slider di bawah */
+    grid-template-columns: 1fr;
   }
+
   .slider-container {
     width: 100%;
     height: 150px;
   }
+
   .slider-track img {
     width: 100%;
     height: 150px;
   }
+
+  .slider-wrapper {
+    width: 100%;
+  }
 }
 
+/* ===============================
+   🔳 MODAL (Zoom Gambar)
+   =============================== */
 
 .modal {
   display: none;
@@ -235,48 +271,11 @@
   top: 0; left: 0;
   width: 100%; height: 100%;
   background: rgba(0,0,0,0.7);
-  z-index: 10000; /* pastikan lebih tinggi dari slider */
+  z-index: 10000;
 }
 
 #experience .slider-container-main {
-  max-width: 320px; /* 300px card + 20px gap */
+  max-width: 320px;
   overflow: hidden;
   margin: auto;
-}
-
-
-
-/* Tombol navigasi slider utama */
-
-.slider-wrapper {
-  width: 380px;       /* sama dengan lebar card */
-  overflow: hidden;   /* sembunyikan card yang diluar */
-  position: relative; /* supaya tombol bisa absolute */
-  margin: auto;
-}
-
-/* Slider utama */
-.experience-slider-main {
-  display: flex;
-  overflow: hidden;
-  gap: 20px;
- transition: transform 0.3s ease;
-}
-
-.experience-slider-main .exp-item {
-  flex: 0 0 380px;
-  min-width: 380px;
-  max-width: 380px;
-  background: #1b163d;
-  color: #fff;
-  border-radius: 12px;
-  padding: 15px;
-  box-shadow: 0 0 15px rgba(107,91,149,0.5);
-  text-align:justify;
-}
-
-.experience-slider-main {
-  display: flex;
-  transition: transform 0.3s ease;
-  gap: 20px;
 }
