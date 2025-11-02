@@ -1212,52 +1212,243 @@ body.loaded .page-transition {
   margin-top: 20px;
 }
 
-    /* ===== LAYOUT ===== */
-    .layout {
+
+    /* Birdday Profil*/
+    .birthday-info {
       display: flex;
-      justify-content: center;
-      gap: 2rem;
-      padding: 0 1rem;
+      align-items: center;
+      gap: 15px;
+      /* Jarak antara foto dan teks */
+      margin-bottom: 10px;
     }
 
-    .sidebar {
-      width: 260px;
+    .birthday-photo {
+      width: 80px;
+      /* Ukuran foto */
+      height: 80px;
+      border-radius: 50%;
+      /* Membuat foto bulat */
+      object-fit: cover;
+      border: 2px solid #ccc;
+      /* Bingkai opsional */
     }
 
-    .card {
-      background: #fff;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      border-radius: 10px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    .birthday-info-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 10px;
     }
 
-    .card h3 i {
-      margin-right: 6px;
+    .birthday-top-row {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 5px;
+    }
+
+    .birthday-photo {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #ccc;
+    }
+
+    .birthday-age {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .birthday-date {
+      margin: 0;
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    .zodiac-icon {
+      font-size: 1.2rem;
+      /* Ukuran ikon mengikuti teks */
       color: #0a66c2;
+      /* Warna ikon, bisa disesuaikan */
+      margin-left: 8px;
+      /* Jarak antara teks dan ikon */
     }
 
-    .card ul {
-      list-style: none;
-      margin-top: 0.5rem;
-    }
+    /* --- Aturan CSS Baru untuk Sidebar Elegan --- */
 
-    .card ul li {
+    .card-header {
+      padding-bottom: 0.5rem;
       margin-bottom: 0.5rem;
-      font-size: 0.85rem;
+      border-bottom: 1px solid #eee;
     }
 
-    .card ul li i {
-      margin-right: 5px;
+    .card-header h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #333;
+    }
+
+    .card-header h3 i {
+      color: #0a66c2;
+      margin-right: 8px;
+    }
+
+    .card-body {
+      padding-top: 0.5rem;
+    }
+
+    /* Mengatur ulang style list di Project & Literasi */
+    .project-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      /* Jarak antar item */
+    }
+
+    .project-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.9rem;
+      line-height: 1.4;
+      color: #555;
+      transition: transform 0.2s ease, color 0.2s ease;
+    }
+
+    .project-list li:hover {
+      transform: translateX(4px);
       color: #0a66c2;
     }
 
+    .project-list li i {
+      flex-shrink: 0;
+      font-size: 1rem;
+      color: #0a66c2;
+      margin-top: 2px;
+    }
+
+    .project-list li b {
+      color: #222;
+      font-weight: 600;
+    }
+
+    /* Menghilangkan style default untuk list di sidebar agar tidak berkonflik */
+    .card ul li {
+      margin-bottom: 0;
+    }
+
+    /* --- Gaya CSS yang Diperbarui untuk Bagian Hobi --- */
+
+    .hobby-category {
+      margin-bottom: 1.5rem;
+      /* Memberi jarak lebih rapi antar kategori */
+    }
+
+    .hobby-category-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #0a66c2;
+      margin-top: 0;
+      /* Hapus margin atas yang tidak perlu */
+      margin-bottom: 0.5rem;
+    }
+
+    .hobby-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .hobby-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 5px;
+      transition: transform 0.2s ease, color 0.2s ease;
+    }
+
+    .hobby-list li:hover {
+      transform: translateX(4px);
+      color: #0a66c2;
+    }
+
+    .hobby-list li i {
+      color: #0a66c2;
+    }
+
+    /* Mengubah tampilan tautan menjadi tombol */
     .birthday-btn {
-      margin-top: 0.5rem;
-      background: #0a66c2;
-      color: #fff;
+      text-decoration: none;
+      display: inline-block;
+      background: #e0e0e0;
       border: none;
       padding: 0.4rem 0.8rem;
       border-radius: 20px;
+      margin-right: 0.4rem;
+      font-size: 0.8rem;
       cursor: pointer;
+      transition: background 0.2s;
+      color: #333;
+      /* Warna teks yang jelas */
+    }
+
+    .birthday-btn:hover {
+      background: #ccc;
+      color: #0a66c2;
+    }
+
+    .card {
+      position: relative;
+    }
+
+    .confetti {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .confetti::before,
+    .confetti::after {
+      content: '';
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #f7a072;
+      animation: confetti-fall 10s linear infinite;
+    }
+
+    .confetti::after {
+      left: 50%;
+      background-color: #8c86ff;
+      animation-delay: 2s;
+      animation-duration: 12s;
+    }
+
+    @keyframes confetti-fall {
+      0% {
+        transform: translate(-50vw, -100%) rotate(0deg);
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 1;
+      }
+
+      100% {
+        transform: translate(50vw, 100%) rotate(360deg);
+        opacity: 0;
+      }
     }
