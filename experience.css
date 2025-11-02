@@ -1,23 +1,4 @@
-#experience {
-  padding: 30px;
-  background: rgba(255, 255, 255, 0.02);
-  color: #eee;
-  position: relative;
-  gap: 25px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  align-items: center;
-}
 
-.section-title {
-  text-align: center;
-  font-size: 2rem;
-  margin-bottom: 40px;
-  color: #fff;
-  text-shadow: 0 0 10px #6b5b95;
-}
-
-/* Wrapper & main slider */
 .slider-wrapper {
   width: 560px;
   overflow: hidden;
@@ -25,13 +6,6 @@
   margin: auto;
 }
 
-.experience-slider-main {
-  display: flex;
-  gap: 20px;
-  transition: transform 0.5s ease;
-}
-
-/* Card */
 .exp-item {
   flex: 0 0 560px;
   min-width: 380px;
@@ -44,17 +18,44 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.exp-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 25px rgba(107, 91, 149, 0.8);
+#experience {
+  padding: 30px 15px;
+  background: rgba(255, 255, 255, 0.02);
+  color: #eee;
+  position: relative;
+  gap: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  align-items: center;
 }
 
-/* Header */
+.section-title {
+  text-align: center;
+  font-size: 1.75rem;
+  margin-bottom: 30px;
+  color: #fff;
+  text-shadow: 0 0 10px #6b5b95;
+}
+
+
+.experience-slider-main {
+  display: flex;
+  gap: 20px;
+  transition: transform 0.5s ease;
+}
+
+
+.exp-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px rgba(107, 91, 149, 0.6);
+}
+
+/* ===== Header ===== */
 .exp-top {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .exp-logo {
@@ -63,65 +64,67 @@
   border-radius: 8px;
 }
 
-.role-title {
+.role-title,
+.exp-company {
   font-weight: bold;
   color: #f0f0f0;
 }
 
 .exp-date {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: #ccc;
 }
 
-.exp-company {
-  font-weight: 600;
-  color: #f0f0f0;
-}
-
 .exp-location {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: #aaa;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
-/* Content */
+/* ===== Body ===== */
 .exp-body-grid {
   display: grid;
-  grid-template-columns: 1fr 150px;
   gap: 15px;
+  grid-template-columns: 1fr auto;
   align-items: start;
 }
 
 .role-desc {
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   color: #ddd;
+  line-height: 1.5;
 }
 
+/* ===== Image Slider Inside Card ===== */
 .slider-track {
   display: flex;
-  transition: transform 0.3s ease-in-out;
+  gap: 10px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
 }
 
 .slider-track img {
-  width: 150px;
-  height: 100px;
+  width: 120px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
 .slider-track img:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
-/* Tombol kecil per card */
+/* ===== Small Buttons ===== */
 .prev,
 .next {
-  margin-top: 5px;
   background: rgba(107, 91, 149, 0.8);
   border: none;
   color: #fff;
   font-size: 1rem;
-  padding: 30px;
+  padding: 8px 12px;
   cursor: pointer;
   border-radius: 6px;
+  transition: background 0.2s ease;
 }
 
 .prev:hover,
@@ -129,12 +132,12 @@
   background: rgba(107, 91, 149, 1);
 }
 
-/* Footer */
+/* ===== Footer ===== */
 .experience-footer {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-top: 10px;
+  gap: 12px;
+  margin-top: 15px;
 }
 
 .project-progress-stars i {
@@ -148,7 +151,7 @@
   border-radius: 8px;
   text-decoration: none;
   font-weight: bold;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .details:hover {
@@ -156,7 +159,7 @@
   color: #1b163d;
 }
 
-/* Tombol utama slider */
+/* ===== Main Slider Controls ===== */
 .main-slider-btn {
   position: absolute;
   top: 50%;
@@ -164,38 +167,46 @@
   background: rgba(107, 91, 149, 0.8);
   color: #fff;
   border: none;
-  font-size: 1.5rem;
-  padding: 10px;
+  font-size: 1.3rem;
+  padding: 8px 12px;
   cursor: pointer;
   border-radius: 6px;
   z-index: 10;
 }
 
 #prev-card {
-  left: 0;
+  left: 6px;
 }
 
 #next-card {
-  right: 0;
+  right: 6px;
 }
 
 .main-slider-btn:hover {
   background: rgba(107, 91, 149, 1);
 }
 
-/* Responsive */
+/* ===== Responsive ===== */
 @media (max-width: 768px) {
-  .slider-wrapper {
-    width: 100%;
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .exp-item {
+    padding: 16px;
   }
 
   .exp-body-grid {
     grid-template-columns: 1fr;
   }
 
-  .slider-container,
   .slider-track img {
-    width: 100%;
-    height: 150px;
+    width: 100px;
+    height: 70px;
+  }
+
+  .main-slider-btn {
+    font-size: 1.1rem;
+    padding: 6px 10px;
   }
 }
