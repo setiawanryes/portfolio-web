@@ -25,13 +25,13 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 20px 60px;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(10px);
   position: fixed;
   width: 100%;
   top: 0;
   z-index: 10;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .logo {
@@ -39,6 +39,7 @@ body {
   font-size: 24px;
   color: #fff;
 }
+
 .logo span {
   color: #8f79ff;
   text-shadow: 0 0 8px #8f79ff;
@@ -55,6 +56,7 @@ body {
   color: #ccc;
   transition: 0.3s;
 }
+
 .nav-links a:hover {
   color: #8f79ff;
   text-shadow: 0 0 8px #8f79ff;
@@ -82,25 +84,37 @@ body {
   filter: blur(120px);
   z-index: 0;
 }
+
 .hero::before {
-  width: 400px; height: 400px;
-  background: rgba(138,110,255,0.3);
+  width: 400px;
+  height: 400px;
+  background: rgba(138, 110, 255, 0.3);
   top: -10%;
   left: -10%;
   animation: floatGlow 8s ease-in-out infinite alternate;
 }
+
 .hero::after {
-  width: 350px; height: 350px;
-  background: rgba(88,162,255,0.25);
+  width: 350px;
+  height: 350px;
+  background: rgba(88, 162, 255, 0.25);
   bottom: -5%;
   right: -5%;
   animation: floatGlow 6s ease-in-out infinite alternate-reverse;
 }
 
 @keyframes floatGlow {
-  0% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-15px) scale(1.05); }
-  100% { transform: translateY(0) scale(1); }
+  0% {
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    transform: translateY(-15px) scale(1.05);
+  }
+
+  100% {
+    transform: translateY(0) scale(1);
+  }
 }
 
 /* Hero Text */
@@ -123,9 +137,10 @@ body {
   margin-top: 5px;
   text-shadow: 0 0 8px #8a7cff, 0 0 20px #6a8dfd;
 }
+
 .hero-text h1 span {
   color: #6a8dfd;
-  text-shadow: 0 0 10px rgba(130,100,255,0.9);
+  text-shadow: 0 0 10px rgba(130, 100, 255, 0.9);
 }
 
 /* Role Slider */
@@ -147,13 +162,27 @@ body {
 
 /* Slide animations */
 @keyframes slideIn {
-  from { transform: translateX(100%); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 @keyframes slideOut {
-  from { transform: translateX(0); opacity: 1; }
-  to { transform: translateX(-100%); opacity: 0; }
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
 }
 
 /* Description */
@@ -163,7 +192,7 @@ body {
   color: #b8baf2;
   line-height: 1.6;
   font-size: 1rem;
-  text-shadow: 0 0 4px rgba(138,110,255,0.5);
+  text-shadow: 0 0 4px rgba(138, 110, 255, 0.5);
 }
 
 /* Buttons */
@@ -177,6 +206,7 @@ body {
   margin-top: 20px;
   display: inline-block;
 }
+
 .buttons .btn:hover {
   box-shadow: 0 0 15px #9f88ff, 0 0 25px #7c6aff;
   transform: translateY(-2px);
@@ -191,6 +221,7 @@ body {
   transition: 0.3s;
   display: inline-block;
 }
+
 .buttons .bt:hover {
   background: #c277e8;
   box-shadow: 0 0 20px #c277e8;
@@ -201,12 +232,14 @@ body {
   margin-top: 20px;
   margin-bottom: 20px;
 }
+
 .socials a {
   color: #93a8ff;
   font-size: 18px;
   margin-right: 15px;
   transition: 0.3s;
 }
+
 .socials a:hover {
   color: #6a8dfd;
   text-shadow: 0 0 8px #6a8dfd;
@@ -219,16 +252,18 @@ body {
   position: relative;
   z-index: 2;
 }
+
 .hero-img img {
   width: 90%;
   max-width: 380px;
   border-radius: 50%;
-  box-shadow: 0 0 25px rgba(138,110,255,0.25), 0 0 45px rgba(88,162,255,0.2);
+  box-shadow: 0 0 25px rgba(138, 110, 255, 0.25), 0 0 45px rgba(88, 162, 255, 0.2);
   transition: transform 0.4s, box-shadow 0.4s;
 }
+
 .hero-img img:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 35px rgba(138,110,255,0.45), 0 0 60px rgba(88,162,255,0.35);
+  box-shadow: 0 0 35px rgba(138, 110, 255, 0.45), 0 0 60px rgba(88, 162, 255, 0.35);
 }
 
 /* Responsive */
@@ -280,38 +315,42 @@ body {
 }
 
 /* LEFT & RIGHT PANEL */
-.left-side, .right-side {
-  background: rgba(255,255,255,0.05);
+.left-side,
+.right-side {
+  background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(15px);
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   padding: 40px;
   flex: 1;
   min-width: 360px;
-  box-shadow: 0 0 25px rgba(140,120,255,0.15);
+  box-shadow: 0 0 25px rgba(140, 120, 255, 0.15);
   transition: all 0.3s ease;
 }
 
-.left-side:hover, .right-side:hover {
+.left-side:hover,
+.right-side:hover {
   transform: translateY(-6px);
-  box-shadow: 0 0 35px rgba(160,120,255,0.3);
+  box-shadow: 0 0 35px rgba(160, 120, 255, 0.3);
 }
 
 /* FORM STYLING */
-input, textarea {
+input,
+textarea {
   width: 100%;
   padding: 12px 14px;
   margin: 10px 0 20px;
-  border: 1px solid rgba(255,255,255,0.15);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 10px;
-  background: rgba(255,255,255,0.07);
+  background: rgba(255, 255, 255, 0.07);
   color: #fff;
   font-size: 0.95rem;
   outline: none;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-input:focus, textarea:focus {
+input:focus,
+textarea:focus {
   border-color: #a088ff;
   box-shadow: 0 0 8px #8e76ff;
 }
@@ -359,7 +398,7 @@ input:focus, textarea:focus {
   border-radius: 10px;
   text-decoration: none;
   color: #fff;
-  background: rgba(255,255,255,0.07);
+  background: rgba(255, 255, 255, 0.07);
   transition: 0.3s;
 }
 
@@ -368,17 +407,28 @@ input:focus, textarea:focus {
   box-shadow: 0 0 10px #8b76ff;
 }
 
-.facebook:hover { background: #1877f2; }
-.tiktok:hover { background: #000; }
-.instagram:hover { background: linear-gradient(45deg,#f58529,#dd2a7b,#8134af); }
-.linkedin:hover { background: #0077b5; }
+.facebook:hover {
+  background: #1877f2;
+}
+
+.tiktok:hover {
+  background: #000;
+}
+
+.instagram:hover {
+  background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af);
+}
+
+.linkedin:hover {
+  background: #0077b5;
+}
 
 /* COMMENT LIST */
 .comment-item {
   display: flex;
   gap: 15px;
   align-items: flex-start;
-  background: rgba(255,255,255,0.05);
+  background: rgba(255, 255, 255, 0.05);
   padding: 15px;
   border-radius: 12px;
   margin-top: 12px;
@@ -407,8 +457,15 @@ input:focus, textarea:focus {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* RESPONSIVE */
@@ -514,10 +571,10 @@ input:focus, textarea:focus {
   display: flex;
   align-items: center;
   gap: 25px;
-  background: rgba(255,255,255,0.02);
+  background: rgba(255, 255, 255, 0.02);
   padding: 30px;
   border-radius: 16px;
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .profile-box img {
@@ -558,10 +615,10 @@ input:focus, textarea:focus {
   flex-wrap: wrap;
   gap: 40px;
   margin-top: 30px;
-  background: rgba(255,255,255,0.02);
+  background: rgba(255, 255, 255, 0.02);
   border-radius: 16px;
   padding: 30px;
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .info-box h4 {
@@ -580,7 +637,7 @@ input:focus, textarea:focus {
 }
 
 .tags span {
-  background: rgba(255,255,255,0.05);
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 8px;
   padding: 6px 12px;
   color: #b2b9e3;
@@ -622,7 +679,7 @@ input:focus, textarea:focus {
 
 /* EDUCATION */
 .edu-item {
-  background: rgba(255,255,255,0.02);
+  background: rgba(255, 255, 255, 0.02);
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 30px;
@@ -639,6 +696,7 @@ input:focus, textarea:focus {
   font-size: 0.95rem;
   line-height: 1.6;
 }
+
 .edu-item q {
   color: #aab0d6;
   font-size: 0.80rem;
@@ -646,8 +704,15 @@ input:focus, textarea:focus {
 }
 
 @keyframes fadeIn {
-  from {opacity: 0; transform: translateY(10px);}
-  to {opacity: 1; transform: translateY(0);}
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* RESPONSIVE */
@@ -655,10 +720,12 @@ input:focus, textarea:focus {
   .about-container {
     flex-direction: column;
   }
+
   .about-sidebar {
     border-right: none;
     text-align: center;
   }
+
   .about-socials {
     justify-content: center;
   }
@@ -812,6 +879,7 @@ input:focus, textarea:focus {
   transition: all 0.3s;
   box-shadow: 0 0 10px rgba(90, 110, 255, 0.25);
 }
+
 .back-btn:hover {
   background: #2c3480;
   color: #fff;
@@ -879,9 +947,11 @@ input:focus, textarea:focus {
   box-shadow: 0 0 15px rgba(95, 114, 255, 0.2);
   transition: all 0.3s ease;
 }
+
 .stat i {
   color: #6a8dfd;
 }
+
 .stat:hover {
   transform: translateY(-3px);
   box-shadow: 0 0 20px rgba(130, 120, 255, 0.35);
@@ -913,10 +983,12 @@ input:focus, textarea:focus {
   background: linear-gradient(135deg, #5b73ff, #9f66ff);
   box-shadow: 0 0 12px rgba(110, 120, 255, 0.4);
 }
+
 .btn.github {
   background: linear-gradient(135deg, #222d6e, #463c8f);
   box-shadow: 0 0 12px rgba(120, 100, 255, 0.25);
 }
+
 .btn:hover {
   opacity: 0.9;
   transform: translateY(-2px);
@@ -924,13 +996,27 @@ input:focus, textarea:focus {
 
 /* PROJECT IMAGE PREVIEW */
 @keyframes slideIn {
-  from { transform: translateX(100%); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 @keyframes slideOut {
-  from { transform: translateX(0); opacity: 1; }
-  to { transform: translateX(-100%); opacity: 0; }
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
 }
 
 .project-preview {
@@ -1039,6 +1125,7 @@ input:focus, textarea:focus {
     font-size: 2rem;
   }
 }
+
 /* ==========================
    ✨ Page Transition (Soft)
 ========================== */
@@ -1062,7 +1149,8 @@ body.loaded .page-transition {
 
 /*The naked traveler slider*/
 .about-sidebar {
-  width: 300px; /* Atur lebar sidebar */
+  width: 300px;
+  /* Atur lebar sidebar */
   padding: 20px;
   border-radius: 15px;
   color: #fff;
@@ -1073,7 +1161,8 @@ body.loaded .page-transition {
 
 /* Slider di sidebar */
 .traveler-slider {
-  width: 100%; /* full width sidebar */
+  width: 100%;
+  /* full width sidebar */
   margin-top: 20px;
   position: relative;
 }
@@ -1090,8 +1179,10 @@ body.loaded .page-transition {
 }
 
 .traveler-slider .slider-track img {
-  width: 80px;       /* kecil agar pas sidebar */
-  height: 60px;      /* proporsional */
+  width: 80px;
+  /* kecil agar pas sidebar */
+  height: 60px;
+  /* proporsional */
   border-radius: 5px;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -1099,7 +1190,7 @@ body.loaded .page-transition {
 
 .traveler-slider .slider-track img.active {
   transform: scale(1.2);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 }
 
 .traveler-slider button.prev,
@@ -1115,26 +1206,32 @@ body.loaded .page-transition {
   padding: 5px;
 }
 
-.traveler-slider button.prev { left: 2px; }
-.traveler-slider button.next { right: 2px; }
+.traveler-slider button.prev {
+  left: 2px;
+}
+
+.traveler-slider button.next {
+  right: 2px;
+}
 
 /* Modal overlay */
 .modal {
-  display: none; /* hidden by default */
+  display: none;
+  /* hidden by default */
   position: fixed;
   z-index: 999;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.9);
+  background-color: rgba(0, 0, 0, 0.9);
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* ---- Dark Glow Project Progress Stars ---- */
+/*Project Progress Star*/
 .project-progress-stars {
   display: flex;
   gap: 8px;
@@ -1146,13 +1243,15 @@ body.loaded .page-transition {
 
 .project-progress-stars i {
   font-size: 1rem;
-  color: #444; /* bintang belum selesai */
+  color: #444;
+  /* bintang belum selesai */
   text-shadow: 0 0 4px #222, 0 0 8px #111;
   transition: color 0.3s, transform 0.2s, text-shadow 0.3s;
 }
 
 .project-progress-stars i.completed {
-  color: #facc15; /* bintang selesai */
+  color: #facc15;
+  /* bintang selesai */
   text-shadow: 0 0 6px #facc1588, 0 0 12px #facc1544;
 }
 
@@ -1180,14 +1279,14 @@ body.loaded .page-transition {
 
 .project-footer {
   display: flex;
-  align-items: center; /* sejajar vertikal */
-  justify-content: space-between; /* bintang kiri, tombol kanan */
+  align-items: center;
+  justify-content: space-between;
   gap: 12px;
   margin-top: 12px;
 }
 
 .project-footer .project-progress-stars {
-  margin: 0; /* hapus margin default */
+  margin: 0;
 }
 
 .project-footer .details {
@@ -1212,147 +1311,147 @@ body.loaded .page-transition {
   margin-top: 20px;
 }
 
-    /* Birdday Profil*/
-    .birthday-info {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      margin-bottom: 10px;
-    }
 
-    .birthday-photo {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-    
-      object-fit: cover;
-      border: 2px solid #ccc;
+/*Birtday*/
 
-    }
+.card-header {
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid #5f0b0b;
+}
 
-    .birthday-info-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      margin-bottom: 10px;
-    }
+.card-header h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #faf5f5;
+}
 
-    .birthday-top-row {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      margin-bottom: 5px;
-    }
+.card-header h3 i {
+  color: #0a66c2;
+  margin-right: 8px;
+}
 
-    .birthday-photo {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid #ccc;
-    }
+.card-body {
+  padding-top: 0.5rem;
+}
 
-    .birthday-age {
-      font-size: 1rem;
-      font-weight: 600;
-      color: #333;
-    }
+.birthday-btn {
+  text-decoration: none;
+  display: inline-block;
+  background: #e0e0e0;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  margin-right: 0.4rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  color: bi#333;
+ 
+}
 
-    .birthday-date {
-      margin: 0;
-      font-size: 0.95rem;
-      color: #555;
-    }
 
-   
-    /* --- Aturan CSS Baru untuk Sidebar Elegan --- */
+.birthday-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 10px;
+}
 
-    .card-header {
-      padding-bottom: 0.5rem;
-      margin-bottom: 0.5rem;
-      border-bottom: 1px solid #5f0b0b;
-    }
+.birthday-photo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
 
-    .card-header h3 {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #faf5f5;
-    }
+  object-fit: cover;
+  border: 2px solid #ccc;
 
-    .card-header h3 i {
-      color: #0a66c2;
-      margin-right: 8px;
-    }
+}
 
-    .card-body {
-      padding-top: 0.5rem;
-    }
+.birthday-info-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 10px;
+}
 
-    .birthday-btn {
-      text-decoration: none;
-      display: inline-block;
-      background: #e0e0e0;
-      border: none;
-      padding: 0.4rem 0.8rem;
-      border-radius: 20px;
-      margin-right: 0.4rem;
-      font-size: 0.8rem;
-      cursor: pointer;
-      transition: background 0.2s;
-      color: #333;
-      /* Warna teks yang jelas */
-    }
+.birthday-top-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 5px;
+}
 
-    .birthday-btn:hover {
-      background: #ccc;
-      color: #0a66c2;
-    }
+.birthday-photo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ccc;
+}
 
-    .card {
-      position: relative;
-    }
+.birthday-age {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #f7f2f2;
+}
 
-    .confetti {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      z-index: 0;
-      pointer-events: none;
-    }
+.birthday-date {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #f6f0f0;
+}
 
-    .confetti::before,
-    .confetti::after {
-      content: '';
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      background-color: #f7a072;
-      animation: confetti-fall 10s linear infinite;
-    }
+.birthday-btn:hover {
+  background: #ccc;
+  color: #0a66c2;
+}
 
-    .confetti::after {
-      left: 50%;
-      background-color: #8c86ff;
-      animation-delay: 2s;
-      animation-duration: 12s;
-    }
+.card {
+  position: relative;
+}
 
-    @keyframes confetti-fall {
-      0% {
-        transform: translate(-50vw, -100%) rotate(0deg);
-        opacity: 0;
-      }
+.confetti {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
 
-      10% {
-        opacity: 1;
-      }
+.confetti::before,
+.confetti::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #f7a072;
+  animation: confetti-fall 10s linear infinite;
+}
 
-      100% {
-        transform: translate(50vw, 100%) rotate(360deg);
-        opacity: 0;
-      }
-    }
+.confetti::after {
+  left: 50%;
+  background-color: #8c86ff;
+  animation-delay: 2s;
+  animation-duration: 12s;
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translate(-50vw, -100%) rotate(0deg);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(50vw, 100%) rotate(360deg);
+    opacity: 0;
+  }
+}
