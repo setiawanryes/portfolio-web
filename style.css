@@ -1212,25 +1212,22 @@ body.loaded .page-transition {
   margin-top: 20px;
 }
 
-
     /* Birdday Profil*/
     .birthday-info {
       display: flex;
       align-items: center;
       gap: 15px;
-      /* Jarak antara foto dan teks */
       margin-bottom: 10px;
     }
 
     .birthday-photo {
       width: 80px;
-      /* Ukuran foto */
       height: 80px;
       border-radius: 50%;
-      /* Membuat foto bulat */
+    
       object-fit: cover;
       border: 2px solid #ccc;
-      /* Bingkai opsional */
+
     }
 
     .birthday-info-container {
@@ -1274,13 +1271,13 @@ body.loaded .page-transition {
     .card-header {
       padding-bottom: 0.5rem;
       margin-bottom: 0.5rem;
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid #5f0b0b;
     }
 
     .card-header h3 {
       font-size: 1rem;
       font-weight: 700;
-      color: #333;
+      color: #faf5f5;
     }
 
     .card-header h3 i {
@@ -1292,9 +1289,6 @@ body.loaded .page-transition {
       padding-top: 0.5rem;
     }
 
-
-
-    /* Mengubah tampilan tautan menjadi tombol */
     .birthday-btn {
       text-decoration: none;
       display: inline-block;
