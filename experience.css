@@ -15,7 +15,7 @@
 
 /* Wrapper & main slider */
 .slider-wrapper {
-  width: 380px;
+  width: 560px;
   overflow: hidden;
   position: relative;
   margin: auto;
@@ -29,7 +29,7 @@
 
 /* Card */
 .exp-item {
-  flex: 0 0 380px;
+  flex: 0 0 560px;
   min-width: 380px;
   background: #1b163d;
   border-radius: 12px;
