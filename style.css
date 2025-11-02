@@ -1212,3 +1212,52 @@ body.loaded .page-transition {
   margin-top: 20px;
 }
 
+    /* ===== LAYOUT ===== */
+    .layout {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 0 1rem;
+    }
+
+    .sidebar {
+      width: 260px;
+    }
+
+    .card {
+      background: #fff;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .card h3 i {
+      margin-right: 6px;
+      color: #0a66c2;
+    }
+
+    .card ul {
+      list-style: none;
+      margin-top: 0.5rem;
+    }
+
+    .card ul li {
+      margin-bottom: 0.5rem;
+      font-size: 0.85rem;
+    }
+
+    .card ul li i {
+      margin-right: 5px;
+      color: #0a66c2;
+    }
+
+    .birthday-btn {
+      margin-top: 0.5rem;
+      background: #0a66c2;
+      color: #fff;
+      border: none;
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      cursor: pointer;
+    }
