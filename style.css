@@ -1317,12 +1317,15 @@ body.loaded .page-transition {
   padding-bottom: 0.5rem;
   margin-bottom: 0.5rem;
   border-bottom: 1px solid #5f0b0b;
+  background-color: #0077b5;
 }
 
 .card-header h3 {
   font-size: 1rem;
   font-weight: 700;
   color: #faf5f5;
+ 
+
 }
 
 .card-header h3 i {
@@ -1354,6 +1357,7 @@ body.loaded .page-transition {
   align-items: center;
   gap: 15px;
   margin-bottom: 10px;
+  
 }
 
 
