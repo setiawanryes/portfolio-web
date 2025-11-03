@@ -614,15 +614,11 @@
       </div>
     </div>
   </section>
-  
+
   <script>
     document.addEventListener("DOMContentLoaded", () => {
-      // Ambil semua link di navbar
       const navLinks = document.querySelectorAll(".nav-links a");
-      // Ambil hanya section utama di body
       const sections = document.querySelectorAll("body > section");
-
-      // Fungsi untuk menampilkan section berdasarkan ID
       function showSection(targetId) {
         sections.forEach(section => {
           if (section.id === targetId) {
@@ -633,17 +629,13 @@
         });
       }
 
-      // Default: tampilkan home
       showSection("home");
-
-      // Event listener untuk klik navigasi
       navLinks.forEach(link => {
         link.addEventListener("click", e => {
           e.preventDefault();
           const targetId = link.getAttribute("href").replace("#", "");
           showSection(targetId);
 
-          // update active class
           navLinks.forEach(nav => nav.classList.remove("active"));
           link.classList.add("active");
         });
