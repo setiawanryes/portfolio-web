@@ -1385,21 +1385,16 @@ body.loaded .page-transition {
 }
 
 /* === PAGE SWITCH EFFECT === */
-section {
-  opacity: 1;
-  visibility: visible;
-  transition: opacity 0.6s ease, visibility 0.6s ease;
-  position: relative;
-  z-index: 1;
+.hidden {
+  display: none;
 }
 
-section.hidden {
-  opacity: 0;
-  visibility: hidden;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 0;
+.section {
+  padding: 60px 0;
+  transition: opacity 0.5s ease;
 }
 
+.nav-links a.active {
+  color: var(--accent);
+  font-weight: bold;
+}
