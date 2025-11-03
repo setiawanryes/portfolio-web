@@ -424,7 +424,6 @@
       <!-- PORTOFOLIO -->
       <section id="portfolio" class="portfolio-section">
         <div class="portfolio-container">
-
           <h2 class="portfolio-title">Portfolio Showcase</h2>
           <p class="portfolio-subtitle">
             Explore my journey through projects, certifications, and achievements.
@@ -557,106 +556,107 @@
               </div>
             </div>
           </div>
+        </div>
+      </section>
 
+      <!-- Kontak -->
+      <section id="contact" class="contact-section">
+        <h2 class="section-title">Contact Me</h2>
+        <p class="section-subtitle">Got a question? Send me a message, and I'll get back to you soon.</p>
 
-          <!-- Kontak -->
-          <section id="contact" class="contact-section">
-            <h2 class="section-title">Contact Me</h2>
-            <p class="section-subtitle">Got a question? Send me a message, and I'll get back to you soon.</p>
+        <div class="contact-container">
+          <!-- LEFT SIDE -->
+          <div class="left-side" data-aos="fade-right">
+            <div class="contact-form">
+              <h3>Get in Touch</h3>
+              <p>Have something to discuss? Send me a message and let's talk.</p>
 
-            <div class="contact-container">
-              <!-- LEFT SIDE -->
-              <div class="left-side" data-aos="fade-right">
-                <div class="contact-form">
-                  <h3>Get in Touch</h3>
-                  <p>Have something to discuss? Send me a message and let's talk.</p>
-
-                  <form action="https://formspree.io/f/maypkxyz" method="POST">
-                    <input type="text" name="name" placeholder="Your Name" required>
-                    <input type="email" name="email" placeholder="Your Email" required>
-                    <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
-                    <button class="btn-gradient" type="submit">
-                      <i class="fas fa-paper-plane"></i> Send Message
-                    </button>
-                  </form>
-                </div>
-
-                <!-- CONNECT SECTION -->
-                <div class="connect" data-aos="fade-up">
-                  <h3>Connect With Me</h3>
-                  <p>Let’s connect on my social platforms!</p>
-                  <div class="social-links">
-                    <a href="#" class="facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
-                    <a href="#" class="tiktok"><i class="fab fa-tiktok"></i> TikTok</a>
-                    <a href="#" class="instagram"><i class="fab fa-instagram"></i> Instagram</a>
-                    <a href="#" class="linkedin"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
-                  </div>
-                </div>
-              </div>
-
-              <!-- RIGHT SIDE (COMMENTS) -->
-              <div class="right-side" data-aos="fade-left">
-                <h3>Comments</h3>
-                <form id="commentForm">
-                  <input type="text" id="commentName" placeholder="Name *" required>
-                  <textarea id="commentText" placeholder="Write your message..." required></textarea>
-
-                  <label for="profilePhoto" class="file-label">Profile Photo (optional)</label>
-                  <input type="file" id="profilePhoto" accept="image/*">
-
-                  <button type="submit" class="btn-gradient">
-                    <i class="fas fa-comment"></i> Post Comment
-                  </button>
-                </form>
-
-                <div id="commentList" class="comment-list"></div>
-              </div>
+              <form action="https://formspree.io/f/maypkxyz" method="POST">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
+                <button class="btn-gradient" type="submit">
+                  <i class="fas fa-paper-plane"></i> Send Message
+                </button>
+              </form>
             </div>
-          </section>
 
-          <!-- di akhir body -->
-          <div id="skill-modal" class="modal">
-            <div class="modal-content">
-              <span class="close">&times;</span>
-              <p id="modal-text"></p>
+            <!-- CONNECT SECTION -->
+            <div class="connect" data-aos="fade-up">
+              <h3>Connect With Me</h3>
+              <p>Let’s connect on my social platforms!</p>
+              <div class="social-links">
+                <a href="#" class="facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
+                <a href="#" class="tiktok"><i class="fab fa-tiktok"></i> TikTok</a>
+                <a href="#" class="instagram"><i class="fab fa-instagram"></i> Instagram</a>
+                <a href="#" class="linkedin"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+              </div>
             </div>
           </div>
-          <script>
-            document.addEventListener("DOMContentLoaded", () => {
-              const navLinks = document.querySelectorAll(".nav-links a");
-              const sections = document.querySelectorAll("section");
 
-              function showSection(targetId) {
-                sections.forEach(section => {
-                  if (section.id === targetId) {
-                    section.classList.remove("hidden");
-                  } else {
-                    section.classList.add("hidden");
-                  }
-                });
+          <!-- RIGHT SIDE (COMMENTS) -->
+          <div class="right-side" data-aos="fade-left">
+            <h3>Comments</h3>
+            <form id="commentForm">
+              <input type="text" id="commentName" placeholder="Name *" required>
+              <textarea id="commentText" placeholder="Write your message..." required></textarea>
+
+              <label for="profilePhoto" class="file-label">Profile Photo (optional)</label>
+              <input type="file" id="profilePhoto" accept="image/*">
+
+              <button type="submit" class="btn-gradient">
+                <i class="fas fa-comment"></i> Post Comment
+              </button>
+            </form>
+
+            <div id="commentList" class="comment-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- di akhir body -->
+      <div id="skill-modal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <p id="modal-text"></p>
+        </div>
+      </div>
+      <script>
+        document.addEventListener("DOMContentLoaded", () => {
+          const navLinks = document.querySelectorAll(".nav-links a");
+          const sections = document.querySelectorAll("section");
+
+          function showSection(targetId) {
+            sections.forEach(section => {
+              if (section.id === targetId) {
+                section.classList.remove("hidden");
+              } else {
+                section.classList.add("hidden");
               }
-
-              // Default: tampilkan home
-              showSection("home");
-
-              // Klik navigasi
-              navLinks.forEach(link => {
-                link.addEventListener("click", e => {
-                  e.preventDefault();
-                  const targetId = link.getAttribute("href").replace("#", "");
-                  showSection(targetId);
-                });
-              });
             });
-          </script>
+          }
 
-          <script>
-            AOS.init({ duration: 1000, once: true });
-          </script>
+          // Default: tampilkan home
+          showSection("home");
 
-          <script src="script.js"></script>
-          <script src="comment.js"></script>
-          <script src="experience.js"></script>
+          // Klik navigasi
+          navLinks.forEach(link => {
+            link.addEventListener("click", e => {
+              e.preventDefault();
+              const targetId = link.getAttribute("href").replace("#", "");
+              showSection(targetId);
+            });
+          });
+        });
+      </script>
+
+      <script>
+        AOS.init({ duration: 1000, once: true });
+      </script>
+
+      <script src="script.js"></script>
+      <script src="comment.js"></script>
+      <script src="experience.js"></script>
 
 </body>
 
