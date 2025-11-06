@@ -1,0 +1,1363 @@
+
+/*BODY*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: radial-gradient(circle at 20% 20%, #0e0c22, #050414 80%);
+  color: #e5e5ff;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/*DETAIL*/
+.project-detail {
+  padding: 100px 8%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-container {
+  width: 100%;
+  max-width: 1100px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 60px;
+  box-shadow: 0 0 40px rgba(138, 110, 255, 0.15);
+  backdrop-filter: blur(10px);
+  transition: 0.4s ease;
+}
+
+.project-container:hover {
+  box-shadow: 0 0 55px rgba(138, 110, 255, 0.3);
+}
+
+.project-section {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+/*NAVIGASI*/
+.back-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #aaaaff;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.back-nav .back-btn {
+  color: #8a7cff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.back-nav .back-btn:hover {
+  text-shadow: 0 0 10px #8a7cff;
+}
+
+/*LAYOUT*/
+.project-layout {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+
+.left-column {
+  flex: 1;
+  min-width: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.right-column {
+  flex: 1;
+  min-width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+/*INFO PROJECT*/
+.project-info h1 {
+  font-size: 2.6rem;
+  color: #fff;
+  text-shadow: 0 0 15px rgba(108, 80, 255, 0.8);
+  margin-bottom: 15px;
+}
+
+.project-info p {
+  color: #b8baf2;
+  font-size: 1rem;
+  margin-bottom: 30px;
+  text-shadow: 0 0 4px rgba(138, 110, 255, 0.3);
+  text-align: justify;
+}
+
+.project-stats {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+  position: relative;
+  margin-top: 20px
+}
+
+.stat {
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 0.9rem;
+  color: #a7a4ff;
+  transition: all 0.3s ease;
+  text-align: justify;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+.stat:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
+}
+
+.project-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+
+.project-buttons .btn {
+  display: inline-block;
+  padding: 10px 22px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 500;
+  color: #fff;
+  transition: 0.3s;
+}
+
+.project-buttons .btn.live {
+  background: linear-gradient(90deg, #7c6aff, #9f88ff);
+  size: 12px;
+  margin-right: 5px;
+}
+
+.project-buttons .btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 15px #9f88ff;
+}
+
+/*KOMENTAR*/
+.custom-line {
+  height: 2px;
+  background: linear-gradient(to right, #2c5282, #050414);
+  width: 100%;
+  border-radius: 4px;
+  margin-top: 20px;
+}
+
+#comments-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0 15px 0;
+}
+
+#comments-header h3 {
+  font-size: 1.2rem;
+  color: #ffffff;
+  margin: 0;
+}
+
+#comments-header select {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#comments-header select:hover {
+  border-color: #007bff;
+}
+
+
+/*PREVIEW*/
+.project-preview {
+  width: 100%;
+  max-width: 420px;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 0 25px rgba(100, 100, 255, 0.25);
+  background: radial-gradient(circle at top left, #1b1f3a, #0a0c1b 70%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slide-project {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  transition: transform 0.6s ease-in-out;
+}
+
+.slide-project img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background-color: #0a0c1b;
+  flex-shrink: 0;
+  border-radius: 20px;
+}
+
+.slide-controls {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+}
+
+.slide-controls button {
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 10px 14px;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.slide-controls button:hover {
+  background: rgba(138, 110, 255, 0.8);
+  box-shadow: 0 0 12px rgba(138, 110, 255, 0.6);
+}
+
+/*KEY FUTURE*/
+.key-features {
+  width: 100%;
+  background: #10142f;
+  padding: 40px;
+  border-radius: 20px;
+  max-width: 720px;
+  text-align: left;
+  box-shadow: 0 0 25px rgba(100, 100, 255, 0.15);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.key-features:hover {
+  background: #141a3b;
+  transform: translateY(-4px);
+}
+
+.key-features h2 {
+  color: #b7c5ff;
+  margin-bottom: 20px;
+  text-shadow: 0 0 8px rgba(110, 90, 255, 0.3);
+  font-size: 18px;
+}
+
+.key-features ul {
+  list-style: none;
+  padding: 0;
+}
+
+.key-features li {
+  margin-bottom: 12px;
+  color: #9aa2d3;
+  padding-left: 8px;
+  position: relative;
+  font-size: 15px;
+  text-align: justify;
+}
+
+.feature-list {
+  list-style: none;
+  padding: 10;
+  margin: 20px 0;
+}
+
+.feature-list li {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+.feature-list .icon {
+  flex-shrink: 0;
+  font-size: 1.3em;
+  margin-right: 10px;
+  width: 28px;
+  text-align: left;
+
+
+}
+
+
+/* ==========================
+   📱 RESPONSIVE
+========================== */
+@media (max-width: 900px) {
+  .project-layout {
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .left-column,
+  .right-column {
+    width: 100%;
+    align-items: center;
+  }
+
+  .project-preview,
+  .features {
+    max-width: 100%;
+  }
+}
+
+
+/* ==========================
+   🎞️ SLIDESHOW PREVIEW
+========================== */
+.project-preview {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 0 25px rgba(100, 100, 255, 0.25);
+  background: radial-gradient(circle at top left, #1b1f3a, #0a0c1b 70%);
+}
+
+.slide-project {
+  display: flex;
+  width: 300%;
+  transition: transform 0.6s ease-in-out;
+}
+
+.slide-project img {
+  width: 100%;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+/* Navigasi tombol slide */
+.slide-controls {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+  padding: 0 10px;
+}
+
+.slide-controls button {
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.slide-controls button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-bottom: 60px;
+}
+
+/* Row bawah: Tech stack & features */
+.project-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+
+.features {
+  flex: 1;
+  min-width: 280px;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 0 12px rgba(100, 100, 255, 0.15);
+}
+
+
+.features h2 {
+  margin-bottom: 12px;
+  color: #9da8ff;
+}
+
+
+.left-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.divider {
+  border: none;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 15px 0;
+}
+
+
+/* Modal utama */
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 1800px;
+  aspect-ratio: 16 / 9;
+  border-radius: 30px;
+  box-shadow: 0 0 25px rgba(100, 100, 255, 0.25);
+  background: radial-gradient(circle at top left, #1b1f3a, #0a0c1b 70%);
+  display: none;
+  /* default hidden */
+  overflow: hidden;
+  z-index: 999;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Animasi fade in */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* Gambar menyesuaikan modal */
+.modal-content {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  cursor: grab;
+  user-select: none;
+  pointer-events: auto;
+  z-index: 999;
+}
+
+/* Tombol close */
+.close {
+  position: absolute;
+  top: 20px;
+  right: 35px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #fff;
+  cursor: pointer;
+  transition: color 0.3s;
+  pointer-events: auto;
+  z-index: 1001;
+}
+
+.close:hover {
+  color: #bbb;
+}
+
+/* Kontrol navigasi */
+.modal-controls {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+  z-index: 1000;
+}
+
+.modal-controls button {
+  pointer-events: all;
+  background: rgba(0, 0, 0, 0.3);
+  border: none;
+  font-size: 50px;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s, color 0.3s;
+}
+
+.modal-controls button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #00f;
+}
+
+.mini-modal {
+  display: none;
+  /* default hidden */
+  position: absolute;
+  /* relatif terhadap window / parent */
+  width: 350px;
+  max-width: 90%;
+  padding: 15px 20px;
+  background: linear-gradient(90deg, #7c6aff, #9f88ff);
+  border-radius: 15px;
+  box-shadow: 0 0 25px rgba(100, 100, 255, 0.3);
+  color: #fff;
+  z-index: 1000;
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: justify;
+  /* teks rata kanan kiri */
+  pointer-events: none;
+  /* biar hover tetap smooth */
+  transition: opacity 0.3s, transform 0.3s;
+  opacity: 0;
+  transform: translateY(-10px) scale(0.95);
+}
+
+/* muncul animasi */
+.mini-modal.show {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.project-buttons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Tombol Preview */
+.btn {
+  padding: 8px 16px;
+  border-radius: 5px;
+  text-decoration: none;
+  color: white;
+}
+
+.live {
+  background-color: #4caf50;
+}
+
+.corner-widgets {
+  position: fixed;
+  bottom: 20px;
+  right: 0px;
+  display: flex;
+  align-items: center;
+  gap: px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* Progres Balok */
+.progress-bar-container {
+  position: relative;
+  width: 100px;
+  height: 20px;
+  background: #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, red, yellow, green);
+  transition: width 0.5s;
+}
+
+#progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 12px;
+  color: #fff;
+}
+
+.like-dislike-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12;
+
+}
+
+.reaction-btn {
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.reaction-btn:active {
+  transform: scale(1.3);
+}
+
+/* Warna tema */
+.like-theme {
+  color: #4caf50;
+  /* ganti sesuai tema utama */
+}
+
+.dislike-theme {
+  color: #f44336;
+  /* ganti sesuai tema sekunder */
+}
+
+#like-count,
+#dislike-count {
+  font-size: 16px;
+  margin-right: 8px;
+  color: #f9f4f4;
+}
+
+/* Gap antar elemen */
+.project-buttons a.btn.live {
+  margin-right: 50px;
+  /* Preview → Progress Bar */
+}
+
+.comment-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  /* pastikan di atas modal lain */
+}
+
+.comment-modal .modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.comment-modal .close {
+  align-self: flex-end;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* ===========================
+   💬 KOMENTAR APP - Aman
+=========================== */
+/* ===========================
+   💬 KOMENTAR APP - Aman (Enhanced)
+=========================== */
+
+.cmtApp-container {
+  margin-top: 20px;
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+/* Tombol Like & Komentar */
+.cmtApp-container .reaction-btn {
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s, color 0.2s;
+  color: #7c6aff;
+}
+
+.cmtApp-container .reaction-btn:active {
+  transform: scale(1.2);
+}
+
+.cmtApp-container #cmtApp-likeCount,
+.cmtApp-container #cmtApp-komentarCount {
+  margin-right: 10px;
+  font-size: 16px;
+  color: #ddd;
+}
+
+/* ===== Komentar utama ===== */
+.cmtApp-comment {
+  background: #1b1b2f;
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  color: #eee;
+  position: relative;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.3s forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cmtApp-comment-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.cmtApp-comment-header img {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #555;
+}
+
+.cmtApp-comment-body {
+  margin-bottom: 6px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #ddd;
+  text-align: left;
+}
+
+.cmtApp-comment-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  text-align: left;
+  color: #aaa;
+  line-height: 1.4;
+}
+
+.cmtApp-comment-actions button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  margin-right: 5px;
+  transition: transform 0.2s, color 0.2s;
+  color: #ccc;
+
+}
+
+.cmtApp-comment-actions button:hover {
+  transform: scale(1.1);
+  color: #ff6b6b;
+}
+
+.cmtApp-like.liked {
+  color: #ff6b6b;
+}
+
+/* Reply / Subkomentar - responsive */
+.cmtApp-replies {
+  margin-left: 25px;       
+  margin-top: 10px;        
+  border-left: 2px solid #555; 
+  padding-left: 5px;      
+  border-radius: 5px;      
+  word-wrap: break-word;
+ 
+}
+
+/* Tablet / layar sedang */
+@media (max-width: 992px) {
+  .cmtApp-replies {
+    margin-left: 20px;
+    padding-left: 8px;
+  }
+}
+
+/* Mobile / layar kecil */
+@media (max-width: 576px) {
+  .cmtApp-replies {
+    margin-left: 15px;
+    padding-left: 6px;
+  }
+}
+
+  .cmtApp-replies .cmtApp-comment {
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: slideIn 0.3s forwards;
+  }
+
+  @keyframes slideIn {
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .cmtApp-time {
+    font-size: 12px;
+    color: #888;
+  }
+
+  /* ===== Modal ===== */
+  .cmtApp-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .cmtApp-modal.show {
+    display: flex;
+    opacity: 1;
+  }
+
+  .cmtApp-modal-content {
+    background: #2b2b42;
+    border-radius: 12px;
+    padding: 15px 20px;
+    width: 90%;
+    max-width: 360px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: #eee;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+  }
+
+  .cmtApp-modal.show .cmtApp-modal-content {
+    transform: translateY(0);
+  }
+
+  .cmtApp-modal-content input,
+  .cmtApp-modal-content textarea {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid #555;
+    font-size: 14px;
+    outline: none;
+    background: #1f1f35;
+    color: #eee;
+  }
+
+  .cmtApp-modal-content input:focus,
+  .cmtApp-modal-content textarea:focus {
+    border-color: #3f72af;
+  }
+
+  #cmtAppKirim {
+    background: #3f72af;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+  }
+
+  #cmtAppKirim:hover {
+    background: #2c5282;
+  }
+
+  .cmtApp-close {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #eee;
+    transition: color 0.2s;
+  }
+
+  .cmtApp-close:hover {
+    color: #ff6b6b;
+  }
+
+  #cmtAppModalTitle {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+
+  /* Scrollable comment list */
+  #comments-list {
+    max-height: 360px;
+    overflow-y: auto;
+    padding-right: 5px;
+    margin-top: 15px;
+  }
+
+  /* Custom scrollbar */
+  #comments-list::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  #comments-list::-webkit-scrollbar-track {
+    background: #1b1b2f;
+    border-radius: 4px;
+  }
+
+  #comments-list::-webkit-scrollbar-thumb {
+    background: #3f72af;
+    border-radius: 4px;
+  }
+
+  #comments-list::-webkit-scrollbar-thumb:hover {
+    background: #2c5282;
+  }
+
+  /* ==========================
+   📱 RESPONSIVE OPTIMIZATION
+========================== */
+
+  /* Tablet & Laptop Medium */
+  @media (max-width: 1024px) {
+    .project-detail {
+      padding: 80px 5%;
+    }
+
+    .project-container {
+      padding: 40px;
+    }
+
+    .project-info h1 {
+      font-size: 2.2rem;
+    }
+
+    .project-info p {
+      font-size: 0.95rem;
+    }
+
+    .key-features {
+      padding: 30px;
+    }
+  }
+
+  /* Mobile (Horizontal & Medium) */
+  @media (max-width: 768px) {
+    .project-layout {
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    .left-column,
+    .right-column {
+      min-width: 100%;
+      align-items: center;
+      text-align: center;
+    }
+
+    .project-info h1 {
+      font-size: 2rem;
+    }
+
+    .project-info p {
+      font-size: 0.9rem;
+      text-align: justify;
+    }
+
+    .project-stats {
+      justify-content: center;
+    }
+
+    .project-buttons {
+      justify-content: center;
+    }
+
+    .project-preview {
+      max-width: 100%;
+    }
+
+    .key-features {
+      max-width: 100%;
+      padding: 25px;
+    }
+
+    .key-features h2 {
+      font-size: 16px;
+    }
+
+    .key-features li {
+      font-size: 13px;
+    }
+
+    /* Modal */
+    .modal {
+      width: 95%;
+      max-width: none;
+      aspect-ratio: auto;
+      height: 80vh;
+      border-radius: 16px;
+    }
+
+    .modal-controls button {
+      width: 50px;
+      height: 50px;
+      font-size: 30px;
+    }
+
+    .close {
+      font-size: 30px;
+      right: 20px;
+    }
+
+    /* Comment modal */
+    .cmtApp-modal-content {
+      width: 95%;
+      padding: 12px 15px;
+    }
+
+    #comments-list {
+      max-height: 280px;
+    }
+
+    /* Corner widgets (progress & reactions) */
+    .corner-widgets {
+      bottom: 15px;
+      right: 15px;
+      flex-direction: column;
+      gap: 8px;
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    .progress-bar-container {
+      width: 100px;
+      height: 16px;
+    }
+
+    #progress-text {
+      font-size: 10px;
+    }
+
+    .reaction-btn {
+      font-size: 20px;
+    }
+  }
+
+  /* Small Mobile (≤480px) */
+  @media (max-width: 480px) {
+    body {
+      line-height: 1.4;
+    }
+
+    .project-container {
+      padding: 25px;
+      border-radius: 16px;
+    }
+
+    .project-info h1 {
+      font-size: 1.7rem;
+    }
+
+    .project-info p {
+      font-size: 0.85rem;
+    }
+
+    .project-buttons .btn {
+      padding: 8px 16px;
+      font-size: 0.85rem;
+    }
+
+    .stat {
+      padding: 6px 10px;
+      font-size: 0.8rem;
+    }
+
+    .key-features {
+      padding: 20px;
+    }
+
+    .key-features li {
+      padding-left: 24px;
+    }
+
+    .mini-modal {
+      width: 85%;
+      font-size: 13px;
+    }
+
+    .cmtApp-comment {
+      padding: 8px 10px;
+    }
+
+    .cmtApp-comment-body {
+      font-size: 13px;
+    }
+  }
+
+  /* ===== Project Description Read More ===== */
+  .project-description {
+    max-height: 120px;
+    overflow: hidden;
+    position: relative;
+    transition: max-height 0.4s ease;
+  }
+
+  .project-description.expanded {
+    max-height: 1000px;
+  }
+
+  .project-description::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
+  }
+
+  .project-description.expanded::after {
+    opacity: 0;
+  }
+
+
+
+  /* Button Read More */
+  .read-more-btn {
+    background: #4f46e5;
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    transition: background 0.3s, transform 0.2s;
+    display: inline-block;
+    width: auto;
+  }
+
+  .read-more-btn:hover {
+    background: #4338ca;
+  }
+
+  /* ===== Responsive Layout ===== */
+
+  /* Tablet & Laptop Medium (≤1024px) */
+  @media (max-width: 1024px) {
+    .project-description {
+      max-height: 110px;
+    }
+
+    .read-more-btn {
+      font-size: 0.85rem;
+      padding: 7px 12px;
+    }
+  }
+
+  /* Tablet & Mobile (≤768px) */
+  @media (max-width: 768px) {
+    .project-description {
+      max-height: 100px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .read-more-btn {
+      font-size: 0.85rem;
+      padding: 6px 12px;
+    }
+  }
+
+  /* Small Mobile (≤480px) */
+  @media (max-width: 480px) {
+    .project-description {
+      max-height: 90px;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    .project-description.expanded {
+      max-height: 600px;
+      /* lebih kecil supaya gak terlalu panjang di HP kecil */
+    }
+
+    .read-more-btn {
+      font-size: 0.8rem;
+      padding: 5px 10px;
+    }
+  }
+
+
+  /* ===== MEDIA QUERIES ===== */
+  @media (max-width: 768px) {
+    .cmtApp-comment-actions button {
+      flex: 1 1 48%;
+      /* 2 tombol per baris di HP */
+    }
+
+    .cmtApp-comment-body {
+      font-size: 0.85rem;
+    }
+
+    .cmtApp-comment-header img {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .cmtApp-comment-actions button {
+      flex: 1 1 100%;
+      /* tombol full width di HP kecil */
+    }
+
+    #comments-list {
+      padding: 0 6px;
+    }
+  }
+
+  /* ===== LOAD MORE BUTTON ===== */
+  #load-more-comments {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    background: #007bff;
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  #load-more-comments:hover {
+    background: #0056d2;
+  }
+
+
+
+  /* ===== NOTIFY BADGE UPGRADE ===== */
+  #comment-notify-badge {
+    display: inline-block;
+    background: #ff3b30;
+    color: white;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 4px 8px;
+    min-width: 20px;
+    height: 20px;
+    line-height: 1;
+    text-align: center;
+    margin-left: 6px;
+    vertical-align: top;
+    box-shadow: 0 0 6px rgba(255, 59, 48, 0.6);
+    animation: pulseGlow 1.2s infinite;
+    transform-origin: center;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  /* Smooth pulse + glow */
+  @keyframes pulseGlow {
+
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 1;
+      box-shadow: 0 0 6px rgba(255, 59, 48, 0.6);
+    }
+
+    50% {
+      transform: scale(1.3);
+      opacity: 0.8;
+      box-shadow: 0 0 12px rgba(255, 59, 48, 0.9);
+    }
+  }
+
+  /* Optional: appear animation */
+  #comment-notify-badge.show {
+    animation: popIn 0.3s ease forwards;
+  }
+
+  @keyframes popIn {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+
+    60% {
+      transform: scale(1.2);
+      opacity: 1;
+    }
+
+    100% {
+      transform: scale(1);
+    }
+  }
