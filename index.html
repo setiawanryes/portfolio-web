@@ -65,38 +65,21 @@
           </div>
         </div>
       </div>
-<div class="kolase-container"> <div class="kolase-img">
-        <div class="kolase-item">
-            <img src="../../images/workload1/workloada1.png" alt="Preview 1" class="lightbox-img">
-        </div>
-        <div class="kolase-item">
-            <img src="../../images/workload1/workloada2.png" alt="Preview 2" class="lightbox-img">
-        </div>
-        <div class="kolase-item">
-            <img src="../../images/workload1/workloada3.png" alt="Preview 3" class="lightbox-img">
-        </div>
-        <div class="kolase-item">
-            <img src="../../images/workload1/workloada4.png" alt="Preview 4" class="lightbox-img">
-        </div>
-        <div class="kolase-item">
-            <img src="../../images/workload1/workloada5.png" alt="Preview 5" class="lightbox-img">
-        </div>
-        <div class="kolase-item">
-            <img src="../../images/workload1/workloada6.png" alt="Preview 6" class="lightbox-img">
-        </div>
-        <div class="kolase-item">
-            <img src="../../images/workload1/workloada5.png" alt="Preview 5" class="lightbox-img">
-        </div>
-        <div class="kolase-item">
-            <img src="../../images/workload1/workloada6.png" alt="Preview 6" class="lightbox-img">
-        </div>
-        <div class="kolase-item">
-            <img src="../../images/workload1/workloada5.png" alt="Preview 5" class="lightbox-img">
-        </div>
-        <div class="kolase-item">
-            <img src="../../images/workload1/workloada6.png" alt="Preview 6" class="lightbox-img">
-        </div>
+<div class="kolase-wrapper">
+    <div class="kolase-img kolase-hexagons">
+        <div class="kolase-item"><img src="../../images/workload1/workloada1.png" alt="Preview 1" class="lightbox-img"></div>
+        <div class="kolase-item"><img src="../../images/workload1/workloada2.png" alt="Preview 2" class="lightbox-img"></div>
+        <div class="kolase-item"><img src="../../images/workload1/workloada3.png" alt="Preview 3" class="lightbox-img"></div>
+        <div class="kolase-item"><img src="../../images/workload1/workloada4.png" alt="Preview 4" class="lightbox-img"></div>
+        <div class="kolase-item"><img src="../../images/workload1/workloada5.png" alt="Preview 5" class="lightbox-img"></div>
+        <div class="kolase-item"><img src="../../images/workload1/workloada6.png" alt="Preview 6" class="lightbox-img"></div>
+        <div class="kolase-item"><img src="../../images/workload1/workloada7.png" alt="Preview 7" class="lightbox-img"></div>
+        <div class="kolase-item"><img src="../../images/workload1/workloada8.png" alt="Preview 8" class="lightbox-img"></div>
+        <div class="kolase-item"><img src="../../images/workload1/workloada9.png" alt="Preview 9" class="lightbox-img"></div>
     </div>
+    </div>
+
+<script src="path/to/script.js"></script>
 </div>
     </div>
   </section>
@@ -825,68 +808,104 @@
     }
   </script>
   <script>document.addEventListener("DOMContentLoaded", () => {
-    const kolaseContainer = document.querySelector(".kolase-img");
-    const kolaseItems = document.querySelectorAll(".kolase-item");
+    // ... (Kode JavaScript Anda yang lain di sini) ...
 
-    // Jika kolase-img atau kolase-item tidak ditemukan, hentikan
-    if (!kolaseContainer || kolaseItems.length === 0) {
-        console.warn("Kolase: Elemen kolase-img atau kolase-item tidak ditemukan.");
-        return;
+    // --- FUNGSI UNTUK MENGSETUP KOLASE (Diperbarui) ---
+    function setupKolase(containerSelector, itemSizes, solidColors, outlineColor) {
+        const kolaseContainer = document.querySelector(containerSelector);
+        const kolaseItems = kolaseContainer ? kolaseContainer.querySelectorAll(".kolase-item") : [];
+
+        if (!kolaseContainer || kolaseItems.length === 0) {
+            console.warn(`Kolase: Elemen container '${containerSelector}' atau item tidak ditemukan.`);
+            return;
+        }
+
+        const containerWidth = kolaseContainer.offsetWidth;
+        const containerHeight = kolaseContainer.offsetHeight;
+
+        // Bentuk Heksagon Diperlukan untuk gaya ini
+        const HEXAGON_SHAPE = "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)";
+
+        const animationNames = ["moveRandom1", "moveRandom2", "moveRandom3"];
+
+        kolaseItems.forEach((item, index) => {
+            
+            // --- 1. Ukuran dan Posisi Acak ---
+            const minSize = itemSizes.min;
+            const maxSize = itemSizes.max;
+            const itemSize = Math.floor(Math.random() * (maxSize - minSize + 1)) + minSize;
+            item.style.width = `${itemSize}px`;
+            item.style.height = `${itemSize}px`;
+
+            const randomTop = Math.random() * (containerHeight - itemSize);
+            const randomLeft = Math.random() * (containerWidth - itemSize);
+            
+            item.style.top = `${randomTop}px`;
+            item.style.left = `${randomLeft}px`;
+
+            // Terapkan Bentuk Heksagon
+            item.style.clipPath = HEXAGON_SHAPE;
+            item.style.webkitClipPath = HEXAGON_SHAPE;
+
+            // --- 2. Warna dan Outline Acak ---
+            const isOutline = Math.random() > 0.5; // 50% kemungkinan jadi outline
+            
+            if (isOutline) {
+                // Heksagon Outline (Bergaris)
+                item.classList.add('outline');
+                // Mengatur warna border (diatur juga di CSS)
+                item.style.borderColor = outlineColor;
+                // Mengatur background item menjadi transparan
+                item.style.backgroundColor = 'transparent';
+                
+            } else {
+                // Heksagon Solid (Padat)
+                item.classList.remove('outline');
+                // Pilih warna solid acak dari palet
+                const randomColor = solidColors[Math.floor(Math.random() * solidColors.length)];
+                item.style.backgroundColor = randomColor;
+            }
+
+            // --- 3. Animasi Acak ---
+            const randomAnimationName = animationNames[Math.floor(Math.random() * animationNames.length)];
+            const animationDuration = Math.random() * (15 - 8) + 8; // Durasi 8-15 detik
+            const animationDelay = Math.random() * 5; // Delay 0-5 detik
+            const animationDirection = Math.random() > 0.5 ? 'normal' : 'reverse'; 
+
+            item.style.animation = 
+                `${randomAnimationName} ${animationDuration}s ease-in-out ${animationDelay}s infinite alternate ${animationDirection}`;
+            
+            // Tampilkan item
+            setTimeout(() => {
+                item.style.opacity = 1;
+            }, index * 100 + Math.random() * 500);
+        });
     }
 
-    const containerWidth = kolaseContainer.offsetWidth;
-    const containerHeight = kolaseContainer.offsetHeight; // Anda mungkin perlu mengatur tinggi container CSS
-
-    // Bentuk-bentuk yang akan digunakan (clip-path)
-    const shapes = [
-        "circle(50% at 50% 50%)", // Lingkaran
-        "inset(0% 0% 0% 0%)",     // Kotak
-        "polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%)", // Pentagon
-        "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" // Hexagon
+    // --- PANGGIL FUNGSI KOLASE HANYA UNTUK Heksagon ---
+    // Palet warna yang terinspirasi dari gambar kedua
+    const HEX_PALETTE = [
+        '#7B3F00',   // Cokelat Tua
+        '#A52A2A',   // Merah Kecokelatan
+        '#D2B48C',   // Beige Muda
+        '#BC8F8F',   // Cokelat Mawar
+        '#E0B891'    // Cokelat Gading
     ];
+    
+    // Asumsi Anda menggunakan wadah '.kolase-hexagons'
+    setupKolase(
+        '.kolase-hexagons', 
+        { min: 100, max: 200 }, // Ukuran item (min, max)
+        HEX_PALETTE,
+        '#7B3F00' // Warna outline (Cokelat Tua)
+    );
+    
+    // HAPUS PANGGILAN setupKolase untuk lingkaran jika Anda hanya ingin heksagon
+    // setupKolase('.kolase-circles', ...); // <--- HAPUS INI
 
-    // Nama animasi gerakan yang sudah dibuat di CSS
-    const animationNames = ["moveRandom1", "moveRandom2", "moveRandom3"];
+    // ... (Sisa kode JavaScript Anda yang lain) ...
 
-    kolaseItems.forEach((item, index) => {
-        // Ukuran item random (misal antara 100px dan 200px)
-        const itemSize = Math.floor(Math.random() * (200 - 100) + 100);
-        item.style.width = `${itemSize}px`;
-        item.style.height = `${itemSize}px`;
-
-        // Posisi Acak
-        // Pastikan tidak keluar batas container
-        const randomTop = Math.random() * (containerHeight - itemSize);
-        const randomLeft = Math.random() * (containerWidth - itemSize);
-        
-        item.style.top = `${randomTop}px`;
-        item.style.left = `${randomLeft}px`;
-
-        // Bentuk Acak
-        const randomShape = shapes[Math.floor(Math.random() * shapes.length)];
-        item.style.clipPath = randomShape;
-        item.style.webkitClipPath = randomShape; // Untuk kompatibilitas browser lama
-
-        // Animasi Acak
-        const randomAnimationName = animationNames[Math.floor(Math.random() * animationNames.length)];
-        const animationDuration = Math.random() * (15 - 8) + 8; // Durasi antara 8-15 detik
-        const animationDelay = Math.random() * 5; // Delay awal antara 0-5 detik
-        const animationDirection = Math.random() > 0.5 ? 'normal' : 'reverse'; // Arah normal/balik
-
-        item.style.animation = 
-            `${randomAnimationName} ${animationDuration}s ease-in-out ${animationDelay}s infinite alternate ${animationDirection}`;
-        
-        // Tampilkan item setelah diatur posisinya
-        setTimeout(() => {
-            item.style.opacity = 1;
-        }, index * 100); // Munculkan satu per satu dengan delay kecil
-    });
-
-    // Opsional: Sesuaikan tinggi container jika semua gambar diposisikan
-    // agar tidak ada yang terpotong di bagian bawah
-    // Ini mungkin memerlukan perhitungan ulang based on max top + height of item
-    // For simplicity, make sure .kolase-img has sufficient min-height.
-});</script>
+}); // Akhir DOMContentLoaded</script>
   <script>
     AOS.init({ duration: 1000, once: true });
   </script>

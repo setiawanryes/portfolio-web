@@ -1513,59 +1513,75 @@ body.loaded .page-transition {
   transform: translateY(-2px);
 }
 
-.kolase-container {
-    width: 100%; /* Atau lebar spesifik */
-    min-height: 400px; /* Tinggi minimum agar ada ruang untuk kolase */
-    position: relative; /* Penting untuk penempatan tombol */
-    margin-top: 50px; /* Contoh margin */
-    overflow: hidden; /* Pastikan elemen tidak keluar */
-}
-
-.kolase-img {
+/* --- Wadah Utama Kolase --- */
+.kolase-wrapper {
     width: 100%;
-    height: 100%; /* Akan diatur oleh JS jika perlu */
-    min-height: 400px; /* Minimal tinggi agar gambar punya ruang */
-    position: relative; /* Penting! Referensi untuk posisi absolute item */
-    background-color: rgba(0, 0, 0, 0.05); /* Latar belakang kolase */
-    border-radius: 10px;
+    max-width: 1200px;
+    margin: 50px auto; 
+    padding: 20px;
+    position: relative;
+    overflow: hidden; 
 }
 
+/* --- Wadah Heksagon --- */
+.kolase-img.kolase-hexagons {
+    position: relative;
+    width: 100%;
+    min-height: 500px; /* Tinggi minimum yang cukup agar elemen tidak bertumpuk */
+    background-color: transparent; 
+}
+
+/* --- Item Kolase Individual --- */
 .kolase-item {
-    position: absolute; /* Setiap item akan diposisikan absolute */
-    opacity: 0; /* Sembunyikan dulu, akan muncul dengan JS */
+    position: absolute;
+    opacity: 0; 
     transition: opacity 0.5s ease-in-out;
-    width: 150px; /* Lebar default item kolase */
-    height: 150px; /* Tinggi default item kolase */
-    overflow: hidden; /* Penting untuk clip-path */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    display: flex; /* Untuk memusatkan gambar */
+    /* Ukuran akan diatur oleh JS */
+    display: flex;
     justify-content: center;
     align-items: center;
+    box-sizing: border-box; 
+    background-color: transparent; 
+    border-radius: 0; /* Hilangkan border-radius */
 }
 
 .kolase-item img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Pastikan gambar mengisi item */
+    object-fit: cover;
     display: block;
+    opacity: 0.8; /* Opacity rendah agar warna background JS bisa terlihat */
 }
 
+/* --- Efek Outline (Heksagon Bergaris) --- */
+.kolase-item.outline {
+    background-color: transparent !important; 
+    border: 3px solid; /* Border tipis, warna diatur oleh JS */
+}
+
+/* Sembunyikan gambar di dalam elemen outline agar terlihat murni bergaris */
+.kolase-item.outline img {
+    visibility: hidden; 
+}
+
+
 /* --- Keyframes untuk Animasi Gerak Acak --- */
-/* Akan di-generate secara dinamis oleh JS untuk variasi yang lebih banyak */
+/* (Anda bisa menambahkan lebih banyak variasi moveRandomN jika mau) */
+
 @keyframes moveRandom1 {
-    0% { transform: translate(0, 0); }
-    25% { transform: translate(10px, -5px); }
-    50% { transform: translate(-10px, 10px); }
-    75% { transform: translate(5px, -15px); }
-    100% { transform: translate(0, 0); }
+    0% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(10px, -5px) scale(0.98); }
+    50% { transform: translate(-10px, 10px) scale(1.02); }
+    75% { transform: translate(5px, -15px) scale(0.99); }
+    100% { transform: translate(0, 0) scale(1); }
 }
 
 @keyframes moveRandom2 {
-    0% { transform: translate(0, 0); }
-    25% { transform: translate(-8px, 12px); }
-    50% { transform: translate(15px, -8px); }
-    75% { transform: translate(-12px, 5px); }
-    100% { transform: translate(0, 0); }
+    0% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(-8px, 12px) rotate(3deg); }
+    50% { transform: translate(15px, -8px) rotate(-3deg); }
+    75% { transform: translate(-12px, 5px) rotate(2deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
 }
 
 @keyframes moveRandom3 {
@@ -1575,12 +1591,3 @@ body.loaded .page-transition {
     75% { transform: translate(10px, -20px); }
     100% { transform: translate(0, 0); }
 }
-
-/* Dan seterusnya, bisa lebih banyak keyframes jika mau */
-
-/* === Popup Lightbox (jika Anda masih ingin fungsi ini) === */
-.lightbox-img {
-    /* Gaya untuk gambar saat tidak di-kolase */
-    cursor: pointer;
-}
-/* Tambahkan juga gaya untuk modal lightbox Anda */
