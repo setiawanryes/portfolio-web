@@ -140,6 +140,21 @@ body {
   gap: 20px;
 }
 
+.buttons .btn1 {
+  background: linear-gradient(90deg, #ff0318, #8e14df);
+  color: white;
+  padding: 10px 25px;
+  border-radius: 25px;
+  text-decoration: none;
+  transition: 0.3s;
+  margin-top: 20px;
+  display: inline-block;
+}
+
+.buttons .btn1:hover {
+  box-shadow: 0 0 15px #ff05e2, 0 0 25px #f3ecd0;
+  transform: translateY(-2px);
+}
 
 .project-buttons .btn {
   display: inline-block;
@@ -152,14 +167,14 @@ body {
 }
 
 .project-buttons .btn.live {
-  background: linear-gradient(90deg, #7c6aff, #9f88ff);
+  background: linear-gradient(90deg, #ff0318, #8e14df);
   size: 12px;
   margin-right: 5px;
 }
 
 .project-buttons .btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 0 15px #9f88ff;
+ box-shadow: 0 0 15px #ff05e2, 0 0 25px #f3ecd0;
+  transform: translateY(-2px);
 }
 
 /*KOMENTAR*/
@@ -199,6 +214,7 @@ body {
 #comments-header select:hover {
   border-color: #007bff;
 }
+
 
 
 /*PREVIEW*/
