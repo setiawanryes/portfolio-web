@@ -1407,8 +1407,7 @@ body.loaded .page-transition {
     bottom: 140%; /* Mengatur jarak di atas tombol */
     left: 50%;
     transform: translateX(-50%) translateY(10px); /* Posisi tengah */
-    
-    width: 200px; /* Ukuran kecil */
+    width: 150px; /* Ukuran kecil */
     background-color: #fff;
     color: #333;
     text-align: center;
@@ -1455,7 +1454,7 @@ body.loaded .page-transition {
     gap: 15px;
 }
 .icon-row a {
-    font-size: 20px;
+    font-size: 15px;
     color: #555;
     transition: 0.2s;
 }
@@ -1487,7 +1486,7 @@ body.loaded .page-transition {
 .buttons {
     display: flex;
     gap: 20px;
-    margin-top: 50px;
+
 }
 
 /* Wadah pembungkus (PENTING: position relative) */
