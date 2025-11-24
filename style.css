@@ -1226,7 +1226,7 @@ body.loaded .page-transition {
 
 .project-footer .details {
   padding: 6px 14px;
-  color: #8da4ff;
+  background: linear-gradient(90deg, #ff0318, #8e14df);
   border-radius: 6px;
   text-decoration: none;
   font-weight: 600;
