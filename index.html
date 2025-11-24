@@ -824,6 +824,69 @@
       }
     }
   </script>
+  <script>document.addEventListener("DOMContentLoaded", () => {
+    const kolaseContainer = document.querySelector(".kolase-img");
+    const kolaseItems = document.querySelectorAll(".kolase-item");
+
+    // Jika kolase-img atau kolase-item tidak ditemukan, hentikan
+    if (!kolaseContainer || kolaseItems.length === 0) {
+        console.warn("Kolase: Elemen kolase-img atau kolase-item tidak ditemukan.");
+        return;
+    }
+
+    const containerWidth = kolaseContainer.offsetWidth;
+    const containerHeight = kolaseContainer.offsetHeight; // Anda mungkin perlu mengatur tinggi container CSS
+
+    // Bentuk-bentuk yang akan digunakan (clip-path)
+    const shapes = [
+        "circle(50% at 50% 50%)", // Lingkaran
+        "inset(0% 0% 0% 0%)",     // Kotak
+        "polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%)", // Pentagon
+        "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" // Hexagon
+    ];
+
+    // Nama animasi gerakan yang sudah dibuat di CSS
+    const animationNames = ["moveRandom1", "moveRandom2", "moveRandom3"];
+
+    kolaseItems.forEach((item, index) => {
+        // Ukuran item random (misal antara 100px dan 200px)
+        const itemSize = Math.floor(Math.random() * (200 - 100) + 100);
+        item.style.width = `${itemSize}px`;
+        item.style.height = `${itemSize}px`;
+
+        // Posisi Acak
+        // Pastikan tidak keluar batas container
+        const randomTop = Math.random() * (containerHeight - itemSize);
+        const randomLeft = Math.random() * (containerWidth - itemSize);
+        
+        item.style.top = `${randomTop}px`;
+        item.style.left = `${randomLeft}px`;
+
+        // Bentuk Acak
+        const randomShape = shapes[Math.floor(Math.random() * shapes.length)];
+        item.style.clipPath = randomShape;
+        item.style.webkitClipPath = randomShape; // Untuk kompatibilitas browser lama
+
+        // Animasi Acak
+        const randomAnimationName = animationNames[Math.floor(Math.random() * animationNames.length)];
+        const animationDuration = Math.random() * (15 - 8) + 8; // Durasi antara 8-15 detik
+        const animationDelay = Math.random() * 5; // Delay awal antara 0-5 detik
+        const animationDirection = Math.random() > 0.5 ? 'normal' : 'reverse'; // Arah normal/balik
+
+        item.style.animation = 
+            `${randomAnimationName} ${animationDuration}s ease-in-out ${animationDelay}s infinite alternate ${animationDirection}`;
+        
+        // Tampilkan item setelah diatur posisinya
+        setTimeout(() => {
+            item.style.opacity = 1;
+        }, index * 100); // Munculkan satu per satu dengan delay kecil
+    });
+
+    // Opsional: Sesuaikan tinggi container jika semua gambar diposisikan
+    // agar tidak ada yang terpotong di bagian bawah
+    // Ini mungkin memerlukan perhitungan ulang based on max top + height of item
+    // For simplicity, make sure .kolase-img has sufficient min-height.
+});</script>
   <script>
     AOS.init({ duration: 1000, once: true });
   </script>
