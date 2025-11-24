@@ -11,7 +11,7 @@
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <script src="script.js" defer></script>
 
 </head>
@@ -53,15 +53,22 @@
 
       <div class="buttons">
         <a href="#" class="bt">Hire Me</a>
-        <a href="#" class="btn">Download CV</a>
 
-        
+        <div class="button-wrapper">
+          <a href="javascript:void(0)" class="btn" onclick="togglePopup('popupDl')">Download CV</a>
+          <div id="popupDl" class="mini-popup">
+            <div class="popup-arrow"></div>
+            <div class="dl-links">
+              <a href="LINK_CLOUDINARY_EN" target="_blank">🇬🇧 English</a>
+              <a href="LINK_CLOUDINARY_ID" target="_blank">🇮🇩 Indo</a>
+            </div>
+          </div>
+        </div>
+
       </div>
-
-    </div>
-    <div class="hero-img">
-      <img src="images/profile.jpeg" alt="Roni Setiawan" />
-    </div>
+      <div class="hero-img">
+        <img src="images/profile.jpeg" alt="Roni Setiawan" />
+      </div>
   </section>
 
   <!-- ABAOUT -->
@@ -449,7 +456,9 @@
             <img src="images/sitandur/sitandur1.jpg" alt="Project 1">
             <div class="card-content">
               <h3>SI-TANDUR</h3>
-              <p>SI-TANDUR is designed as a digital platform for both web and mobile, integrating agricultural information, production data, market prices, weather information, and a promotional hub for MITRA & MSMEs in the agricultural sector of East Lampung.
+              <p>SI-TANDUR is designed as a digital platform for both web and mobile, integrating agricultural
+                information, production data, market prices, weather information, and a promotional hub for MITRA &
+                MSMEs in the agricultural sector of East Lampung.
               </p>
               <div class="project-footer">
                 <div class="project-progress-stars" data-completed="1" title="1/5 Selesai">
@@ -468,7 +477,9 @@
             <img src="images/workload1/workloada1.png" alt="Project 2">
             <div class="card-content">
               <h3>Workload Analyst & TMS</h3>
-              <p>I conducted a Workload Analyst project using the Task Management System (TMS) and Workload Analyst (WLA) approaches as the primary methods. The objective of this project was to evaluate workload balance, time efficiency, and the effectiveness
+              <p>I conducted a Workload Analyst project using the Task Management System (TMS) and Workload Analyst
+                (WLA) approaches as the primary methods. The objective of this project was to evaluate workload balance,
+                time efficiency, and the effectiveness
               <div class="project-footer">
                 <div class="project-progress-stars" data-completed="5" title="Selesai">
                   <i class="fas fa-star"></i>
@@ -488,7 +499,7 @@
               <h3>Problem Solving of Schedule</h3>
               <p>
                 This project was conducted to analyze employee scheduling issues at BPS during the Covid-19 period by
-                reviewing workload patterns, identifying task conflicts, and applying Goal Programming and  LINGO
+                reviewing workload patterns, identifying task conflicts, and applying Goal Programming and LINGO
                 to produce an optimal and compliant work schedule.
               </p>
 
@@ -511,7 +522,7 @@
               <h3>Problem Solving of Schedule</h3>
               <p>
                 This project was conducted to analyze employee scheduling issues at BPS during the Covid-19 period by
-                reviewing workload patterns, identifying task conflicts, and applying Goal Programming and  LINGO
+                reviewing workload patterns, identifying task conflicts, and applying Goal Programming and LINGO
                 to produce an optimal and compliant work schedule.
               </p>
 
@@ -670,34 +681,34 @@
       });
     });
   </script>
-<script>
+  <script>
     function togglePopup(popupId) {
-        // 1. Ambil elemen popup yang mau dibuka
-        const popup = document.getElementById(popupId);
-        
-        // 2. Ambil semua popup yang ada (untuk menutup yang lain)
-        const allPopups = document.querySelectorAll('.mini-popup');
-        
-        // 3. Cek apakah popup ini sedang terbuka?
-        const isAlreadyOpen = popup.classList.contains('active');
+      // 1. Ambil elemen popup yang mau dibuka
+      const popup = document.getElementById(popupId);
 
-        // 4. Tutup SEMUA popup dulu (reset)
-        allPopups.forEach(p => p.classList.remove('active'));
+      // 2. Ambil semua popup yang ada (untuk menutup yang lain)
+      const allPopups = document.querySelectorAll('.mini-popup');
 
-        // 5. Jika tadi belum terbuka, maka BUKA sekarang
-        if (!isAlreadyOpen) {
-            popup.classList.add('active');
-        }
+      // 3. Cek apakah popup ini sedang terbuka?
+      const isAlreadyOpen = popup.classList.contains('active');
+
+      // 4. Tutup SEMUA popup dulu (reset)
+      allPopups.forEach(p => p.classList.remove('active'));
+
+      // 5. Jika tadi belum terbuka, maka BUKA sekarang
+      if (!isAlreadyOpen) {
+        popup.classList.add('active');
+      }
     }
 
     // OPSI: Tutup popup jika klik di sembarang tempat (selain tombol)
-    window.onclick = function(event) {
-        if (!event.target.matches('.bt') && !event.target.matches('.btn')) {
-            const allPopups = document.querySelectorAll('.mini-popup');
-            allPopups.forEach(p => p.classList.remove('active'));
-        }
+    window.onclick = function (event) {
+      if (!event.target.matches('.bt') && !event.target.matches('.btn')) {
+        const allPopups = document.querySelectorAll('.mini-popup');
+        allPopups.forEach(p => p.classList.remove('active'));
+      }
     }
-</script>
+  </script>
   <script>
     AOS.init({ duration: 1000, once: true });
   </script>
