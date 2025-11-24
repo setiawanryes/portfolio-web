@@ -778,6 +778,8 @@ textarea:focus {
   background: linear-gradient(135deg, #6a8dfd, #9b70ff);
   color: #fff;
   border: none;
+  box-shadow: 0 0 15px #9f88ff, 0 0 25px #7c6aff;
+  transform: translateY(-2px);
 }
 
 /* CONTENT */
