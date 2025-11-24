@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Modal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* CSS TOMBOL (Contoh sederhana) */
+        .buttons { text-align: center; margin-top: 50px; }
+        .bt, .btn { padding: 10px 20px; background: #333; color: white; text-decoration: none; margin: 5px; border-radius: 5px; cursor: pointer;}
+        
+        /* === CSS MODAL FINAL === */
+        .modal {
+            display: none; /* Default sembunyi */
+            position: fixed; z-index: 9999; left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            align-items: center; /* Tengah Vertikal */
+            justify-content: center; /* Tengah Horizontal */
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 30px; border-radius: 15px;
+            width: 90%; max-width: 400px;
+            text-align: center; position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            animation: popupAnim 0.4s ease-out;
+            font-family: sans-serif;
+        }
+
+        /* Close Button */
+        .close { position: absolute; top: 10px; right: 15px; font-size: 28px; cursor: pointer; color: #aaa; }
+        .close:hover { color: #000; }
+
+        /* Icons Contact */
+        .contact-icons { display: flex; justify-content: center; gap: 25px; margin-top: 20px; }
+        .icon-box { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #555; font-size: 12px; transition: transform 0.3s; }
+        .icon-box:hover { transform: translateY(-5px); }
+        .icon-box i { width: 50px; height: 50px; font-size: 24px; display: flex; align-items: center; justify-content: center; border-radius: 50%; color: #fff; margin-bottom: 8px; }
+        
+        .wa i { background: linear-gradient(45deg, #25D366, #128C7E); }
+        .email i { background: linear-gradient(45deg, #EA4335, #C5221F); }
+        .linkedin i { background: linear-gradient(45deg, #0077B5, #005582); }
+
+        /* Download Buttons */
+        .modal-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
+        .btn-download { padding: 12px; background: #f8f9fa; border: 1px solid #ddd; color: #333; text-decoration: none; border-radius: 8px; font-weight: bold; transition: 0.3s; }
+        .btn-download:hover { background: #333; color: white; }
+
+        @keyframes popupAnim { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+    </style>
+</head>
+<body>
+
+    <div class="buttons">
+        <a href="javascript:void(0)" class="bt" id="btnHire">Hire Me</a>
+        <a href="javascript:void(0)" class="btn" id="btnDownload">Download CV</a>
+    </div>
+
+    <div id="modalHire" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Contact Me</h3>
+            <p>Hubungi saya via:</p>
+            <div class="contact-icons">
+                <a href="#" class="icon-box wa"><i class="fab fa-whatsapp"></i>WhatsApp</a>
+                <a href="#" class="icon-box email"><i class="fas fa-envelope"></i>Email</a>
+                <a href="#" class="icon-box linkedin"><i class="fab fa-linkedin-in"></i>LinkedIn</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalDownload" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Download CV</h3>
+            <div class="modal-actions">
+                <a href="#" class="btn-download">🇬🇧 English</a>
+                <a href="#" class="btn-download">🇮🇩 Indonesia</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 1. Ambil Elemen
+        const modalHire = document.getElementById("modalHire");
+        const modalDownload = document.getElementById("modalDownload");
+        const btnHire = document.getElementById("btnHire");
+        const btnDownload = document.getElementById("btnDownload");
+        const closeButtons = document.querySelectorAll(".close");
+
+        // 2. Event Listener Buka Modal (Gunakan FLEX agar center)
+        btnHire.onclick = function() { modalHire.style.display = "flex"; }
+        btnDownload.onclick = function() { modalDownload.style.display = "flex"; }
+
+        // 3. Event Listener Tutup Modal (Tombol X)
+        closeButtons.forEach(btn => {
+            btn.onclick = function() {
+                btn.closest(".modal").style.display = "none";
+            }
+        });
+
+        // 4. Event Listener Tutup Modal (Klik Luar)
+        window.onclick = function(e) {
+            if (e.target == modalHire) modalHire.style.display = "none";
+            if (e.target == modalDownload) modalDownload.style.display = "none";
+        }
+    </script>
+</body>
+</html>
