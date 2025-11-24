@@ -1,6 +1,4 @@
-/* ========================
-   GENERAL
-======================== */
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
 * {
@@ -17,9 +15,6 @@ body {
   overflow-x: hidden;
 }
 
-/* ========================
-   NAVBAR
-======================== */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -195,37 +190,6 @@ body {
   text-shadow: 0 0 4px rgba(138, 110, 255, 0.5);
 }
 
-/* Buttons */
-.buttons .btn {
-  background: linear-gradient(90deg, #7c6aff, #9f88ff);
-  color: white;
-  padding: 10px 25px;
-  border-radius: 25px;
-  text-decoration: none;
-  transition: 0.3s;
-  margin-top: 20px;
-  display: inline-block;
-}
-
-.buttons .btn:hover {
-  box-shadow: 0 0 15px #9f88ff, 0 0 25px #7c6aff;
-  transform: translateY(-2px);
-}
-
-.buttons .bt {
-  background: #5c00ac;
-  color: white;
-  padding: 10px 25px;
-  border-radius: 25px;
-  text-decoration: none;
-  transition: 0.3s;
-  display: inline-block;
-}
-
-.buttons .bt:hover {
-  background: #c277e8;
-  box-shadow: 0 0 20px #c277e8;
-}
 
 /* Socials */
 .socials {
@@ -1400,192 +1364,160 @@ body.loaded .page-transition {
 }
 
 /* =========================================
-   1. STYLE DASAR MODAL (CONTAINER)
+   1. STRUKTUR UTAMA (BUTTONS & WRAPPER)
    ========================================= */
-.modal {
-    display: none; /* Tersembunyi secara default */
-    position: fixed; 
-    z-index: 9999; /* Pastikan selalu di paling depan */
-    left: 0;
-    top: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: auto; 
-    background-color: rgba(0, 0, 0, 0.6); /* Latar belakang gelap transparan */
-    backdrop-filter: blur(4px); /* Efek blur (opsional, bikin lebih elegan) */
-    
-    /* Menggunakan Flexbox agar Modal pas di tengah layar */
-    align-items: center;
+
+/* Wadah Utama Tombol (Mengatur Jarak & Posisi) */
+.buttons {
+    display: flex;
     justify-content: center;
+    gap: 20px;
+    margin-top: 50px; /* Jarak dari atas */
 }
 
-/* =========================================
-   2. KOTAK KONTEN MODAL (POPUP BOX)
-   ========================================= */
-.modal-content {
-    background-color: #fff;
-    margin: auto; /* Auto margin untuk fallback */
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-    width: 90%;
-    max-width: 420px; /* Lebar maksimal agar tidak terlalu lebar di PC */
-    text-align: center;
+/* Wadah Pembungkus Individu (Penting untuk posisi Popover) */
+.button-wrapper {
     position: relative;
-    animation: popupAnim 0.4s ease-out; /* Animasi muncul */
-    font-family: sans-serif; /* Sesuaikan dengan font websitemu */
-}
-
-/* Judul & Text di dalam Modal */
-.modal-content h3 {
-    margin-top: 0;
-    margin-bottom: 10px;
-    color: #333;
-    font-size: 1.5rem;
-}
-
-.modal-content p {
-    color: #666;
-    font-size: 0.95rem;
-    margin-bottom: 25px;
+    display: inline-block; /* Agar bisa diatur posisinya di dalam flex */
 }
 
 /* =========================================
-   3. TOMBOL CLOSE (SILANG X)
+   2. STYLE TOMBOL UTAMA (.bt dan .btn)
    ========================================= */
-.close {
+
+/* Tombol 'Hire Me' (.bt) */
+.buttons .bt {
+    background: #33045c; 
+    color: white;
+    padding: 10px 25px;
+    border-radius: 25px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.buttons .bt:hover {
+    background: #c277e8; 
+    box-shadow: 0 0 20px rgba(194, 119, 232, 0.7); /* Efek cahaya */
+}
+
+/* Tombol 'Download CV' (.btn) */
+.buttons .btn {
+    background: linear-gradient(90deg, #7c6aff, #9f88ff); /* Gradient ungu muda */
+    color: white;
+    padding: 10px 25px;
+    border-radius: 25px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.buttons .btn:hover {
+    box-shadow: 0 0 15px rgba(159, 136, 255, 0.8), 0 0 25px rgba(124, 106, 255, 0.5); /* Efek cahaya */
+    transform: translateY(-2px); /* Efek terangkat */
+}
+
+/* =========================================
+   3. STYLE POPOVER/POPUP (BALON CHAT)
+   ========================================= */
+
+/* Style Popup (Balon Kecil) */
+.mini-popup {
+    visibility: hidden; 
+    opacity: 0;
     position: absolute;
-    top: 10px;
-    right: 15px;
-    color: #aaa;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-    line-height: 1;
-}
+    bottom: 140%; /* Mengatur jarak di atas tombol */
+    left: 50%;
+    
+    /* Translasi (Geser) Awal untuk Animasi */
+    transform: translateX(-50%) translateY(10px); 
+    
+    width: 200px; 
+    
+    /* PERBAIKAN: Mengembalikan warna solid & shadow */
+    background-color: #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); 
+    border: 1px solid #eee; /* Tambahkan border tipis agar lebih jelas */
 
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-}
-
-/* =========================================
-   4. STYLE MODAL HIRE (CONTACT ICONS)
-   ========================================= */
-.contact-icons {
-    display: flex;
-    justify-content: center; /* Ikon berjejer di tengah */
-    gap: 25px; /* Jarak antar ikon */
-    margin-top: 10px;
-}
-
-.icon-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none;
-    color: #555;
-    font-size: 12px;
-    font-weight: 600;
-    transition: transform 0.3s;
-}
-
-/* Efek saat kursor diarahkan ke icon */
-.icon-box:hover {
-    transform: translateY(-5px);
-}
-
-/* Lingkaran pembungkus Icon */
-.icon-box i {
-    width: 55px;
-    height: 55px;
-    font-size: 26px; /* Ukuran simbol icon */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    color: #fff;
-    margin-bottom: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    transition: 0.3s;
-}
-
-/* Warna Spesifik Brand */
-.wa i { 
-    background: linear-gradient(45deg, #25D366, #128C7E); 
-}
-.email i { 
-    background: linear-gradient(45deg, #EA4335, #C5221F); 
-}
-.linkedin i { 
-    background: linear-gradient(45deg, #0077B5, #005582); 
-}
-
-/* =========================================
-   5. STYLE MODAL DOWNLOAD (LIST FILE)
-   ========================================= */
-.modal-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.btn-download {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding: 12px 15px;
-    background-color: #f8f9fa;
-    border: 1px solid #e9ecef;
-    border-radius: 8px;
-    text-decoration: none;
     color: #333;
-    font-weight: 600;
-    font-size: 1rem;
+    text-align: center;
+    padding: 15px;
+    border-radius: 8px;
+    z-index: 100;
+    transition: all 0.3s ease-out; /* Perbaiki transisi agar lebih halus saat muncul/hilang */
+}
+
+/* Class aktif saat tombol diklik */
+.mini-popup.active {
+    visibility: visible;
+    opacity: 1;
+    /* Translasi Akhir (Popup muncul tanpa geser ke bawah) */
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Segitiga Panah Kecil di Bawah Popup */
+.popup-arrow {
+    position: absolute;
+    bottom: -8px; /* Keluar 8px dari bawah popup */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0; 
+    height: 0; 
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    
+    /* PERBAIKAN: Mengambil warna dari popup */
+    border-top: 8px solid #fff; 
+}
+
+/* =========================================
+   4. KONTEN DI DALAM POPUP
+   ========================================= */
+
+.mini-popup p {
+    margin: 0 0 10px 0;
+    font-size: 12px;
+    font-weight: bold;
+    color: #666;
+}
+
+/* Icon Row (Hire Me) */
+.icon-row {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.icon-row a {
+    font-size: 20px;
+    color: #555;
+    transition: 0.2s;
+}
+
+/* Warna Hover Icon */
+.i-wa:hover { color: #25D366; }
+.i-mail:hover { color: #EA4335; }
+.i-in:hover { color: #0077B5; }
+
+/* Download Links */
+.dl-links {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.dl-links a {
+    display: block;
+    padding: 6px;
+    background: #f4f4f4;
+    color: #333;
+    text-decoration: none;
+    font-size: 12px;
+    border-radius: 4px;
     transition: all 0.3s ease;
 }
 
-/* Hover effect tombol download */
-.btn-download:hover {
-    background-color: #333; /* Warna background saat hover */
+.dl-links a:hover {
+    background: #8f79ff; /* Warna ungu baru */
     color: #fff;
-    border-color: #333;
-    transform: translateX(5px); /* Sedikit geser ke kanan */
-}
-
-/* =========================================
-   6. ANIMASI (KEYFRAMES)
-   ========================================= */
-@keyframes popupAnim {
-    from {
-        opacity: 0;
-        transform: scale(0.8) translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
-}
-
-/* =========================================
-   7. RESPONSIVE (HP)
-   ========================================= */
-@media screen and (max-width: 480px) {
-    .modal-content {
-        width: 85%;
-        padding: 20px;
-    }
-    
-    .contact-icons {
-        gap: 15px;
-    }
-    
-    .icon-box i {
-        width: 45px;
-        height: 45px;
-        font-size: 20px;
-    }
 }

@@ -51,52 +51,24 @@
         <a href="mailto:ronisetiawan496@gmail.com"><i class="fa-solid fa-envelope"></i></a>
       </div>
 
-<div class="buttons">
-    <a href="javascript:void(0)" class="bt" id="btnHire">Hire Me</a>
+      <div class="buttons">
+        <a href="mailto:ronisetiawan496@gmail.com" class="bt">Hire Me</a>
+        <div class="button-wrapper">
+          <a href="javascript:void(0)" class="btn" onclick="togglePopup('popupDl')">Download CV</a>
+
+          <div id="popupDl" class="mini-popup">
+            <div class="popup-arrow"></div>
+            <div class="dl-links">
+              <a href="LINK_CLOUDINARY_EN" target="_blank">🇬🇧 English</a>
+              <a href="LINK_CLOUDINARY_ID" target="_blank">🇮🇩 Indonesia</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
     
-    <a href="javascript:void(0)" class="btn" id="btnDownload">Download CV</a>
-</div>
-
-<div id="modalHire" class="modal">
-    <div class="modal-content">
-        <span class="close" data-target="modalHire">&times;</span>
-        <h3>Contact Me</h3>
-        <p>Hubungi saya melalui platform berikut:</p>
-        
-        <div class="contact-icons">
-            <a href="https://wa.me/628123456789" target="_blank" class="icon-box wa">
-                <i class="fab fa-whatsapp"></i> <span>WhatsApp</span>
-            </a>
-
-            <a href="mailto:emailmu@gmail.com" class="icon-box email">
-                <i class="fas fa-envelope"></i> <span>Email</span>
-            </a>
-
-            <a href="https://linkedin.com/in/namamu" target="_blank" class="icon-box linkedin">
-                <i class="fab fa-linkedin-in"></i> <span>LinkedIn</span>
-            </a>
-        </div>
-    </div>
-</div>
-
-<div id="modalDownload" class="modal">
-    <div class="modal-content">
-        <span class="close" data-target="modalDownload">&times;</span>
-        <h3>Download CV</h3>
-        <p>Pilih bahasa / Select language:</p>
-        
-        <div class="modal-actions">
-            <a href="https://res.cloudinary.com/namamu/image/upload/v12345/cv-english.pdf" target="_blank" class="btn-download">
-                🇬🇧 English Version
-            </a>
-            <a href="https://res.cloudinary.com/namamu/image/upload/v12345/cv-indonesia.pdf" target="_blank" class="btn-download">
-                🇮🇩 Versi Indonesia
-            </a>
-        </div>
-    </div>
-</div>
-
-    </div>
     <div class="hero-img">
       <img src="images/profile.jpeg" alt="Roni Setiawan" />
     </div>
@@ -487,7 +459,9 @@
             <img src="images/sitandur/sitandur1.jpg" alt="Project 1">
             <div class="card-content">
               <h3>SI-TANDUR</h3>
-              <p>SI-TANDUR is designed as a digital platform for both web and mobile, integrating agricultural information, production data, market prices, weather information, and a promotional hub for MITRA & MSMEs in the agricultural sector of East Lampung.
+              <p>SI-TANDUR is designed as a digital platform for both web and mobile, integrating agricultural
+                information, production data, market prices, weather information, and a promotional hub for MITRA &
+                MSMEs in the agricultural sector of East Lampung.
               </p>
               <div class="project-footer">
                 <div class="project-progress-stars" data-completed="1" title="1/5 Selesai">
@@ -506,7 +480,9 @@
             <img src="images/workload1/workloada1.png" alt="Project 2">
             <div class="card-content">
               <h3>Workload Analyst & TMS</h3>
-              <p>I conducted a Workload Analyst project using the Task Management System (TMS) and Workload Analyst (WLA) approaches as the primary methods. The objective of this project was to evaluate workload balance, time efficiency, and the effectiveness
+              <p>I conducted a Workload Analyst project using the Task Management System (TMS) and Workload Analyst
+                (WLA) approaches as the primary methods. The objective of this project was to evaluate workload balance,
+                time efficiency, and the effectiveness
               <div class="project-footer">
                 <div class="project-progress-stars" data-completed="5" title="Selesai">
                   <i class="fas fa-star"></i>
@@ -526,7 +502,7 @@
               <h3>Problem Solving of Schedule</h3>
               <p>
                 This project was conducted to analyze employee scheduling issues at BPS during the Covid-19 period by
-                reviewing workload patterns, identifying task conflicts, and applying Goal Programming and  LINGO
+                reviewing workload patterns, identifying task conflicts, and applying Goal Programming and LINGO
                 to produce an optimal and compliant work schedule.
               </p>
 
@@ -549,7 +525,7 @@
               <h3>Problem Solving of Schedule</h3>
               <p>
                 This project was conducted to analyze employee scheduling issues at BPS during the Covid-19 period by
-                reviewing workload patterns, identifying task conflicts, and applying Goal Programming and  LINGO
+                reviewing workload patterns, identifying task conflicts, and applying Goal Programming and LINGO
                 to produce an optimal and compliant work schedule.
               </p>
 
@@ -708,55 +684,41 @@
       });
     });
   </script>
+  <script>
+    function togglePopup(popupId) {
+      // 1. Ambil elemen popup yang mau dibuka
+      const popup = document.getElementById(popupId);
 
+      // 2. Ambil semua popup yang ada (untuk menutup yang lain)
+      const allPopups = document.querySelectorAll('.mini-popup');
+
+      // 3. Cek apakah popup ini sedang terbuka?
+      const isAlreadyOpen = popup.classList.contains('active');
+
+      // 4. Tutup SEMUA popup dulu (reset)
+      allPopups.forEach(p => p.classList.remove('active'));
+
+      // 5. Jika tadi belum terbuka, maka BUKA sekarang
+      if (!isAlreadyOpen) {
+        popup.classList.add('active');
+      }
+    }
+
+    // OPSI: Tutup popup jika klik di sembarang tempat (selain tombol)
+    window.onclick = function (event) {
+      if (!event.target.matches('.bt') && !event.target.matches('.btn')) {
+        const allPopups = document.querySelectorAll('.mini-popup');
+        allPopups.forEach(p => p.classList.remove('active'));
+      }
+    }
+  </script>
   <script>
     AOS.init({ duration: 1000, once: true });
   </script>
 
-  <script>
-    // Ambil elemen Modal
-    const modalHire = document.getElementById("modalHire");
-    const modalDownload = document.getElementById("modalDownload");
-
-    // Ambil Tombol Pemicu
-    const btnHire = document.getElementById("btnHire");
-    const btnDownload = document.getElementById("btnDownload");
-
-    // Ambil semua tombol Close (x)
-    const closeButtons = document.querySelectorAll(".close");
-
-    // 1. Buka Modal Hire
-    btnHire.onclick = function() {
-        modalHire.style.display = "block";
-    }
-
-    // 2. Buka Modal Download
-    btnDownload.onclick = function() {
-        modalDownload.style.display = "block";
-    }
-
-    // 3. Logic Tutup Modal (Klik X)
-    closeButtons.forEach(function(btn) {
-        btn.onclick = function() {
-            // Tutup modal yang sedang aktif (parent dari tombol X)
-            btn.closest(".modal").style.display = "none";
-        }
-    });
-
-    // 4. Logic Tutup Modal (Klik di luar kotak)
-    window.onclick = function(event) {
-        if (event.target == modalHire) {
-            modalHire.style.display = "none";
-        }
-        if (event.target == modalDownload) {
-            modalDownload.style.display = "none";
-        }
-    }
-</script>
-
   <script src="script.js"></script>
-  <script src="commen.js"></script>
-  <script src="experienc.js"></script>
+  <script src="comment.js"></script>
+  <script src="experience.js"></script>
 
 </body>
 
