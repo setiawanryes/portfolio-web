@@ -148,7 +148,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const pageId = window.PAGE_ID
-  || document.querySelector('meta[name="schedule"]')?.content
+  || document.querySelector('meta[name="schedule-TA"]')?.content
   || (location.pathname.split('/').filter(Boolean).pop() || 'main');
 const pageLikeDoc = doc(db, 'post_reactions', pageId);
 const commentsCollection = collection(db, 'comments', pageId, 'list');
