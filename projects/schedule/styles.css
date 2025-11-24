@@ -245,17 +245,18 @@ body {
   display: flex;
   justify-content: space-between;
   transform: translateY(-50%);
+  padding: 0 10px;
 }
 
 .slide-controls button {
-  background: rgba(0, 0, 0, 0.5);
-  border: none;
+  background: rgba(0, 0, 0, 0.4);
   color: #fff;
-  font-size: 20px;
-  cursor: pointer;
-  padding: 10px 14px;
+  border: none;
+  padding: 8px 14px;
   border-radius: 50%;
-  transition: 0.3s;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
 }
 
 .slide-controls button:hover {
@@ -324,100 +325,6 @@ body {
 
 }
 
-
-/* ==========================
-   📱 RESPONSIVE
-========================== */
-@media (max-width: 900px) {
-  .project-layout {
-    flex-direction: column;
-    align-items: center;
-    gap: 40px;
-  }
-
-  .left-column,
-  .right-column {
-    width: 100%;
-    align-items: center;
-  }
-
-  .project-preview,
-  .features {
-    max-width: 100%;
-  }
-}
-
-
-/* ==========================
-   🎞️ SLIDESHOW PREVIEW
-========================== */
-.project-preview {
-  position: relative;
-  width: 100%;
-  max-width: 420px;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 0 25px rgba(100, 100, 255, 0.25);
-  background: radial-gradient(circle at top left, #1b1f3a, #0a0c1b 70%);
-}
-
-.slide-project {
-  display: flex;
-  width: 300%;
-  transition: transform 0.6s ease-in-out;
-}
-
-.slide-project img {
-  width: 100%;
-  border-radius: 20px;
-  object-fit: cover;
-}
-
-/* Navigasi tombol slide */
-.slide-controls {
-  position: absolute;
-  top: 50%;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  transform: translateY(-50%);
-  padding: 0 10px;
-}
-
-.slide-controls button {
-  background: rgba(0, 0, 0, 0.4);
-  color: #fff;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 1.2rem;
-  transition: all 0.3s ease;
-}
-
-.slide-controls button:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: scale(1.1);
-}
-
-.project-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 40px;
-  flex-wrap: wrap;
-  margin-bottom: 60px;
-}
-
-/* Row bawah: Tech stack & features */
-.project-bottom {
-  display: flex;
-  justify-content: space-between;
-  gap: 40px;
-  flex-wrap: wrap;
-}
-
-
 .features {
   flex: 1;
   min-width: 280px;
@@ -447,6 +354,24 @@ body {
   margin: 15px 0;
 }
 
+@media (max-width: 900px) {
+  .project-layout {
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .left-column,
+  .right-column {
+    width: 100%;
+    align-items: center;
+  }
+
+  .project-preview,
+  .features {
+    max-width: 100%;
+  }
+}
 
 /* Modal utama */
 .modal {
@@ -461,7 +386,6 @@ body {
   box-shadow: 0 0 25px rgba(100, 100, 255, 0.25);
   background: radial-gradient(circle at top left, #1b1f3a, #0a0c1b 70%);
   display: none;
-  /* default hidden */
   overflow: hidden;
   z-index: 999;
   align-items: center;
@@ -469,7 +393,6 @@ body {
   animation: fadeIn 0.3s ease-in-out;
 }
 
-/* Animasi fade in */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -482,7 +405,6 @@ body {
   }
 }
 
-/* Gambar menyesuaikan modal */
 .modal-content {
   width: 100%;
   height: 100%;
@@ -494,7 +416,6 @@ body {
   z-index: 999;
 }
 
-/* Tombol close */
 .close {
   position: absolute;
   top: 20px;
@@ -512,7 +433,6 @@ body {
   color: #bbb;
 }
 
-/* Kontrol navigasi */
 .modal-controls {
   position: absolute;
   top: 50%;
@@ -546,9 +466,7 @@ body {
 
 .mini-modal {
   display: none;
-  /* default hidden */
   position: absolute;
-  /* relatif terhadap window / parent */
   width: 350px;
   max-width: 90%;
   padding: 15px 20px;
@@ -568,20 +486,28 @@ body {
   transform: translateY(-10px) scale(0.95);
 }
 
-/* muncul animasi */
 .mini-modal.show {
   display: block;
   opacity: 1;
   transform: translateY(0);
 }
 
-.project-buttons {
+.project-header {
   display: flex;
-  align-items: center;
-  gap: 20px;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-bottom: 60px;
 }
 
-/* Tombol Preview */
+.project-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
 .btn {
   padding: 8px 16px;
   border-radius: 5px;
@@ -605,7 +531,6 @@ body {
   background: rgba(0, 0, 0, 0.2);
 }
 
-/* Progres Balok */
 .progress-bar-container {
   position: relative;
   width: 100px;
@@ -651,15 +576,14 @@ body {
   transform: scale(1.3);
 }
 
-/* Warna tema */
 .like-theme {
   color: #4caf50;
-  /* ganti sesuai tema utama */
+ 
 }
 
 .dislike-theme {
   color: #f44336;
-  /* ganti sesuai tema sekunder */
+
 }
 
 #like-count,
@@ -669,10 +593,9 @@ body {
   color: #f9f4f4;
 }
 
-/* Gap antar elemen */
 .project-buttons a.btn.live {
   margin-right: 50px;
-  /* Preview → Progress Bar */
+  
 }
 
 .comment-modal {
@@ -706,20 +629,12 @@ body {
   font-size: 20px;
 }
 
-/* ===========================
-   💬 KOMENTAR APP - Aman
-=========================== */
-/* ===========================
-   💬 KOMENTAR APP - Aman (Enhanced)
-=========================== */
-
 .cmtApp-container {
   margin-top: 20px;
   color: #fff;
   font-family: Arial, sans-serif;
 }
 
-/* Tombol Like & Komentar */
 .cmtApp-container .reaction-btn {
   font-size: 24px;
   background: none;
@@ -814,7 +729,6 @@ body {
   color: #ff6b6b;
 }
 
-/* Reply / Subkomentar - responsive */
 .cmtApp-replies {
   margin-left: 25px;       
   margin-top: 10px;        
@@ -825,15 +739,12 @@ body {
  
 }
 
-/* Tablet / layar sedang */
 @media (max-width: 992px) {
   .cmtApp-replies {
     margin-left: 20px;
     padding-left: 8px;
   }
 }
-
-/* Mobile / layar kecil */
 @media (max-width: 576px) {
   .cmtApp-replies {
     margin-left: 15px;
@@ -953,7 +864,6 @@ body {
     margin-bottom: 5px;
   }
 
-  /* Scrollable comment list */
   #comments-list {
     max-height: 360px;
     overflow-y: auto;
@@ -961,7 +871,6 @@ body {
     margin-top: 15px;
   }
 
-  /* Custom scrollbar */
   #comments-list::-webkit-scrollbar {
     width: 8px;
   }
@@ -980,11 +889,8 @@ body {
     background: #2c5282;
   }
 
-  /* ==========================
-   📱 RESPONSIVE OPTIMIZATION
-========================== */
+  /* ===== OPTIMAL RES===== */
 
-  /* Tablet & Laptop Medium */
   @media (max-width: 1024px) {
     .project-detail {
       padding: 80px 5%;
@@ -1007,7 +913,6 @@ body {
     }
   }
 
-  /* Mobile (Horizontal & Medium) */
   @media (max-width: 768px) {
     .project-layout {
       flex-direction: column;
@@ -1055,7 +960,7 @@ body {
       font-size: 13px;
     }
 
-    /* Modal */
+
     .modal {
       width: 95%;
       max-width: none;
@@ -1075,7 +980,7 @@ body {
       right: 20px;
     }
 
-    /* Comment modal */
+  
     .cmtApp-modal-content {
       width: 95%;
       padding: 12px 15px;
@@ -1085,7 +990,6 @@ body {
       max-height: 280px;
     }
 
-    /* Corner widgets (progress & reactions) */
     .corner-widgets {
       bottom: 15px;
       right: 15px;
@@ -1108,7 +1012,6 @@ body {
     }
   }
 
-  /* Small Mobile (≤480px) */
   @media (max-width: 480px) {
     body {
       line-height: 1.4;
@@ -1159,7 +1062,7 @@ body {
     }
   }
 
-  /* ===== Project Description Read More ===== */
+  /* ===== DESC ===== */
   .project-description {
     max-height: 120px;
     overflow: hidden;
@@ -1186,8 +1089,7 @@ body {
   }
 
 
-
-  /* Button Read More */
+  /* ===== READ MORE ===== */
   .read-more-btn {
     background: #4f46e5;
     color: #fff;
@@ -1206,9 +1108,6 @@ body {
     background: #4338ca;
   }
 
-  /* ===== Responsive Layout ===== */
-
-  /* Tablet & Laptop Medium (≤1024px) */
   @media (max-width: 1024px) {
     .project-description {
       max-height: 110px;
@@ -1220,7 +1119,6 @@ body {
     }
   }
 
-  /* Tablet & Mobile (≤768px) */
   @media (max-width: 768px) {
     .project-description {
       max-height: 100px;
@@ -1234,7 +1132,6 @@ body {
     }
   }
 
-  /* Small Mobile (≤480px) */
   @media (max-width: 480px) {
     .project-description {
       max-height: 90px;
@@ -1244,7 +1141,7 @@ body {
 
     .project-description.expanded {
       max-height: 600px;
-      /* lebih kecil supaya gak terlalu panjang di HP kecil */
+      
     }
 
     .read-more-btn {
@@ -1254,11 +1151,10 @@ body {
   }
 
 
-  /* ===== MEDIA QUERIES ===== */
+  /* ===== MEDIA ===== */
   @media (max-width: 768px) {
     .cmtApp-comment-actions button {
       flex: 1 1 48%;
-      /* 2 tombol per baris di HP */
     }
 
     .cmtApp-comment-body {
@@ -1274,7 +1170,7 @@ body {
   @media (max-width: 480px) {
     .cmtApp-comment-actions button {
       flex: 1 1 100%;
-      /* tombol full width di HP kecil */
+    
     }
 
     #comments-list {
@@ -1282,7 +1178,7 @@ body {
     }
   }
 
-  /* ===== LOAD MORE BUTTON ===== */
+  /* ===== LOAD MORE ===== */
   #load-more-comments {
     display: block;
     width: 100%;
@@ -1302,8 +1198,7 @@ body {
   }
 
 
-
-  /* ===== NOTIFY BADGE UPGRADE ===== */
+  /* ===== NOTIFY BADGE===== */
   #comment-notify-badge {
     display: inline-block;
     background: #ff3b30;
@@ -1324,7 +1219,6 @@ body {
     transition: transform 0.2s ease, opacity 0.2s ease;
   }
 
-  /* Smooth pulse + glow */
   @keyframes pulseGlow {
 
     0%,
@@ -1341,7 +1235,6 @@ body {
     }
   }
 
-  /* Optional: appear animation */
   #comment-notify-badge.show {
     animation: popIn 0.3s ease forwards;
   }

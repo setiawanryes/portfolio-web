@@ -1,6 +1,4 @@
 AOS.init({ duration: 1000, once: true });
-
-// Pastikan JS ambil elemen yang benar
 const slideContainer = document.querySelector('.slide-project');
 const slides = slideContainer.querySelectorAll('img');
 let index = 0;
@@ -27,7 +25,6 @@ const lightboxImages = document.querySelectorAll(".lightbox-img");
 let currentIndex = 0;
 let scale = 1;
 
-// Open modal saat gambar diklik
 lightboxImages.forEach((img, i) => {
   img.addEventListener("click", () => {
     modal.style.display = "flex";
@@ -38,18 +35,18 @@ lightboxImages.forEach((img, i) => {
   });
 });
 
-// Close modal
+
 closeBtn.addEventListener("click", (e) => {
   e.stopPropagation(); 
   modal.style.display = "none";
 });
 
-// Klik di luar gambar untuk tutup modal
+
 modal.addEventListener("click", (e) => {
   if (e.target === modal) modal.style.display = "none";
 });
 
-// Navigasi prev/next
+
 document.getElementById("prevImg").addEventListener("click", (e) => {
   e.stopPropagation();
   showImage(currentIndex - 1);
@@ -67,7 +64,7 @@ function showImage(index) {
   modalImg.style.transform = `scale(${scale})`;
 }
 
-// Zoom scroll
+
 modalImg.addEventListener("wheel", (e) => {
   e.preventDefault();
   if(e.deltaY < 0) scale += 0.1;
@@ -75,7 +72,7 @@ modalImg.addEventListener("wheel", (e) => {
   modalImg.style.transform = `scale(${scale})`;
 });
 
-// Swipe mobile
+
 let startX = 0;
 modalImg.addEventListener("touchstart", e => startX = e.touches[0].clientX);
 modalImg.addEventListener("touchend", e => {
@@ -92,26 +89,18 @@ stats.forEach(stat => {
   stat.addEventListener("mouseenter", () => {
     const info = stat.getAttribute("data-info");
     miniContent.textContent = info;
-
-    // Tampilkan modal sementara untuk menghitung offsetHeight
     miniModal.style.opacity = 0;
     miniModal.classList.add("show");
-
-    // Gunakan setTimeout 0ms agar browser render modal dulu
     setTimeout(() => {
       const rect = stat.getBoundingClientRect();
-      const offset = 10; // jarak modal dari elemen
+      const offset = 10;
       const modalHeight = miniModal.offsetHeight;
 
-      // Default posisi di atas
       let topPos = rect.top + window.scrollY - modalHeight - offset;
-
-      // Jika terlalu tinggi, tampilkan di bawah
       if (topPos < window.scrollY) {
         topPos = rect.bottom + window.scrollY + offset;
       }
 
-      // Posisi horizontal
       let leftPos = rect.left + window.scrollX;
       if (leftPos + miniModal.offsetWidth > window.innerWidth) {
         leftPos = window.innerWidth - miniModal.offsetWidth - 10;
@@ -119,8 +108,6 @@ stats.forEach(stat => {
 
       miniModal.style.top = topPos + "px";
       miniModal.style.left = leftPos + "px";
-
-      // Tampilkan modal sepenuhnya
       miniModal.style.opacity = 1;
     }, 0);
   });
@@ -131,7 +118,7 @@ stats.forEach(stat => {
   });
 });
 
-// Progres Bar
+
 const progressBar = document.getElementById('progress-bar');
 const progressText = document.getElementById('progress-text');
 
@@ -139,16 +126,7 @@ function setProgress(percent) {
   progressBar.style.width = percent + '%';
   progressText.textContent = percent + '%';
 }
-
-// Contoh: progres 75%
 setProgress(100);
-
-/* ===============================
-   FITUR KOMENTAR LANJUTAN
-   Avatar random otomatis
-================================= */
-// Import Firebase SDK
-
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import {
@@ -157,7 +135,6 @@ import {
   limit, startAfter
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyBGS2_U6M-lC0YozJd0FCHpncyNLE1mE2g",
   authDomain: "portfolio-setiawanryes.firebaseapp.com",
@@ -168,23 +145,15 @@ const firebaseConfig = {
   measurementId: "G-4R3C18RXW0"
 };
 
-// ===============================
-// 🔥 Firebase Init
-// ===============================
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-
-// ----- PAGE ID UNIK -----
 const pageId = window.PAGE_ID
   || document.querySelector('meta[name="workload"]')?.content
   || (location.pathname.split('/').filter(Boolean).pop() || 'main');
-
-// ----- FIRESTORE REFERENCES -----
 const pageLikeDoc = doc(db, 'post_reactions', pageId);
 const commentsCollection = collection(db, 'comments', pageId, 'list');
-
-// ----- SETTINGS -----
 const pageSize = 3;
+
 let lastVisible = null;
 let isLoadingMore = false;
 let currentSort = 'newest';
@@ -204,10 +173,7 @@ const sortingSelect = document.getElementById('comment-sorting');
 const loadMoreBtn = document.getElementById('load-more-comments');
 const notifyBadge = document.getElementById('comment-notify-badge');
 
-// helper untuk event aman
 function safeAddEvent(el, ev, cb) { if (el) el.addEventListener(ev, cb); }
-
-// ----- UTILITIES -----
 function escapeHtml(s = '') {
   return String(s)
     .replaceAll('&', '&amp;')
@@ -228,7 +194,6 @@ function formatWaktu(ts) {
   return d.toLocaleDateString();
 }
 
-// local like tracking per komentar
 function canLikeCommentLocal(commentId) {
   try { return !localStorage.getItem(`${pageId}-liked-cmt-${commentId}`); } catch { return true; }
 }
@@ -239,7 +204,6 @@ function unmarkLikedLocal(commentId) {
   try { localStorage.removeItem(`${pageId}-liked-cmt-${commentId}`); } catch {}
 }
 
-// ----- PAGE LIKE -----
 async function ensurePageLikeDoc() {
   const s = await getDoc(pageLikeDoc);
   if (!s.exists()) await setDoc(pageLikeDoc, { likes: 0 });
@@ -262,7 +226,7 @@ async function initPageLike() {
 }
 initPageLike();
 
-// ----- RENDER KOMENTAR -----
+//RENDER KOMENTAR
 function renderComment(docSnap, container, parentId = null) {
   const data = docSnap.data ? docSnap.data() : {};
   const id = docSnap.id || (docSnap._id || Math.random().toString(36).slice(2));
@@ -298,7 +262,7 @@ function renderComment(docSnap, container, parentId = null) {
   const deleteBtn = div.querySelector('.cmtApp-delete');
   const repliesContainer = div.querySelector('.cmtApp-replies');
 
-  // LIKE
+
   if (likeBtnLocal) {
     likeBtnLocal.addEventListener('click', async () => {
       try {
@@ -314,7 +278,7 @@ function renderComment(docSnap, container, parentId = null) {
     });
   }
 
-  // REPLY
+
   if (replyBtn) {
     replyBtn.addEventListener('click', () => {
       window.CMT_REPLY_TO = { id, el: div };
@@ -325,7 +289,7 @@ function renderComment(docSnap, container, parentId = null) {
     });
   }
 
-  // EDIT
+  
   if (editBtn) {
     editBtn.addEventListener('click', async () => {
       try {
@@ -346,7 +310,7 @@ function renderComment(docSnap, container, parentId = null) {
     });
   }
 
-  // DELETE
+  
   if (deleteBtn) {
     deleteBtn.addEventListener('click', async () => {
       try {
@@ -361,7 +325,6 @@ function renderComment(docSnap, container, parentId = null) {
           ? doc(db, 'comments', pageId, 'list', parentId, 'replies', id)
           : doc(db, 'comments', pageId, 'list', id);
 
-        // hapus semua reply jika komentar utama
         if (!parentId) {
           const repliesRef = collection(db, 'comments', pageId, 'list', id, 'replies');
           const repliesSnap = await getDocs(repliesRef);
@@ -383,7 +346,7 @@ function renderComment(docSnap, container, parentId = null) {
     onSnapshot(q, snap => {
       repliesContainer.innerHTML = '';
       replyBtn.textContent = `💬 Balas (${snap.size})`;
-      snap.forEach(subDoc => renderComment(subDoc, repliesContainer, id)); // penting: pass parentId
+      snap.forEach(subDoc => renderComment(subDoc, repliesContainer, id)); 
       updateCommentCountUI();
     });
   } catch (e) { console.error('replies realtime err', e); }
@@ -391,7 +354,7 @@ function renderComment(docSnap, container, parentId = null) {
   updateCommentCountUI();
 }
 
-// ----- QUERY BUILDER -----
+
 function buildQueryForInitial() {
   if (currentSort === 'popular') {
     return query(commentsCollection, orderBy('likes', 'desc'), orderBy('timestamp', 'desc'), limit(pageSize));
@@ -402,7 +365,6 @@ function buildQueryForInitial() {
   }
 }
 
-// ----- SUBSCRIBE INITIAL -----
 let unsubscribeInitial = null;
 function subscribeInitialComments() {
   if (!komentarList) return;
@@ -431,7 +393,7 @@ function subscribeInitialComments() {
 }
 subscribeInitialComments();
 
-// ----- LOAD MORE -----
+// LOAD MORE
 async function loadMoreComments() {
   if (isLoadingMore) return;
   if (!lastVisible) { if (loadMoreBtn) loadMoreBtn.style.display = 'none'; return; }
@@ -456,7 +418,7 @@ async function loadMoreComments() {
   isLoadingMore = false;
 }
 
-// ----- KIRIM KOMENTAR / REPLY -----
+// MODAL KOMENTAR/REPLY
 safeAddEvent(kirimBtn, 'click', async () => {
   try {
     const nama = (namaInput?.value || '').trim();
@@ -484,7 +446,6 @@ safeAddEvent(kirimBtn, 'click', async () => {
   } catch (e) { console.error('kirim err', e); alert('Gagal kirim komentar'); }
 });
 
-// ----- COUNTER -----
 function updateCommentCountUI() {
   if (!komentarCountSpan) return;
   const mainComments = document.querySelectorAll('#comments-list > .cmtApp-comment').length;
@@ -495,7 +456,6 @@ function updateCommentCountUI() {
   setTimeout(() => komentarCountSpan.classList.remove('pop'), 220);
 }
 
-// ----- UI HANDLERS -----
 safeAddEvent(sortingSelect, 'change', () => {
   currentSort = sortingSelect.value || 'newest';
   lastVisible = null;
@@ -518,12 +478,11 @@ window.addEventListener('click', e => {
   }
 });
 
-// init UI
 if (loadMoreBtn) loadMoreBtn.style.display = 'inline-block';
 if (notifyBadge) { notifyBadge.style.display = 'none'; notifyBadge.dataset.count = '0'; }
 if (sortingSelect && sortingSelect.value) currentSort = sortingSelect.value;
 
-// safety check
+
 if (!komentarList) console.warn('Komponen komentar tidak ditemukan — fitur komentar non-aktif di halaman ini.');
 
 const readMoreBtn = document.getElementById("readMoreBtn");
