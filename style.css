@@ -1398,3 +1398,98 @@ body.loaded .page-transition {
   color: var(--accent);
   font-weight: bold;
 }
+
+/* === Style Dasar Modal (Sama seperti sebelumnya) === */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1000; 
+    left: 0; top: 0;
+    width: 100%; height: 100%; 
+    background-color: rgba(0,0,0,0.6); /* Sedikit lebih gelap */
+    backdrop-filter: blur(3px);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 25px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    position: relative;
+    animation: fadeIn 0.3s;
+    color: #333;
+}
+
+/* Tombol Close */
+.close {
+    position: absolute;
+    top: 10px; right: 15px;
+    font-size: 24px; cursor: pointer; color: #999;
+}
+.close:hover { color: #333; }
+
+/* === Style Khusus Modal HIRE (Icon Kecil) === */
+.contact-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.icon-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #555;
+    font-size: 14px;
+    transition: transform 0.2s;
+}
+
+.icon-box:hover {
+    transform: translateY(-5px); /* Efek naik saat di-hover */
+}
+
+.icon-box i {
+    font-size: 28px; /* Ukuran Icon */
+    margin-bottom: 8px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: white;
+}
+
+/* Warna-warna Icon Platform */
+.wa i { background-color: #25D366; }       /* Warna WA */
+.email i { background-color: #EA4335; }    /* Warna Gmail */
+.linkedin i { background-color: #0077B5; } /* Warna LinkedIn */
+
+/* === Style Tombol Download === */
+.btn-download {
+    display: block;
+    margin-top: 10px;
+    padding: 12px;
+    background: #f4f4f4;
+    color: #333;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    border: 1px solid #ddd;
+    transition: 0.3s;
+}
+.btn-download:hover {
+    background: #333;
+    color: #fff;
+}
+
+/* Animasi Muncul */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}

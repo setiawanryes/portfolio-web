@@ -92,3 +92,44 @@ nextBtn.addEventListener('click', () => {
 
 // inisialisasi
 showSlide();
+
+<script>
+    // Ambil elemen Modal
+    const modalHire = document.getElementById("modalHire");
+    const modalDownload = document.getElementById("modalDownload");
+
+    // Ambil Tombol Pemicu
+    const btnHire = document.getElementById("btnHire");
+    const btnDownload = document.getElementById("btnDownload");
+
+    // Ambil semua tombol Close (x)
+    const closeButtons = document.querySelectorAll(".close");
+
+    // 1. Buka Modal Hire
+    btnHire.onclick = function() {
+        modalHire.style.display = "block";
+    }
+
+    // 2. Buka Modal Download
+    btnDownload.onclick = function() {
+        modalDownload.style.display = "block";
+    }
+
+    // 3. Logic Tutup Modal (Klik X)
+    closeButtons.forEach(function(btn) {
+        btn.onclick = function() {
+            // Tutup modal yang sedang aktif (parent dari tombol X)
+            btn.closest(".modal").style.display = "none";
+        }
+    });
+
+    // 4. Logic Tutup Modal (Klik di luar kotak)
+    window.onclick = function(event) {
+        if (event.target == modalHire) {
+            modalHire.style.display = "none";
+        }
+        if (event.target == modalDownload) {
+            modalDownload.style.display = "none";
+        }
+    }
+</script>
