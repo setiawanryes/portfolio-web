@@ -1478,7 +1478,7 @@ body.loaded .page-transition {
     border-radius: 4px;
 }
 .dl-links a:hover {
-    background: #333;
+    background: #7c6aff;
     color: #fff;
 }
 
@@ -1495,3 +1495,18 @@ body.loaded .page-transition {
     display: inline-block;
 }
 
+.buttons .btn1 {
+  background: linear-gradient(90deg, #ff0318, #8e14df);
+  color: white;
+  padding: 10px 25px;
+  border-radius: 25px;
+  text-decoration: none;
+  transition: 0.3s;
+  margin-top: 20px;
+  display: inline-block;
+}
+
+.buttons .btn1:hover {
+  box-shadow: 0 0 15px #ff05e2, 0 0 25px #f3ecd0;
+  transform: translateY(-2px);
+}
