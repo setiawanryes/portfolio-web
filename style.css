@@ -1591,3 +1591,55 @@ body.loaded .page-transition {
     75% { transform: translate(10px, -20px); }
     100% { transform: translate(0, 0); }
 }
+/* --- Aturan Utama untuk Menyusun Konten --- */
+.hero {
+    /* Gunakan Flexbox untuk menempatkan hero-text dan kolase-wrapper berdampingan */
+    display: flex;
+    justify-content: space-between; /* Memberi jarak antara kedua elemen */
+    align-items: center; /* Memposisikan di tengah secara vertikal */
+    padding: 100px 5%; /* Sesuaikan padding agar sesuai dengan desain Anda */
+    min-height: 80vh; /* Agar hero section cukup tinggi */
+    width: 100%;
+}
+
+/* --- Pengaturan Lebar --- */
+.hero-text {
+    /* Memberi ruang untuk teks (misalnya 45% dari lebar) */
+    width: 45%; 
+    max-width: 550px; /* Batasi lebar maksimal teks */
+}
+
+.kolase-wrapper {
+    /* Memberi ruang untuk kolase (misalnya 50% dari lebar) */
+    width: 50%;
+    position: relative; 
+    /* Pastikan kolase-wrapper tidak memiliki margin: auto yang mengganggu penataan Flexbox */
+    margin: 0; 
+}
+
+/* --- Pastikan Wadah Kolase Cukup Tinggi --- */
+.kolase-img.kolase-hexagons {
+    /* Jaga min-height agar gambar acak punya ruang */
+    min-height: 550px; 
+    width: 100%;
+    /* Catatan: Karena kolase-item diposisikan absolute, min-height ini PENTING */
+}
+
+/* --- Tambahan: Teks Hero di Mobile (Optional) --- */
+@media (max-width: 900px) {
+    .hero {
+        flex-direction: column; /* Tumpuk vertikal di layar kecil */
+        padding: 50px 5%;
+    }
+
+    .hero-text, .kolase-wrapper {
+        width: 100%;
+        max-width: none;
+        margin-bottom: 30px; /* Jarak antara teks dan kolase */
+    }
+    
+    .kolase-img.kolase-hexagons {
+        /* Kurangi tinggi kolase di mobile */
+        min-height: 400px;
+    }
+}
