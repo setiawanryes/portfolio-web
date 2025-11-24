@@ -1399,44 +1399,86 @@ body.loaded .page-transition {
   font-weight: bold;
 }
 
-/* === Style Dasar Modal (Sama seperti sebelumnya) === */
+/* =========================================
+   1. STYLE DASAR MODAL (CONTAINER)
+   ========================================= */
 .modal {
-    display: none; 
+    display: none; /* Tersembunyi secara default */
     position: fixed; 
-    z-index: 1000; 
-    left: 0; top: 0;
-    width: 100%; height: 100%; 
-    background-color: rgba(0,0,0,0.6); /* Sedikit lebih gelap */
-    backdrop-filter: blur(3px);
+    z-index: 9999; /* Pastikan selalu di paling depan */
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.6); /* Latar belakang gelap transparan */
+    backdrop-filter: blur(4px); /* Efek blur (opsional, bikin lebih elegan) */
+    
+    /* Menggunakan Flexbox agar Modal pas di tengah layar */
+    align-items: center;
+    justify-content: center;
 }
 
+/* =========================================
+   2. KOTAK KONTEN MODAL (POPUP BOX)
+   ========================================= */
 .modal-content {
     background-color: #fff;
-    margin: 15% auto;
-    padding: 25px;
-    border-radius: 12px;
+    margin: auto; /* Auto margin untuk fallback */
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
     width: 90%;
-    max-width: 400px;
+    max-width: 420px; /* Lebar maksimal agar tidak terlalu lebar di PC */
     text-align: center;
     position: relative;
-    animation: fadeIn 0.3s;
-    color: #333;
+    animation: popupAnim 0.4s ease-out; /* Animasi muncul */
+    font-family: sans-serif; /* Sesuaikan dengan font websitemu */
 }
 
-/* Tombol Close */
+/* Judul & Text di dalam Modal */
+.modal-content h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 1.5rem;
+}
+
+.modal-content p {
+    color: #666;
+    font-size: 0.95rem;
+    margin-bottom: 25px;
+}
+
+/* =========================================
+   3. TOMBOL CLOSE (SILANG X)
+   ========================================= */
 .close {
     position: absolute;
-    top: 10px; right: 15px;
-    font-size: 24px; cursor: pointer; color: #999;
+    top: 10px;
+    right: 15px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    line-height: 1;
 }
-.close:hover { color: #333; }
 
-/* === Style Khusus Modal HIRE (Icon Kecil) === */
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+}
+
+/* =========================================
+   4. STYLE MODAL HIRE (CONTACT ICONS)
+   ========================================= */
 .contact-icons {
     display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 20px;
+    justify-content: center; /* Ikon berjejer di tengah */
+    gap: 25px; /* Jarak antar ikon */
+    margin-top: 10px;
 }
 
 .icon-box {
@@ -1445,51 +1487,105 @@ body.loaded .page-transition {
     align-items: center;
     text-decoration: none;
     color: #555;
-    font-size: 14px;
-    transition: transform 0.2s;
+    font-size: 12px;
+    font-weight: 600;
+    transition: transform 0.3s;
 }
 
+/* Efek saat kursor diarahkan ke icon */
 .icon-box:hover {
-    transform: translateY(-5px); /* Efek naik saat di-hover */
+    transform: translateY(-5px);
 }
 
+/* Lingkaran pembungkus Icon */
 .icon-box i {
-    font-size: 28px; /* Ukuran Icon */
-    margin-bottom: 8px;
-    width: 50px;
-    height: 50px;
+    width: 55px;
+    height: 55px;
+    font-size: 26px; /* Ukuran simbol icon */
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    color: white;
-}
-
-/* Warna-warna Icon Platform */
-.wa i { background-color: #25D366; }       /* Warna WA */
-.email i { background-color: #EA4335; }    /* Warna Gmail */
-.linkedin i { background-color: #0077B5; } /* Warna LinkedIn */
-
-/* === Style Tombol Download === */
-.btn-download {
-    display: block;
-    margin-top: 10px;
-    padding: 12px;
-    background: #f4f4f4;
-    color: #333;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: 600;
-    border: 1px solid #ddd;
+    color: #fff;
+    margin-bottom: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     transition: 0.3s;
 }
-.btn-download:hover {
-    background: #333;
-    color: #fff;
+
+/* Warna Spesifik Brand */
+.wa i { 
+    background: linear-gradient(45deg, #25D366, #128C7E); 
+}
+.email i { 
+    background: linear-gradient(45deg, #EA4335, #C5221F); 
+}
+.linkedin i { 
+    background: linear-gradient(45deg, #0077B5, #005582); 
 }
 
-/* Animasi Muncul */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
+/* =========================================
+   5. STYLE MODAL DOWNLOAD (LIST FILE)
+   ========================================= */
+.modal-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.btn-download {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 12px 15px;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+/* Hover effect tombol download */
+.btn-download:hover {
+    background-color: #333; /* Warna background saat hover */
+    color: #fff;
+    border-color: #333;
+    transform: translateX(5px); /* Sedikit geser ke kanan */
+}
+
+/* =========================================
+   6. ANIMASI (KEYFRAMES)
+   ========================================= */
+@keyframes popupAnim {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* =========================================
+   7. RESPONSIVE (HP)
+   ========================================= */
+@media screen and (max-width: 480px) {
+    .modal-content {
+        width: 85%;
+        padding: 20px;
+    }
+    
+    .contact-icons {
+        gap: 15px;
+    }
+    
+    .icon-box i {
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+    }
 }
