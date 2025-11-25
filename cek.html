@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <style>
+        
         /* ========================================================= */
         /* 0. DASAR DAN FONT */
         /* ========================================================= */
@@ -23,7 +24,6 @@
         .hero h1 { font-size: 3em; margin-bottom: 0.1em; }
         .hero h1 span { color: #ff5722; }
         .hero h3 { color: #ccc; font-weight: 300; }
-        .role-slider { height: 1.5em; overflow: hidden; }
         .socials a { color: #fff; margin-right: 15px; font-size: 1.5em; opacity: 0.7; transition: opacity 0.3s; }
         .socials a:hover { opacity: 1; }
         .btn1 { 
@@ -60,34 +60,46 @@
         }
 
         /* ========================================================= */
-        /* 2. GAYA KOLASE HEKSAGON SARANG MADU (HONEYCOMB) */
+        /* 2. GAYA KOLASE HEKSAGON SARANG MADU (HONEYCOMB - CSS Presisi) */
         /* ========================================================= */
         .kolase-img.kolase-hexagons {
-            min-height: 650px; 
-            width: 100%;
-            position: relative;
-            background-color: transparent; 
-            overflow: hidden; 
-            padding-left: 10px; 
+            display: inline-block; 
+            margin: 20px auto; 
+            font-size: 0; 
+            min-height: auto; 
+            width: auto; 
+            position: relative; 
         }
 
-        /* Item Kolase */
+        /* Container untuk setiap baris virtual heksagon */
+        .kolase-row {
+            clear: both; 
+            margin-bottom: -28.5px; /* Overlap vertikal untuk HEX_HEIGHT 150px */
+        }
+
+        .kolase-row:nth-child(even) { 
+            margin-left: 75px; /* Geser baris genap setengah HEX_WIDTH */
+        }
+
+        /* Item Heksagon */
         .kolase-item {
-            position: absolute;
-            opacity: 0; 
-            /* Rotasi dikunci 0 deg di sini */
-            transform: rotate(0deg); 
-            /* Transisi untuk fade-in, dan efek hover */
-            transition: opacity 0.5s ease-in-out, transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; 
-            box-sizing: border-box; 
-            
+            float: left; 
             width: 150px; 
             height: 150px; 
+            margin: 0 4px; /* Jarak horizontal antar heksagon */
+            position: relative; 
+            /* Bentuk Heksagon */
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            -webkit-clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out, transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            background-color: transparent; 
+            transform: rotate(0deg); /* Kunci rotasi 0 */
         }
         
         /* EFEK HOVER (Interaktif) */
         .kolase-item:hover {
-            /* Membesar sedikit, Rotasi DILARANG berubah */
             transform: scale(1.08) rotate(0deg) !important; 
             z-index: 10; 
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); 
@@ -95,23 +107,25 @@
         }
 
         .kolase-item img {
+            display: block;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: block;
             opacity: 0.8; 
             transition: opacity 0.4s ease-in-out; 
         }
 
-        /* Efek Outline (Dibuat tegas) */
+        /* Efek Outline */
         .kolase-item.outline {
             background-color: transparent !important; 
             border: 3px solid; 
             box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2); 
+            overflow: hidden; 
         }
 
         .kolase-item.outline img {
             visibility: hidden; 
+            opacity: 0;
         }
 
 
@@ -131,13 +145,17 @@
             }
             
             .kolase-img.kolase-hexagons {
-                min-height: 400px;
+                min-height: auto; 
             }
             
-            /* Kecilkan ukuran heksagon di mobile */
+            /* Penyesuaian Mobile */
             .kolase-item {
                 width: 100px;
                 height: 100px;
+                margin-bottom: -19px; /* Overlap disesuaikan untuk 100px height */
+            }
+            .kolase-row:nth-child(even) { 
+                margin-left: 50px; /* Geser baris genap setengah HEX_WIDTH baru */
             }
         }
     </style>
@@ -183,22 +201,26 @@
 
         <div class="kolase-wrapper">
             <div class="kolase-img kolase-hexagons">
-                <div class="kolase-item"><img src="images/home/1.jpeg" alt="Preview 1" class="lightbox-img"></div>
-                <div class="kolase-item"><img src="images/home/2.jpeg" alt="Preview 2" class="lightbox-img"></div>
-                <div class="kolase-item"><img src="images/home/3.jpeg" alt="Preview 3" class="lightbox-img"></div>
-                <div class="kolase-item"><img src="images/home/4.jpeg" alt="Preview 4" class="lightbox-img"></div>
-                <div class="kolase-item"><img src="images/home/5.jpeg" alt="Preview 5" class="lightbox-img"></div>
-                <div class="kolase-item"><img src="images/home/6.jpeg" alt="Preview 6" class="lightbox-img"></div>
-                <div class="kolase-item"><img src="images/home/7.jpeg" alt="Preview 7" class="lightbox-img"></div>
-                <div class="kolase-item"><img src="images/home/8.jpeg" alt="Preview 8" class="lightbox-img"></div>
-                <div class="kolase-item"><img src="images/home/9.jpeg" alt="Preview 9" class="lightbox-img"></div>
-                <div class="kolase-item"><img src="images/home/1.jpeg" alt="Preview 10" class="lightbox-img"></div>
-                <div class="kolase-item"><img src="images/home/2.jpeg" alt="Preview 11" class="lightbox-img"></div>
-                <div class="kolase-item"><img src="images/home/3.jpeg" alt="Preview 12" class="lightbox-img"></div>
-                <div class="kolase-item"><img src="images/home/4.jpeg" alt="Preview 13" class="lightbox-img"></div>
-                <div class="kolase-item"><img src="images/home/5.jpeg" alt="Preview 14" class="lightbox-img"></div>
-                <div class="kolase-item"><img src="images/home/6.jpeg" alt="Preview 15" class="lightbox-img"></div>
-            </div>
+                
+                <div class="kolase-row">
+                    <div class="kolase-item"><img src="images/home/1.jpeg" alt="Preview 1" class="lightbox-img"></div>
+                    <div class="kolase-item"><img src="images/home/2.jpeg" alt="Preview 2" class="lightbox-img"></div>
+                    <div class="kolase-item"><img src="images/home/3.jpeg" alt="Preview 3" class="lightbox-img"></div>
+                </div>
+                
+                <div class="kolase-row">
+                    <div class="kolase-item"><img src="images/home/4.jpeg" alt="Preview 4" class="lightbox-img"></div>
+                    <div class="kolase-item"><img src="images/home/5.jpeg" alt="Preview 5" class="lightbox-img"></div>
+                    <div class="kolase-item"><img src="images/home/6.jpeg" alt="Preview 6" class="lightbox-img"></div>
+                </div>
+                
+                <div class="kolase-row">
+                    <div class="kolase-item"><img src="images/home/1.jpeg" alt="Preview 7" class="lightbox-img"></div>
+                    <div class="kolase-item"><img src="images/home/2.jpeg" alt="Preview 8" class="lightbox-img"></div>
+                    <div class="kolase-item"><img src="images/home/3.jpeg" alt="Preview 9" class="lightbox-img"></div>
+                </div>
+                
+                </div>
         </div>
 
     </section>
@@ -229,8 +251,8 @@
         // --- Daftar semua path gambar yang bisa di-shuffle ---
         const ALL_IMAGE_PATHS = [
             "images/home/1.jpeg", "images/home/2.jpeg", "images/home/3.jpeg",
-            "images/home/4.jpeg", "images/home/5.jpeg", "images/home/6.jpeg",
-            "images/home/7.jpeg", "images/home/8.jpeg", "images/home/9.jpeg",
+            "images/home/4.jpeg", "images/home/5.jpeg", "images/home/2.jpeg",
+            "images/home/7.jpeg", "images/home/3.jpeg", "images/home/1.jpeg",
         ];
 
         // 🔄 FUNGSI UTAMA SHUFFLE GAMBAR
@@ -252,7 +274,7 @@
         }
 
 
-        // --- 🛠️ FUNGSI UNTUK MENGSETUP KOLASE STATIS & BERPOLA SARANG MADU ---
+        // --- 🛠️ FUNGSI UNTUK MENGSETUP KOLASE (Hanya Warna/Outline/Fade-in) ---
         function setupKolase(containerSelector, solidColors, outlineColor) {
             const kolaseContainer = document.querySelector(containerSelector);
             if (!kolaseContainer) return;
@@ -260,50 +282,12 @@
             const kolaseItems = kolaseContainer.querySelectorAll(".kolase-item");
             if (kolaseItems.length === 0) return;
 
-            const HEXAGON_SHAPE = "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)";
-            
-            // --- NILAI UNTUK POLA SARANG MADU (Presisi) ---
-            const HEX_WIDTH = 150; 
-            const HEX_HEIGHT = 150; 
-            
-            const H_SPACING = HEX_WIDTH * 0.75; 
-            const V_SPACING = HEX_HEIGHT * 0.866; 
-            const COLS_PER_ROW = 5; 
-
             kolaseItems.forEach((item, index) => {
                 
-                const row = Math.floor(index / COLS_PER_ROW);
-                const col = index % COLS_PER_ROW; 
-
-                let top = row * V_SPACING;
-                let left = col * H_SPACING;
-
-                // Geser baris ganjil untuk pola sarang madu
-                if (row % 2 === 1) {
-                    left += HEX_WIDTH / 2;
-                }
-
-                // Tambahkan sedikit keacakan posisi (Opsional: agar tidak terlalu kaku)
-                const randomShift = Math.random() * 8 - 4; // Geser antara -4px hingga +4px
-                top += randomShift;
-                left += randomShift;
-                
-                // Kunci rotasi ke 0 derajat (TIDAK JUNGKIR BALIK)
-                const rotation = 0; 
-
-                // Terapkan Gaya dan Posisi
-                item.style.width = `${HEX_WIDTH}px`;
-                item.style.height = `${HEX_HEIGHT}px`;
-                item.style.top = top + 'px';
-                item.style.left = left + 'px';
-                item.style.transform = `rotate(${rotation}deg)`; 
-                
-                item.style.clipPath = HEXAGON_SHAPE;
-                item.style.webkitClipPath = HEXAGON_SHAPE;
-                item.style.animation = 'none'; 
+                // Rotasi dan Posisi DIURUS SEPENUHNYA OLEH CSS.
 
                 // Warna dan Outline Acak
-                const isOutline = Math.random() > 0.4; 
+                const isOutline = Math.random() > 0.4; // 60% Solid, 40% Outline
                 
                 if (isOutline) {
                     item.classList.add('outline');
