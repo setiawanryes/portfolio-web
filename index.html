@@ -805,105 +805,115 @@
       }
     }
   </script>
-  <script>document.addEventListener("DOMContentLoaded", () => {
-      // ... (Kode JavaScript Anda yang lain di sini) ...
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    // ... (Kode JavaScript Anda yang lain di sini) ...
 
-      // --- FUNGSI UNTUK MENGSETUP KOLASE (Diperbarui) ---
-      function setupKolase(containerSelector, itemSizes, solidColors, outlineColor) {
+    // --- 🛠️ FUNGSI UNTUK MENGSETUP KOLASE (DIREVISI) ---
+    function setupKolase(containerSelector, itemSizes, solidColors, outlineColor) {
         const kolaseContainer = document.querySelector(containerSelector);
-        const kolaseItems = kolaseContainer ? kolaseContainer.querySelectorAll(".kolase-item") : [];
+        
+        // Cek keberadaan wadah utama
+        if (!kolaseContainer) {
+            console.error(`Kolase: Wadah utama '${containerSelector}' tidak ditemukan.`);
+            return;
+        }
 
-        if (!kolaseContainer || kolaseItems.length === 0) {
-          console.warn(`Kolase: Elemen container '${containerSelector}' atau item tidak ditemukan.`);
-          return;
+        const kolaseItems = kolaseContainer.querySelectorAll(".kolase-item");
+        
+        if (kolaseItems.length === 0) {
+            console.warn(`Kolase: Tidak ada elemen '.kolase-item' di dalam '${containerSelector}'.`);
+            return;
         }
 
         const containerWidth = kolaseContainer.offsetWidth;
         const containerHeight = kolaseContainer.offsetHeight;
 
-        // Bentuk Heksagon Diperlukan untuk gaya ini
+        // Nilai Konstan
         const HEXAGON_SHAPE = "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)";
-
-        const animationNames = ["moveRandom1", "moveRandom2", "moveRandom3"];
+        const ANIMATION_NAMES = ["moveRandom1", "moveRandom2", "moveRandom3"];
+        const MIN_DURATION = 8;
+        const MAX_DURATION = 15;
+        const MAX_DELAY = 5;
 
         kolaseItems.forEach((item, index) => {
+            
+            // --- 1. Ukuran dan Posisi Acak ---
+            const minSize = itemSizes.min;
+            const maxSize = itemSizes.max;
+            const itemSize = Math.floor(Math.random() * (maxSize - minSize + 1)) + minSize;
+            item.style.width = `${itemSize}px`;
+            item.style.height = `${itemSize}px`;
 
-          // --- 1. Ukuran dan Posisi Acak ---
-          const minSize = itemSizes.min;
-          const maxSize = itemSizes.max;
-          const itemSize = Math.floor(Math.random() * (maxSize - minSize + 1)) + minSize;
-          item.style.width = `${itemSize}px`;
-          item.style.height = `${itemSize}px`;
+            // Hitung Posisi Acak
+            const randomTop = Math.random() * (containerHeight - itemSize);
+            const randomLeft = Math.random() * (containerWidth - itemSize);
+            
+            // Rotasi Awal Acak (0 hingga 360 derajat)
+            const randomRotation = Math.floor(Math.random() * 360);
+            
+            item.style.top = `${randomTop}px`;
+            item.style.left = `${randomLeft}px`;
+            item.style.transform = `rotate(${randomRotation}deg)`; // Set rotasi awal
 
-          const randomTop = Math.random() * (containerHeight - itemSize);
-          const randomLeft = Math.random() * (containerWidth - itemSize);
+            // Terapkan Bentuk Heksagon
+            item.style.clipPath = HEXAGON_SHAPE;
+            item.style.webkitClipPath = HEXAGON_SHAPE;
 
-          item.style.top = `${randomTop}px`;
-          item.style.left = `${randomLeft}px`;
+            // --- 2. Warna dan Outline Acak ---
+            const isOutline = Math.random() > 0.5;
 
-          // Terapkan Bentuk Heksagon
-          item.style.clipPath = HEXAGON_SHAPE;
-          item.style.webkitClipPath = HEXAGON_SHAPE;
+            if (isOutline) {
+                // Heksagon Outline
+                item.classList.add('outline');
+                item.style.borderColor = outlineColor;
+                item.style.backgroundColor = 'transparent'; 
 
-          // --- 2. Warna dan Outline Acak ---
-          const isOutline = Math.random() > 0.5; // 50% kemungkinan jadi outline
+            } else {
+                // Heksagon Solid
+                item.classList.remove('outline');
+                const randomColor = solidColors[Math.floor(Math.random() * solidColors.length)];
+                item.style.backgroundColor = randomColor;
+            }
 
-          if (isOutline) {
-            // Heksagon Outline (Bergaris)
-            item.classList.add('outline');
-            // Mengatur warna border (diatur juga di CSS)
-            item.style.borderColor = outlineColor;
-            // Mengatur background item menjadi transparan
-            item.style.backgroundColor = 'transparent';
+            // --- 3. Animasi Acak ---
+            const randomAnimationName = ANIMATION_NAMES[Math.floor(Math.random() * ANIMATION_NAMES.length)];
+            const animationDuration = Math.random() * (MAX_DURATION - MIN_DURATION) + MIN_DURATION; 
+            const animationDelay = Math.random() * MAX_DELAY; 
+            const animationDirection = Math.random() > 0.5 ? 'normal' : 'reverse';
 
-          } else {
-            // Heksagon Solid (Padat)
-            item.classList.remove('outline');
-            // Pilih warna solid acak dari palet
-            const randomColor = solidColors[Math.floor(Math.random() * solidColors.length)];
-            item.style.backgroundColor = randomColor;
-          }
+            item.style.animation = 
+                `${randomAnimationName} ${animationDuration}s ease-in-out ${animationDelay}s infinite alternate ${animationDirection}`;
 
-          // --- 3. Animasi Acak ---
-          const randomAnimationName = animationNames[Math.floor(Math.random() * animationNames.length)];
-          const animationDuration = Math.random() * (15 - 8) + 8; // Durasi 8-15 detik
-          const animationDelay = Math.random() * 5; // Delay 0-5 detik
-          const animationDirection = Math.random() > 0.5 ? 'normal' : 'reverse';
-
-          item.style.animation =
-            `${randomAnimationName} ${animationDuration}s ease-in-out ${animationDelay}s infinite alternate ${animationDirection}`;
-
-          // Tampilkan item
-          setTimeout(() => {
-            item.style.opacity = 1;
-          }, index * 100 + Math.random() * 500);
+            // Tampilkan item dengan delay kecil
+            setTimeout(() => {
+                item.style.opacity = 1;
+            }, index * 100 + Math.random() * 500);
         });
-      }
+    }
 
-      // --- PANGGIL FUNGSI KOLASE HANYA UNTUK Heksagon ---
-      // Palet warna yang terinspirasi dari gambar kedua
-      const HEX_PALETTE = [
-        '#7B3F00',   // Cokelat Tua
-        '#A52A2A',   // Merah Kecokelatan
-        '#D2B48C',   // Beige Muda
-        '#BC8F8F',   // Cokelat Mawar
-        '#E0B891'    // Cokelat Gading
-      ];
+    // --- PANGGILAN FUNGSI KOLASE ---
+    
+    // Palet warna diubah menjadi RGBA untuk kontrol transparansi yang lebih baik
+    const HEX_PALETTE_RGBA = [
+        'rgba(123, 63, 0, 0.7)',   // Cokelat Tua (Opacity 0.7)
+        'rgba(165, 42, 42, 0.7)',  // Merah Kecokelatan (Opacity 0.7)
+        'rgba(210, 180, 140, 0.7)',// Beige Muda (Opacity 0.7)
+        'rgba(188, 143, 143, 0.7)',// Cokelat Mawar (Opacity 0.7)
+        'rgba(224, 184, 145, 0.7)' // Cokelat Gading (Opacity 0.7)
+    ];
 
-      // Asumsi Anda menggunakan wadah '.kolase-hexagons'
-      setupKolase(
+    setupKolase(
         '.kolase-hexagons',
-        { min: 100, max: 200 }, // Ukuran item (min, max)
-        HEX_PALETTE,
-        '#7B3F00' // Warna outline (Cokelat Tua)
-      );
+        { min: 100, max: 200 }, // Ukuran 100px - 200px
+        HEX_PALETTE_RGBA,
+        '#7B3F00' // Warna outline (Cokelat Tua Solid)
+    );
 
-      // HAPUS PANGGILAN setupKolase untuk lingkaran jika Anda hanya ingin heksagon
-      // setupKolase('.kolase-circles', ...); // <--- HAPUS INI
+    // ... (Sisa kode JavaScript Anda yang lain) ...
 
-      // ... (Sisa kode JavaScript Anda yang lain) ...
-
-    }); // Akhir DOMContentLoaded</script>
+}); // Akhir DOMContentLoaded
+</script>
   <script>
     AOS.init({ duration: 1000, once: true });
   </script>

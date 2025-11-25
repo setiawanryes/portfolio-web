@@ -1565,18 +1565,17 @@ body.loaded .page-transition {
 }
 
 
-/* --- Keyframes untuk Animasi Gerak Acak --- */
-/* (Anda bisa menambahkan lebih banyak variasi moveRandomN jika mau) */
-
 @keyframes moveRandom1 {
-    0% { transform: translate(0, 0) scale(1); }
-    25% { transform: translate(10px, -5px) scale(0.98); }
-    50% { transform: translate(-10px, 10px) scale(1.02); }
-    75% { transform: translate(5px, -15px) scale(0.99); }
-    100% { transform: translate(0, 0) scale(1); }
+    /* Tambahkan rotasi ke transform */
+    0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+    25% { transform: translate(10px, -5px) scale(0.98) rotate(2deg); }
+    50% { transform: translate(-10px, 10px) scale(1.02) rotate(-2deg); }
+    75% { transform: translate(5px, -15px) scale(0.99) rotate(1deg); }
+    100% { transform: translate(0, 0) scale(1) rotate(0deg); }
 }
 
 @keyframes moveRandom2 {
+    /* Contoh ini hanya menambahkan translate dan rotasi yang sudah ada */
     0% { transform: translate(0, 0) rotate(0deg); }
     25% { transform: translate(-8px, 12px) rotate(3deg); }
     50% { transform: translate(15px, -8px) rotate(-3deg); }
@@ -1584,13 +1583,7 @@ body.loaded .page-transition {
     100% { transform: translate(0, 0) rotate(0deg); }
 }
 
-@keyframes moveRandom3 {
-    0% { transform: translate(0, 0); }
-    25% { transform: translate(20px, -10px); }
-    50% { transform: translate(-5px, 15px); }
-    75% { transform: translate(10px, -20px); }
-    100% { transform: translate(0, 0); }
-}
+/* ... dan seterusnya untuk moveRandom3 dan lainnya. Pastikan semua transform menyertakan nilai rotate(Ndeg) ... */
 /* --- Aturan Utama untuk Menyusun Konten --- */
 .hero {
     /* Gunakan Flexbox untuk menempatkan hero-text dan kolase-wrapper berdampingan */
