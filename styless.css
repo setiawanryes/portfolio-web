@@ -107,3 +107,89 @@ header {
     display: block; /* Muncul saat aktif */
   }
 }
+
+/* =========================================
+   MODE HP & TABLET (RESPONSIF)
+   ========================================= */
+@media (max-width: 900px) {
+
+  /* 1. Atur Wadah Utama (HERO) */
+  .hero {
+    /* column-reverse membalik urutan: Gambar jadi di ATAS, Teks di BAWAH */
+    flex-direction: column-reverse; 
+    justify-content: center;
+    align-items: center;
+    padding: 80px 5% 40px; /* Sesuaikan padding atas/bawah */
+    text-align: center; /* Rata tengah semua teks */
+    min-height: auto; /* Hilangkan paksaan tinggi layar penuh */
+  }
+
+  /* 2. Atur Bagian Gambar */
+  .hero-img {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Pastikan gambar di tengah */
+    margin-bottom: 20px; /* Jarak antara gambar dan teks di bawahnya */
+  }
+
+  .hero-img img {
+    /* Ukuran gambar lebih kecil di HP agar proporsional */
+    width: 200px; 
+    height: 200px;
+    object-fit: cover; /* Agar foto tidak gepeng */
+    border-radius: 50%; /* Membuat jadi bulat (opsional, tapi bagus buat profile) */
+    box-shadow: 0 0 20px rgba(0,0,0,0.2); /* Bayangan halus */
+    border: 3px solid #ff5722; /* Border warna tema */
+  }
+
+  /* 3. Atur Bagian Teks */
+  .hero-text {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+  }
+
+  /* Kecilkan ukuran font agar muat di layar kecil */
+  .hero h1 {
+    font-size: 2.2rem; 
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+  
+  .hero h3 {
+    font-size: 1.2rem;
+  }
+
+  /* Rapikan paragraf */
+  .hero p {
+    font-size: 0.95rem;
+    margin: 15px auto; /* Auto kiri-kanan agar paragraf di tengah */
+    max-width: 90%; /* Jangan terlalu lebar sampai pinggir layar */
+    line-height: 1.6;
+  }
+
+  /* 4. Sosial Media ke Tengah */
+  .socials {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 25px;
+  }
+
+  /* 5. Tombol ke Tengah */
+  .buttons {
+    display: flex;
+    flex-direction: row; /* Tetap berjejer ke samping */
+    justify-content: center;
+    align-items: center;
+    gap: 15px; /* Jarak antar tombol */
+    flex-wrap: wrap; /* Kalau layar kekecilan, tombol turun ke bawah */
+  }
+  
+  /* Perbaiki posisi Popup di HP agar tidak keluar layar */
+  .mini-popup {
+    left: 50%;
+    transform: translateX(-50%); /* Geser popup agar pas di tengah tombol */
+    width: 200px; /* Lebar popup fix */
+  }
+}
