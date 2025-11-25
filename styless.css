@@ -176,11 +176,18 @@ header {
     margin-bottom: 25px;
   }
 
-  .role-text
-    {
-        font-size: 1rem; /* Sedikit kecilkan teks slider */
-         justify-content: center;
-    }
+ .role-slider {
+    /* Pastikan wadah role-text rata tengah */
+    text-align: center; 
+    
+    /* Tambahkan margin atas/bawah agar ada jarak */
+    margin: 10px 0 20px 0; 
+}
+
+/* Jika text di dalamnya perlu diatur lebih lanjut */
+.role-slider .slide-text {
+    display: inline-block;
+}
 
   /* 5. Tombol ke Tengah */
   .buttons {
@@ -198,4 +205,13 @@ header {
     transform: translateX(-50%); /* Geser popup agar pas di tengah tombol */
     width: 200px; /* Lebar popup fix */
   }
+}
+/* Atur wadah tombol agar menggunakan Flexbox dan rata tengah */
+.buttons {
+    display: flex;
+    justify-content: center; /* Meratakan item secara horizontal di tengah */
+    align-items: center;
+    gap: 15px; /* Jarak antar tombol */
+    margin-top: 30px; /* Jarak dari paragraf di atasnya */
+    flex-wrap: wrap; /* Tombol bisa turun baris di layar kecil */
 }
