@@ -32,7 +32,6 @@
 
   <!-- HOME -->
   <section id="home" class="hero">
-
     <div class="hero-text">
       <h3>Hello, I am</h3>
       <h1>Roni <span>Setiawan</span></h1>
@@ -67,19 +66,10 @@
         </div>
       </div>
     </div>
-    <div class="kolase-wrapper">
-      <div class="kolase-img kolase-hexagons">
-        <div class="kolase-item"><img src="images/home/1.jpeg" alt="Preview 1" class="lightbox-img"></div>
-        <div class="kolase-item"><img src="images/home/2.jpeg" alt="Preview 2" class="lightbox-img"></div>
-        <div class="kolase-item"><img src="images/home/3.jpeg" alt="Preview 3" class="lightbox-img"></div>
-        <div class="kolase-item"><img src="images/home/4.jpeg" alt="Preview 4" class="lightbox-img"></div>
-        <div class="kolase-item"><img src="images/home/5.jpeg" alt="Preview 5" class="lightbox-img"></div>
-        <div class="kolase-item"><img src="images/home/6.jpeg" alt="Preview 6" class="lightbox-img"></div>
-        <div class="kolase-item"><img src="images/home/1.jpeg" alt="Preview 7" class="lightbox-img"></div>
-        <div class="kolase-item"><img src="images/home/3.jpeg" alt="Preview 8" class="lightbox-img"></div>
-        <div class="kolase-item"><img src="images/home/5.jpeg" alt="Preview 9" class="lightbox-img"></div>
+      <div class="hero-img">
+        <img src="images/profile.jpeg" alt="Roni Setiawan" />
       </div>
-    </div>
+  
   </section>
 
   <!-- ABAOUT -->
@@ -525,7 +515,7 @@
         </div>
       </div>
     </div>
-
+  
   </section>
 
   <!-- PORTOFOLIO -->
@@ -804,125 +794,6 @@
         allPopups.forEach(p => p.classList.remove('active'));
       }
     }
-  </script>
-  <script document.addEventListener("DOMContentLoaded", ()=> {
-
-      // --- Daftar semua path gambar yang bisa di-shuffle ---
-      // PASTIKAN DAFTAR INI BENAR SESUAI DENGAN SEMUA FILE DI FOLDER ANDA
-      const ALL_IMAGE_PATHS = [
-        "images/home/1.jpeg",
-        "images/home/2.jpeg",
-        "images/home/3.jpeg",
-        "images/home/4.jpeg",
-        "images/home/5.jpeg",
-        "images/home/6.jpeg",
-        "images/home/7.jpeg",
-        "images/home/8.jpeg",
-        "images/home/9.jpeg",
-
-      ];
-
-
-      // 🔄 FUNGSI UTAMA SHUFFLE GAMBAR
-      function shuffleImagesInKolase(kolaseItems, imagePaths) {
-        kolaseItems.forEach(item => {
-          const imgElement = item.querySelector('img');
-          if (imgElement && !item.classList.contains('outline')) {
-            // Pilih path gambar acak dari array
-            const randomIndex = Math.floor(Math.random() * imagePaths.length);
-            imgElement.style.opacity = 0; // Mulai fade out
-
-            setTimeout(() => {
-              // Ganti gambar
-              imgElement.src = imagePaths[randomIndex];
-              imgElement.style.opacity = 0.8; // Fade in gambar baru (sesuaikan opacity di CSS)
-            }, 400); // Waktu yang sedikit lebih cepat dari transisi opacity
-          }
-        });
-      }
-
-
-      // --- 🛠️ FUNGSI UNTUK MENGSETUP KOLASE (DIREVISI: HAPUS ANIMASI GERAK) ---
-      function setupKolase(containerSelector, itemSizes, solidColors, outlineColor) {
-        const kolaseContainer = document.querySelector(containerSelector);
-        if (!kolaseContainer) return;
-
-        const kolaseItems = kolaseContainer.querySelectorAll(".kolase-item");
-        if (kolaseItems.length === 0) return;
-
-        const containerWidth = kolaseContainer.offsetWidth;
-        const containerHeight = kolaseContainer.offsetHeight;
-        const HEXAGON_SHAPE = "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)";
-
-        kolaseItems.forEach((item, index) => {
-          // --- 1. Ukuran, Posisi, dan Rotasi Acak (TETAP DIAM) ---
-          const minSize = itemSizes.min;
-          const maxSize = itemSizes.max;
-          const itemSize = Math.floor(Math.random() * (maxSize - minSize + 1)) + minSize;
-          item.style.width = `${itemSize}px`;
-          item.style.height = `${itemSize}px`;
-
-          const randomTop = Math.random() * (containerHeight - itemSize);
-          const randomLeft = Math.random() * (containerWidth - itemSize);
-          const randomRotation = Math.floor(Math.random() * 360); // Rotasi awal acak
-
-          item.style.top = `${randomTop}px`;
-          item.style.left = `${randomLeft}px`;
-          // Hanya transform awal, tidak ada animasi gerak berkelanjutan
-          item.style.transform = `rotate(${randomRotation}deg)`;
-
-          // Terapkan Bentuk Heksagon
-          item.style.clipPath = HEXAGON_SHAPE;
-          item.style.webkitClipPath = HEXAGON_SHAPE;
-
-          // --- 2. Warna dan Outline Acak ---
-          const isOutline = Math.random() > 0.5;
-
-          if (isOutline) {
-            item.classList.add('outline');
-            item.style.borderColor = outlineColor;
-            item.style.backgroundColor = 'transparent';
-          } else {
-            item.classList.remove('outline');
-            const randomColor = solidColors[Math.floor(Math.random() * solidColors.length)];
-            item.style.backgroundColor = randomColor;
-          }
-
-          // --- 3. Tampilkan item (HAPUS ANIMASI GERAK) ---
-          item.style.animation = 'none'; // Pastikan tidak ada animasi gerak CSS yang tersisa
-
-          setTimeout(() => {
-            item.style.opacity = 1;
-          }, index * 100);
-        });
-
-        // --- 4. MULAI SHUFFLE GAMBAR (FITUR BARU) ---
-        // Ganti gambar setiap 4 detik pada elemen yang BUKAN outline
-        setInterval(() => {
-          shuffleImagesInKolase(kolaseItems, ALL_IMAGE_PATHS);
-        }, 4000); // 4000ms = Ganti gambar setiap 4 detik
-      }
-
-
-      // --- PANGGILAN FUNGSI KOLASE ---
-      const HEX_PALETTE_RGBA = [
-        'rgba(123, 63, 0, 0.7)',
-        'rgba(165, 42, 42, 0.7)',
-        'rgba(210, 180, 140, 0.7)',
-        'rgba(188, 143, 143, 0.7)',
-        'rgba(224, 184, 145, 0.7)'
-      ];
-
-      setupKolase(
-        '.kolase-hexagons',
-        { min: 100, max: 200 },
-        HEX_PALETTE_RGBA,
-        '#7B3F00'
-      );
-
-      // ... (Sisa kode JS Anda yang lain) ...
-
-    }); // Akhir DOMContentLoaded
   </script>
   <script>
     AOS.init({ duration: 1000, once: true });
