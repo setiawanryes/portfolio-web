@@ -176,6 +176,12 @@ header {
     margin-bottom: 25px;
   }
 
+  .role-text
+    {
+        font-size: 1rem; /* Sedikit kecilkan teks slider */
+         justify-content: center;
+    }
+
   /* 5. Tombol ke Tengah */
   .buttons {
     display: flex;
