@@ -3,112 +3,320 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Modal</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
+    <title>Roni Setiawan - Portfolio Test</title>
+    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
     <style>
-        /* CSS TOMBOL (Contoh sederhana) */
-        .buttons { text-align: center; margin-top: 50px; }
-        .bt, .btn { padding: 10px 20px; background: #333; color: white; text-decoration: none; margin: 5px; border-radius: 5px; cursor: pointer;}
+        /* Sisipkan KODE CSS Final di sini */
+        /* Anda bisa menghapus tag <style> ini jika Anda menempatkannya di style.css terpisah */
         
-        /* === CSS MODAL FINAL === */
-        .modal {
-            display: none; /* Default sembunyi */
-            position: fixed; z-index: 9999; left: 0; top: 0;
-            width: 100%; height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(4px);
-            align-items: center; /* Tengah Vertikal */
-            justify-content: center; /* Tengah Horizontal */
-        }
-
-        .modal-content {
-            background-color: #fff;
-            padding: 30px; border-radius: 15px;
-            width: 90%; max-width: 400px;
-            text-align: center; position: relative;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            animation: popupAnim 0.4s ease-out;
+        body {
             font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a2e; /* Contoh background gelap */
+            color: #ffffff;
+            overflow-x: hidden;
         }
 
-        /* Close Button */
-        .close { position: absolute; top: 10px; right: 15px; font-size: 28px; cursor: pointer; color: #aaa; }
-        .close:hover { color: #000; }
+        /* ========================================================= */
+        /* 1. LAYOUT HERO (Dua Kolom) */
+        /* ========================================================= */
+        .hero {
+            display: flex;
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 100px 5%; 
+            min-height: 80vh; 
+            width: 100%;
+        }
 
-        /* Icons Contact */
-        .contact-icons { display: flex; justify-content: center; gap: 25px; margin-top: 20px; }
-        .icon-box { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #555; font-size: 12px; transition: transform 0.3s; }
-        .icon-box:hover { transform: translateY(-5px); }
-        .icon-box i { width: 50px; height: 50px; font-size: 24px; display: flex; align-items: center; justify-content: center; border-radius: 50%; color: #fff; margin-bottom: 8px; }
+        .hero-text {
+            width: 45%; 
+            max-width: 550px; 
+        }
+
+        .kolase-wrapper {
+            width: 50%;
+            position: relative; 
+            margin: 0; 
+        }
+
+        /* ========================================================= */
+        /* 2. GAYA KOLASE HEKSAGON STATIS */
+        /* ========================================================= */
+        .kolase-img.kolase-hexagons {
+            position: relative;
+            width: 100%;
+            min-height: 550px; /* Tinggi yang cukup untuk kolase */
+            background-color: transparent; 
+        }
+
+        /* Item Kolase */
+        .kolase-item {
+            position: absolute;
+            opacity: 0; 
+            /* Transisi untuk opacity (fade-in) dan transform (rotasi awal) */
+            transition: opacity 0.5s ease-in-out, transform 0.8s ease-out; 
+            box-sizing: border-box; 
+            background-color: transparent; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .kolase-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            opacity: 0.8; 
+            /* Transisi untuk pergantian gambar */
+            transition: opacity 0.4s ease-in-out; 
+        }
+
+        /* Efek Outline */
+        .kolase-item.outline {
+            background-color: transparent !important; 
+            border: 3px solid; /* Warna border diatur oleh JS */
+        }
+
+        .kolase-item.outline img {
+            visibility: hidden; /* Sembunyikan gambar agar terlihat murni bergaris */
+        }
         
-        .wa i { background: linear-gradient(45deg, #25D366, #128C7E); }
-        .email i { background: linear-gradient(45deg, #EA4335, #C5221F); }
-        .linkedin i { background: linear-gradient(45deg, #0077B5, #005582); }
+        /* Gaya Tambahan untuk Teks Hero dan Tombol */
+        .hero h1 { font-size: 3em; margin-bottom: 0.1em; }
+        .hero h1 span { color: #ff5722; }
+        .hero h3 { color: #ccc; font-weight: 300; }
+        .role-slider { height: 1.5em; overflow: hidden; }
+        .slide-text { animation: none !important; } /* Nonaktifkan animasi teks sebelumnya */
+        .socials a { color: #fff; margin-right: 15px; font-size: 1.5em; }
+        .btn1 { 
+            background-color: #ff5722; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 5px; 
+            margin-right: 10px; display: inline-block;
+        }
+        
+        /* Popup Sederhana */
+        .mini-popup { display: none; position: absolute; background: #333; padding: 10px; border-radius: 5px; z-index: 10; }
+        .mini-popup.active { display: block; }
+        .mini-popup a { color: #fff; display: block; padding: 5px 0; text-decoration: none; }
+        
+        /* ========================================================= */
+        /* 3. MEDIA QUERIES (Responsif) */
+        /* ========================================================= */
+        @media (max-width: 900px) {
+            .hero {
+                flex-direction: column; 
+                padding: 50px 5%;
+            }
 
-        /* Download Buttons */
-        .modal-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
-        .btn-download { padding: 12px; background: #f8f9fa; border: 1px solid #ddd; color: #333; text-decoration: none; border-radius: 8px; font-weight: bold; transition: 0.3s; }
-        .btn-download:hover { background: #333; color: white; }
-
-        @keyframes popupAnim { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+            .hero-text, .kolase-wrapper {
+                width: 100%;
+                max-width: none;
+                margin-bottom: 30px; 
+            }
+            
+            .kolase-img.kolase-hexagons {
+                min-height: 400px;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <div class="buttons">
-        <a href="javascript:void(0)" class="bt" id="btnHire">Hire Me</a>
-        <a href="javascript:void(0)" class="btn" id="btnDownload">Download CV</a>
-    </div>
+    <section id="home" class="hero">
+        
+        <div class="hero-text">
+            <h3>Hello, I am</h3>
+            <h1>Roni <span>Setiawan</span></h1>
+            <div class="role-slider">
+                <div class="slide-text" id="role-text">Web Developer</div>
+            </div>
+            <p>
+                I’m Roni Setiawan, an administration and data professional with a passion for web development. I love blending
+                design, data, and storytelling to create websites that inspire and make a difference.
+            </p>
 
-    <div id="modalHire" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h3>Contact Me</h3>
-            <p>Hubungi saya via:</p>
-            <div class="contact-icons">
-                <a href="#" class="icon-box wa"><i class="fab fa-whatsapp"></i>WhatsApp</a>
-                <a href="#" class="icon-box email"><i class="fas fa-envelope"></i>Email</a>
-                <a href="#" class="icon-box linkedin"><i class="fab fa-linkedin-in"></i>LinkedIn</a>
+            <div class="socials">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+
+            <div class="buttons">
+                <a href="mailto:ronisetiawan496@gmail.com" class="btn1">Hire Me</a>
+
+                <div class="button-wrapper">
+                    <a href="javascript:void(0)" class="btn" onclick="togglePopup('popupDl')">Download CV</a>
+                    <div id="popupDl" class="mini-popup">
+                        <div class="popup-arrow"></div>
+                        <div class="dl-links">
+                            <a href="#" target="_blank">English</a>
+                            <a href="#" target="_blank">Indonesia</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+
+        <div class="kolase-wrapper">
+            <div class="kolase-img kolase-hexagons">
+                <div class="kolase-item"><img src="images/home/1.jpeg" alt="Preview 1" class="lightbox-img"></div>
+                <div class="kolase-item"><img src="images/home/2.jpeg" alt="Preview 2" class="lightbox-img"></div>
+                <div class="kolase-item"><img src="images/home/3.jpeg" alt="Preview 3" class="lightbox-img"></div>
+                <div class="kolase-item"><img src="images/home/4.jpeg" alt="Preview 4" class="lightbox-img"></div>
+                <div class="kolase-item"><img src="images/home/5.jpeg" alt="Preview 5" class="lightbox-img"></div>
+                <div class="kolase-item"><img src="images/home/6.jpeg" alt="Preview 6" class="lightbox-img"></div>
+                <div class="kolase-item"><img src="images/home/7.jpeg" alt="Preview 7" class="lightbox-img"></div>
+                <div class="kolase-item"><img src="images/home/8.jpeg" alt="Preview 8" class="lightbox-img"></div>
+                <div class="kolase-item"><img src="images/home/9.jpeg" alt="Preview 9" class="lightbox-img"></div>
             </div>
         </div>
-    </div>
 
-    <div id="modalDownload" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h3>Download CV</h3>
-            <div class="modal-actions">
-                <a href="#" class="btn-download">🇬🇧 English</a>
-                <a href="#" class="btn-download">🇮🇩 Indonesia</a>
-            </div>
-        </div>
-    </div>
+    </section>
 
-    <script>
-        // 1. Ambil Elemen
-        const modalHire = document.getElementById("modalHire");
-        const modalDownload = document.getElementById("modalDownload");
-        const btnHire = document.getElementById("btnHire");
-        const btnDownload = document.getElementById("btnDownload");
-        const closeButtons = document.querySelectorAll(".close");
+<script>
+    // FUNGSI POPUP (Diambil dari kode Anda sebelumnya)
+    function togglePopup(popupId) {
+        const popup = document.getElementById(popupId);
+        const allPopups = document.querySelectorAll('.mini-popup');
+        const isAlreadyOpen = popup && popup.classList.contains('active');
 
-        // 2. Event Listener Buka Modal (Gunakan FLEX agar center)
-        btnHire.onclick = function() { modalHire.style.display = "flex"; }
-        btnDownload.onclick = function() { modalDownload.style.display = "flex"; }
+        allPopups.forEach(p => p.classList.remove('active'));
 
-        // 3. Event Listener Tutup Modal (Tombol X)
-        closeButtons.forEach(btn => {
-            btn.onclick = function() {
-                btn.closest(".modal").style.display = "none";
-            }
-        });
-
-        // 4. Event Listener Tutup Modal (Klik Luar)
-        window.onclick = function(e) {
-            if (e.target == modalHire) modalHire.style.display = "none";
-            if (e.target == modalDownload) modalDownload.style.display = "none";
+        if (popup && !isAlreadyOpen) {
+            popup.classList.add('active');
         }
-    </script>
+    }
+    window.onclick = function (event) {
+        if (!event.target.matches('.btn') && !event.target.closest('.button-wrapper')) { 
+            const allPopups = document.querySelectorAll('.mini-popup');
+            allPopups.forEach(p => p.classList.remove('active'));
+        }
+    }
+    
+    // =========================================================
+    // KODE JAVASCRIPT KOLASE
+    // =========================================================
+    document.addEventListener("DOMContentLoaded", () => {
+
+        // --- Daftar semua path gambar yang bisa di-shuffle (SESUAI PERMINTAAN ANDA) ---
+        const ALL_IMAGE_PATHS = [
+            "images/home/1.jpeg",
+            "images/home/2.jpeg",
+            "images/home/3.jpeg",
+            "images/home/4.jpeg",
+            "images/home/5.jpeg",
+            "images/home/6.jpeg",
+            "images/home/7.jpeg",
+            "images/home/8.jpeg",
+            "images/home/9.jpeg",
+        ];
+
+        // 🔄 FUNGSI UTAMA SHUFFLE GAMBAR
+        function shuffleImagesInKolase(kolaseItems, imagePaths) {
+            kolaseItems.forEach(item => {
+                // Hanya ganti gambar jika item BUKAN outline
+                if (!item.classList.contains('outline')) {
+                    const imgElement = item.querySelector('img');
+                    if (imgElement) {
+                        // Mulai fade out
+                        imgElement.style.opacity = 0; 
+                        
+                        setTimeout(() => {
+                            // Ganti gambar baru secara acak
+                            const randomIndex = Math.floor(Math.random() * imagePaths.length);
+                            imgElement.src = imagePaths[randomIndex];
+                            // Fade in gambar baru
+                            imgElement.style.opacity = 0.8; 
+                        }, 400); 
+                    }
+                }
+            });
+        }
+
+
+        // --- 🛠️ FUNGSI UNTUK MENGSETUP KOLASE STATIS ---
+        function setupKolase(containerSelector, itemSizes, solidColors, outlineColor) {
+            const kolaseContainer = document.querySelector(containerSelector);
+            if (!kolaseContainer) return;
+
+            const kolaseItems = kolaseContainer.querySelectorAll(".kolase-item");
+            if (kolaseItems.length === 0) return;
+
+            const containerWidth = kolaseContainer.offsetWidth;
+            const containerHeight = kolaseContainer.offsetHeight;
+            const HEXAGON_SHAPE = "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)";
+
+            kolaseItems.forEach((item) => { 
+                
+                // --- 1. Ukuran, Posisi, dan Rotasi Acak (STATIS) ---
+                const minSize = itemSizes.min;
+                const maxSize = itemSizes.max;
+                const itemSize = Math.floor(Math.random() * (maxSize - minSize + 1)) + minSize;
+                item.style.width = `${itemSize}px`;
+                item.style.height = `${itemSize}px`;
+
+                const randomTop = Math.random() * (containerHeight - itemSize);
+                const randomLeft = Math.random() * (containerWidth - itemSize);
+                const randomRotation = Math.floor(Math.random() * 360); 
+
+                item.style.top = `${randomTop}px`;
+                item.style.left = `${randomLeft}px`;
+                item.style.transform = `rotate(${randomRotation}deg)`; 
+                item.style.animation = 'none'; // NON-AKTIFKAN ANIMASI GERAK
+
+                // Terapkan Bentuk Heksagon
+                item.style.clipPath = HEXAGON_SHAPE;
+                item.style.webkitClipPath = HEXAGON_SHAPE;
+
+                // --- 2. Warna dan Outline Acak ---
+                const isOutline = Math.random() > 0.5;
+                
+                if (isOutline) {
+                    item.classList.add('outline');
+                    item.style.borderColor = outlineColor;
+                    item.style.backgroundColor = 'transparent'; 
+                } else {
+                    item.classList.remove('outline');
+                    const randomColor = solidColors[Math.floor(Math.random() * solidColors.length)];
+                    item.style.backgroundColor = randomColor;
+                }
+
+                // Tampilkan item (Hanya fade-in)
+                setTimeout(() => {
+                    item.style.opacity = 1;
+                }, Math.random() * 800); 
+            });
+            
+            // --- 3. MULAI SHUFFLE GAMBAR ---
+            setInterval(() => {
+                shuffleImagesInKolase(kolaseItems, ALL_IMAGE_PATHS);
+            }, 4000); 
+        }
+
+        // --- PANGGILAN FUNGSI KOLASE ---
+        const HEX_PALETTE_RGBA = [
+            'rgba(123, 63, 0, 0.7)',   
+            'rgba(165, 42, 42, 0.7)',  
+            'rgba(210, 180, 140, 0.7)',
+            'rgba(188, 143, 143, 0.7)',
+            'rgba(224, 184, 145, 0.7)' 
+        ];
+
+        setupKolase(
+            '.kolase-hexagons',
+            { min: 100, max: 200 },
+            HEX_PALETTE_RGBA,
+            '#7B3F00' 
+        );
+
+    }); // Akhir DOMContentLoaded
+</script>
+
 </body>
 </html>
