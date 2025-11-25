@@ -1,0 +1,93 @@
+/* ============================
+   STYLE UMUM (LAPTOP/DESKTOP)
+   ============================ */
+header {
+  position: fixed; /* Agar navbar nempel di atas saat scroll */
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px 5%; /* Padding kiri kanan */
+  background: #1a1a2e; /* Sesuaikan dengan warna backgroundmu */
+  z-index: 1000; /* Pastikan di atas elemen lain */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.logo span {
+  color: #ff5722; /* Warna aksen (oranye) */
+}
+
+.nav-links {
+  list-style: none;
+  display: flex; /* Menu berjejer ke samping */
+  gap: 30px; /* Jarak antar menu */
+}
+
+.nav-links li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.nav-links li a:hover {
+  color: #ff5722;
+}
+
+/* Sembunyikan tombol hamburger di Laptop */
+.menu-toggle {
+  display: none;
+  color: #fff;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+/* ============================
+   MODE HP & TABLET (Max Width 768px)
+   ============================ */
+@media screen and (max-width: 768px) {
+  
+  /* 1. Tampilkan Tombol Hamburger */
+  .menu-toggle {
+    display: block;
+  }
+
+  /* 2. Ubah Navigasi Menjadi Vertikal (Dropdown/Sidebar) */
+  .nav-links {
+    position: absolute;
+    top: 100%; /* Muncul tepat di bawah header */
+    left: 0;
+    width: 100%;
+    background-color: #161625; /* Warna background menu di HP */
+    flex-direction: column; /* Menu jadi atas-bawah */
+    align-items: center;
+    padding: 20px 0;
+    gap: 25px;
+    
+    /* Efek Animasi Muncul */
+    transform: translateY(-200%); /* Geser ke atas (sembunyi) */
+    transition: transform 0.4s ease-in-out;
+    opacity: 0; /* Transparan saat sembunyi */
+    z-index: -1; /* Di belakang header */
+  }
+
+  /* Class ini akan ditambahkan lewat JS saat tombol diklik */
+  .nav-links.active {
+    transform: translateY(0); /* Balik ke posisi normal */
+    opacity: 1;
+    z-index: 999;
+  }
+}
