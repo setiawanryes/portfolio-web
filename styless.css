@@ -355,3 +355,93 @@ header {
 .role-desc ul {
     text-align: left; /* Daftar list tetap rapi rata kiri */
 }
+
+/* =========================================
+   RESPONSIVE PORTFOLIO SECTION STYLES
+   ========================================= */
+
+/* 1. Kontainer Utama & Judul */
+.portfolio-container {
+    padding: 30px 5%; 
+}
+
+.portfolio-title, 
+.portfolio-subtitle {
+    text-align: center; /* Rata tengah Judul dan Subjudul */
+    margin: 0 auto;
+}
+
+.portfolio-title {
+    font-size: 2rem;
+}
+.portfolio-subtitle {
+    font-size: 1rem;
+    max-width: 90%;
+    margin-bottom: 25px;
+}
+
+/* 2. Tab Navigasi (Projects, Certificates, Achievements) */
+.portfolio-tabs {
+    /* Atur agar tab bisa digeser/scroll horizontal */
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: scroll; 
+    justify-content: flex-start; 
+    margin-bottom: 25px;
+    padding-bottom: 5px; /* Sedikit ruang agar tidak terlalu mepet */
+}
+
+/* Sembunyikan scrollbar di tab */
+.portfolio-tabs::-webkit-scrollbar {
+    display: none; 
+}
+
+.portfolio-tabs .tab-btn {
+    font-size: 0.9rem;
+    padding: 8px 15px;
+    flex-shrink: 0; /* Penting: agar tombol tidak mengecil */
+    margin-right: 10px;
+    /* Tambahkan style border/background tombol sesuai desain desktopmu */
+}
+
+/* 3. Grid Card (Konten Tab) */
+.card-grid {
+    /* Trik Utama: Ubah dari Grid 3/4 kolom menjadi 1 kolom di HP */
+    display: grid;
+    grid-template-columns: 1fr; /* Hanya satu kolom penuh */
+    gap: 30px; /* Jarak antar card */
+}
+
+/* 4. Styling Setiap Card */
+.portfolio-card {
+    /* Card akan mengambil lebar penuh (100%) */
+    max-width: 100%; 
+    margin: 0 auto; /* Pastikan card di tengah jika ada max-width di desktop */
+}
+
+.portfolio-card img {
+    /* Pastikan gambar mengisi penuh lebar card */
+    width: 100%; 
+    height: auto; 
+    object-fit: cover;
+}
+
+.card-content h3 {
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
+
+.card-content p {
+    font-size: 0.95rem;
+}
+
+/* 5. Footer Proyek (Stars & Details Button) */
+.project-footer {
+    flex-direction: column;
+    align-items: flex-start; /* Rata kiri di HP */
+    gap: 10px;
+    margin-top: 15px;
+}
+.project-footer .details {
+    align-self: flex-end; /* Tombol "Details" bisa ditaruh di kanan bawah */
+}
