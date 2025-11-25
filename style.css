@@ -17,22 +17,6 @@ body {
   overflow-x: hidden;
 }
 
-/* ========================
-   NAVBAR
-======================== */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 60px;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(10px);
-  position: fixed;
-  width: 100%;
-  top: 0;
-  z-index: 10;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
 
 .logo {
   font-weight: 700;
