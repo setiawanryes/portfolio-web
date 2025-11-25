@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roni Setiawan - Portfolio Test</title>
-    <link rel="stylesheet" href="style.css"> 
+    <title>Roni Setiawan - Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <style>
-        /* Sisipkan KODE CSS Final di sini */
-        /* Anda bisa menghapus tag <style> ini jika Anda menempatkannya di style.css terpisah */
         
+        /* ========================================================= */
+        /* 0. DASAR DAN FONT */
+        /* ========================================================= */
         body {
             font-family: sans-serif;
             margin: 0;
@@ -19,9 +19,26 @@
             color: #ffffff;
             overflow-x: hidden;
         }
+        
+        /* Gaya Tambahan untuk Teks Hero dan Tombol */
+        .hero h1 { font-size: 3em; margin-bottom: 0.1em; }
+        .hero h1 span { color: #ff5722; }
+        .hero h3 { color: #ccc; font-weight: 300; }
+        .role-slider { height: 1.5em; overflow: hidden; }
+        .socials a { color: #fff; margin-right: 15px; font-size: 1.5em; opacity: 0.7; transition: opacity 0.3s; }
+        .socials a:hover { opacity: 1; }
+        .btn1 { 
+            background-color: #ff5722; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 5px; 
+            margin-right: 10px; display: inline-block; transition: background-color 0.3s;
+        }
+        .btn1:hover { background-color: #e64a19; }
+        .mini-popup { display: none; position: absolute; background: #333; padding: 10px; border-radius: 5px; z-index: 10; }
+        .mini-popup.active { display: block; }
+        .mini-popup a { color: #fff; display: block; padding: 5px 0; text-decoration: none; }
+
 
         /* ========================================================= */
-        /* 1. LAYOUT HERO (Dua Kolom) */
+        /* 1. LAYOUT HERO (Dua Kolom - Flexbox) */
         /* ========================================================= */
         .hero {
             display: flex;
@@ -44,26 +61,38 @@
         }
 
         /* ========================================================= */
-        /* 2. GAYA KOLASE HEKSAGON STATIS */
+        /* 2. GAYA KOLASE HEKSAGON TERSTRUKTUR */
         /* ========================================================= */
         .kolase-img.kolase-hexagons {
-            position: relative;
+            min-height: 650px; /* Tinggi yang cukup untuk pola heksagon */
             width: 100%;
-            min-height: 550px; /* Tinggi yang cukup untuk kolase */
+            position: relative;
             background-color: transparent; 
+            overflow: hidden; 
         }
 
         /* Item Kolase */
         .kolase-item {
             position: absolute;
             opacity: 0; 
-            /* Transisi untuk opacity (fade-in) dan transform (rotasi awal) */
-            transition: opacity 0.5s ease-in-out, transform 0.8s ease-out; 
+            /* Transisi untuk fade-in, rotasi awal, dan efek hover */
+            transition: opacity 0.5s ease-in-out, transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; 
             box-sizing: border-box; 
-            background-color: transparent; 
+            border-radius: 0; 
             display: flex;
             justify-content: center;
             align-items: center;
+            /* Ukuran ini akan digunakan JS untuk menghitung pola grid */
+            width: 150px; 
+            height: 150px; 
+        }
+        
+        /* EFEK HOVER (Membuat kolase terasa hidup) */
+        .kolase-item:hover {
+            transform: scale(1.08) rotate(var(--initial-rotation, 0deg)) !important; /* Membesar sedikit */
+            z-index: 10; 
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); 
+            cursor: pointer;
         }
 
         .kolase-item img {
@@ -72,37 +101,21 @@
             object-fit: cover;
             display: block;
             opacity: 0.8; 
-            /* Transisi untuk pergantian gambar */
-            transition: opacity 0.4s ease-in-out; 
+            transition: opacity 0.4s ease-in-out; /* Untuk transisi shuffle gambar */
         }
 
         /* Efek Outline */
         .kolase-item.outline {
             background-color: transparent !important; 
-            border: 3px solid; /* Warna border diatur oleh JS */
+            border: 3px solid; /* Warna diatur oleh JS */
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2); 
         }
 
         .kolase-item.outline img {
-            visibility: hidden; /* Sembunyikan gambar agar terlihat murni bergaris */
+            visibility: hidden; 
         }
-        
-        /* Gaya Tambahan untuk Teks Hero dan Tombol */
-        .hero h1 { font-size: 3em; margin-bottom: 0.1em; }
-        .hero h1 span { color: #ff5722; }
-        .hero h3 { color: #ccc; font-weight: 300; }
-        .role-slider { height: 1.5em; overflow: hidden; }
-        .slide-text { animation: none !important; } /* Nonaktifkan animasi teks sebelumnya */
-        .socials a { color: #fff; margin-right: 15px; font-size: 1.5em; }
-        .btn1 { 
-            background-color: #ff5722; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 5px; 
-            margin-right: 10px; display: inline-block;
-        }
-        
-        /* Popup Sederhana */
-        .mini-popup { display: none; position: absolute; background: #333; padding: 10px; border-radius: 5px; z-index: 10; }
-        .mini-popup.active { display: block; }
-        .mini-popup a { color: #fff; display: block; padding: 5px 0; text-decoration: none; }
-        
+
+
         /* ========================================================= */
         /* 3. MEDIA QUERIES (Responsif) */
         /* ========================================================= */
@@ -120,6 +133,12 @@
             
             .kolase-img.kolase-hexagons {
                 min-height: 400px;
+            }
+            
+            /* Kecilkan ukuran heksagon di mobile */
+            .kolase-item {
+                width: 100px;
+                height: 100px;
             }
         }
     </style>
@@ -140,11 +159,11 @@
             </p>
 
             <div class="socials">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-tiktok"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                <a href="#"><i class="fa-solid fa-envelope"></i></a>
+                <a href="https://www.facebook.com/rstwnnn"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.tiktok.com/@setiawanryes_"><i class="fab fa-tiktok"></i></a>
+                <a href="https://www.instagram.com/setiawanryes_"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.linkedin.com/in/rstwn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="mailto:ronisetiawan496@gmail.com"><i class="fa-solid fa-envelope"></i></a>
             </div>
 
             <div class="buttons">
@@ -180,7 +199,7 @@
     </section>
 
 <script>
-    // FUNGSI POPUP (Diambil dari kode Anda sebelumnya)
+    // FUNGSI POPUP (Dipertahankan dari kode Anda sebelumnya)
     function togglePopup(popupId) {
         const popup = document.getElementById(popupId);
         const allPopups = document.querySelectorAll('.mini-popup');
@@ -199,12 +218,10 @@
         }
     }
     
-    // =========================================================
-    // KODE JAVASCRIPT KOLASE
-    // =========================================================
+    
     document.addEventListener("DOMContentLoaded", () => {
 
-        // --- Daftar semua path gambar yang bisa di-shuffle (SESUAI PERMINTAAN ANDA) ---
+        // --- Daftar semua path gambar yang bisa di-shuffle ---
         const ALL_IMAGE_PATHS = [
             "images/home/1.jpeg",
             "images/home/2.jpeg",
@@ -220,18 +237,14 @@
         // 🔄 FUNGSI UTAMA SHUFFLE GAMBAR
         function shuffleImagesInKolase(kolaseItems, imagePaths) {
             kolaseItems.forEach(item => {
-                // Hanya ganti gambar jika item BUKAN outline
                 if (!item.classList.contains('outline')) {
                     const imgElement = item.querySelector('img');
                     if (imgElement) {
-                        // Mulai fade out
                         imgElement.style.opacity = 0; 
                         
                         setTimeout(() => {
-                            // Ganti gambar baru secara acak
                             const randomIndex = Math.floor(Math.random() * imagePaths.length);
                             imgElement.src = imagePaths[randomIndex];
-                            // Fade in gambar baru
                             imgElement.style.opacity = 0.8; 
                         }, 400); 
                     }
@@ -240,42 +253,58 @@
         }
 
 
-        // --- 🛠️ FUNGSI UNTUK MENGSETUP KOLASE STATIS ---
-        function setupKolase(containerSelector, itemSizes, solidColors, outlineColor) {
+        // --- 🛠️ FUNGSI UNTUK MENGSETUP KOLASE STATIS & BERPOLA ---
+        function setupKolase(containerSelector, solidColors, outlineColor) {
             const kolaseContainer = document.querySelector(containerSelector);
             if (!kolaseContainer) return;
 
             const kolaseItems = kolaseContainer.querySelectorAll(".kolase-item");
             if (kolaseItems.length === 0) return;
 
-            const containerWidth = kolaseContainer.offsetWidth;
-            const containerHeight = kolaseContainer.offsetHeight;
             const HEXAGON_SHAPE = "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)";
+            
+            // --- NILAI UNTUK POLA SARANG LEBAH ---
+            const HEX_SIZE_PX = 150; // Harus sama dengan .kolase-item di CSS
+            const H_SPACING = HEX_SIZE_PX * 0.75;
+            const V_SPACING = HEX_SIZE_PX * Math.sqrt(3) / 2;
+            const COLS_PER_ROW = 3; 
 
-            kolaseItems.forEach((item) => { 
+            kolaseItems.forEach((item, index) => {
                 
-                // --- 1. Ukuran, Posisi, dan Rotasi Acak (STATIS) ---
-                const minSize = itemSizes.min;
-                const maxSize = itemSizes.max;
-                const itemSize = Math.floor(Math.random() * (maxSize - minSize + 1)) + minSize;
-                item.style.width = `${itemSize}px`;
-                item.style.height = `${itemSize}px`;
+                // Hitung posisi berdasarkan pola
+                const row = Math.floor(index / COLS_PER_ROW);
+                const col = index % COLS_PER_ROW; 
 
-                const randomTop = Math.random() * (containerHeight - itemSize);
-                const randomLeft = Math.random() * (containerWidth - itemSize);
-                const randomRotation = Math.floor(Math.random() * 360); 
+                let top = row * V_SPACING;
+                let left = col * H_SPACING;
 
-                item.style.top = `${randomTop}px`;
-                item.style.left = `${randomLeft}px`;
+                // Geser baris ganjil ke samping untuk pola sarang lebah
+                if (row % 2 === 1) {
+                    left += HEX_SIZE_PX / 2;
+                }
+
+                // Tambahkan sedikit keacakan pada posisi yang terstruktur
+                const randomShift = Math.random() * 15 - 7.5; 
+                top += randomShift;
+                left += randomShift;
+                
+                // Rotasi hanya kelipatan 60 derajat untuk heksagon yang rapi
+                const randomRotation = Math.floor(Math.random() * 6) * 60; 
+
+                // Terapkan Gaya dan Posisi
+                item.style.width = `${HEX_SIZE_PX}px`;
+                item.style.height = `${HEX_SIZE_PX}px`;
+                item.style.top = `${top}px`;
+                item.style.left = `${left}px`;
                 item.style.transform = `rotate(${randomRotation}deg)`; 
-                item.style.animation = 'none'; // NON-AKTIFKAN ANIMASI GERAK
+                item.style.setProperty('--initial-rotation', `${randomRotation}deg`); // Simpan rotasi awal untuk hover
 
-                // Terapkan Bentuk Heksagon
                 item.style.clipPath = HEXAGON_SHAPE;
                 item.style.webkitClipPath = HEXAGON_SHAPE;
+                item.style.animation = 'none'; // Pastikan tidak ada animasi gerak
 
-                // --- 2. Warna dan Outline Acak ---
-                const isOutline = Math.random() > 0.5;
+                // Warna dan Outline Acak
+                const isOutline = Math.random() > 0.4; // 60% Solid, 40% Outline
                 
                 if (isOutline) {
                     item.classList.add('outline');
@@ -287,10 +316,10 @@
                     item.style.backgroundColor = randomColor;
                 }
 
-                // Tampilkan item (Hanya fade-in)
+                // Tampilkan item (Fade-in)
                 setTimeout(() => {
                     item.style.opacity = 1;
-                }, Math.random() * 800); 
+                }, index * 100); 
             });
             
             // --- 3. MULAI SHUFFLE GAMBAR ---
@@ -310,12 +339,11 @@
 
         setupKolase(
             '.kolase-hexagons',
-            { min: 100, max: 200 },
             HEX_PALETTE_RGBA,
             '#7B3F00' 
         );
 
-    }); // Akhir DOMContentLoaded
+    }); 
 </script>
 
 </body>
