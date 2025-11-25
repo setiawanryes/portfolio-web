@@ -1,14 +1,10 @@
-/* ============================
-   STYLE UMUM (LAPTOP/DESKTOP)
-   ============================ */
+/* === STYLE UMUM (LAPTOP/DESKTOP) === */
 header {
-  position: fixed; /* Agar navbar nempel di atas saat scroll */
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 20px 5%; /* Padding kiri kanan */
-  background: #1a1a2e; /* Sesuaikan dengan warna backgroundmu */
-  z-index: 1000; /* Pastikan di atas elemen lain */
+  position: fixed;
+  top: 0; left: 0; width: 100%;
+  padding: 15px 5%;
+  background: #1a1a2e; /* Warna Background Header */
+  z-index: 1000;
   box-shadow: 0 2px 10px rgba(0,0,0,0.3);
 }
 
@@ -19,75 +15,95 @@ header {
 }
 
 .logo {
-  color: #fff;
-  font-size: 24px;
-  font-weight: bold;
-  cursor: pointer;
+  color: #fff; font-size: 24px; font-weight: bold;
 }
+.logo span { color: #ff5722; }
 
-.logo span {
-  color: #ff5722; /* Warna aksen (oranye) */
-}
-
+/* Menu Desktop */
 .nav-links {
   list-style: none;
-  display: flex; /* Menu berjejer ke samping */
-  gap: 30px; /* Jarak antar menu */
+  display: flex;
+  align-items: center;
+  gap: 30px;
 }
 
 .nav-links li a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 18px;
-  font-weight: 500;
-  transition: color 0.3s;
+  color: #fff; text-decoration: none; font-weight: 500; transition: 0.3s;
 }
+.nav-links li a:hover { color: #ff5722; }
 
-.nav-links li a:hover {
-  color: #ff5722;
-}
-
-/* Sembunyikan tombol hamburger di Laptop */
-.menu-toggle {
+/* Sembunyikan elemen mobile di Desktop */
+.menu-toggle, .close-menu, .overlay {
   display: none;
-  color: #fff;
-  font-size: 28px;
-  cursor: pointer;
 }
 
-/* ============================
-   MODE HP & TABLET (Max Width 768px)
-   ============================ */
+/* === STYLE MOBILE (SIDEBAR MODE) === */
 @media screen and (max-width: 768px) {
   
   /* 1. Tampilkan Tombol Hamburger */
   .menu-toggle {
     display: block;
+    color: #fff;
+    font-size: 26px;
+    cursor: pointer;
   }
 
-  /* 2. Ubah Navigasi Menjadi Vertikal (Dropdown/Sidebar) */
+  /* 2. Ubah Navigasi jadi Sidebar */
   .nav-links {
-    position: absolute;
-    top: 100%; /* Muncul tepat di bawah header */
-    left: 0;
-    width: 100%;
-    background-color: #161625; /* Warna background menu di HP */
-    flex-direction: column; /* Menu jadi atas-bawah */
-    align-items: center;
-    padding: 20px 0;
-    gap: 25px;
-    
-    /* Efek Animasi Muncul */
-    transform: translateY(-200%); /* Geser ke atas (sembunyi) */
-    transition: transform 0.4s ease-in-out;
-    opacity: 0; /* Transparan saat sembunyi */
-    z-index: -1; /* Di belakang header */
+    position: fixed;
+    top: 0;
+    right: -250px; /* Sembunyi di kanan layar */
+    width: 250px; /* Lebar sidebar */
+    height: 100vh; /* Tinggi full layar */
+    background: #161625; /* Warna Sidebar */
+    flex-direction: column; /* Susun ke bawah */
+    align-items: flex-start; /* Rata kiri */
+    justify-content: flex-start;
+    padding-top: 60px; /* Jarak dari atas */
+    padding-left: 30px;
+    transition: right 0.4s ease; /* Animasi geser */
+    z-index: 1001; /* Di atas overlay */
+    box-shadow: -2px 0 10px rgba(0,0,0,0.5);
   }
 
-  /* Class ini akan ditambahkan lewat JS saat tombol diklik */
+  /* Class ini ditambahkan JS saat menu dibuka */
   .nav-links.active {
-    transform: translateY(0); /* Balik ke posisi normal */
-    opacity: 1;
-    z-index: 999;
+    right: 0; /* Muncul ke layar */
+  }
+
+  /* Style Link di dalam Sidebar */
+  .nav-links li {
+    margin: 15px 0;
+  }
+  .nav-links li a {
+    font-size: 18px;
+    display: block;
+    width: 100%;
+  }
+
+  /* 3. Tombol Close (X) di dalam Sidebar */
+  .close-menu {
+    display: block;
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-size: 24px;
+    color: #aaa;
+    cursor: pointer;
+  }
+  .close-menu:hover { color: #fff; }
+
+  /* 4. Overlay (Layar gelap di belakang sidebar) */
+  .overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5); /* Hitam transparan */
+    display: none; /* Default sembunyi */
+    z-index: 1000;
+  }
+  
+  .overlay.active {
+    display: block; /* Muncul saat aktif */
   }
 }

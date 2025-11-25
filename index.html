@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Roni Setiawan | Portfolio </title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link rel="stylesheet" href="stye.css" />
+  <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="styless.css" />
   <link rel="stylesheet" href="experience.css" />
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -19,16 +19,25 @@
 
 <body>
   <header>
-    <nav class="navbar">
-      <h2 class="logo">Portfolio<span>.Roni Setiawan</span></h2>
-      <ul class="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#portfolio">Portfolio</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
+  <nav class="navbar">
+    <h2 class="logo">Portfolio<span>.Roni</span></h2>
+    
+    <div class="menu-toggle" id="mobile-menu">
+      <i class="fas fa-bars"></i>
+    </div>
+
+    <ul class="nav-links">
+      <div class="close-menu"><i class="fas fa-times"></i></div>
+      
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <div class="overlay" id="overlay"></div>
+  </nav>
+</header>
 
 
   <!-- HOME -->
@@ -778,37 +787,42 @@
     AOS.init({ duration: 1000, once: true });
   </script>
 <script>document.addEventListener("DOMContentLoaded", () => {
-    // Ambil elemen
     const menuToggle = document.getElementById('mobile-menu');
     const navLinks = document.querySelector('.nav-links');
+    const closeMenu = document.querySelector('.close-menu');
+    const overlay = document.getElementById('overlay');
+    const links = document.querySelectorAll('.nav-links a');
 
-    // 1. Saat tombol hamburger diklik
-    if (menuToggle) {
-        menuToggle.addEventListener('click', () => {
-            // Tambahkan/Hapus class 'active'
-            navLinks.classList.toggle('active');
-            
-            // Opsional: Ubah ikon garis (bars) jadi silang (times)
-            const icon = menuToggle.querySelector('i');
-            if (navLinks.classList.contains('active')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
-            } else {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            }
-        });
+    // Fungsi Buka Menu
+    function openMenu() {
+        navLinks.classList.add('active');
+        overlay.classList.add('active');
     }
 
-    // 2. Tutup menu saat salah satu link diklik (Biar user tidak perlu nutup manual)
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            navLinks.classList.remove('active');
-            // Reset ikon ke garis
-            const icon = menuToggle.querySelector('i');
-            icon.classList.remove('fa-times');
-            icon.classList.add('fa-bars');
-        });
+    // Fungsi Tutup Menu
+    function closeMenuFunc() {
+        navLinks.classList.remove('active');
+        overlay.classList.remove('active');
+    }
+
+    // Event Klik Tombol Hamburger
+    if (menuToggle) {
+        menuToggle.addEventListener('click', openMenu);
+    }
+
+    // Event Klik Tombol Close (X)
+    if (closeMenu) {
+        closeMenu.addEventListener('click', closeMenuFunc);
+    }
+
+    // Event Klik Overlay (Klik di luar menu untuk tutup)
+    if (overlay) {
+        overlay.addEventListener('click', closeMenuFunc);
+    }
+
+    // Event Klik Link (Otomatis tutup menu setelah klik section)
+    links.forEach(link => {
+        link.addEventListener('click', closeMenuFunc);
     });
 });</script>
   <script src="script.js"></script>
