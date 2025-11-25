@@ -215,3 +215,143 @@ header {
     margin-top: 30px; /* Jarak dari paragraf di atasnya */
     flex-wrap: wrap; /* Tombol bisa turun baris di layar kecil */
 }
+
+/* =========================================
+   RESPONSIVE ABOUT SECTION STYLES
+   ========================================= */
+
+/* 1. Atur Wadah Utama */
+.about-container {
+    flex-direction: column; /* Susunan vertikal: Sidebar di atas, Konten di bawah */
+    padding: 30px 5%; /* Kurangi padding horizontal di HP */
+    gap: 0; /* Hilangkan jarak antar sidebar dan konten */
+}
+
+/* 2. Styling Sidebar (Wadah Navigasi) */
+.about-sidebar {
+    width: 100%; /* Ambil lebar penuh */
+    padding: 0;
+    margin-bottom: 20px;
+    text-align: center; /* Rata tengah semua teks judul di HP */
+}
+
+.about-sidebar h2 {
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+}
+
+.about-sidebar .subtitle {
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}
+
+/* 3. Styling Tab Navigasi (UL) */
+.about-tabs {
+    /* Pakai Flexbox agar tab berjejer horizontal */
+    display: flex;
+    flex-wrap: nowrap; /* Jangan turun baris */
+    justify-content: flex-start; /* Rata kiri (atau center jika tabnya sedikit) */
+    overflow-x: scroll; /* Jika tab banyak, bisa di-scroll horizontal */
+    padding: 10px 0;
+    margin-bottom: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.about-tabs::-webkit-scrollbar {
+    display: none; /* Sembunyikan scrollbar di Chrome/Safari */
+}
+
+.about-tabs .tab {
+    font-size: 0.85rem;
+    padding: 8px 12px;
+    flex-shrink: 0; /* Penting: agar item tab tidak mengecil */
+}
+
+/* 4. Styling Konten Utama */
+.about-content {
+    width: 100%; /* Ambil lebar penuh */
+    padding: 0;
+}
+
+/* === Sub-Section: INTRODUCTION === */
+.tab-content {
+    padding-top: 20px;
+}
+
+/* Profile Box: Image & Bio */
+.profile-box {
+    flex-direction: column; /* Susun foto dan bio ke bawah */
+    text-align: center;
+}
+
+.profile-box img {
+    width: 150px; /* Ukuran foto yang lebih ringkas */
+    height: 150px;
+    margin: 0 auto 15px auto; /* Rata tengah foto */
+    border-radius: 50%; /* Bulatkan foto */
+}
+
+.profile-box .bio {
+    padding: 0;
+}
+.profile-box .bio p {
+    text-align: left; /* Biar paragrafnya tetap enak dibaca */
+    margin-top: 10px;
+    font-size: 0.95rem;
+}
+
+/* === Sub-Section: PERSONAL DETAIL === */
+.info-box {
+    flex-direction: column; /* Susun elemen (Personal, Card, Interests) ke bawah */
+    gap: 30px;
+}
+
+.personal ul {
+    text-align: left; /* Biar data ul rapi rata kiri */
+    padding-left: 20px;
+}
+
+.card {
+    margin: 0;
+}
+
+/* Interests */
+.interests .tags {
+    justify-content: center; /* Rata tengah tag-tagnya */
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* === Sub-Section: EXPERIENCE (Slider) === */
+.slider-wrapper {
+    position: relative;
+    padding: 0 40px; /* Beri ruang untuk tombol panah */
+}
+
+/* Tombol Navigasi Slider */
+.main-slider-btn {
+    top: 50%;
+    transform: translateY(-50%);
+    /* Ukuran dan posisi tombol bisa disesuaikan di sini */
+}
+
+.experience-footer .buttons {
+    justify-content: center; /* Rata tengah tombol di dalam experience card */
+}
+
+/* Pastikan logo dan info pengalaman tetap rapi */
+.exp-top {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    gap: 10px;
+}
+.exp-info {
+    text-align: center;
+}
+.exp-body-grid {
+    padding-top: 15px;
+}
+.role-desc ul {
+    text-align: left; /* Daftar list tetap rapi rata kiri */
+}
