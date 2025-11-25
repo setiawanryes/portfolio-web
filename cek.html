@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roni Setiawan - Portfolio Honeycomb Kolase</title>
+    <title>Roni Setiawan - Portfolio Honeycomb Presisi</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <style>
-        
         /* ========================================================= */
         /* 0. DASAR DAN FONT */
         /* ========================================================= */
@@ -82,7 +81,6 @@
             transition: opacity 0.5s ease-in-out, transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; 
             box-sizing: border-box; 
             
-            /* Ukuran yang digunakan JS untuk pola */
             width: 150px; 
             height: 150px; 
         }
@@ -230,15 +228,9 @@
 
         // --- Daftar semua path gambar yang bisa di-shuffle ---
         const ALL_IMAGE_PATHS = [
-            "images/home/1.jpeg",
-            "images/home/2.jpeg",
-            "images/home/3.jpeg",
-            "images/home/4.jpeg",
-            "images/home/5.jpeg",
-            "images/home/6.jpeg",
-            "images/home/7.jpeg",
-            "images/home/8.jpeg",
-            "images/home/9.jpeg",
+            "images/home/1.jpeg", "images/home/2.jpeg", "images/home/3.jpeg",
+            "images/home/4.jpeg", "images/home/5.jpeg", "images/home/6.jpeg",
+            "images/home/7.jpeg", "images/home/8.jpeg", "images/home/9.jpeg",
         ];
 
         // 🔄 FUNGSI UTAMA SHUFFLE GAMBAR
@@ -270,43 +262,40 @@
 
             const HEXAGON_SHAPE = "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)";
             
-            // --- NILAI UNTUK POLA SARANG MADU ---
+            // --- NILAI UNTUK POLA SARANG MADU (Presisi) ---
             const HEX_WIDTH = 150; 
             const HEX_HEIGHT = 150; 
             
-            // Jarak Horizontal (Overlap 25%)
             const H_SPACING = HEX_WIDTH * 0.75; 
-            // Jarak Vertikal (menggunakan rumus heksagon)
             const V_SPACING = HEX_HEIGHT * 0.866; 
             const COLS_PER_ROW = 5; 
 
             kolaseItems.forEach((item, index) => {
                 
-                // Hitung posisi berdasarkan pola
                 const row = Math.floor(index / COLS_PER_ROW);
                 const col = index % COLS_PER_ROW; 
 
                 let top = row * V_SPACING;
                 let left = col * H_SPACING;
 
-                // Geser baris ganjil ke samping untuk pola sarang madu
+                // Geser baris ganjil untuk pola sarang madu
                 if (row % 2 === 1) {
                     left += HEX_WIDTH / 2;
                 }
 
-                // Tambahkan sedikit keacakan posisi (MEMBUAT TERLIHAT TIDAK STIFF)
-                const randomShift = Math.random() * 15 - 7.5; 
+                // Tambahkan sedikit keacakan posisi (Opsional: agar tidak terlalu kaku)
+                const randomShift = Math.random() * 8 - 4; // Geser antara -4px hingga +4px
                 top += randomShift;
                 left += randomShift;
                 
-                // Kunci rotasi ke 0 derajat
+                // Kunci rotasi ke 0 derajat (TIDAK JUNGKIR BALIK)
                 const rotation = 0; 
 
                 // Terapkan Gaya dan Posisi
                 item.style.width = `${HEX_WIDTH}px`;
                 item.style.height = `${HEX_HEIGHT}px`;
-                item.style.top = `${top}px`;
-                item.style.left = `${left}px`;
+                item.style.top = top + 'px';
+                item.style.left = left + 'px';
                 item.style.transform = `rotate(${rotation}deg)`; 
                 
                 item.style.clipPath = HEXAGON_SHAPE;
@@ -340,10 +329,8 @@
 
         // --- PANGGILAN FUNGSI KOLASE ---
         const HEX_PALETTE_RGBA = [
-            'rgba(123, 63, 0, 0.7)',   
-            'rgba(165, 42, 42, 0.7)',  
-            'rgba(210, 180, 140, 0.7)',
-            'rgba(188, 143, 143, 0.7)',
+            'rgba(123, 63, 0, 0.7)', 'rgba(165, 42, 42, 0.7)',  
+            'rgba(210, 180, 140, 0.7)', 'rgba(188, 143, 143, 0.7)',
             'rgba(224, 184, 145, 0.7)' 
         ];
 
