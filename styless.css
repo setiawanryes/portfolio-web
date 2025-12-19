@@ -1036,3 +1036,118 @@ textarea:focus {
     .exp-header { flex-direction: column; align-items: flex-start; text-align: left; }
     .exp-date-badge { align-self: flex-start; }
 }
+
+/* =========================================
+   SKILLS WIDGET DESIGN (iOS Glass Style)
+   ========================================= */
+
+/* 1. Grid Container */
+.skill-grid-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+}
+
+/* 2. Kartu Skill (Widget Base) */
+.skill-glass-card {
+    background: rgba(255, 255, 255, 0.6); /* Bening */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 24px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.skill-glass-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-gold);
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 15px 40px rgba(180, 134, 11, 0.15);
+}
+
+/* 3. Header Kartu (Ikon Bulat + Judul) */
+.skill-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    border-bottom: 1px dashed rgba(0,0,0,0.05);
+    padding-bottom: 15px;
+}
+
+.skill-icon-box {
+    width: 50px;
+    height: 50px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Warna spesifik tiap kategori */
+.color-data { background: linear-gradient(135deg, #f59e0b, #d97706); } /* Amber/Gold */
+.color-web { background: linear-gradient(135deg, #3b82f6, #2563eb); } /* Blue */
+.color-creative { background: linear-gradient(135deg, #ec4899, #db2777); } /* Pink */
+
+.skill-header h4 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin: 0;
+}
+
+/* 4. Daftar Skill (Chips/Pills) */
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.skill-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: white;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 50px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+.skill-badge i {
+    font-size: 1rem;
+    color: var(--accent-gold); /* Ikon kecil warna emas */
+}
+
+/* Efek Hover pada Skill Badge */
+.skill-badge:hover {
+    background: var(--text-main); /* Jadi gelap saat hover */
+    color: white;
+    border-color: var(--text-main);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.skill-badge:hover i {
+    color: white; /* Ikon jadi putih saat hover */
+}
+
+/* 5. Responsif Mobile */
+@media (max-width: 768px) {
+    .skill-grid-wrapper {
+        grid-template-columns: 1fr; /* 1 kolom di HP */
+    }
+    .skill-glass-card {
+        padding: 20px;
+    }
+}
