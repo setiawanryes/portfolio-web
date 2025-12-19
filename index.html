@@ -83,83 +83,95 @@
   </section>
 
   <!-- ABAOUT -->
-  <section id="about" class="about-glow">
+<section id="about" class="about-glow">
     <div class="about-container">
 
-      <!-- Left Navigation -->
       <aside class="about-sidebar">
-        <h2>ABOUT ME</h2>
-        <p class="subtitle">My Profile at a Glance</p>
+        <div class="sidebar-header">
+            <h2>About Me</h2>
+            <p class="subtitle">My Profile & Journey</p>
+        </div>
         <ul class="about-tabs">
-          <li class="tab active" data-tab="intro">Introduction</li>
-          <li class="tab" data-tab="personals">Personal Detail</li>
-          <li class="tab" data-tab="skills">Skills</li>
-          <li class="tab" data-tab="education">Education</li>
-          <li class="tab" data-tab="experience">Experience</li>
+          <li class="tab active" data-tab="intro"><i class="fas fa-user"></i> Intro</li>
+          <li class="tab" data-tab="personals"><i class="fas fa-address-card"></i> Personal</li>
+          <li class="tab" data-tab="skills"><i class="fas fa-tools"></i> Skills</li>
+          <li class="tab" data-tab="education"><i class="fas fa-graduation-cap"></i> Education</li>
+          <li class="tab" data-tab="experience"><i class="fas fa-briefcase"></i> Experience</li>
         </ul>
-        <div class="custom-line"></div>
       </aside>
 
-      <!-- Right Content -->
       <div class="about-content">
-        <!-- === INTRODUCTION === -->
+        
         <div id="intro" class="tab-content active" data-aos="fade-up">
           <div class="profile-box">
-            <img src="images/profile2.jpg" alt="Roni Setiawan">
+            <div class="profile-img-wrapper">
+                <img src="images/profile2.jpg" alt="Roni Setiawan">
+            </div>
             <div class="bio">
               <h3>Roni Setiawan</h3>
               <p class="role">Administration & Data Analyst</p>
-              <p>I have experience in administration, data processing, and human resources, gained through various roles
-                at companies such as Great Giant Foods and Koperasi Konsumen Karyawan Dwi Karya. I’m known for being
-                detail-oriented, analytical, and communicative, with a strong interest in data analysis, web design, and
-                digital storytelling. I’m currently open to new career opportunities that allow me to combine analytical
-                thinking with creativity in meaningful ways.
-              </p>
+              <div class="bio-text">
+                  <p>I have experience in administration, data processing, and human resources. I’m known for being detail-oriented, analytical, and communicative. Currently open to new career opportunities combining analysis & creativity.</p>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- === PERSONAL DETAIL === -->
         <div id="personals" class="tab-content">
-          <div class="info-box">
-            <div class="personal">
-              <h4>Personal Details</h4>
+          <div class="info-grid">
+            <div class="info-card contact-widget">
+              <h4><i class="fas fa-address-book"></i> Contact Details</h4>
               <ul>
-                <li><strong>Email:</strong> ronisetiawan496@gmail.com</li>
-                <li><strong>Phone:</strong> +62 8XX XXXX XXXX</li>
-                <li><strong>Address:</strong> Lampung, Indonesia</li>
+                <li>
+                    <span class="icon-box"><i class="fas fa-envelope"></i></span>
+                    <div class="info-text">
+                        <span class="label">Email</span>
+                        <span class="value">ronisetiawan496@gmail.com</span>
+                    </div>
+                </li>
+                <li>
+                    <span class="icon-box"><i class="fas fa-phone"></i></span>
+                    <div class="info-text">
+                        <span class="label">Phone</span>
+                        <span class="value">+62 8XX XXXX XXXX</span>
+                    </div>
+                </li>
+                <li>
+                    <span class="icon-box"><i class="fas fa-map-marker-alt"></i></span>
+                    <div class="info-text">
+                        <span class="label">Location</span>
+                        <span class="value">Lampung, Indonesia</span>
+                    </div>
+                </li>
               </ul>
             </div>
-            <div class="card fade-in">
-              <div class="card-header">
-                <h3><i class="fa-solid fa-cake-candles"></i>Tempat Tanggal Lahir</h3>
+
+            <div class="info-card birthday-widget">
+              <div class="card-header-glass">
+                <i class="fa-solid fa-cake-candles"></i> Birthday
               </div>
-              <div class="confetti"></div>
-              <div class="card-body">
-                <div class="birthday-info-container">
-                  <div class="birthday-top-row">
-                    <img
-                      src="https://res.cloudinary.com/dndjajqjb/image/upload/v1758292819/Gambar_WhatsApp_2025-09-19_pukul_21.38.57_e4e4ee84_gzq4nh.jpg?f=jpg"
-                      alt="Foto Birthday" class="birthday-photo">
-                    <span class="birthday-age">27 tahun <i class="fa-solid fa-lion zodiac-icon"></i></span>
+              <div class="card-body-glass">
+                  <div class="bday-flex">
+                    <img src="https://res.cloudinary.com/dndjajqjb/image/upload/v1758292819/Gambar_WhatsApp_2025-09-19_pukul_21.38.57_e4e4ee84_gzq4nh.jpg?f=jpg" alt="Me" class="bday-img">
+                    <div class="bday-info">
+                        <span class="age">27 Years Old</span>
+                        <span class="date">01 August 1998</span>
+                        <span class="zodiac"><i class="fa-solid fa-lion"></i> Leo</span>
+                    </div>
                   </div>
-                  <p class="birthday-date">Braja Luhur, 01 Agustus 1998</p>
-                </div>
-                <button class="birthday-btn"><i class="fa-solid fa-gift"></i> Birthday Moments</button>
               </div>
             </div>
-
-            <div class="interests">
-              <h4>Interests</h4>
-              <div class="tags">
-                <span>🎨 Book</span>
-                <span>🎵 Music</span>
-                <span>🎬 Movies</span>
-                <span>📊 Data</span>
-                <span>👟 Running</span>
-                <span>✈️ Traveling</span>
-                <span>🍵 Coffe</span>
-              </div>
+            
+            <div class="info-card interest-widget">
+                <h4><i class="fas fa-heart"></i> Interests</h4>
+                <div class="tags">
+                    <span>📚 Books</span>
+                    <span>🎵 Music</span>
+                    <span>🎬 Movies</span>
+                    <span>📊 Data</span>
+                    <span>👟 Running</span>
+                    <span>✈️ Travel</span>
+                </div>
             </div>
           </div>
         </div>
