@@ -1,27 +1,33 @@
 /* =========================================
-   1. SETUP & LIQUID BACKGROUND (THE BASE)
+   1. RESET & VARIABLES (LUXURY GOLD THEME)
    ========================================= */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 :root {
-  /* Background Dasar: Deep Dark Ocean */
-  --bg-color: #020617;
+  /* BACKGROUND: Bersih, Putih Kebiruan (Seperti Air) */
+  --bg-color: #f8fafc;
 
-  /* Liquid Glass Colors */
-  --glass-surface: rgba(255, 255, 255, 0.03);
-  --glass-border: 1px solid rgba(255, 255, 255, 0.08);
-  --glass-highlight: 1px solid rgba(255, 255, 255, 0.2);
-  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-  --blur-amt: 20px;
+  /* TEXT: Gelap Elegan & Emas */
+  --text-main: #334155;
+  /* Slate Dark */
+  --text-muted: #64748b;
+  /* Slate Gray */
+  --text-gold: #b4860b;
+  /* Dark Goldenrod */
 
-  /* Accent: Electric Cyan & Purple */
-  --primary: #0ea5e9;
-  --secondary: #6366f1;
-  --text-main: #f8fafc;
-  --text-muted: #94a3b8;
+  /* ACCENT: Gold & Water Cyan */
+  --gold-gradient: linear-gradient(135deg, #d4af37, #f7e98e);
+  --water-gradient: linear-gradient(135deg, #e0f2fe, #f0f9ff);
 
-  --radius-xl: 30px;
-  --radius-md: 16px;
+  /* GLASS EFFECT: Transparan Putih (Liquid) */
+  --glass-bg: rgba(255, 255, 255, 0.65);
+  /* Lebih putih transparan */
+  --glass-border: 1px solid rgba(255, 255, 255, 0.8);
+  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+  /* Bayangan soft biru */
+  --glass-blur: blur(12px);
+
+  --radius-liquid: 24px;
 }
 
 * {
@@ -32,53 +38,18 @@
 }
 
 body {
-  background-color: var(--bg-color);
+  background: var(--bg-color);
   color: var(--text-main);
-  line-height: 1.7;
+  scroll-behavior: smooth;
   overflow-x: hidden;
-  position: relative;
-}
-
-/* ANIMASI LATAR BELAKANG (BOLA CAIR) */
-body::before,
-body::after {
-  content: '';
-  position: fixed;
-  border-radius: 50%;
-  filter: blur(100px);
-  z-index: -1;
-  animation: floatBlob 15s infinite alternate ease-in-out;
-}
-
-body::before {
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, var(--primary), transparent 70%);
-  top: -10%;
-  left: -10%;
-}
-
-body::after {
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, var(--secondary), transparent 70%);
-  bottom: -10%;
-  right: -10%;
-  animation-delay: -5s;
-}
-
-@keyframes floatBlob {
-  0% {
-    transform: translate(0, 0) scale(1);
-  }
-
-  100% {
-    transform: translate(40px, -40px) scale(1.1);
-  }
+  /* Pattern halus air */
+  background-image:
+    radial-gradient(at 0% 0%, rgba(212, 175, 55, 0.1) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(14, 165, 233, 0.1) 0px, transparent 50%);
 }
 
 /* =========================================
-   2. RE-LAYOUT NAVBAR (Floating Glass Pill)
+   2. NAVBAR (PC: Top Pill, HP: Bottom Floating)
    ========================================= */
 header {
   position: fixed;
@@ -86,183 +57,282 @@ header {
   left: 50%;
   transform: translateX(-50%);
   width: 90%;
-  max-width: 1000px;
+  max-width: 1200px;
   z-index: 1000;
+  transition: all 0.3s ease;
 }
 
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 40px;
+  padding: 15px 30px;
 
-  /* Glass Effect */
-  background: rgba(15, 23, 42, 0.6);
+  /* Glassmorphism Navbar */
+  background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: var(--glass-highlight);
+  border: 1px solid rgba(255, 255, 255, 0.9);
   border-radius: 50px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
 .logo {
-  font-size: 1.5rem;
   font-weight: 700;
-  color: #fff;
-  letter-spacing: -0.5px;
+  font-size: 24px;
+  color: var(--text-main);
 }
 
 .logo span {
-  color: var(--primary);
+  color: #d4af37;
+  /* Gold */
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
 }
 
 .nav-links {
-  display: flex;
-  gap: 40px;
   list-style: none;
+  display: flex;
+  gap: 30px;
 }
 
 .nav-links a {
   text-decoration: none;
   color: var(--text-muted);
-  font-size: 0.9rem;
   font-weight: 500;
   transition: 0.3s;
-  position: relative;
 }
 
 .nav-links a:hover,
 .nav-links a.active {
-  color: #fff;
+  color: #d4af37;
+  /* Gold */
+  font-weight: 700;
 }
 
-/* Garis bawah animasi saat hover */
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  bottom: -5px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--primary);
-  transition: 0.3s;
+.menu-toggle {
+  display: none;
 }
 
-.nav-links a:hover::after {
-  width: 100%;
-}
-
-.menu-toggle,
+/* Default hidden di PC */
 .close-menu {
   display: none;
 }
 
 /* =========================================
-   3. RE-LAYOUT HERO SECTION (Balanced)
+   3. HERO SECTION (LIQUID GOLD & WATER)
    ========================================= */
 .hero {
-  min-height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 80px;
-  /* Jarak antar teks dan gambar */
-  padding: 140px 10% 80px;
-  max-width: 1400px;
-  margin: 0 auto;
+  justify-content: space-between;
+  padding: 150px 60px 60px;
+  background: transparent;
+  min-height: 100vh;
+  flex-wrap: wrap;
+  position: relative;
+  overflow: hidden;
 }
 
+/* Bubbles Background (Ganti jadi Gold & Biru Air) */
+.hero::before,
+.hero::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  z-index: -1;
+  opacity: 0.6;
+}
+
+.hero::before {
+  width: 500px;
+  height: 500px;
+  background: rgba(212, 175, 55, 0.2);
+  /* Gold Soft */
+  top: -10%;
+  left: -10%;
+  animation: floatGlow 8s ease-in-out infinite alternate;
+}
+
+.hero::after {
+  width: 450px;
+  height: 450px;
+  background: rgba(14, 165, 233, 0.15);
+  /* Water Blue */
+  bottom: -5%;
+  right: -5%;
+  animation: floatGlow 6s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes floatGlow {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    transform: translateY(-20px) scale(1.05);
+  }
+
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Hero Text */
 .hero-text {
   flex: 1;
-  max-width: 600px;
+  min-width: 300px;
+  position: relative;
+  z-index: 2;
 }
 
 .hero-text h3 {
-  color: var(--primary);
-  font-size: 1.2rem;
+  color: #b4860b;
+  /* Gold Dark */
   font-weight: 600;
-  letter-spacing: 2px;
-  margin-bottom: 10px;
+  letter-spacing: 1px;
   text-transform: uppercase;
+  font-size: 1.1rem;
 }
 
 .hero-text h1 {
-  font-size: 3.5rem;
-  line-height: 1.1;
-  margin-bottom: 20px;
+  font-size: 48px;
+  color: var(--text-main);
+  margin-top: 5px;
   font-weight: 800;
+  text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.5);
 }
 
 .hero-text h1 span {
-  background: linear-gradient(to right, var(--primary), var(--secondary));
+  background: var(--gold-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  text-shadow: none;
+}
+
+/* Role Slider */
+.role-slider {
+  position: relative;
+  height: 35px;
+  overflow: hidden;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.slide-text {
+  position: absolute;
+  font-size: 22px;
+  color: var(--text-muted);
+  font-weight: 500;
+  animation: slideIn 0.6s ease forwards;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 .hero-text p {
-  font-size: 1.1rem;
+  max-width: 480px;
+  margin: 25px 0;
   color: var(--text-muted);
-  margin-bottom: 40px;
+  line-height: 1.8;
+  font-size: 1rem;
 }
 
-/* Tombol Hero */
-.buttons {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-}
-
-.btn1 {
-  background: var(--primary);
-  color: #000;
-  padding: 14px 35px;
-  border-radius: 50px;
-  font-weight: 600;
-  text-decoration: none;
-  box-shadow: 0 0 20px rgba(14, 165, 233, 0.4);
-  transition: 0.3s;
-}
-
-.btn {
-  background: transparent;
-  border: 1px solid var(--text-muted);
+/* Buttons (White Gold & Liquid) */
+.buttons .btn1,
+.buttons .btn-gradient,
+.buttons .btn.live {
+  background: var(--gold-gradient);
   color: #fff;
-  padding: 14px 35px;
+  padding: 12px 30px;
   border-radius: 50px;
   text-decoration: none;
   transition: 0.3s;
+  margin-top: 20px;
+  display: inline-block;
+  font-weight: 600;
+  box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+  border: 1px solid #fff;
 }
 
-.btn1:hover {
+.buttons .btn1:hover,
+.buttons .btn-gradient:hover {
   transform: translateY(-3px);
-  box-shadow: 0 0 30px rgba(14, 165, 233, 0.6);
+  box-shadow: 0 15px 30px rgba(212, 175, 55, 0.5);
 }
 
-.btn:hover {
-  border-color: #fff;
-  background: rgba(255, 255, 255, 0.05);
+.buttons .bt,
+.buttons .btn {
+  background: rgba(255, 255, 255, 0.5);
+  color: var(--text-main);
+  padding: 12px 30px;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: 0.3s;
+  display: inline-block;
+  border: 1px solid #d4af37;
+  font-weight: 600;
 }
 
-/* Gambar Hero (Organic Shape) */
+.buttons .bt:hover,
+.buttons .btn:hover {
+  background: #d4af37;
+  color: white;
+}
+
+/* Socials */
+.socials a {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 45px;
+  height: 45px;
+  color: #b4860b;
+  font-size: 18px;
+  margin-right: 15px;
+  transition: 0.3s;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  border: 1px solid #d4af37;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.socials a:hover {
+  background: #d4af37;
+  color: #fff;
+  transform: translateY(-3px);
+}
+
+/* Hero Image (Water Drop Shape) */
 .hero-img {
   flex: 1;
-  display: flex;
-  justify-content: flex-end;
+  text-align: center;
   position: relative;
+  z-index: 2;
 }
 
 .hero-img img {
-  width: 400px;
-  height: 400px;
-  object-fit: cover;
+  width: 90%;
+  max-width: 380px;
   border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  animation: blobBounce 8s infinite ease-in-out;
-  box-shadow: 0 0 50px rgba(14, 165, 233, 0.2);
-  backdrop-filter: blur(10px);
+  /* Organic Liquid Shape */
+  box-shadow:
+    inset 10px 10px 20px rgba(255, 255, 255, 0.5),
+    10px 20px 40px rgba(0, 0, 0, 0.1);
+  border: 4px solid rgba(255, 255, 255, 0.8);
+  animation: liquidMorph 8s infinite ease-in-out;
+  background: #fff;
 }
 
-@keyframes blobBounce {
+@keyframes liquidMorph {
 
   0%,
   100% {
@@ -275,441 +345,498 @@ header {
 }
 
 /* =========================================
-   4. RE-LAYOUT ABOUT (Grid System)
+   4. GLASS CARDS (THE CORE DESIGN)
    ========================================= */
-.about-glow {
-  padding: 100px 8%;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-/* Layout Grid: Sidebar Kiri (Fixed width) - Content Kanan (Auto) */
-.about-container {
-  display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 50px;
-  align-items: start;
-}
-
-/* Sidebar Menu */
-.about-sidebar {
-  background: var(--glass-surface);
-  backdrop-filter: blur(var(--blur-amt));
+/* Menerapkan efek Kaca Air ke semua elemen kotak */
+.left-side,
+.right-side,
+.about-sidebar,
+.profile-box,
+.info-box,
+.edu-item,
+.exp-item,
+.portfolio-card,
+.features,
+.stat,
+.comment-item {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
   border: var(--glass-border);
-  padding: 30px;
-  border-radius: var(--radius-xl);
-  position: sticky;
-  /* Menu tetap diam saat scroll */
-  top: 120px;
+  box-shadow: var(--glass-shadow);
+  border-radius: var(--radius-liquid);
+  color: var(--text-main);
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.about-tabs {
-  list-style: none;
-}
-
-.about-tabs li {
-  padding: 15px 20px;
-  margin-bottom: 10px;
-  cursor: pointer;
-  color: var(--text-muted);
-  border-radius: 12px;
-  transition: 0.3s;
-  font-weight: 500;
-}
-
-.about-tabs li:hover,
-.about-tabs li.active {
-  background: rgba(14, 165, 233, 0.1);
-  color: var(--primary);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-/* Content Area */
-.about-content {
-  min-height: 500px;
-}
-
-.tab-content {
-  display: none;
-  animation: fadeUp 0.5s ease;
-}
-
-.tab-content.active {
-  display: block;
-}
-
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Profile Card */
-.profile-box {
-  display: flex;
-  gap: 40px;
-  align-items: center;
-  background: var(--glass-surface);
-  border: var(--glass-border);
-  padding: 40px;
-  border-radius: var(--radius-xl);
-}
-
-.profile-box img {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  border: 4px solid rgba(255, 255, 255, 0.1);
-}
-
-.bio h3 {
-  font-size: 2rem;
-  margin-bottom: 5px;
-}
-
-/* Experience Cards (Timeline Style) */
-.exp-item {
-  background: var(--glass-surface);
-  border: var(--glass-border);
-  padding: 30px;
-  border-radius: var(--radius-md);
-  margin-bottom: 25px;
-  position: relative;
-  transition: 0.3s;
-  border-left: 4px solid var(--primary);
-}
-
-.exp-item:hover {
-  transform: translateX(10px);
-  background: rgba(255, 255, 255, 0.06);
-}
-
-.exp-top {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  margin-bottom: 15px;
-}
-
-.exp-logo {
-  width: 60px;
-  height: 60px;
-  border-radius: 12px;
-  object-fit: contain;
-  background: #fff;
-  padding: 5px;
+/* Hover Effects */
+.left-side:hover,
+.right-side:hover,
+.portfolio-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(212, 175, 55, 0.15);
+  /* Gold glow soft */
+  border-color: #d4af37;
 }
 
 /* =========================================
-   5. RE-LAYOUT PORTFOLIO (Auto Grid)
+   5. CONTACT & FORMS
    ========================================= */
-.portfolio-section {
-  padding: 100px 8%;
-  max-width: 1400px;
-  margin: 0 auto;
-  text-align: center;
+.contact-section {
+  padding: 100px 40px;
 }
 
 .section-title {
-  font-size: 2.5rem;
-  margin-bottom: 10px;
-  color: #fff;
+  font-size: 2.3rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--text-main);
+  margin-bottom: 8px;
 }
 
-.portfolio-tabs {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-bottom: 50px;
-  flex-wrap: wrap;
-}
-
-.tab-btn {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 10px 30px;
-  border-radius: 50px;
+.section-subtitle {
+  text-align: center;
   color: var(--text-muted);
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.tab-btn.active,
-.tab-btn:hover {
-  background: var(--primary);
-  color: #fff;
-  border-color: var(--primary);
-}
-
-/* Grid Pintar: Otomatis menyesuaikan kolom */
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 30px;
-}
-
-.portfolio-card {
-  background: var(--glass-surface);
-  backdrop-filter: blur(10px);
-  border: var(--glass-border);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  transition: 0.4s;
-  text-align: left;
-}
-
-.portfolio-card:hover {
-  transform: translateY(-10px);
-  border-color: var(--primary);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-}
-
-.portfolio-card img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.card-content {
-  padding: 25px;
-}
-
-/* =========================================
-   6. CONTACT (Clean Split)
-   ========================================= */
-.contact-section {
-  padding: 100px 8%;
-  max-width: 1400px;
-  margin: 0 auto;
+  margin-bottom: 60px;
 }
 
 .contact-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .left-side,
 .right-side {
-  background: var(--glass-surface);
-  backdrop-filter: blur(var(--blur-amt));
-  border: var(--glass-border);
   padding: 40px;
-  border-radius: var(--radius-xl);
+  flex: 1;
+  min-width: 360px;
 }
 
-/* Form Inputs */
+/* INPUTS (Liquid Glass Style) */
 input,
 textarea {
   width: 100%;
-  padding: 15px;
-  margin-bottom: 20px;
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  color: #fff;
+  padding: 15px 20px;
+  margin: 10px 0 20px;
+  border: 1px solid #e2e8f0;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.8);
+  color: #333;
+  font-size: 0.95rem;
   outline: none;
-  transition: 0.3s;
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 input:focus,
 textarea:focus {
-  border-color: var(--primary);
-  background: rgba(0, 0, 0, 0.4);
+  border-color: #d4af37;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
 }
 
-.btn-gradient {
-  width: 100%;
-  padding: 15px;
-  border: none;
-  border-radius: 12px;
-  background: linear-gradient(90deg, var(--primary), var(--secondary));
+/* Social Links in Contact */
+.social-links a {
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid #fff;
+}
+
+.social-links a:hover {
+  background: #d4af37;
   color: #fff;
-  font-weight: 700;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.btn-gradient:hover {
-  opacity: 0.9;
-  transform: scale(1.02);
 }
 
 /* =========================================
-   7. UTILITIES & POPUPS
+   6. ABOUT SECTION
    ========================================= */
-.mini-popup {
-  display: none;
-  position: absolute;
-  bottom: 120%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 200px;
-  background: #0f172a;
-  border: 1px solid var(--primary);
-  padding: 15px;
-  border-radius: 12px;
-  z-index: 999;
+.about-glow {
+  padding: 100px 40px;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.about-container {
+  display: flex;
+  max-width: 1200px;
+  width: 100%;
+  gap: 50px;
+}
+
+.about-sidebar {
+  flex: 0 0 260px;
+  padding: 30px;
+  height: fit-content;
+}
+
+.about-sidebar h2 {
+  color: #d4af37;
+  font-weight: 700;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.about-tabs li {
+  padding: 12px 15px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  color: var(--text-muted);
+  border-radius: 10px;
+  transition: 0.3s;
+  font-weight: 500;
+}
+
+.about-tabs li.active,
+.about-tabs li:hover {
+  color: #fff;
+  background: #d4af37;
+  box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3);
+}
+
+/* Profile Content */
+.profile-box img {
+  border: 4px solid #fff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.bio h3 {
+  color: var(--text-main);
+}
+
+.bio .role {
+  color: #b4860b;
+}
+
+.bio p {
+  color: var(--text-muted);
+}
+
+/* Experience & Education Items */
+.edu-item,
+.exp-item {
+  border-left: 5px solid #d4af37;
+  margin-bottom: 20px;
+  padding: 25px;
+}
+
+.role-title,
+.edu-item h4 {
+  color: #333;
+  font-weight: 700;
+}
+
+.exp-date,
+.edu-item p {
+  color: #b4860b;
+}
+
+.exp-company {
+  color: #64748b;
+  font-weight: 600;
+}
+
+/* Skills */
+.skills-list span,
+.tags span {
+  background: #fff;
+  border: 1px solid #d4af37;
+  color: #b4860b;
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-weight: 500;
+}
+
+.skills-list span:hover {
+  background: #d4af37;
+  color: #fff;
+}
+
+/* =========================================
+   7. PORTFOLIO
+   ========================================= */
+.portfolio-section {
+  padding: 100px 20px;
   text-align: center;
 }
 
-.mini-popup.active {
-  display: block;
-  animation: popUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+.portfolio-title {
+  color: var(--text-main);
 }
 
-@keyframes popUp {
-  from {
-    transform: translateX(-50%) scale(0.5);
-    opacity: 0;
-  }
-
-  to {
-    transform: translateX(-50%) scale(1);
-    opacity: 1;
-  }
+.portfolio-subtitle {
+  color: var(--text-muted);
 }
 
-.dl-links a {
-  display: block;
-  padding: 8px;
+.tab-btn {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  color: var(--text-muted);
+  padding: 10px 30px;
+  border-radius: 50px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.tab-btn:hover,
+.tab-btn.active {
+  background: #d4af37;
   color: #fff;
-  text-decoration: none;
-  border-radius: 5px;
+  border-color: #d4af37;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
 }
 
-.dl-links a:hover {
-  background: var(--primary);
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
 }
 
-.skills-list span {
-  display: inline-block;
-  padding: 6px 15px;
-  margin: 5px;
-  background: rgba(255, 255, 255, 0.05);
+.portfolio-card {
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.portfolio-card img {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  transition: transform 0.5s;
+}
+
+.portfolio-card:hover img {
+  transform: scale(1.05);
+}
+
+.card-content h3 {
+  color: #333;
+}
+
+.card-content p {
+  color: #64748b;
+}
+
+.project-footer .details {
+  background: white;
+  color: #d4af37;
+  border: 1px solid #d4af37;
+  padding: 5px 15px;
   border-radius: 20px;
-  font-size: 0.9rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.project-footer .details:hover {
+  background: #d4af37;
+  color: white;
 }
 
 /* =========================================
-   8. MOBILE RESPONSIVE (PENTING!)
+   8. EXTRAS & POPUPS
    ========================================= */
-@media (max-width: 1024px) {
-  .hero {
-    flex-direction: column-reverse;
-    text-align: center;
-    padding-top: 150px;
-    gap: 40px;
-  }
+/* Birthday Card (Blueish Water) */
+.card-header {
+  background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+  border-bottom: 1px solid #fff;
+  color: #0284c7;
+}
 
-  .hero-img {
-    justify-content: center;
-  }
+.card-header h3 {
+  color: #0284c7;
+}
 
-  .hero-img img {
-    width: 300px;
-    height: 300px;
-  }
+.birthday-btn {
+  background: #fff;
+  color: #333;
+  border: 1px solid #eee;
+}
 
-  .buttons {
-    justify-content: center;
+/* Mini Popup (Floating Bubble) */
+.mini-popup {
+  background: #fff;
+  border: 1px solid #d4af37;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.popup-arrow {
+  border-top: 8px solid #fff;
+}
+
+.mini-popup p {
+  color: #333;
+}
+
+.dl-links a {
+  background: #f8fafc;
+  color: #333;
+}
+
+.dl-links a:hover {
+  background: #d4af37;
+  color: #fff;
+}
+
+/* =========================================
+   9. RESPONSIVE & MOBILE FLOATING NAV
+   ========================================= */
+@media (max-width: 900px) {
+  .contact-container {
+    flex-direction: column;
   }
 
   .about-container {
-    grid-template-columns: 1fr;
+    flex-direction: column;
   }
 
-  /* Sidebar jadi di atas */
   .about-sidebar {
-    position: relative;
-    top: 0;
     width: 100%;
     overflow-x: auto;
-    display: flex;
-    align-items: center;
-    padding: 15px;
+    border-right: none;
+    margin-bottom: 20px;
   }
 
-  .about-sidebar h2,
-  .about-sidebar .subtitle {
-    display: none;
-  }
-
-  /* Sembunyikan judul menu di HP biar hemat tempat */
   .about-tabs {
     display: flex;
     gap: 10px;
-    min-width: max-content;
-  }
-
-  .contact-container {
-    grid-template-columns: 1fr;
+    width: max-content;
   }
 }
 
+/* KHUSUS HP/TABLET: Navbar jadi Floating Button di Bawah */
 @media (max-width: 768px) {
 
-  /* Navbar Mobile */
+  /* Sembunyikan Header atas standard */
   header {
-    width: 100%;
-    top: 0;
-    border-radius: 0;
-    background: rgba(2, 6, 23, 0.95);
-    padding: 15px 20px;
+    top: auto;
+    bottom: 20px;
+    /* Pindah ke bawah */
+    left: auto;
+    right: 20px;
+    transform: none;
+    width: auto;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
   }
 
+  .navbar {
+    background: transparent;
+    border: none;
+    padding: 0;
+    box-shadow: none;
+    flex-direction: column-reverse;
+    /* Menu di atas tombol */
+    align-items: flex-end;
+  }
+
+  .logo {
+    display: none;
+  }
+
+  /* Logo hilang di mode floating biar bersih */
+
+  /* Tombol Toggle Floating (Bulat Emas) */
   .menu-toggle {
-    display: block;
-    font-size: 1.5rem;
-    color: #fff;
-    cursor: pointer;
-  }
-
-  .nav-links {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 75%;
-    height: 100vh;
-    background: #020617;
-    flex-direction: column;
+    display: flex;
     justify-content: center;
     align-items: center;
-    transition: 0.4s cubic-bezier(0.77, 0, 0.175, 1);
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #d4af37, #f7e98e);
+    border-radius: 50%;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1001;
+    transition: transform 0.3s;
   }
 
-  .nav-links.active {
-    right: 0;
+  .menu-toggle:active {
+    transform: scale(0.9);
   }
 
+  /* Tombol Close (X) di dalam menu */
   .close-menu {
     display: block;
     position: absolute;
-    top: 25px;
-    right: 25px;
-    font-size: 1.5rem;
+    top: 15px;
+    right: 15px;
+    font-size: 20px;
+    color: #333;
+    cursor: pointer;
+  }
+
+  /* Daftar Menu (Muncul dari bawah seperti laci/drawer) */
+  .nav-links {
+    position: fixed;
+    bottom: 90px;
+    /* Di atas tombol floating */
+    right: 20px;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(15px);
+    padding: 20px;
+    border-radius: 20px;
+    width: 200px;
+    gap: 15px;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    border: 1px solid #fff;
+
+    /* Animasi Hidden/Show */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px) scale(0.9);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  /* Class active ditambahkan via JS (sudah ada di script kamu) */
+  .nav-links.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+  }
+
+  .nav-links a {
+    display: block;
+    padding: 10px;
+    color: #333;
+    border-radius: 10px;
+  }
+
+  .nav-links a:hover {
+    background: #f1f5f9;
+    color: #d4af37;
+  }
+
+  /* Hero Text di HP */
+  .hero {
+    flex-direction: column-reverse;
+    text-align: center;
+    padding: 50px 20px 100px;
   }
 
   .hero-text h1 {
     font-size: 2.5rem;
   }
 
+  .buttons {
+    justify-content: center;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Profile Responsive */
   .profile-box {
     flex-direction: column;
     text-align: center;
   }
-}
-
-/* Helper */
-.hidden {
-  display: none;
 }
