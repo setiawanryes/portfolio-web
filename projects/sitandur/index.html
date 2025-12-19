@@ -4,212 +4,157 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SI-TANDUR | Roni Setiawan</title>
-  
+  <title>SI-TANDUR | Project Detail</title>
+
   <link rel="stylesheet" href="style.css">
-  
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin=\"anonymous\"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
-  
-  <div class="bg-liquid-1"></div>
-  <div class="bg-liquid-2"></div>
 
-  <section class="project-detail">
-    <div class="project-container glass-panel">
+  <div class="liquid-bg">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
 
-      <div class="project-nav">
-        <a href="javascript:history.back()" class="nav-pill">
-          <i class="fas fa-arrow-left"></i> Back to Portfolio
+  <section class="project-view">
+    <div class="glass-container" data-aos="zoom-in-up" data-aos-duration="1000">
+
+      <div class="glass-nav">
+        <a href="javascript:history.back()" class="nav-btn-back">
+          <div class="icon-circle"><i class="fas fa-chevron-left"></i></div>
+          <span>Back to Portfolio</span>
         </a>
-        <span class="nav-breadcrumb">Project / <span class="highlight">SI-TANDUR</span></span>
+        <div class="project-badge">Web & Mobile App</div>
       </div>
 
-      <div class="project-grid">
-        
-        <div class="left-column" data-aos="fade-right">
-          
-          <div class="title-card">
-            <div class="title-badge">Agri-Tech Platform</div>
-            <h1>SI-TANDUR</h1>
-            <div class="project-description" id="projectDescription">
-              <p>
-                <b>SI-TANDUR</b> is an Integrated Agricultural Information System developed specifically for East
-                Lampung to help local farmers plan, monitor, and manage the planting process more efficiently.
-              </p>
-              <p>
-                It provides <b>crop planning</b>, <b>real-time monitoring</b>, and <b>data-based recommendations</b>. 
-                I developed this project as part of the <b>2025 East Lampung Regional Innovation Competition</b>.
-              </p>
-              <p>
-                Designed for <b>Web & Mobile</b>, it integrates agricultural data, market prices, weather info, 
-                and a promotional hub for <b>MITRA & MSMEs</b>.
-              </p>
-            </div>
-            <button id="readMoreBtn" class="read-more-btn">Read Full Story <i class="fas fa-chevron-down"></i></button>
+      <div class="content-grid">
+
+        <div class="info-column">
+          <div class="project-header">
+            <h1 class="gradient-text">SI-TANDUR</h1>
+            <h2 class="subtitle">Integrated Agricultural System</h2>
           </div>
 
-          <div class="stats-wrapper">
-            <div class="stat-chip stat" data-info="IoT sensors, cloud storage, mobile apps, harvest forecast.">
-              <i class="fas fa-code"></i> <span>Tech Stack</span>
-            </div>
-            <div class="stat-chip stat" data-info="Crop planning, monitoring, care recommendations, AI chat, MSME support.">
-              <i class="fas fa-bullseye"></i> <span>Key Focus</span>
+          <div class="glass-card description-card">
+            <p>
+              An integrated digital ecosystem designed for <strong>East Lampung</strong> to revolutionize local
+              agriculture.
+              It combines <strong>IoT Monitoring</strong>, <strong>Crop Planning</strong>, and
+              <strong>Marketplace</strong>
+              to empower farmers and MSMEs.
+            </p>
+            <div class="tech-stack-row">
+              <span class="tech-pill">IoT</span>
+              <span class="tech-pill">Firebase</span>
+              <span class="tech-pill">LeafletJS</span>
+              <span class="tech-pill">PWA</span>
             </div>
           </div>
 
-          <div class="action-card">
-            <div class="action-top">
-              <a href="https://si-tandur.web.app/" target="_blank" class="btn-live">
-                Live Preview <i class="fas fa-external-link-alt"></i>
-              </a>
-              
-              <div class="progress-wrapper">
-                <div class="progress-label">
-                  <span>Development</span>
-                  <span id="progress-text">100%</span>
-                </div>
-                <div class="progress-track">
-                  <div class="progress-fill" id="progress-bar"></div>
-                </div>
-              </div>
-            </div>
+          <div class="action-row">
+            <a href="https://si-tandur.web.app/" target="_blank" class="btn-ios-primary">
+              <span>Live Demo</span> <i class="fas fa-arrow-right"></i>
+            </a>
 
-            <div class="reaction-row">
-              <button id="like-btn" class="react-pill">
+            <div class="like-group">
+              <button id="like-btn" class="btn-ios-secondary">
                 <i class="fas fa-heart"></i> <span id="like-count">0</span>
               </button>
-              <button id="komentar-btn" class="react-pill">
-                <i class="fas fa-comment-dots"></i> Comment
+              <button id="komentar-btn" class="btn-ios-secondary">
+                <i class="fas fa-comment-dots"></i>
               </button>
-              <span id="comment-notify-badge"></span>
             </div>
           </div>
 
-          <div class="comments-section">
-            <div class="custom-line"></div>
-            <div id="comments-header">
-              <h3>Discussion (<span id="komentar-count">0</span>)</h3>
-              <div class="sort-box">
-                <select id="comment-sorting">
-                  <option value="newest">Newest</option>
-                  <option value="oldest">Oldest</option>
-                  <option value="popular">Popular</option>
-                </select>
-              </div>
+          <div class="discussion-panel">
+            <div class="panel-header">
+              <h3>Discussion</h3>
+              <div class="pulse-dot"></div>
             </div>
-
-            <div id="comments-list" class="comments-scroll-area">
-              </div>
-            <button id="load-more-comments" class="load-more-glass">Load more comments</button>
+            <div id="comments-list" class="chat-scroll-area">
+            </div>
+            <button id="load-more-comments" class="btn-text">View older comments...</button>
           </div>
+        </div>
 
-        </div> 
-        <div class="right-column" data-aos="fade-left">
-          
-          <div class="slider-frame">
+        <div class="visual-column">
+
+          <div class="slider-glass-wrapper">
             <div class="project-preview">
               <div class="slide-project">
-                <img src="images/sitandur/sitandur1.jpg" alt="Preview 1" class="lightbox-img">
-                <img src="images/sitandur/sitandur2.jpg" alt="Preview 2" class="lightbox-img">
-                <img src="images/sitandur/sitandur3.jpg" alt="Preview 3" class="lightbox-img">
-                <img src="images/sitandur/sitandur4.jpg" alt="Preview 4" class="lightbox-img">
+                <img src="images/sitandur/sitandur1.jpg" alt="Dashboard" class="lightbox-img">
+                <img src="images/sitandur/sitandur2.jpg" alt="Monitoring" class="lightbox-img">
+                <img src="images/sitandur/sitandur3.jpg" alt="Market" class="lightbox-img">
+                <img src="images/sitandur/sitandur4.jpg" alt="Mobile" class="lightbox-img">
               </div>
-              
-              <div class="slide-controls">
-                <button class="prev glass-nav"><i class="fas fa-chevron-left"></i></button>
-                <button class="next glass-nav"><i class="fas fa-chevron-right"></i></button>
+              <div class="slider-nav">
+                <button class="prev nav-arrow"><i class="fas fa-angle-left"></i></button>
+                <button class="next nav-arrow"><i class="fas fa-angle-right"></i></button>
               </div>
-            </div>
-            <div class="slider-caption">
-              <i class="fas fa-camera"></i> Click image to enlarge
             </div>
           </div>
 
-          <div class="features-grid">
-            <h2 class="features-title">✨ Key Features</h2>
-            
-            <div class="feature-card">
-              <div class="f-icon green"><i class="fas fa-eye"></i></div>
-              <div class="f-text">
-                <h4>Real-Time Monitoring</h4>
-                <p>Track crop conditions instantly via IoT.</p>
-              </div>
-            </div>
-
-            <div class="feature-card">
-              <div class="f-icon gold"><i class="fas fa-seedling"></i></div>
-              <div class="f-text">
-                <h4>Smart Recommendations</h4>
-                <p>Data-driven advice for care & harvest.</p>
-              </div>
-            </div>
-
-            <div class="feature-card">
-              <div class="f-icon blue"><i class="fas fa-calendar-check"></i></div>
-              <div class="f-text">
+          <div class="features-widget-grid">
+            <div class="feature-glass-box">
+              <div class="f-icon green-glow"><i class="fas fa-leaf"></i></div>
+              <div class="f-info">
                 <h4>Crop Planning</h4>
-                <p>Schedule planting & select seeds easily.</p>
+                <p>Schedule planting & harvest.</p>
               </div>
             </div>
 
-            <div class="feature-card">
-              <div class="f-icon purple"><i class="fas fa-robot"></i></div>
-              <div class="f-text">
-                <h4>AI Consultant</h4>
-                <p>Virtual assistant for farming queries.</p>
+            <div class="feature-glass-box">
+              <div class="f-icon blue-glow"><i class="fas fa-wifi"></i></div>
+              <div class="f-info">
+                <h4>IoT Monitor</h4>
+                <p>Real-time soil & weather data.</p>
               </div>
             </div>
 
-            <div class="feature-card">
-              <div class="f-icon orange"><i class="fas fa-store"></i></div>
-              <div class="f-text">
-                <h4>MSME Marketplace</h4>
-                <p>Connect farmers with local buyers.</p>
+            <div class="feature-glass-box">
+              <div class="f-icon gold-glow"><i class="fas fa-store"></i></div>
+              <div class="f-info">
+                <h4>Marketplace</h4>
+                <p>Direct selling for MSMEs.</p>
               </div>
             </div>
 
+            <div class="feature-glass-box">
+              <div class="f-icon purple-glow"><i class="fas fa-robot"></i></div>
+              <div class="f-info">
+                <h4>AI Assistant</h4>
+                <p>Smart farming consultation.</p>
+              </div>
+            </div>
           </div>
+
         </div>
-        </div>
+      </div>
     </div>
   </section>
 
   <div class="cmtApp-modal" id="cmtAppModal">
-    <div class="cmtApp-modal-content glass-modal">
+    <div class="glass-modal-content">
       <span class="cmtApp-close" id="close-cmtAppModal">&times;</span>
-      <div id="cmtAppModalTitle">Leave a Comment</div>
-      <div class="input-group">
-        <i class="fas fa-user"></i>
-        <input type="text" id="cmtAppNama" placeholder="Your Name">
-      </div>
-      <div class="input-group">
-        <i class="fas fa-comment-alt top"></i>
-        <textarea id="cmtAppIsi" rows="4" placeholder="Write something nice..."></textarea>
-      </div>
-      <button id="cmtAppKirim" class="btn-send">Post Comment</button>
+      <h3>Leave a Comment</h3>
+      <input type="text" id="cmtAppNama" placeholder="Your Name" class="glass-input">
+      <textarea id="cmtAppIsi" rows="3" placeholder="Write your thoughts..." class="glass-input"></textarea>
+      <button id="cmtAppKirim" class="btn-ios-primary full-width">Post</button>
     </div>
-  </div>
-
-  <div id="miniModal" class="mini-modal">
-    <div class="mini-content" id="miniContent"></div>
   </div>
 
   <div id="lightboxModal" class="modal">
     <span class="close">&times;</span>
     <img class="modal-content" id="lightboxImg">
-    <div class="modal-controls">
-      <button id="prevImg"><i class="fas fa-chevron-left"></i></button>
-      <button id="nextImg"><i class="fas fa-chevron-right"></i></button>
-    </div>
   </div>
 
   <script type="module" src="script.js"></script>
-  <script>window.PAGE_ID = "sitandur"</script>
+  <script>window.PAGE_ID = "sitandur"; AOS.init();</script>
 
 </body>
+
 </html>
