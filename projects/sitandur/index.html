@@ -5,89 +5,96 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SI-TANDUR | Roni Setiawan</title>
+  
   <link rel="stylesheet" href="style.css">
+  
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin=\"anonymous\"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
-  <section class="project-detail">
-    <div class="project-container">
+  
+  <div class="bg-liquid-1"></div>
+  <div class="bg-liquid-2"></div>
 
-      <!-- NAV -->
-      <div class="back-nav">
-        <a href="javascript:history.back()" class="back-btn">← Back</a>
-        <span>Projects / SI-TANDUR</span>
+  <section class="project-detail">
+    <div class="project-container glass-panel">
+
+      <div class="project-nav">
+        <a href="javascript:history.back()" class="nav-pill">
+          <i class="fas fa-arrow-left"></i> Back to Portfolio
+        </a>
+        <span class="nav-breadcrumb">Project / <span class="highlight">SI-TANDUR</span></span>
       </div>
 
-      <!-- MAIN LAYOUT (2 KOLOM) -->
-      <!-- ROW 1: INFO & PREVIEW -->
-      <div class="project-header">
-        <!-- KIRI -->
+      <div class="project-grid">
+        
         <div class="left-column" data-aos="fade-right">
-          <div class="project-info">
+          
+          <div class="title-card">
+            <div class="title-badge">Agri-Tech Platform</div>
             <h1>SI-TANDUR</h1>
             <div class="project-description" id="projectDescription">
               <p>
-              <p>
                 <b>SI-TANDUR</b> is an Integrated Agricultural Information System developed specifically for East
-                Lampung to help local farmers plan, monitor, and manage the planting process more efficiently. It
-                provides <b>crop planning</b>, <b>real-time monitoring</b>, and <b>data-based care and harvest
-                  recommendations</b>.
+                Lampung to help local farmers plan, monitor, and manage the planting process more efficiently.
               </p>
-
               <p>
-                I developed this project as part of the <b>2025 East Lampung Regional Innovation and Technology
-                  Competition</b>.
+                It provides <b>crop planning</b>, <b>real-time monitoring</b>, and <b>data-based recommendations</b>. 
+                I developed this project as part of the <b>2025 East Lampung Regional Innovation Competition</b>.
               </p>
-
               <p>
-                <b>SI-TANDUR</b> is designed as a digital platform for both <b>web and mobile</b>, integrating
-                <b>agricultural information</b>, <b>production data</b>, <b>market prices</b>, <b>weather
-                  information</b>, and a promotional hub for <b>MITRA & MSMEs</b> in the agricultural sector of East
-                Lampung. This system serves as a modern solution supporting agriculture and MSME development in the digital era.
+                Designed for <b>Web & Mobile</b>, it integrates agricultural data, market prices, weather info, 
+                and a promotional hub for <b>MITRA & MSMEs</b>.
               </p>
-
             </div>
-            <div class="project-stats" style="position: relative;">
-              <div class="stat"
-                data-info="IoT sensors, cloud storage, and mobile/web apps to monitor crops and provide care tips, harvest forecasts, and alerts.">
-                <i class="fas fa-code"></i> Tools
-              </div>
-              <div class="stat"
-                data-info="Crop planning, monitoring, care recommendations, harvest forecasts, reports & statistics, critical alerts, farmer community, AI chat, MSME support, and agricultural store recommendations.">
-                <i class="fas fa-cogs"></i>Focus Analyst
-              </div>
-              <button id="readMoreBtn" class="read-more-btn">Read more</button>
+            <button id="readMoreBtn" class="read-more-btn">Read Full Story <i class="fas fa-chevron-down"></i></button>
+          </div>
+
+          <div class="stats-wrapper">
+            <div class="stat-chip stat" data-info="IoT sensors, cloud storage, mobile apps, harvest forecast.">
+              <i class="fas fa-code"></i> <span>Tech Stack</span>
             </div>
+            <div class="stat-chip stat" data-info="Crop planning, monitoring, care recommendations, AI chat, MSME support.">
+              <i class="fas fa-bullseye"></i> <span>Key Focus</span>
+            </div>
+          </div>
 
-            <!-- Preview -->
-            <div class="project-buttons">
-              <a href="https://si-tandur.web.app/" class="btn live">Preview</a>
-
-              <!-- Progres Bar -->
-              <div class="progress-bar-container">
-                <div class="progress-bar" id="progress-bar"></div>
-                <span id="progress-text">0%</span>
-              </div>
-
-
-              <!-- Tombol Like & Komen -->
-              <div class="like-dislike-container">
-                <button id="like-btn" class="reaction-btn like-theme">❤️</button>
-                <span id="like-count">0</span>
-                <button id="komentar-btn" class="reaction-btn komentar-theme">💬</button>
-                <span id="comment-notify-badge"></span>
+          <div class="action-card">
+            <div class="action-top">
+              <a href="https://si-tandur.web.app/" target="_blank" class="btn-live">
+                Live Preview <i class="fas fa-external-link-alt"></i>
+              </a>
+              
+              <div class="progress-wrapper">
+                <div class="progress-label">
+                  <span>Development</span>
+                  <span id="progress-text">100%</span>
+                </div>
+                <div class="progress-track">
+                  <div class="progress-fill" id="progress-bar"></div>
+                </div>
               </div>
             </div>
 
-            <!-- Pemisah -->
+            <div class="reaction-row">
+              <button id="like-btn" class="react-pill">
+                <i class="fas fa-heart"></i> <span id="like-count">0</span>
+              </button>
+              <button id="komentar-btn" class="react-pill">
+                <i class="fas fa-comment-dots"></i> Comment
+              </button>
+              <span id="comment-notify-badge"></span>
+            </div>
+          </div>
+
+          <div class="comments-section">
             <div class="custom-line"></div>
-            <!-- Header Komentar -->
             <div id="comments-header">
-              <h3>Comments (<span id="komentar-count">0</span>)</h3>
-              <div>
+              <h3>Discussion (<span id="komentar-count">0</span>)</h3>
+              <div class="sort-box">
                 <select id="comment-sorting">
                   <option value="newest">Newest</option>
                   <option value="oldest">Oldest</option>
@@ -96,80 +103,113 @@
               </div>
             </div>
 
-            <!-- Isi Komentar -->
-            <div id="comments-list"></div>
-            <button id="load-more-comments">Load more</button>
+            <div id="comments-list" class="comments-scroll-area">
+              </div>
+            <button id="load-more-comments" class="load-more-glass">Load more comments</button>
           </div>
-        </div>
-        <!-- KANAN (preview) -->
+
+        </div> 
         <div class="right-column" data-aos="fade-left">
-          <div class="project-preview">
-            <div class="slide-project">
-              <img src="../../images/sitandur/sitandur1.jpg" alt="Preview 1" class="lightbox-img">
-              <img src="../../images/sitandur/sitandur2.jpg" alt="Preview 2" class="lightbox-img">
-              <img src="../../images/sitandur/sitandur3.jpg" alt="Preview 3" class="lightbox-img">
-              <img src="../../images/sitandur/sitandur4.jpg" alt="Preview 4" class="lightbox-img">
+          
+          <div class="slider-frame">
+            <div class="project-preview">
+              <div class="slide-project">
+                <img src="images/sitandur/sitandur1.jpg" alt="Preview 1" class="lightbox-img">
+                <img src="images/sitandur/sitandur2.jpg" alt="Preview 2" class="lightbox-img">
+                <img src="images/sitandur/sitandur3.jpg" alt="Preview 3" class="lightbox-img">
+                <img src="images/sitandur/sitandur4.jpg" alt="Preview 4" class="lightbox-img">
+              </div>
+              
+              <div class="slide-controls">
+                <button class="prev glass-nav"><i class="fas fa-chevron-left"></i></button>
+                <button class="next glass-nav"><i class="fas fa-chevron-right"></i></button>
+              </div>
             </div>
-            <div class="slide-controls">
-              <button class="prev">❮</button>
-              <button class="next">❯</button>
+            <div class="slider-caption">
+              <i class="fas fa-camera"></i> Click image to enlarge
             </div>
           </div>
 
+          <div class="features-grid">
+            <h2 class="features-title">✨ Key Features</h2>
+            
+            <div class="feature-card">
+              <div class="f-icon green"><i class="fas fa-eye"></i></div>
+              <div class="f-text">
+                <h4>Real-Time Monitoring</h4>
+                <p>Track crop conditions instantly via IoT.</p>
+              </div>
+            </div>
 
+            <div class="feature-card">
+              <div class="f-icon gold"><i class="fas fa-seedling"></i></div>
+              <div class="f-text">
+                <h4>Smart Recommendations</h4>
+                <p>Data-driven advice for care & harvest.</p>
+              </div>
+            </div>
 
-          <!-- KEY FEATURES -->
-          <div class="key-features">
-            <h2>🧩Key Features of SI-TANDUR</h2>
-            <ul class="feature-list">
-              <li><span class="icon">👁️</span> Real-Time Crop Monitoring – Track crop conditions instantly.</li>
-              <li><span class="icon">🌱</span> Care & Harvest Recommendations – Advice on fertilization, watering, and
-                harvest forecasts.</li>
-              <li><span class="icon">📅</span> Crop Planning – Schedule planting and select seeds.</li>
-              <li><span class="icon">🤖</span> AI Chat – Virtual agricultural consultation.</li>
-              <li><span class="icon">🏪</span> MSME Support & Store Recommendations – Market harvests and find nearby
-                agricultural stores.</li>
-            </ul>
+            <div class="feature-card">
+              <div class="f-icon blue"><i class="fas fa-calendar-check"></i></div>
+              <div class="f-text">
+                <h4>Crop Planning</h4>
+                <p>Schedule planting & select seeds easily.</p>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="f-icon purple"><i class="fas fa-robot"></i></div>
+              <div class="f-text">
+                <h4>AI Consultant</h4>
+                <p>Virtual assistant for farming queries.</p>
+              </div>
+            </div>
+
+            <div class="feature-card">
+              <div class="f-icon orange"><i class="fas fa-store"></i></div>
+              <div class="f-text">
+                <h4>MSME Marketplace</h4>
+                <p>Connect farmers with local buyers.</p>
+              </div>
+            </div>
+
           </div>
         </div>
-      </div>
+        </div>
+    </div>
   </section>
 
-  <!-- KUMPULAN MODAL -->
-  <!-- Kolom Komentar -->
   <div class="cmtApp-modal" id="cmtAppModal">
-    <div class="cmtApp-modal-content">
+    <div class="cmtApp-modal-content glass-modal">
       <span class="cmtApp-close" id="close-cmtAppModal">&times;</span>
-      <div id="cmtAppModalTitle">Write a Comment</div>
-      <input type="text" id="cmtAppNama" placeholder="Enter your name">
-      <textarea id="cmtAppIsi" rows="4" placeholder="Comment..."></textarea>
-      <button id="cmtAppKirim">Send</button>
+      <div id="cmtAppModalTitle">Leave a Comment</div>
+      <div class="input-group">
+        <i class="fas fa-user"></i>
+        <input type="text" id="cmtAppNama" placeholder="Your Name">
+      </div>
+      <div class="input-group">
+        <i class="fas fa-comment-alt top"></i>
+        <textarea id="cmtAppIsi" rows="4" placeholder="Write something nice..."></textarea>
+      </div>
+      <button id="cmtAppKirim" class="btn-send">Post Comment</button>
     </div>
   </div>
 
-  <!-- Float Modal -->
   <div id="miniModal" class="mini-modal">
     <div class="mini-content" id="miniContent"></div>
   </div>
 
-  <!-- Modal lightbox -->
   <div id="lightboxModal" class="modal">
     <span class="close">&times;</span>
     <img class="modal-content" id="lightboxImg">
     <div class="modal-controls">
-      <button id="prevImg">❮</button>
-      <button id="nextImg">❯</button>
+      <button id="prevImg"><i class="fas fa-chevron-left"></i></button>
+      <button id="nextImg"><i class="fas fa-chevron-right"></i></button>
     </div>
   </div>
 
-
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js"></script>
-  <script src="script.js"></script>
   <script type="module" src="script.js"></script>
   <script>window.PAGE_ID = "sitandur"</script>
-  <script type="module" src="app.js"></script>
 
 </body>
-
 </html>
