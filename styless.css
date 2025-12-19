@@ -1,33 +1,30 @@
 /* =========================================
-   1. RESET & VARIABLES (LUXURY GOLD THEME)
+   1. iOS LIQUID GLASS VARIABLES & RESET
    ========================================= */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 :root {
-  /* BACKGROUND: Bersih, Putih Kebiruan (Seperti Air) */
-  --bg-color: #f8fafc;
+  /* BACKGROUND: Putih Bersih dengan sentuhan mewah */
+  --bg-color: #f2f4f6;
 
-  /* TEXT: Gelap Elegan & Emas */
-  --text-main: #334155;
-  /* Slate Dark */
-  --text-muted: #64748b;
-  /* Slate Gray */
-  --text-gold: #b4860b;
-  /* Dark Goldenrod */
-
-  /* ACCENT: Gold & Water Cyan */
-  --gold-gradient: linear-gradient(135deg, #d4af37, #f7e98e);
-  --water-gradient: linear-gradient(135deg, #e0f2fe, #f0f9ff);
-
-  /* GLASS EFFECT: Transparan Putih (Liquid) */
+  /* GLASS EFFECT (Rahasia iOS look) */
   --glass-bg: rgba(255, 255, 255, 0.65);
-  /* Lebih putih transparan */
+  /* Sangat bening */
   --glass-border: 1px solid rgba(255, 255, 255, 0.8);
+  --glass-shine: linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.2) 100%);
   --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
-  /* Bayangan soft biru */
-  --glass-blur: blur(12px);
+  --glass-blur: blur(20px);
 
-  --radius-liquid: 24px;
+  /* TEXT COLORS (Gelap agar kontras di atas kaca) */
+  --text-main: #1d1d1f;
+  /* Apple Black */
+  --text-muted: #86868b;
+  /* Apple Gray */
+  --accent: #007aff;
+  /* Apple Blue */
+
+  /* Radius Super Bulat */
+  --radius-ios: 24px;
 }
 
 * {
@@ -40,16 +37,86 @@
 body {
   background: var(--bg-color);
   color: var(--text-main);
-  scroll-behavior: smooth;
+  line-height: 1.6;
   overflow-x: hidden;
-  /* Pattern halus air */
-  background-image:
-    radial-gradient(at 0% 0%, rgba(212, 175, 55, 0.1) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(14, 165, 233, 0.1) 0px, transparent 50%);
+  position: relative;
+}
+
+/* BACKGROUND LIQUID ANIMATION (Tetesan Air Bergerak) */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  border-radius: 50%;
+  z-index: -1;
+  filter: blur(80px);
+  opacity: 0.6;
+  animation: floatBlob 10s infinite alternate;
+}
+
+body::before {
+  width: 600px;
+  height: 600px;
+  background: #a7dcfc;
+  /* Biru Air */
+  top: -10%;
+  left: -10%;
+}
+
+body::after {
+  width: 500px;
+  height: 500px;
+  background: #e0c6f7;
+  /* Ungu Halus */
+  bottom: -10%;
+  right: -10%;
+  animation-delay: -5s;
+}
+
+@keyframes floatBlob {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  100% {
+    transform: translate(30px, 40px);
+  }
 }
 
 /* =========================================
-   2. NAVBAR (PC: Top Pill, HP: Bottom Floating)
+   2. UTILITY: GLASS CARD CLASS
+   ========================================= */
+/* Ini kelas ajaib yang bikin semua kotak jadi kaca */
+header,
+.about-sidebar,
+.profile-box,
+.info-box,
+.edu-item,
+.exp-item,
+.portfolio-card,
+.contact-form,
+.right-side,
+.mini-popup {
+  background: var(--glass-bg);
+  background-image: var(--glass-shine);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: var(--radius-ios);
+}
+
+/* Container Pembatas Biar Gak Berantakan */
+section {
+  padding: 100px 5%;
+  max-width: 1200px;
+  /* KUNCI RAPI: Maksimal lebar 1200px */
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* =========================================
+   3. NAVBAR (Responsive: PC Top, HP Bottom)
    ========================================= */
 header {
   position: fixed;
@@ -57,41 +124,33 @@ header {
   left: 50%;
   transform: translateX(-50%);
   width: 90%;
-  max-width: 1200px;
+  max-width: 1000px;
   z-index: 1000;
-  transition: all 0.3s ease;
+  padding: 10px 30px;
+  border-radius: 50px;
+  transition: 0.3s;
 }
 
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 30px;
-
-  /* Glassmorphism Navbar */
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  border-radius: 50px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
 .logo {
+  font-size: 1.5rem;
   font-weight: 700;
-  font-size: 24px;
   color: var(--text-main);
 }
 
 .logo span {
-  color: #d4af37;
-  /* Gold */
-  text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+  color: var(--accent);
 }
 
 .nav-links {
-  list-style: none;
   display: flex;
   gap: 30px;
+  list-style: none;
 }
 
 .nav-links a {
@@ -103,236 +162,110 @@ header {
 
 .nav-links a:hover,
 .nav-links a.active {
-  color: #d4af37;
-  /* Gold */
-  font-weight: 700;
+  color: var(--accent);
 }
 
-.menu-toggle {
-  display: none;
-}
-
-/* Default hidden di PC */
+.menu-toggle,
 .close-menu {
   display: none;
 }
 
+/* Default Hidden */
+
 /* =========================================
-   3. HERO SECTION (LIQUID GOLD & WATER)
+   4. HERO SECTION (Layout Flex Rapi)
    ========================================= */
 .hero {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 150px 60px 60px;
-  background: transparent;
   min-height: 100vh;
-  flex-wrap: wrap;
-  position: relative;
-  overflow: hidden;
+  gap: 50px;
+  padding-top: 120px;
+  /* Biar ga ketabrak navbar */
 }
 
-/* Bubbles Background (Ganti jadi Gold & Biru Air) */
-.hero::before,
-.hero::after {
-  content: '';
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(100px);
-  z-index: -1;
-  opacity: 0.6;
-}
-
-.hero::before {
-  width: 500px;
-  height: 500px;
-  background: rgba(212, 175, 55, 0.2);
-  /* Gold Soft */
-  top: -10%;
-  left: -10%;
-  animation: floatGlow 8s ease-in-out infinite alternate;
-}
-
-.hero::after {
-  width: 450px;
-  height: 450px;
-  background: rgba(14, 165, 233, 0.15);
-  /* Water Blue */
-  bottom: -5%;
-  right: -5%;
-  animation: floatGlow 6s ease-in-out infinite alternate-reverse;
-}
-
-@keyframes floatGlow {
-  0% {
-    transform: translateY(0) scale(1);
-  }
-
-  50% {
-    transform: translateY(-20px) scale(1.05);
-  }
-
-  100% {
-    transform: translateY(0) scale(1);
-  }
-}
-
-/* Hero Text */
 .hero-text {
   flex: 1;
-  min-width: 300px;
-  position: relative;
-  z-index: 2;
+  max-width: 600px;
 }
 
 .hero-text h3 {
-  color: #b4860b;
-  /* Gold Dark */
+  color: var(--accent);
   font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
 }
 
 .hero-text h1 {
-  font-size: 48px;
-  color: var(--text-main);
-  margin-top: 5px;
-  font-weight: 800;
-  text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.5);
-}
-
-.hero-text h1 span {
-  background: var(--gold-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: none;
-}
-
-/* Role Slider */
-.role-slider {
-  position: relative;
-  height: 35px;
-  overflow: hidden;
-  width: 100%;
-  margin-top: 10px;
-}
-
-.slide-text {
-  position: absolute;
-  font-size: 22px;
-  color: var(--text-muted);
-  font-weight: 500;
-  animation: slideIn 0.6s ease forwards;
-}
-
-@keyframes slideIn {
-  from {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
+  font-size: 3.5rem;
+  line-height: 1.1;
+  margin: 10px 0;
+  letter-spacing: -1px;
 }
 
 .hero-text p {
-  max-width: 480px;
-  margin: 25px 0;
   color: var(--text-muted);
-  line-height: 1.8;
-  font-size: 1rem;
+  margin-bottom: 30px;
+  font-size: 1.1rem;
 }
 
-/* Buttons (White Gold & Liquid) */
-.buttons .btn1,
-.buttons .btn-gradient,
-.buttons .btn.live {
-  background: var(--gold-gradient);
-  color: #fff;
-  padding: 12px 30px;
-  border-radius: 50px;
-  text-decoration: none;
-  transition: 0.3s;
-  margin-top: 20px;
-  display: inline-block;
-  font-weight: 600;
-  box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
-  border: 1px solid #fff;
+/* Buttons iOS Style */
+.buttons {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
 }
 
-.buttons .btn1:hover,
-.buttons .btn-gradient:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 15px 30px rgba(212, 175, 55, 0.5);
-}
-
-.buttons .bt,
-.buttons .btn {
-  background: rgba(255, 255, 255, 0.5);
-  color: var(--text-main);
-  padding: 12px 30px;
-  border-radius: 50px;
-  text-decoration: none;
-  transition: 0.3s;
-  display: inline-block;
-  border: 1px solid #d4af37;
-  font-weight: 600;
-}
-
-.buttons .bt:hover,
-.buttons .btn:hover {
-  background: #d4af37;
+.btn1 {
+  background: var(--accent);
   color: white;
-}
-
-/* Socials */
-.socials a {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 45px;
-  height: 45px;
-  color: #b4860b;
-  font-size: 18px;
-  margin-right: 15px;
+  padding: 14px 30px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(0, 122, 255, 0.3);
   transition: 0.3s;
-  background: rgba(255, 255, 255, 0.7);
-  border-radius: 50%;
-  border: 1px solid #d4af37;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
-.socials a:hover {
-  background: #d4af37;
-  color: #fff;
+.btn {
+  background: white;
+  color: var(--accent);
+  padding: 14px 30px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: 0.3s;
+}
+
+.btn1:hover {
   transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 122, 255, 0.5);
 }
 
-/* Hero Image (Water Drop Shape) */
+.btn:hover {
+  background: #f2f2f2;
+}
+
+/* Hero Image Liquid Blob */
 .hero-img {
   flex: 1;
-  text-align: center;
-  position: relative;
-  z-index: 2;
+  display: flex;
+  justify-content: center;
 }
 
 .hero-img img {
-  width: 90%;
-  max-width: 380px;
+  width: 350px;
+  height: 350px;
+  object-fit: cover;
   border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-  /* Organic Liquid Shape */
-  box-shadow:
-    inset 10px 10px 20px rgba(255, 255, 255, 0.5),
-    10px 20px 40px rgba(0, 0, 0, 0.1);
-  border: 4px solid rgba(255, 255, 255, 0.8);
-  animation: liquidMorph 8s infinite ease-in-out;
-  background: #fff;
+  /* Bentuk Organik */
+  border: 5px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+  animation: morph 8s infinite ease-in-out;
 }
 
-@keyframes liquidMorph {
+@keyframes morph {
 
   0%,
   100% {
@@ -345,498 +278,334 @@ header {
 }
 
 /* =========================================
-   4. GLASS CARDS (THE CORE DESIGN)
+   5. ABOUT SECTION (Sidebar Sticky Grid)
    ========================================= */
-/* Menerapkan efek Kaca Air ke semua elemen kotak */
-.left-side,
-.right-side,
-.about-sidebar,
-.profile-box,
-.info-box,
-.edu-item,
-.exp-item,
-.portfolio-card,
-.features,
-.stat,
-.comment-item {
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border: var(--glass-border);
-  box-shadow: var(--glass-shadow);
-  border-radius: var(--radius-liquid);
-  color: var(--text-main);
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-/* Hover Effects */
-.left-side:hover,
-.right-side:hover,
-.portfolio-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(212, 175, 55, 0.15);
-  /* Gold glow soft */
-  border-color: #d4af37;
-}
-
-/* =========================================
-   5. CONTACT & FORMS
-   ========================================= */
-.contact-section {
-  padding: 100px 40px;
-}
-
-.section-title {
-  font-size: 2.3rem;
-  font-weight: 700;
-  text-align: center;
-  color: var(--text-main);
-  margin-bottom: 8px;
-}
-
-.section-subtitle {
-  text-align: center;
-  color: var(--text-muted);
-  margin-bottom: 60px;
-}
-
-.contact-container {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 40px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.left-side,
-.right-side {
-  padding: 40px;
-  flex: 1;
-  min-width: 360px;
-}
-
-/* INPUTS (Liquid Glass Style) */
-input,
-textarea {
-  width: 100%;
-  padding: 15px 20px;
-  margin: 10px 0 20px;
-  border: 1px solid #e2e8f0;
-  border-radius: 15px;
-  background: rgba(255, 255, 255, 0.8);
-  color: #333;
-  font-size: 0.95rem;
-  outline: none;
-  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.05);
-}
-
-input:focus,
-textarea:focus {
-  border-color: #d4af37;
-  background: #fff;
-  box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
-}
-
-/* Social Links in Contact */
-.social-links a {
-  color: var(--text-main);
-  background: rgba(255, 255, 255, 0.5);
-  border: 1px solid #fff;
-}
-
-.social-links a:hover {
-  background: #d4af37;
-  color: #fff;
-}
-
-/* =========================================
-   6. ABOUT SECTION
-   ========================================= */
-.about-glow {
-  padding: 100px 40px;
-  display: flex;
-  justify-content: center;
-  min-height: 100vh;
-}
-
 .about-container {
   display: flex;
-  max-width: 1200px;
-  width: 100%;
-  gap: 50px;
+  gap: 40px;
+  align-items: start;
 }
 
 .about-sidebar {
-  flex: 0 0 260px;
-  padding: 30px;
-  height: fit-content;
-}
-
-.about-sidebar h2 {
-  color: #d4af37;
-  font-weight: 700;
-}
-
-.subtitle {
-  color: var(--text-muted);
-  margin-bottom: 20px;
+  width: 260px;
+  flex-shrink: 0;
+  padding: 25px;
+  position: sticky;
+  top: 100px;
+  /* Menu diam saat scroll */
 }
 
 .about-tabs li {
-  padding: 12px 15px;
+  padding: 12px;
   margin-bottom: 8px;
+  border-radius: 12px;
   cursor: pointer;
   color: var(--text-muted);
-  border-radius: 10px;
   transition: 0.3s;
-  font-weight: 500;
 }
 
 .about-tabs li.active,
 .about-tabs li:hover {
-  color: #fff;
-  background: #d4af37;
-  box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3);
-}
-
-/* Profile Content */
-.profile-box img {
-  border: 4px solid #fff;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.bio h3 {
-  color: var(--text-main);
-}
-
-.bio .role {
-  color: #b4860b;
-}
-
-.bio p {
-  color: var(--text-muted);
-}
-
-/* Experience & Education Items */
-.edu-item,
-.exp-item {
-  border-left: 5px solid #d4af37;
-  margin-bottom: 20px;
-  padding: 25px;
-}
-
-.role-title,
-.edu-item h4 {
-  color: #333;
-  font-weight: 700;
-}
-
-.exp-date,
-.edu-item p {
-  color: #b4860b;
-}
-
-.exp-company {
-  color: #64748b;
+  background: rgba(0, 122, 255, 0.1);
+  color: var(--accent);
   font-weight: 600;
 }
 
-/* Skills */
-.skills-list span,
-.tags span {
-  background: #fff;
-  border: 1px solid #d4af37;
-  color: #b4860b;
-  border-radius: 20px;
-  padding: 6px 14px;
-  font-weight: 500;
+.about-content {
+  flex: 1;
+  min-height: 400px;
 }
 
-.skills-list span:hover {
-  background: #d4af37;
-  color: #fff;
+.tab-content {
+  display: none;
+  animation: popUp 0.4s ease;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+@keyframes popUp {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Cards inside About */
+.profile-box {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  padding: 30px;
+}
+
+.profile-box img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.exp-item,
+.edu-item {
+  padding: 25px;
+  margin-bottom: 20px;
+  border-left: 5px solid var(--accent);
 }
 
 /* =========================================
-   7. PORTFOLIO
+   6. PORTFOLIO (Grid System Rapi)
    ========================================= */
 .portfolio-section {
-  padding: 100px 20px;
   text-align: center;
 }
 
-.portfolio-title {
+.section-title {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
   color: var(--text-main);
 }
 
-.portfolio-subtitle {
-  color: var(--text-muted);
+.portfolio-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
 }
 
 .tab-btn {
-  background: #fff;
-  border: 1px solid #e2e8f0;
-  color: var(--text-muted);
-  padding: 10px 30px;
+  padding: 10px 25px;
   border-radius: 50px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  border: none;
+  background: white;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
-.tab-btn:hover,
-.tab-btn.active {
-  background: #d4af37;
-  color: #fff;
-  border-color: #d4af37;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+.tab-btn.active,
+.tab-btn:hover {
+  background: var(--accent);
+  color: white;
 }
 
+/* Grid Card Anti-Berantakan */
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  /* Auto Responsive */
   gap: 30px;
-  margin-top: 40px;
 }
 
 .portfolio-card {
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.9);
+  text-align: left;
+  transition: 0.3s;
+}
+
+.portfolio-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
 .portfolio-card img {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  transition: transform 0.5s;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
 }
 
-.portfolio-card:hover img {
-  transform: scale(1.05);
+.card-content {
+  padding: 20px;
 }
 
 .card-content h3 {
-  color: #333;
-}
-
-.card-content p {
-  color: #64748b;
+  font-size: 1.2rem;
+  margin-bottom: 5px;
 }
 
 .project-footer .details {
-  background: white;
-  color: #d4af37;
-  border: 1px solid #d4af37;
-  padding: 5px 15px;
-  border-radius: 20px;
-}
-
-.project-footer .details:hover {
-  background: #d4af37;
-  color: white;
+  display: inline-block;
+  padding: 8px 20px;
+  border-radius: 50px;
+  background: #f2f2f7;
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
 }
 
 /* =========================================
-   8. EXTRAS & POPUPS
+   7. CONTACT (Split View)
    ========================================= */
-/* Birthday Card (Blueish Water) */
-.card-header {
-  background: linear-gradient(135deg, #e0f2fe, #bae6fd);
-  border-bottom: 1px solid #fff;
-  color: #0284c7;
+.contact-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
 }
 
-.card-header h3 {
-  color: #0284c7;
+.contact-form,
+.right-side {
+  padding: 40px;
 }
 
-.birthday-btn {
-  background: #fff;
-  color: #333;
-  border: 1px solid #eee;
+input,
+textarea {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.5);
+  outline: none;
+  font-size: 1rem;
+  color: var(--text-main);
 }
 
-/* Mini Popup (Floating Bubble) */
-.mini-popup {
-  background: #fff;
-  border: 1px solid #d4af37;
+input:focus,
+textarea:focus {
+  background: white;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.1);
+}
+
+.btn-gradient {
+  width: 100%;
+  padding: 15px;
   border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-}
-
-.popup-arrow {
-  border-top: 8px solid #fff;
-}
-
-.mini-popup p {
-  color: #333;
-}
-
-.dl-links a {
-  background: #f8fafc;
-  color: #333;
-}
-
-.dl-links a:hover {
-  background: #d4af37;
-  color: #fff;
+  background: var(--accent);
+  color: white;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 /* =========================================
-   9. RESPONSIVE & MOBILE FLOATING NAV
+   8. MOBILE RESPONSIVE & FLOATING NAV
    ========================================= */
 @media (max-width: 900px) {
-  .contact-container {
-    flex-direction: column;
-  }
-
-  .about-container {
-    flex-direction: column;
-  }
-
-  .about-sidebar {
-    width: 100%;
-    overflow-x: auto;
-    border-right: none;
-    margin-bottom: 20px;
-  }
-
-  .about-tabs {
-    display: flex;
-    gap: 10px;
-    width: max-content;
-  }
-}
-
-/* KHUSUS HP/TABLET: Navbar jadi Floating Button di Bawah */
-@media (max-width: 768px) {
-
-  /* Sembunyikan Header atas standard */
-  header {
-    top: auto;
-    bottom: 20px;
-    /* Pindah ke bawah */
-    left: auto;
-    right: 20px;
-    transform: none;
-    width: auto;
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    padding: 0;
-  }
-
-  .navbar {
-    background: transparent;
-    border: none;
-    padding: 0;
-    box-shadow: none;
-    flex-direction: column-reverse;
-    /* Menu di atas tombol */
-    align-items: flex-end;
-  }
-
-  .logo {
-    display: none;
-  }
-
-  /* Logo hilang di mode floating biar bersih */
-
-  /* Tombol Toggle Floating (Bulat Emas) */
-  .menu-toggle {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, #d4af37, #f7e98e);
-    border-radius: 50%;
-    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
-    color: #fff;
-    font-size: 24px;
-    cursor: pointer;
-    z-index: 1001;
-    transition: transform 0.3s;
-  }
-
-  .menu-toggle:active {
-    transform: scale(0.9);
-  }
-
-  /* Tombol Close (X) di dalam menu */
-  .close-menu {
-    display: block;
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    font-size: 20px;
-    color: #333;
-    cursor: pointer;
-  }
-
-  /* Daftar Menu (Muncul dari bawah seperti laci/drawer) */
-  .nav-links {
-    position: fixed;
-    bottom: 90px;
-    /* Di atas tombol floating */
-    right: 20px;
-    flex-direction: column;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(15px);
-    padding: 20px;
-    border-radius: 20px;
-    width: 200px;
-    gap: 15px;
-    text-align: center;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-    border: 1px solid #fff;
-
-    /* Animasi Hidden/Show */
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(20px) scale(0.9);
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-
-  /* Class active ditambahkan via JS (sudah ada di script kamu) */
-  .nav-links.active {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0) scale(1);
-  }
-
-  .nav-links a {
-    display: block;
-    padding: 10px;
-    color: #333;
-    border-radius: 10px;
-  }
-
-  .nav-links a:hover {
-    background: #f1f5f9;
-    color: #d4af37;
-  }
-
-  /* Hero Text di HP */
   .hero {
     flex-direction: column-reverse;
     text-align: center;
-    padding: 50px 20px 100px;
+    padding-top: 50px;
   }
 
-  .hero-text h1 {
-    font-size: 2.5rem;
+  .hero-img img {
+    width: 280px;
+    height: 280px;
   }
 
   .buttons {
     justify-content: center;
   }
 
-  .card-grid {
-    grid-template-columns: 1fr;
+  .about-container,
+  .contact-container {
+    display: block;
   }
 
-  /* Profile Responsive */
-  .profile-box {
+  .about-sidebar {
+    width: 100%;
+    position: relative;
+    top: 0;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    white-space: nowrap;
+    display: flex;
+    gap: 10px;
+  }
+
+  .about-tabs {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .right-side {
+    margin-top: 20px;
+  }
+}
+
+/* === MODIFIKASI KHUSUS HP (FLOATING DOCK NAV) === */
+@media (max-width: 768px) {
+
+  /* Sembunyikan Header Asli */
+  header {
+    top: auto;
+    bottom: 20px;
+    /* Pindah ke bawah */
+    width: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+  }
+
+  .logo {
+    display: none;
+  }
+
+  /* Logo hilang di HP biar bersih */
+
+  /* Navigasi berubah jadi Floating Dock ala iOS */
+  .nav-links {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 10px 20px;
+    border-radius: 50px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    width: max-content;
+  }
+
+  /* Ikon Menu di HP (Menggunakan Teks Menu jadi Ikon) */
+  .nav-links a {
+    font-size: 0.8rem;
+    /* Teks kecil */
+    display: flex;
     flex-direction: column;
-    text-align: center;
+    align-items: center;
+    padding: 5px 10px;
+    color: var(--text-muted);
+  }
+
+  .nav-links a.active {
+    color: var(--accent);
+    background: rgba(0, 122, 255, 0.1);
+    border-radius: 15px;
+  }
+
+  /* Hero Text Adjustment */
+  .hero-text h1 {
+    font-size: 2.5rem;
+  }
+
+  /* Tombol download/hire popup fix */
+  .mini-popup {
+    bottom: 110%;
+    background: white;
+    color: black;
+    border: 1px solid #eee;
+  }
+
+  .popup-arrow {
+    border-top-color: white;
+  }
+
+  .dl-links a {
+    background: #f5f5f5;
+    color: black;
   }
 }
