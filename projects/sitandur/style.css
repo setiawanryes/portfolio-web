@@ -297,3 +297,122 @@ body {
   .features-compact-grid { grid-template-columns: 1fr; }
   .full-width { grid-column: span 1; }
 }
+
+/* =========================================
+   FIX: MODERN CHAT BUBBLE STYLE
+   ========================================= */
+
+/* 1. Container Komentar */
+.cmtApp-comment {
+  background: rgba(255, 255, 255, 0.65) !important; /* Kaca lebih bening */
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.8) !important;
+  border-radius: 20px !important; /* Membulat seperti chat bubble */
+  padding: 18px !important;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03) !important;
+  transition: transform 0.2s ease;
+  animation: fadeIn 0.4s ease;
+}
+
+.cmtApp-comment:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.85) !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* 2. Header (Avatar & Nama) */
+.cmtApp-comment-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.cmtApp-comment-header img {
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 50% !important;
+  object-fit: cover;
+  border: 2px solid white !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.cmtApp-comment-header strong {
+  font-size: 0.95rem;
+  color: var(--text-dark);
+  font-weight: 700;
+}
+
+/* 3. Isi Komentar */
+.cmtApp-comment-body {
+  font-size: 0.95rem;
+  color: #334155; /* Warna teks lebih soft */
+  line-height: 1.6;
+  margin-left: 50px; /* Sejajar dengan teks nama, melewati avatar */
+  margin-bottom: 12px;
+}
+
+/* 4. Footer (Tombol Aksi & Waktu) */
+.cmtApp-comment-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 50px; /* Sejajar dengan body */
+  padding-top: 10px;
+  border-top: 1px dashed rgba(0,0,0,0.05); /* Garis pemisah tipis */
+}
+
+/* Reset Tombol Default yang Jelek */
+.cmtApp-comment-actions button {
+  background: transparent !important;
+  border: none !important; /* HILANGKAN KOTAK BORDER */
+  padding: 5px 10px !important;
+  border-radius: 8px !important;
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+  color: var(--text-muted) !important;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Hover Effect Tombol */
+.cmtApp-comment-actions button:hover {
+  background: rgba(0,0,0,0.03) !important;
+}
+
+/* Warna Spesifik per Tombol saat Hover */
+.cmtApp-like:hover { color: #ef4444 !important; background: #fef2f2 !important; }
+.cmtApp-reply:hover { color: #3b82f6 !important; background: #eff6ff !important; }
+.cmtApp-edit:hover { color: #f59e0b !important; background: #fffbeb !important; }
+.cmtApp-delete:hover { color: #ef4444 !important; background: #fef2f2 !important; }
+
+/* Waktu */
+.cmtApp-time {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+/* 5. Balasan (Replies) - Membuat Indentasi Rapi */
+.cmtApp-replies {
+  margin-top: 15px;
+  margin-left: 50px;
+  padding-left: 15px;
+  border-left: 2px solid rgba(0,0,0,0.05);
+}
+
+/* Mobile Responsiveness untuk Komentar */
+@media (max-width: 480px) {
+  .cmtApp-comment { padding: 15px !important; }
+  .cmtApp-comment-body, 
+  .cmtApp-comment-footer, 
+  .cmtApp-replies {
+    margin-left: 0; /* Reset margin di HP biar muat */
+  }
+  .cmtApp-comment-footer { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .cmtApp-time { align-self: flex-end; }
+}
