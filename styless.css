@@ -1037,7 +1037,138 @@ textarea:focus {
     .exp-date-badge { align-self: flex-start; }
 }
 
+/* =========================================
+   PREMIUM iOS SKILLS WIDGET (FIXED MOBILE SWIPE)
+   ========================================= */
 
+/* 1. Header Group & Hint */
+.skills-header-group {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 15px; padding: 0 5px;
+}
+
+.swipe-hint {
+    font-size: 0.75rem; color: var(--text-muted);
+    background: rgba(255,255,255,0.6); padding: 6px 14px;
+    border-radius: 20px; border: 1px solid rgba(0,0,0,0.05);
+    animation: pulseHint 2s infinite;
+    display: flex; align-items: center; gap: 5px; font-weight: 600;
+}
+@keyframes pulseHint { 0%, 100% { opacity: 0.6; transform: translateX(0); } 50% { opacity: 1; transform: translateX(5px); } }
+
+/* 2. Slider Container (Scrollable Area) */
+.skill-ios-wrapper {
+    display: flex;
+    gap: 20px; /* Jarak antar kartu */
+    overflow-x: auto; /* Wajib untuk scroll */
+    padding: 10px 5px 40px 5px; /* Padding bawah lebih besar untuk bayangan */
+    
+    /* PROPERTI PENTING UNTUK HP */
+    scroll-snap-type: x mandatory; /* Efek magnet */
+    -webkit-overflow-scrolling: touch; /* Wajib untuk iPhone agar mulus */
+    scroll-behavior: smooth;
+    
+    /* Sembunyikan Scrollbar */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE */
+}
+.skill-ios-wrapper::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+
+/* 3. The Widget Card (Kartu) */
+.skill-ios-card {
+    /* Desktop Size */
+    min-width: 300px;
+    max-width: 300px;
+    
+    background: rgba(255, 255, 255, 0.75); /* Sedikit lebih solid */
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid white;
+    border-radius: 24px;
+    padding: 25px;
+    position: relative;
+    
+    /* Agar tidak mengecil */
+    flex-shrink: 0;
+    
+    /* Titik berhenti saat digeser */
+    scroll-snap-align: center;
+    
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+/* Background Glow */
+.ios-card-bg {
+    position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+    background: radial-gradient(circle, var(--card-accent) 0%, transparent 60%);
+    opacity: 0.1; pointer-events: none; z-index: 0;
+}
+
+/* Hover Effect (Desktop Only) */
+@media (hover: hover) {
+    .skill-ios-card:hover {
+        transform: translateY(-8px);
+        background: white;
+        box-shadow: 0 20px 40px -10px var(--card-accent);
+        border-color: var(--card-accent);
+    }
+}
+
+/* 4. Widget Components */
+.ios-header {
+    display: flex; align-items: center; gap: 15px; margin-bottom: 20px;
+    position: relative; z-index: 1;
+}
+
+.ios-icon-box {
+    width: 50px; height: 50px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 1.3rem;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+}
+
+.gradient-data { background: linear-gradient(135deg, #f59e0b, #d97706); }
+.gradient-web { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+.gradient-creative { background: linear-gradient(135deg, #ec4899, #db2777); }
+
+.ios-title h4 { margin: 0; font-size: 1.1rem; color: var(--text-main); font-weight: 700; }
+.ios-title span { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; }
+
+.ios-body {
+    display: flex; flex-wrap: wrap; gap: 8px; position: relative; z-index: 1;
+}
+
+.skill-pill {
+    padding: 6px 14px;
+    background: rgba(255,255,255,0.7);
+    border: 1px solid rgba(0,0,0,0.05);
+    border-radius: 12px;
+    font-size: 0.85rem; font-weight: 500; color: var(--text-main);
+    transition: 0.2s;
+}
+.skill-pill:hover { background: var(--text-main); color: white; }
+
+/* 5. KHUSUS MOBILE (FIXED SWIPE) */
+@media (max-width: 768px) {
+    .skill-ios-wrapper {
+        gap: 15px;
+        padding-left: 5%; /* Biar kartu pertama gak nempel pinggir */
+        padding-right: 20%; /* Memberi ruang di kanan agar kartu terakhir terlihat 'habis' */
+        scroll-snap-type: x mandatory; /* Memaksa berhenti pas di tengah */
+    }
+
+    .skill-ios-card {
+        /* Ubah ukuran jadi Persentase Layar agar responsif di semua HP */
+        min-width: 85vw; /* 85% lebar layar */
+        max-width: 85vw;
+        scroll-snap-align: center; /* Berhenti tepat di tengah layar */
+    }
+    
+    /* Sembunyikan hint animasi di HP jika mengganggu, atau biarkan saja */
+    .swipe-hint { display: flex; }
+}
 /* =========================================
    PERSONAL DASHBOARD (CLEAN & RESPONSIVE)
    ========================================= */
