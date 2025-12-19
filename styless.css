@@ -1038,136 +1038,135 @@ textarea:focus {
 }
 
 /* =========================================
-   PREMIUM iOS SKILLS WIDGET (FIXED MOBILE SWIPE)
+   SKILLS SLIDER (SWIPE / GESER EFEK MAGNET)
    ========================================= */
 
-/* 1. Header Group & Hint */
+/* 1. Header & Petunjuk */
 .skills-header-group {
     display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 15px; padding: 0 5px;
+    margin-bottom: 20px; padding: 0 5px;
 }
 
-.swipe-hint {
-    font-size: 0.75rem; color: var(--text-muted);
-    background: rgba(255,255,255,0.6); padding: 6px 14px;
+.swipe-indicator {
+    font-size: 0.8rem; color: var(--text-muted);
+    background: rgba(255,255,255,0.6); padding: 5px 12px;
     border-radius: 20px; border: 1px solid rgba(0,0,0,0.05);
-    animation: pulseHint 2s infinite;
-    display: flex; align-items: center; gap: 5px; font-weight: 600;
+    animation: bounceRight 2s infinite;
+    display: flex; align-items: center; gap: 5px;
 }
-@keyframes pulseHint { 0%, 100% { opacity: 0.6; transform: translateX(0); } 50% { opacity: 1; transform: translateX(5px); } }
+@keyframes bounceRight {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(5px); }
+}
 
-/* 2. Slider Container (Scrollable Area) */
-.skill-ios-wrapper {
-    display: flex;
+/* 2. WADAH SLIDER (PENTING!) */
+.skill-slider-container {
+    display: flex; /* Berbaris ke samping */
     gap: 20px; /* Jarak antar kartu */
-    overflow-x: auto; /* Wajib untuk scroll */
-    padding: 10px 5px 40px 5px; /* Padding bawah lebih besar untuk bayangan */
+    overflow-x: auto; /* Aktifkan scroll samping */
+    padding: 10px 5px 40px 5px; /* Ruang bayangan */
     
-    /* PROPERTI PENTING UNTUK HP */
-    scroll-snap-type: x mandatory; /* Efek magnet */
-    -webkit-overflow-scrolling: touch; /* Wajib untuk iPhone agar mulus */
+    /* MAGIC CSS UNTUK EFEK SWIPE/SNAP */
+    scroll-snap-type: x mandatory; /* Wajib berhenti pas di kartu */
+    -webkit-overflow-scrolling: touch; /* Biar licin di iPhone */
     scroll-behavior: smooth;
     
-    /* Sembunyikan Scrollbar */
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE */
+    /* Sembunyikan Scrollbar jelek */
+    scrollbar-width: none; 
+    -ms-overflow-style: none;
 }
-.skill-ios-wrapper::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+.skill-slider-container::-webkit-scrollbar { display: none; }
 
-/* 3. The Widget Card (Kartu) */
-.skill-ios-card {
-    /* Desktop Size */
-    min-width: 300px;
-    max-width: 300px;
+/* Spacer di ujung kanan */
+.spacer-end { min-width: 20px; }
+
+/* 3. KARTU SLIDER */
+.skill-card-slide {
+    /* UKURAN KARTU */
+    min-width: 300px; max-width: 300px; /* Ukuran Desktop */
     
-    background: rgba(255, 255, 255, 0.75); /* Sedikit lebih solid */
+    /* EFEK SNAP (MAGNET) */
+    scroll-snap-align: center; /* Kartu akan berhenti di tengah layar */
+    flex-shrink: 0; /* Jangan mengecil */
+    
+    /* Tampilan Kaca Premium */
+    background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
     border: 1px solid white;
-    border-radius: 24px;
+    border-radius: 26px;
     padding: 25px;
     position: relative;
-    
-    /* Agar tidak mengecil */
-    flex-shrink: 0;
-    
-    /* Titik berhenti saat digeser */
-    scroll-snap-align: center;
-    
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     overflow: hidden;
+    transition: transform 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
 }
 
-/* Background Glow */
-.ios-card-bg {
+/* Background Glow Halus */
+.card-bg-glow {
     position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-    background: radial-gradient(circle, var(--card-accent) 0%, transparent 60%);
-    opacity: 0.1; pointer-events: none; z-index: 0;
+    background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+    opacity: 0.1; pointer-events: none;
 }
 
-/* Hover Effect (Desktop Only) */
+/* Hover di Laptop */
 @media (hover: hover) {
-    .skill-ios-card:hover {
-        transform: translateY(-8px);
+    .skill-card-slide:hover {
+        transform: translateY(-10px);
         background: white;
-        box-shadow: 0 20px 40px -10px var(--card-accent);
-        border-color: var(--card-accent);
+        border-color: var(--accent);
+        box-shadow: 0 20px 40px -10px var(--accent);
     }
 }
 
-/* 4. Widget Components */
-.ios-header {
+/* 4. ISI KARTU */
+.slide-header {
     display: flex; align-items: center; gap: 15px; margin-bottom: 20px;
-    position: relative; z-index: 1;
+    position: relative;
 }
 
-.ios-icon-box {
+.icon-box {
     width: 50px; height: 50px; border-radius: 14px;
     display: flex; align-items: center; justify-content: center;
     color: white; font-size: 1.3rem;
-    box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.gradient-amber { background: linear-gradient(135deg, #f59e0b, #d97706); }
+.gradient-blue { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+.gradient-pink { background: linear-gradient(135deg, #ec4899, #db2777); }
+
+.header-text h4 { margin: 0; font-size: 1.1rem; color: var(--text-main); font-weight: 700; }
+.header-text span { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; }
+
+.slide-body {
+    display: flex; flex-wrap: wrap; gap: 8px; position: relative;
 }
 
-.gradient-data { background: linear-gradient(135deg, #f59e0b, #d97706); }
-.gradient-web { background: linear-gradient(135deg, #3b82f6, #2563eb); }
-.gradient-creative { background: linear-gradient(135deg, #ec4899, #db2777); }
-
-.ios-title h4 { margin: 0; font-size: 1.1rem; color: var(--text-main); font-weight: 700; }
-.ios-title span { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; }
-
-.ios-body {
-    display: flex; flex-wrap: wrap; gap: 8px; position: relative; z-index: 1;
-}
-
-.skill-pill {
-    padding: 6px 14px;
-    background: rgba(255,255,255,0.7);
+.pill {
+    padding: 6px 14px; border-radius: 12px;
+    background: rgba(255,255,255,0.6);
     border: 1px solid rgba(0,0,0,0.05);
-    border-radius: 12px;
-    font-size: 0.85rem; font-weight: 500; color: var(--text-main);
-    transition: 0.2s;
+    font-size: 0.85rem; color: var(--text-main); font-weight: 500;
 }
-.skill-pill:hover { background: var(--text-main); color: white; }
 
-/* 5. KHUSUS MOBILE (FIXED SWIPE) */
+/* =========================================
+   KHUSUS TAMPILAN HP (MOBILE SWIPE)
+   ========================================= */
 @media (max-width: 768px) {
-    .skill-ios-wrapper {
+    .skill-slider-container {
+        padding-left: 20px; /* Jarak dari kiri layar */
+        padding-right: 20px;
         gap: 15px;
-        padding-left: 5%; /* Biar kartu pertama gak nempel pinggir */
-        padding-right: 20%; /* Memberi ruang di kanan agar kartu terakhir terlihat 'habis' */
-        scroll-snap-type: x mandatory; /* Memaksa berhenti pas di tengah */
     }
 
-    .skill-ios-card {
-        /* Ubah ukuran jadi Persentase Layar agar responsif di semua HP */
-        min-width: 85vw; /* 85% lebar layar */
+    .skill-card-slide {
+        /* PENTING: Ukuran kartu di HP */
+        min-width: 85vw; /* 85% lebar layar HP */
         max-width: 85vw;
-        scroll-snap-align: center; /* Berhenti tepat di tengah layar */
+        
+        /* Biar pas di tengah saat di-swipe */
+        scroll-snap-align: center;
     }
-    
-    /* Sembunyikan hint animasi di HP jika mengganggu, atau biarkan saja */
-    .swipe-hint { display: flex; }
 }
 /* =========================================
    PERSONAL DASHBOARD (CLEAN & RESPONSIVE)
