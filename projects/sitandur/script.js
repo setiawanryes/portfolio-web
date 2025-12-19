@@ -1,155 +1,3 @@
-AOS.init({ duration: 1000, once: true });
-
-// Pastikan JS ambil elemen yang benar
-const slideContainer = document.querySelector('.slide-project');
-const slides = slideContainer.querySelectorAll('img');
-let index = 0;
-
-function showSlide(i) {
-  slideContainer.style.transform = `translateX(-${i * 100}%)`;
-}
-
-document.querySelector('.next').addEventListener('click', () => {
-  index = (index + 1) % slides.length;
-  showSlide(index);
-});
-
-document.querySelector('.prev').addEventListener('click', () => {
-  index = (index - 1 + slides.length) % slides.length;
-  showSlide(index);
-});
-
-const modal = document.getElementById("lightboxModal");
-const modalImg = document.getElementById("lightboxImg");
-const closeBtn = document.getElementsByClassName("close")[0];
-const lightboxImages = document.querySelectorAll(".lightbox-img");
-
-let currentIndex = 0;
-let scale = 1;
-
-// Open modal saat gambar diklik
-lightboxImages.forEach((img, i) => {
-  img.addEventListener("click", () => {
-    modal.style.display = "flex";
-    modalImg.src = img.src;
-    currentIndex = i;
-    scale = 1;
-    modalImg.style.transform = `scale(${scale})`;
-  });
-});
-
-// Close modal
-closeBtn.addEventListener("click", (e) => {
-  e.stopPropagation(); 
-  modal.style.display = "none";
-});
-
-// Klik di luar gambar untuk tutup modal
-modal.addEventListener("click", (e) => {
-  if (e.target === modal) modal.style.display = "none";
-});
-
-// Navigasi prev/next
-document.getElementById("prevImg").addEventListener("click", (e) => {
-  e.stopPropagation();
-  showImage(currentIndex - 1);
-});
-
-document.getElementById("nextImg").addEventListener("click", (e) => {
-  e.stopPropagation();
-  showImage(currentIndex + 1);
-});
-
-function showImage(index) {
-  currentIndex = (index + lightboxImages.length) % lightboxImages.length;
-  modalImg.src = lightboxImages[currentIndex].src;
-  scale = 1;
-  modalImg.style.transform = `scale(${scale})`;
-}
-
-// Zoom scroll
-modalImg.addEventListener("wheel", (e) => {
-  e.preventDefault();
-  if(e.deltaY < 0) scale += 0.1;
-  else scale = Math.max(1, scale - 0.1);
-  modalImg.style.transform = `scale(${scale})`;
-});
-
-// Swipe mobile
-let startX = 0;
-modalImg.addEventListener("touchstart", e => startX = e.touches[0].clientX);
-modalImg.addEventListener("touchend", e => {
-  let endX = e.changedTouches[0].clientX;
-  if(endX - startX > 50) showImage(currentIndex - 1);
-  else if(startX - endX > 50) showImage(currentIndex + 1);
-});
-
-const miniModal = document.getElementById("miniModal");
-const miniContent = document.getElementById("miniContent");
-const stats = document.querySelectorAll(".stat");
-
-stats.forEach(stat => {
-  stat.addEventListener("mouseenter", () => {
-    const info = stat.getAttribute("data-info");
-    miniContent.textContent = info;
-
-    // Tampilkan modal sementara untuk menghitung offsetHeight
-    miniModal.style.opacity = 0;
-    miniModal.classList.add("show");
-
-    // Gunakan setTimeout 0ms agar browser render modal dulu
-    setTimeout(() => {
-      const rect = stat.getBoundingClientRect();
-      const offset = 10; // jarak modal dari elemen
-      const modalHeight = miniModal.offsetHeight;
-
-      // Default posisi di atas
-      let topPos = rect.top + window.scrollY - modalHeight - offset;
-
-      // Jika terlalu tinggi, tampilkan di bawah
-      if (topPos < window.scrollY) {
-        topPos = rect.bottom + window.scrollY + offset;
-      }
-
-      // Posisi horizontal
-      let leftPos = rect.left + window.scrollX;
-      if (leftPos + miniModal.offsetWidth > window.innerWidth) {
-        leftPos = window.innerWidth - miniModal.offsetWidth - 10;
-      }
-
-      miniModal.style.top = topPos + "px";
-      miniModal.style.left = leftPos + "px";
-
-      // Tampilkan modal sepenuhnya
-      miniModal.style.opacity = 1;
-    }, 0);
-  });
-
-  stat.addEventListener("mouseleave", () => {
-    miniModal.style.opacity = 0;
-    miniModal.classList.remove("show");
-  });
-});
-
-// Progres Bar
-const progressBar = document.getElementById('progress-bar');
-const progressText = document.getElementById('progress-text');
-
-function setProgress(percent) {
-  progressBar.style.width = percent + '%';
-  progressText.textContent = percent + '%';
-}
-
-// Contoh: progres 75%
-setProgress(100);
-
-/* ===============================
-   FITUR KOMENTAR LANJUTAN
-   Avatar random otomatis
-================================= */
-// Import Firebase SDK
-
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import {
   getFirestore, doc, collection, getDoc, setDoc, updateDoc, increment,
@@ -157,7 +5,177 @@ import {
   limit, startAfter
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// Initialize AOS
+AOS.init({ duration: 1000, once: true });
+
+/* ==========================
+   SLIDER LOGIC
+========================== */
+const slideContainer = document.querySelector('.slide-project');
+const slides = slideContainer ? slideContainer.querySelectorAll('img') : [];
+const prevBtn = document.querySelector('.prev');
+const nextBtn = document.querySelector('.next');
+let index = 0;
+
+function showSlide(i) {
+  if (slideContainer) {
+    slideContainer.style.transform = `translateX(-${i * 100}%)`;
+  }
+}
+
+if (nextBtn) {
+  nextBtn.addEventListener('click', () => {
+    index = (index + 1) % slides.length;
+    showSlide(index);
+  });
+}
+
+if (prevBtn) {
+  prevBtn.addEventListener('click', () => {
+    index = (index - 1 + slides.length) % slides.length;
+    showSlide(index);
+  });
+}
+
+/* ==========================
+   LIGHTBOX MODAL
+========================== */
+const modal = document.getElementById("lightboxModal");
+const modalImg = document.getElementById("lightboxImg");
+const closeBtn = document.querySelector(".close"); // Use querySelector for class
+const lightboxImages = document.querySelectorAll(".lightbox-img");
+const prevImgBtn = document.getElementById("prevImg");
+const nextImgBtn = document.getElementById("nextImg");
+
+let currentIndex = 0;
+let scale = 1;
+
+if (modal && modalImg && closeBtn) {
+  lightboxImages.forEach((img, i) => {
+    img.addEventListener("click", () => {
+      modal.style.display = "flex";
+      modalImg.src = img.src;
+      currentIndex = i;
+      scale = 1;
+      modalImg.style.transform = `scale(${scale})`;
+    });
+  });
+
+  closeBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    modal.style.display = "none";
+  });
+
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) modal.style.display = "none";
+  });
+
+  if (prevImgBtn) {
+    prevImgBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      showImage(currentIndex - 1);
+    });
+  }
+
+  if (nextImgBtn) {
+    nextImgBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      showImage(currentIndex + 1);
+    });
+  }
+
+  // Zoom scroll
+  modalImg.addEventListener("wheel", (e) => {
+    e.preventDefault();
+    if (e.deltaY < 0) scale += 0.1;
+    else scale = Math.max(1, scale - 0.1);
+    modalImg.style.transform = `scale(${scale})`;
+  });
+
+  // Swipe mobile
+  let startX = 0;
+  modalImg.addEventListener("touchstart", e => startX = e.touches[0].clientX);
+  modalImg.addEventListener("touchend", e => {
+    let endX = e.changedTouches[0].clientX;
+    if (endX - startX > 50) showImage(currentIndex - 1);
+    else if (startX - endX > 50) showImage(currentIndex + 1);
+  });
+}
+
+function showImage(index) {
+  if (lightboxImages.length > 0) {
+    currentIndex = (index + lightboxImages.length) % lightboxImages.length;
+    if (modalImg) {
+        modalImg.src = lightboxImages[currentIndex].src;
+        scale = 1;
+        modalImg.style.transform = `scale(${scale})`;
+    }
+  }
+}
+
+/* ==========================
+   MINI MODAL (STATS)
+========================== */
+const miniModal = document.getElementById("miniModal");
+const miniContent = document.getElementById("miniContent");
+const stats = document.querySelectorAll(".stat");
+
+if (miniModal && miniContent) {
+  stats.forEach(stat => {
+    stat.addEventListener("mouseenter", () => {
+      const info = stat.getAttribute("data-info");
+      miniContent.textContent = info;
+
+      miniModal.style.opacity = 0;
+      miniModal.classList.add("show");
+
+      setTimeout(() => {
+        const rect = stat.getBoundingClientRect();
+        const offset = 10;
+        const modalHeight = miniModal.offsetHeight;
+
+        let topPos = rect.top + window.scrollY - modalHeight - offset;
+        if (topPos < window.scrollY) {
+          topPos = rect.bottom + window.scrollY + offset;
+        }
+
+        let leftPos = rect.left + window.scrollX;
+        if (leftPos + miniModal.offsetWidth > window.innerWidth) {
+          leftPos = window.innerWidth - miniModal.offsetWidth - 10;
+        }
+
+        miniModal.style.top = topPos + "px";
+        miniModal.style.left = leftPos + "px";
+        miniModal.style.opacity = 1;
+      }, 0);
+    });
+
+    stat.addEventListener("mouseleave", () => {
+      miniModal.style.opacity = 0;
+      miniModal.classList.remove("show");
+    });
+  });
+}
+
+/* ==========================
+   PROGRESS BAR
+========================== */
+const progressBar = document.getElementById('progress-bar');
+const progressText = document.getElementById('progress-text');
+
+function setProgress(percent) {
+  if (progressBar && progressText) {
+    progressBar.style.width = percent + '%';
+    progressText.textContent = percent + '%';
+  }
+}
+
+// Initialize progress
+setProgress(100);
+
+/* ==========================
+   FIREBASE COMMENTS SYSTEM
+========================== */
 const firebaseConfig = {
   apiKey: "AIzaSyBGS2_U6M-lC0YozJd0FCHpncyNLE1mE2g",
   authDomain: "portfolio-setiawanryes.firebaseapp.com",
@@ -168,28 +186,22 @@ const firebaseConfig = {
   measurementId: "G-4R3C18RXW0"
 };
 
-// ===============================
-// 🔥 Firebase Init
-// ===============================
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// ----- PAGE ID UNIK -----
 const pageId = window.PAGE_ID
   || document.querySelector('meta[name="sitandur"]')?.content
   || (location.pathname.split('/').filter(Boolean).pop() || 'main');
 
-// ----- FIRESTORE REFERENCES -----
 const pageLikeDoc = doc(db, 'post_reactions', pageId);
 const commentsCollection = collection(db, 'comments', pageId, 'list');
 
-// ----- SETTINGS -----
 const pageSize = 3;
 let lastVisible = null;
 let isLoadingMore = false;
 let currentSort = 'newest';
 
-// ----- DOM ELEMENTS -----
+// Elements
 const komentarList = document.getElementById('comments-list');
 const komentarModal = document.getElementById('cmtAppModal');
 const komentarBtn = document.getElementById('komentar-btn');
@@ -204,10 +216,8 @@ const sortingSelect = document.getElementById('comment-sorting');
 const loadMoreBtn = document.getElementById('load-more-comments');
 const notifyBadge = document.getElementById('comment-notify-badge');
 
-// helper untuk event aman
 function safeAddEvent(el, ev, cb) { if (el) el.addEventListener(ev, cb); }
 
-// ----- UTILITIES -----
 function escapeHtml(s = '') {
   return String(s)
     .replaceAll('&', '&amp;')
@@ -228,7 +238,6 @@ function formatWaktu(ts) {
   return d.toLocaleDateString();
 }
 
-// local like tracking per komentar
 function canLikeCommentLocal(commentId) {
   try { return !localStorage.getItem(`${pageId}-liked-cmt-${commentId}`); } catch { return true; }
 }
@@ -239,7 +248,6 @@ function unmarkLikedLocal(commentId) {
   try { localStorage.removeItem(`${pageId}-liked-cmt-${commentId}`); } catch {}
 }
 
-// ----- PAGE LIKE -----
 async function ensurePageLikeDoc() {
   const s = await getDoc(pageLikeDoc);
   if (!s.exists()) await setDoc(pageLikeDoc, { likes: 0 });
@@ -262,7 +270,6 @@ async function initPageLike() {
 }
 initPageLike();
 
-// ----- RENDER KOMENTAR -----
 function renderComment(docSnap, container, parentId = null) {
   const data = docSnap.data ? docSnap.data() : {};
   const id = docSnap.id || (docSnap._id || Math.random().toString(36).slice(2));
@@ -298,7 +305,6 @@ function renderComment(docSnap, container, parentId = null) {
   const deleteBtn = div.querySelector('.cmtApp-delete');
   const repliesContainer = div.querySelector('.cmtApp-replies');
 
-  // LIKE
   if (likeBtnLocal) {
     likeBtnLocal.addEventListener('click', async () => {
       try {
@@ -314,18 +320,16 @@ function renderComment(docSnap, container, parentId = null) {
     });
   }
 
-  // REPLY
   if (replyBtn) {
     replyBtn.addEventListener('click', () => {
       window.CMT_REPLY_TO = { id, el: div };
-      if (document.getElementById('cmtAppModalTitle'))
-        document.getElementById('cmtAppModalTitle').innerText = `Balas ke ${data.nama}`;
+      const titleEl = document.getElementById('cmtAppModalTitle');
+      if (titleEl) titleEl.innerText = `Balas ke ${data.nama}`;
       if (komentarModal) komentarModal.classList.add('show');
       if (isiInput) isiInput.focus();
     });
   }
 
-  // EDIT
   if (editBtn) {
     editBtn.addEventListener('click', async () => {
       try {
@@ -346,7 +350,6 @@ function renderComment(docSnap, container, parentId = null) {
     });
   }
 
-  // DELETE
   if (deleteBtn) {
     deleteBtn.addEventListener('click', async () => {
       try {
@@ -361,7 +364,6 @@ function renderComment(docSnap, container, parentId = null) {
           ? doc(db, 'comments', pageId, 'list', parentId, 'replies', id)
           : doc(db, 'comments', pageId, 'list', id);
 
-        // hapus semua reply jika komentar utama
         if (!parentId) {
           const repliesRef = collection(db, 'comments', pageId, 'list', id, 'replies');
           const repliesSnap = await getDocs(repliesRef);
@@ -376,14 +378,13 @@ function renderComment(docSnap, container, parentId = null) {
     });
   }
 
-  // REALTIME REPLIES
   try {
     const repliesRefRealtime = collection(db, 'comments', pageId, 'list', id, 'replies');
     const q = query(repliesRefRealtime, orderBy('timestamp', 'asc'));
     onSnapshot(q, snap => {
-      repliesContainer.innerHTML = '';
-      replyBtn.textContent = `💬 Balas (${snap.size})`;
-      snap.forEach(subDoc => renderComment(subDoc, repliesContainer, id)); // penting: pass parentId
+      if (repliesContainer) repliesContainer.innerHTML = '';
+      if (replyBtn) replyBtn.textContent = `💬 Reply (${snap.size})`;
+      snap.forEach(subDoc => renderComment(subDoc, repliesContainer, id));
       updateCommentCountUI();
     });
   } catch (e) { console.error('replies realtime err', e); }
@@ -391,7 +392,6 @@ function renderComment(docSnap, container, parentId = null) {
   updateCommentCountUI();
 }
 
-// ----- QUERY BUILDER -----
 function buildQueryForInitial() {
   if (currentSort === 'popular') {
     return query(commentsCollection, orderBy('likes', 'desc'), orderBy('timestamp', 'desc'), limit(pageSize));
@@ -402,7 +402,6 @@ function buildQueryForInitial() {
   }
 }
 
-// ----- SUBSCRIBE INITIAL -----
 let unsubscribeInitial = null;
 function subscribeInitialComments() {
   if (!komentarList) return;
@@ -431,7 +430,6 @@ function subscribeInitialComments() {
 }
 subscribeInitialComments();
 
-// ----- LOAD MORE -----
 async function loadMoreComments() {
   if (isLoadingMore) return;
   if (!lastVisible) { if (loadMoreBtn) loadMoreBtn.style.display = 'none'; return; }
@@ -456,7 +454,6 @@ async function loadMoreComments() {
   isLoadingMore = false;
 }
 
-// ----- KIRIM KOMENTAR / REPLY -----
 safeAddEvent(kirimBtn, 'click', async () => {
   try {
     const nama = (namaInput?.value || '').trim();
@@ -484,7 +481,6 @@ safeAddEvent(kirimBtn, 'click', async () => {
   } catch (e) { console.error('kirim err', e); alert('Gagal kirim komentar'); }
 });
 
-// ----- COUNTER -----
 function updateCommentCountUI() {
   if (!komentarCountSpan) return;
   const mainComments = document.querySelectorAll('#comments-list > .cmtApp-comment').length;
@@ -495,7 +491,6 @@ function updateCommentCountUI() {
   setTimeout(() => komentarCountSpan.classList.remove('pop'), 220);
 }
 
-// ----- UI HANDLERS -----
 safeAddEvent(sortingSelect, 'change', () => {
   currentSort = sortingSelect.value || 'newest';
   lastVisible = null;
@@ -518,23 +513,21 @@ window.addEventListener('click', e => {
   }
 });
 
-// init UI
 if (loadMoreBtn) loadMoreBtn.style.display = 'inline-block';
 if (notifyBadge) { notifyBadge.style.display = 'none'; notifyBadge.dataset.count = '0'; }
 if (sortingSelect && sortingSelect.value) currentSort = sortingSelect.value;
 
-// safety check
-if (!komentarList) console.warn('Komponen komentar tidak ditemukan — fitur komentar non-aktif di halaman ini.');
-
 const readMoreBtn = document.getElementById("readMoreBtn");
 const projectDescription = document.getElementById("projectDescription");
 
-readMoreBtn.addEventListener("click", () => {
-  projectDescription.classList.toggle("expanded");
-  readMoreBtn.textContent = projectDescription.classList.contains("expanded")
-    ? "Close"
-    : "Read more";
-});
+if (readMoreBtn && projectDescription) {
+  readMoreBtn.addEventListener("click", () => {
+    projectDescription.classList.toggle("expanded");
+    readMoreBtn.textContent = projectDescription.classList.contains("expanded")
+      ? "Close"
+      : "Read Full Story";
+  });
+}
 
 const comments = document.querySelectorAll('.cmtApp-comment-body');
 
@@ -547,4 +540,3 @@ comments.forEach(comment => {
     }
   });
 });
-
