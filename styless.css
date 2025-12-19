@@ -1704,3 +1704,124 @@ textarea:focus {
     .hero-edu { border-left: none; border-top: 6px solid var(--accent-gold); }
     .edu-header-hero { align-items: flex-start; }
 }
+
+/* =========================================
+   EXPERIENCE TIMELINE (VERTICAL STACK)
+   ========================================= */
+
+/* 1. Wrapper Timeline */
+.timeline-wrapper {
+    position: relative;
+    padding-left: 30px; /* Ruang untuk garis vertikal */
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Garis Vertikal Emas */
+.timeline-wrapper::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 10px; bottom: 10px;
+    width: 2px;
+    background: linear-gradient(to bottom, #b4860b, rgba(180, 134, 11, 0.1));
+    border-radius: 2px;
+}
+
+/* 2. Item Timeline */
+.timeline-item {
+    position: relative;
+}
+
+/* Titik Marker Bulat */
+.timeline-marker {
+    position: absolute;
+    left: -35px; top: 25px; /* Sesuaikan posisi dengan garis */
+    width: 12px; height: 12px;
+    background: #b4860b;
+    border: 2px solid white;
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(180, 134, 11, 0.2);
+    z-index: 2;
+}
+
+/* 3. Card Design (Glass) */
+.exp-glass-card {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 24px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+    transition: transform 0.3s ease;
+}
+
+.exp-glass-card:hover {
+    transform: translateX(5px); /* Geser sedikit ke kanan saat hover */
+    background: rgba(255, 255, 255, 0.9);
+    border-color: white;
+    box-shadow: 0 15px 40px rgba(180, 134, 11, 0.15);
+}
+
+/* 4. Card Header (Logo + Title + Date) */
+.exp-card-header {
+    display: flex; align-items: center; gap: 15px;
+    margin-bottom: 20px; padding-bottom: 15px;
+    border-bottom: 1px dashed rgba(0,0,0,0.05);
+    flex-wrap: wrap;
+}
+
+.exp-logo-box img {
+    width: 55px; height: 55px; object-fit: contain;
+    border-radius: 12px; background: white; padding: 4px;
+    border: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.exp-title-group { flex: 1; min-width: 200px; }
+.exp-title-group h4 { font-size: 1.1rem; margin: 0; color: var(--text-main); font-weight: 700; }
+.exp-title-group .company-name { font-size: 0.9rem; color: #0ea5e9; font-weight: 600; }
+
+.exp-date-capsule {
+    background: rgba(180, 134, 11, 0.1); color: #b4860b;
+    padding: 6px 14px; border-radius: 50px;
+    font-size: 0.8rem; font-weight: 600;
+    white-space: nowrap;
+}
+
+/* 5. Card Body (List) */
+.exp-card-body ul {
+    list-style: none; padding: 0; margin: 0;
+}
+.exp-card-body li {
+    position: relative; padding-left: 20px; margin-bottom: 8px;
+    font-size: 0.95rem; color: #475569; line-height: 1.6;
+}
+.exp-card-body li::before {
+    content: '•'; position: absolute; left: 0; color: var(--accent-gold);
+    font-size: 1.2rem; line-height: 1.4;
+}
+
+/* 6. Card Footer (Location) */
+.exp-card-footer {
+    margin-top: 15px; padding-top: 15px;
+    border-top: 1px solid rgba(0,0,0,0.05);
+    display: flex; justify-content: space-between; align-items: center;
+}
+.location-badge {
+    font-size: 0.85rem; color: var(--text-muted);
+    background: white; padding: 4px 10px; border-radius: 8px;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+.location-badge i { color: #ef4444; margin-right: 5px; }
+
+/* 7. Responsive Mobile */
+@media (max-width: 600px) {
+    .timeline-wrapper { padding-left: 20px; }
+    .timeline-marker { left: -26px; }
+    
+    .exp-card-header { align-items: flex-start; }
+    .exp-logo-box { margin-bottom: 10px; }
+    .exp-date-capsule { font-size: 0.75rem; padding: 4px 10px; margin-top: 5px; }
+}
