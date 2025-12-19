@@ -747,32 +747,69 @@ textarea:focus {
   }
 
   .about-sidebar {
-    width: 100%;
-    position: relative;
-    top: 0;
-    margin-bottom: 30px;
-    overflow-x: auto;
-    white-space: nowrap;
-    display: flex;
-    gap: 10px;
-  }
+        width: 100vw; /* Full lebar layar */
+        margin-left: -5%; /* Kompensasi padding section container */
+        padding: 10px 20px;
+        
+        /* Posisi Sticky (Melayang saat scroll) */
+        position: sticky;
+        top: 70px; /* Jarak dari atas (sesuaikan tinggi navbar kamu) */
+        z-index: 99;
+        
+        /* Efek Kaca */
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+        border-radius: 0 0 20px 20px; /* Lengkung bawah saja */
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    }
 
-  .about-sidebar h2,
-  .about-sidebar .subtitle {
-    display: none;
-  }
+    /* Sembunyikan Judul Besar di HP biar hemat tempat */
+    .sidebar-header { display: none; }
 
-  /* Hide title on mobile */
-  .about-tabs {
-    display: flex;
-    flex-direction: row;
-  }
+    /* 2. Ubah List jadi Horizontal Scroll */
+    .about-tabs {
+        display: flex;
+        flex-direction: row;
+        gap: 15px;
+        
+        /* Aktifkan Scroll Samping */
+        overflow-x: auto;
+        white-space: nowrap; /* Wajib biar gak turun ke bawah */
+        
+        /* Hilangkan Scrollbar */
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE */
+        padding-bottom: 5px; /* Ruang napas */
+    }
+    
+    /* Hilangkan scrollbar di Chrome/Safari */
+    .about-tabs::-webkit-scrollbar { display: none; }
 
-  .right-side {
-    margin-top: 40px;
-  }
+    /* 3. Style Tombol Tab (Pill Shape) */
+    .about-tabs li {
+        flex-shrink: 0; /* Jangan mengecil */
+        padding: 8px 20px;
+        background: rgba(255,255,255,0.5);
+        border: 1px solid rgba(0,0,0,0.1);
+        border-radius: 50px;
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        transition: 0.3s;
+    }
+
+    /* Tab Aktif (Emas/Biru) */
+    .about-tabs li.active {
+        background: var(--accent-gold); /* Ganti warna sesuai tema */
+        color: white;
+        border-color: var(--accent-gold);
+        box-shadow: 0 4px 10px rgba(180, 134, 11, 0.3);
+    }
+    
+    /* Icon di dalam tab */
+    .about-tabs li i { margin-right: 5px; }
 }
-
 /* KHUSUS HP: FLOATING BOTTOM NAV (ALA iOS DOCK) */
 @media (max-width: 768px) {
 

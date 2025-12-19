@@ -867,7 +867,29 @@
       links.forEach(link => {
         link.addEventListener('click', closeMenuFunc);
       });
-    });</script>
+    });
+    // Auto-scroll tab menu on mobile click
+    const tabs = document.querySelectorAll('.about-tabs li');
+    const tabContainer = document.querySelector('.about-tabs');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        // Hapus active class dari semua tab
+        tabs.forEach(t => t.classList.remove('active'));
+        // Tambah ke yang di-klik
+        tab.classList.add('active');
+
+        // Logika agar tab yang diklik geser ke tengah layar HP
+        tab.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+          inline: 'center'
+        });
+      });
+    });
+  </script>
+
+
   <script src="script.js"></script>
   <script src="comment.js"></script>
   <script src="experience.js"></script>
