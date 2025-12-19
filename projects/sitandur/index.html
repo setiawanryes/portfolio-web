@@ -62,40 +62,55 @@
             </div>
           </div>
 
-          <div class="action-card">
-            <div class="action-top">
-              <a href="https://si-tandur.web.app/" target="_blank" class="btn-live">
-                Live Preview <i class="fas fa-external-link-alt"></i>
-              </a>
-              
-              <div class="progress-wrapper">
-                <div class="progress-label">
-                  <span>Development</span>
-                  <span id="progress-text">100%</span>
-                </div>
-                <div class="progress-track">
-                  <div class="progress-fill" id="progress-bar"></div>
-                </div>
+<div class="glass-widget action-widget">
+            
+            <a href="https://si-tandur.web.app/" target="_blank" class="btn-hero-live">
+              <div class="btn-content">
+                <span class="btn-label">Launch Live App</span>
+                <span class="btn-sub">Ver 1.0 Stable</span>
+              </div>
+              <div class="btn-icon">
+                <i class="fas fa-rocket"></i>
+              </div>
+              <div class="glow-effect"></div>
+            </a>
+
+            <div class="progress-container-ios">
+              <div class="progress-header">
+                <span class="p-label"><i class="fas fa-code-branch"></i> Development Status</span>
+                <span class="p-val" id="progress-text">100%</span>
+              </div>
+              <div class="track-glass">
+                <div class="fill-gradient" id="progress-bar"></div>
               </div>
             </div>
 
-            <div class="reaction-row">
-              <button id="like-btn" class="react-pill">
+            <div class="action-dock-row">
+              <button id="like-btn" class="dock-btn love">
                 <i class="fas fa-heart"></i> <span id="like-count">0</span>
               </button>
-              <button id="komentar-btn" class="react-pill">
-                <i class="fas fa-comment-dots"></i> Comment
+              
+              <button id="komentar-btn" class="dock-btn comment">
+                <i class="fas fa-comment-dots"></i> <span>Discuss</span>
+                <span id="comment-notify-badge"></span>
               </button>
-              <span id="comment-notify-badge"></span>
+              
+              <button class="dock-btn share">
+                <i class="fas fa-share-alt"></i>
+              </button>
             </div>
           </div>
 
-          <div class="comments-section">
-            <div class="custom-line"></div>
-            <div id="comments-header">
-              <h3>Discussion (<span id="komentar-count">0</span>)</h3>
-              <div class="sort-box">
-                <select id="comment-sorting">
+          <div class="glass-widget discussion-widget">
+            <div class="discussion-header">
+              <div class="dh-title">
+                <h3>Discussion</h3>
+                <span class="count-badge" id="komentar-count">0</span>
+              </div>
+              
+              <div class="custom-select-wrapper">
+                <i class="fas fa-sort-amount-down"></i>
+                <select id="comment-sorting" class="glass-select">
                   <option value="newest">Newest</option>
                   <option value="oldest">Oldest</option>
                   <option value="popular">Popular</option>
@@ -103,9 +118,13 @@
               </div>
             </div>
 
-            <div id="comments-list" class="comments-scroll-area">
+            <div id="comments-list" class="chat-stream-area">
               </div>
-            <button id="load-more-comments" class="load-more-glass">Load more comments</button>
+
+            <button id="load-more-comments" class="btn-glass-wide">
+              <span>Load older messages</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
           </div>
 
         </div> 
