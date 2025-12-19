@@ -1825,3 +1825,144 @@ textarea:focus {
     .exp-logo-box { margin-bottom: 10px; }
     .exp-date-capsule { font-size: 0.75rem; padding: 4px 10px; margin-top: 5px; }
 }
+
+/* =========================================
+   PORTFOLIO SHOWCASE (PREMIUM GRID)
+   ========================================= */
+
+.portfolio-section {
+    padding: 100px 5%;
+    position: relative;
+}
+
+.portfolio-dashboard {
+    max-width: 1280px; margin: 0 auto;
+}
+
+.portfolio-header-center { text-align: center; margin-bottom: 50px; }
+.section-subtitle { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 10px auto 0; }
+
+/* 1. Tabs Navigation (Pills) */
+.portfolio-tabs-wrapper {
+    display: flex; justify-content: center; margin-bottom: 40px;
+}
+
+.portfolio-tabs {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 6px; border-radius: 50px;
+    display: flex; gap: 5px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.tab-btn {
+    padding: 10px 25px; border-radius: 50px; border: none;
+    background: transparent; color: var(--text-muted);
+    font-weight: 600; cursor: pointer; transition: 0.3s;
+}
+
+.tab-btn:hover { color: var(--text-main); }
+
+.tab-btn.active {
+    background: white; color: var(--accent-gold);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* 2. Grid System */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); /* Responsif Otomatis */
+    gap: 30px;
+}
+
+/* 3. Portfolio Glass Card */
+.portfolio-glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid white;
+    border-radius: 24px;
+    overflow: hidden; /* Agar gambar tidak keluar radius */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+    transition: all 0.3s ease;
+    display: flex; flex-direction: column;
+}
+
+.portfolio-glass-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(180, 134, 11, 0.15);
+    border-color: rgba(255,255,255,0.9);
+}
+
+/* Image Area */
+.card-image-box {
+    position: relative;
+    width: 100%; height: 220px; /* Tinggi fix agar seragam */
+    overflow: hidden;
+}
+/* Khusus sertifikat bisa lebih tinggi jika perlu */
+.cert-height { height: 240px; }
+
+.card-image-box img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.5s ease;
+}
+.portfolio-glass-card:hover .card-image-box img { transform: scale(1.05); }
+
+/* Overlay Badge (e.g. Web & Mobile) */
+.card-overlay {
+    position: absolute; top: 15px; right: 15px;
+}
+.category-badge {
+    background: rgba(255, 255, 255, 0.9);
+    color: var(--text-main);
+    padding: 5px 12px; border-radius: 20px;
+    font-size: 0.75rem; font-weight: 700;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.gold-bg { background: var(--accent-gold); color: white; }
+
+/* Content Area */
+.card-content-box {
+    padding: 25px;
+    display: flex; flex-direction: column; flex: 1;
+}
+
+.card-content-box h3 {
+    font-size: 1.25rem; font-weight: 700; margin: 0 0 10px 0;
+    color: var(--text-main);
+}
+
+.card-content-box p {
+    font-size: 0.95rem; color: #64748b; line-height: 1.6;
+    margin-bottom: 20px; flex: 1; /* Dorong footer ke bawah */
+}
+
+/* Footer Area (Stars & Button) */
+.card-footer-box {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 15px;
+    border-top: 1px dashed rgba(0,0,0,0.1);
+}
+
+.stars-box { color: #cbd5e1; font-size: 0.9rem; }
+.stars-box .filled { color: #f59e0b; /* Kuning Emas */ }
+
+.details-btn {
+    text-decoration: none; font-size: 0.9rem; font-weight: 600;
+    color: var(--accent-gold);
+    display: flex; align-items: center; gap: 5px;
+    transition: 0.3s;
+}
+.details-btn:hover { color: #b4860b; gap: 8px; }
+
+/* Responsif Mobile */
+@media (max-width: 600px) {
+    .portfolio-header-center { text-align: left; margin-bottom: 30px; }
+    .card-image-box { height: 200px; }
+    .card-grid { gap: 20px; }
+    
+    /* Scroll tab di HP jika kepanjangan */
+    .portfolio-tabs-wrapper { overflow-x: auto; justify-content: flex-start; padding-bottom: 10px; }
+}
