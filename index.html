@@ -15,26 +15,50 @@
 
 <body>
 
-  <header>
-    <nav class="navbar">
-      <h2 class="logo">Portfolio<span>.Roni</span></h2>
+<header>
+  <div class="bg-liquid-1"></div>
+  <div class="bg-liquid-2"></div>
 
-      <div class="menu-toggle" id="mobile-menu">
-        <i class="fas fa-bars"></i>
+  <nav class="glass-navbar desktop-only">
+    <h2 class="nav-logo">Portfolio<span class="dot">.Roni</span></h2>
+
+    <ul class="nav-links">
+      <li><a href="#home" class="active-link">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <div class="nav-action">
+      <a href="#contact" class="btn-nav-primary">Let's Talk <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </nav>
+
+  <div class="mobile-dock-container mobile-only">
+    <nav class="glass-dock">
+      <a href="#home" class="dock-item active" title="Home">
+        <i class="fas fa-home"></i>
+      </a>
+      <a href="#about" class="dock-item" title="About">
+        <i class="fas fa-user"></i>
+      </a>
+      
+      <div class="dock-fab-wrapper">
+        <a href="#portfolio" class="dock-fab" title="Portfolio">
+          <i class="fas fa-layer-group"></i>
+        </a>
       </div>
 
-      <ul class="nav-links">
-        <div class="close-menu"><i class="fas fa-times"></i></div>
-
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#portfolio">Portfolio</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-
-      <div class="overlay" id="overlay"></div>
+      <a href="#contact" class="dock-item" title="Contact">
+        <i class="fas fa-paper-plane"></i>
+      </a>
+      
+      <a href="javascript:void(0)" class="dock-item" onclick="alert('Download CV Feature')" title="CV">
+        <i class="fas fa-file-alt"></i>
+      </a>
     </nav>
-  </header>
+  </div>
+</header>
 
 
   <!-- HOME -->

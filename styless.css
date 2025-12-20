@@ -2270,3 +2270,107 @@ textarea:focus {
   .full-width-mobile { width: 100%; justify-content: center; }
 }
 
+/* =========================================
+   HEADER & NAVIGATION REDESIGN
+   ========================================= */
+
+/* Utility: Hide/Show based on device */
+.desktop-only { display: flex; }
+.mobile-only { display: none; }
+
+/* 1. DESKTOP GLASS NAVBAR */
+.glass-navbar {
+  position: fixed;
+  top: 25px; left: 50%; transform: translateX(-50%);
+  width: 90%; max-width: 1200px;
+  height: 70px;
+  
+  /* Glassmorphism */
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 50px;
+  
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0 35px;
+  z-index: 1000;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+}
+
+/* Logo Styling */
+.nav-logo {
+  font-size: 1.6rem; font-weight: 800; color: #1e293b; letter-spacing: -0.5px; margin: 0;
+}
+.nav-logo .dot { color: #6366f1; font-size: 2rem; line-height: 0; }
+
+/* Desktop Links */
+.nav-links {
+  display: flex; gap: 40px; list-style: none; margin: 0; padding: 0;
+  position: absolute; left: 50%; transform: translateX(-50%); /* Tengah Sempurna */
+}
+.nav-links a {
+  text-decoration: none; color: #64748b; font-weight: 600; font-size: 0.95rem;
+  transition: 0.3s; position: relative;
+}
+.nav-links a:hover, .nav-links a.active-link { color: #6366f1; }
+
+/* Desktop Button */
+.btn-nav-primary {
+  background: #1e293b; color: white; text-decoration: none;
+  padding: 10px 24px; border-radius: 30px; font-size: 0.85rem; font-weight: 600;
+  transition: 0.3s; display: flex; align-items: center; gap: 8px;
+}
+.btn-nav-primary:hover { background: #333; transform: translateY(-2px); }
+
+
+/* 2. MOBILE FLOATING DOCK (iOS Style) */
+@media (max-width: 900px) {
+  .desktop-only { display: none !important; }
+  .mobile-only { display: flex !important; }
+
+  /* Container Dock Melayang */
+  .mobile-dock-container {
+    position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+    width: auto; z-index: 9999;
+  }
+
+  /* Bar Dock */
+  .glass-dock {
+    display: flex; align-items: center; gap: 20px;
+    background: rgba(255, 255, 255, 0.85); /* Lebih solid di HP */
+    backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    padding: 12px 30px; 
+    border-radius: 35px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(255,255,255,0.5);
+  }
+
+  /* Item Menu Biasa */
+  .dock-item {
+    color: #94a3b8; font-size: 1.4rem;
+    width: 40px; height: 40px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 12px; transition: 0.3s; text-decoration: none;
+  }
+  .dock-item:hover, .dock-item.active {
+    color: #6366f1; transform: translateY(-3px); background: #eef2ff;
+  }
+
+  /* Tombol Tengah Besar (FAB) */
+  .dock-fab-wrapper { margin: 0 5px; position: relative; top: -25px; }
+  
+  .dock-fab {
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1e293b, #333); /* Hitam Gradien */
+    color: white; font-size: 1.4rem;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 10px 25px rgba(30, 41, 59, 0.3);
+    border: 5px solid #f8fafc; /* Border tebal samakan dengan background body */
+    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-decoration: none;
+  }
+  .dock-fab:active { transform: scale(0.9); }
+  .dock-fab:hover { box-shadow: 0 15px 35px rgba(99, 102, 241, 0.4); transform: translateY(-5px); }
+}
