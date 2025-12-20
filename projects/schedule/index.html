@@ -4,220 +4,211 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Workload Analyst | Roni Setiawan</title>
+  <title>Scheduling Optimization | Roni Setiawan</title>
+  
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="comments-full.css" />
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-  <section class="project-detail">
-    <div class="project-container">
 
-      <!-- NAV -->
-      <div class="back-nav">
-        <a href="javascript:history.back()" class="back-btn">← Back</a>
-        <span>Project / Scheduling </span>
+  <div class="bg-liquid-1"></div>
+  <div class="bg-liquid-2"></div>
+
+  <section class="compact-view">
+    <div class="main-glass-card" data-aos="zoom-in" data-aos-duration="800">
+      
+      <div class="compact-header">
+        <a href="javascript:history.back()" class="back-link">
+          <i class="fas fa-arrow-left"></i> <span>Portfolio</span>
+        </a>
+        <div class="project-tag">Optimization & Math</div>
       </div>
 
-      <!-- LAYOUT (2 KOLOM) -->
-      <div class="project-header">
+      <div class="compact-grid">
+        
+        <div class="col-info">
+          
+          <div class="info-header">
+            <h1 class="gradient-title">Scheduling Model</h1>
+            <p class="subtitle">Goal Programming Implementation at BPS</p>
+          </div>
 
-        <!-- LAYOUT KIRI  -->
-        <div class="left-column" data-aos="fade-right">
-          <div class="project-info">
-            <h1>Goal Programming Model for Employee Scheduling at BPS East Lampung During the Covid-19 Pandemic</h1>
-            <div class="project-description" id="projectDescription">
-              <p>
-                During my internship, I noticed that the employee schedule at BPS East Lampung was still arranged
-                manually and did not fully comply with the <b>Covid-19 health protocols</b>. Seeing this issue, I took
-                the initiative to apply my background as a mathematics student to develop a more optimal scheduling
-                model. I aimed to create a system that could support both <em>work from office</em> (WFO) and <em>work
-                  from home</em> (WFH) arrangements according to government regulations during the pandemic.
-              </p>
+          <div class="info-scroll-box">
+            <p>
+              During my internship, I noticed that the employee schedule at <b>BPS East Lampung</b> was still arranged manually and did not fully comply with the <b>Covid-19 health protocols</b>.
+            </p>
+            <p>
+              I took the initiative to apply my mathematics background to develop a more <b>optimal scheduling model</b>. I aimed to create a system supporting both <em>WFO</em> and <em>WFH</em> arrangements according to government regulations (Circular Letter No. 19/2020 & Governor's Decree).
+            </p>
+            <p>
+              I used the <b>Goal Programming</b> model, a variation of linear programming that handles multiple goals simultaneously by minimizing deviations based on priority levels.
+            </p>
+            <p>
+              Using <b>LINGO</b> software, I formulated a mathematical model to optimize the schedule. The result satisfies government regulations, meets operational needs, and creates an efficient arrangement during the pandemic.
+            </p>
+          </div>
 
-              <p>
-                <b>Employee scheduling</b> became an essential aspect after Indonesia confirmed its first Covid-19 case
-                on March 2, 2020. The government introduced several measures such as <em>social distancing</em>,
-                <em>physical distancing</em>, and large-scale social restrictions (PSBB). In response, BPS East
-                Lampung—an institution responsible for providing official data—had to adjust its workflow following
-                Circular Letter No. 19/2020 regarding the new work system for civil servants.
-              </p>
+          <div class="tech-chips">
+            <span><i class="fas fa-calculator"></i> Goal Programming</span>
+            <span><i class="fas fa-laptop-code"></i> LINGO</span>
+            <span><i class="fas fa-table"></i> Excel Solver</span>
+            <span><i class="fas fa-brain"></i> Math Modeling</span>
+          </div>
 
-              <p>
-                The policy intensified on June 4, 2020, through a new circular issued by the Governor of Lampung,
-                emphasizing the transition toward a <b>productive and safe new normal</b>. The regulation required
-                government offices to manage alternating WFO and WFH schedules, which made a structured and compliant
-                scheduling system even more crucial.
-              </p>
-
-              <p>
-                In mathematics, scheduling problems can be effectively solved using the <b>Goal Programming</b> model.
-                This method is a variation of linear programming that handles multiple goals simultaneously by
-                minimizing deviations based on priority levels. Goal Programming has been widely applied in various
-                fields such as production planning, cost minimization, and healthcare scheduling.
-              </p>
-
-              <p>
-                Therefore, in this internship project, I designed a mathematical formulation using <b>Goal
-                  Programming</b> to optimize the employee scheduling system at BPS East Lampung. The resulting schedule
-                aims to satisfy government regulations, meet operational needs, and create an efficient arrangement
-                during the Covid-19 pandemic.
-              </p>
-
-            </div>
-            <!-- More -->
-            <div class="project-stats">
-              <div class="stat"
-                data-info="Uses Goal Programming for decision modeling, LINGO for optimization.">
-                <i class="fas fa-code"></i> Tool
+          <div class="glass-widget action-widget">
+            
+            <a href="#" class="btn-hero-live disabled">
+              <div class="btn-content">
+                <span class="btn-label">View Research Paper</span>
+                <span class="btn-sub">Confidential Document</span>
               </div>
-
-              <div class="stat"
-                data-info="Key analysis focus: ensuring tasks are planned, prioritized, and executed on time.">
-                <i class="fas fa-cogs"></i>Focus Analyst
+              <div class="btn-icon">
+                <i class="fas fa-file-pdf"></i>
               </div>
+              <div class="glow-effect"></div>
+            </a>
 
-              <button id="readMoreBtn" class="read-more-btn">Read more</button>
+            <div class="progress-container-ios">
+              <div class="progress-header">
+                <span class="p-label"><i class="fas fa-check-double"></i> Research Status</span>
+                <span class="p-val" id="progress-text">100%</span>
+              </div>
+              <div class="track-glass">
+                <div class="fill-gradient" id="progress-bar"></div>
+              </div>
             </div>
 
-            <!-- Preview -->
-            <div class="project-buttons">
-              <a href="#" class="btn live">Preview</a>
-
-              <!-- Progres Bar -->
-              <div class="progress-bar-container">
-                <div class="progress-bar" id="progress-bar"></div>
-                <span id="progress-text">0%</span>
-              </div>
-
-
-              <!-- Tombol Like & Komen -->
-              <div class="like-dislike-container">
-                <button id="like-btn" class="reaction-btn like-theme">❤️</button>
-                <span id="like-count">0</span>
-                <button id="komentar-btn" class="reaction-btn komentar-theme">💬</button>
+            <div class="action-dock-row">
+              <button id="like-btn" class="dock-btn love">
+                <i class="fas fa-heart"></i> <span id="like-count">0</span>
+              </button>
+              
+              <button id="komentar-btn" class="dock-btn comment">
+                <i class="fas fa-comment-dots"></i> <span>Discuss</span>
                 <span id="comment-notify-badge"></span>
+              </button>
+              
+              <button class="dock-btn share">
+                <i class="fas fa-share-nodes"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="glass-widget comments-compact">
+            <div class="ch-head">
+              <span class="ch-title">Discussion</span>
+              <span id="komentar-count" class="ch-count">0</span>
+              <select id="comment-sorting" style="display:none;"><option value="newest">Newest</option></select>
+            </div>
+            
+            <div id="comments-list" class="ch-list">
+              </div>
+            
+            <button id="load-more-comments" class="btn-text-small">View previous discussions...</button>
+          </div>
+
+        </div>
+
+        <div class="col-visual">
+          
+          <div class="slider-compact-wrapper">
+            <div class="project-preview">
+              <div class="slide-project">
+                <img src="../../images/gpl/goalprograming.png" alt="Math Model" class="lightbox-img">
+                <img src="../../images/gpl/manual.png" alt="Schedule Table" class="lightbox-img">
+                <img src="../../images/gpl/goalprograming.png" alt="Optimization" class="lightbox-img"> 
+              </div>
+              <div class="slide-nav">
+                <button class="prev"><i class="fas fa-chevron-left"></i></button>
+                <button class="next"><i class="fas fa-chevron-right"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="features-compact-grid">
+            
+            <div class="feat-card">
+              <div class="fc-icon blue"><i class="fas fa-users-cog"></i></div>
+              <div class="fc-text">
+                <h4>Optimal Allocation</h4>
+                <p>Right employee, right time.</p>
               </div>
             </div>
 
-            <!-- Line -->
-            <div class="custom-line"></div>
-
-            <!-- Header Komentar -->
-            <div id="comments-header">
-              <h3>Comments (<span id="komentar-count">0</span>)</h3>
-              <div>
-                <select id="comment-sorting">
-                  <option value="newest">Newest</option>
-                  <option value="oldest">Oldest</option>
-                  <option value="popular">Popular</option>
-                </select>
+            <div class="feat-card">
+              <div class="fc-icon teal"><i class="fas fa-balance-scale-right"></i></div>
+              <div class="fc-text">
+                <h4>Workload Balance</h4>
+                <p>Fair distribution of shifts.</p>
               </div>
             </div>
 
-            <!-- Isi Komentar -->
-            <div id="comments-list"></div>
-            <button id="load-more-comments">Load more</button>
+            <div class="feat-card">
+              <div class="fc-icon red"><i class="fas fa-shield-virus"></i></div>
+              <div class="fc-text">
+                <h4>Policy Compliance</h4>
+                <p>Strict WFH/WFO rules.</p>
+              </div>
+            </div>
+
+            <div class="feat-card">
+              <div class="fc-icon purple"><i class="fas fa-check-double"></i></div>
+              <div class="fc-text">
+                <h4>Conflict Reduction</h4>
+                <p>Zero scheduling overlaps.</p>
+              </div>
+            </div>
+
+            <div class="feat-card">
+              <div class="fc-icon gold"><i class="fas fa-sync-alt"></i></div>
+              <div class="fc-text">
+                <h4>Flexible Adjust</h4>
+                <p>Easy update on changes.</p>
+              </div>
+            </div>
+
+            <div class="feat-card">
+              <div class="fc-icon green"><i class="fas fa-chart-line"></i></div>
+              <div class="fc-text">
+                <h4>Efficiency</h4>
+                <p>Boosting work effectiveness.</p>
+              </div>
+            </div>
+
           </div>
+
         </div>
 
-
-        <!-- LAYOUT KANAN -->
-        <div class="right-column" data-aos="fade-left">
-          <!-- Galeri Project -->
-          <div class="project-preview">
-            <div class="slide-project">
-              <img src="../../images/gpl/goalprograming.png" alt="Preview 2" class="lightbox-img">
-              <img src="../../images/gpl/manual.png" alt="Preview 3" class="lightbox-img">
-            </div>
-            <div class="slide-controls">
-              <button class="prev">❮</button>
-              <button class="next">❯</button>
-            </div>
-          </div>
-
-          <!-- Manfaat Project -->
-          <div class="key-features">
-            <h2>🧩 Key Features of Employee Scheduling</h2>
-            <ul class="feature-list">
-
-              <li>
-                <span class="icon">🧑‍🤝‍🧑</span>
-                <div class="text"><b>Optimal Allocation</b>: Assigning employees to the right days/tasks.</div>
-              </li>
-
-              <li>
-                <span class="icon">⚖️</span>
-                <div class="text"><b>Workload Balance</b>: Ensuring fair workload distribution.</div>
-              </li>
-
-              <li>
-                <span class="icon">🛡️</span>
-                <div class="text"><b>Policy Compliance</b>: Aligning schedules with WFH/WFO and institutional rules.
-                </div>
-              </li>
-
-              <li>
-                <span class="icon">🚫</span>
-                <div class="text"><b>Conflict Reduction</b>: Minimizing scheduling overlaps.</div>
-              </li>
-
-              <li>
-                <span class="icon">🔄</span>
-                <div class="text"><b>Flexible Adjustment</b>: Easy to update when changes occur.</div>
-              </li>
-
-              <li>
-                <span class="icon">📈</span>
-                <div class="text"><b>Efficiency Improvement</b>: Boosting overall work effectiveness.</div>
-              </li>
-
-            </ul>
-          </div>
-
-
-        </div>
       </div>
+    </div>
   </section>
 
-  <!-- MODAL -->
-  <!-- Komentar -->
   <div class="cmtApp-modal" id="cmtAppModal">
-    <div class="cmtApp-modal-content">
+    <div class="glass-modal-content">
       <span class="cmtApp-close" id="close-cmtAppModal">&times;</span>
-      <div id="cmtAppModalTitle">Write a Comment</div>
-      <input type="text" id="cmtAppNama" placeholder="Enter your name">
-      <textarea id="cmtAppIsi" rows="4" placeholder="Comment..."></textarea>
-      <button id="cmtAppKirim">Send</button>
+      <h3>Join Discussion</h3>
+      <input type="text" id="cmtAppNama" placeholder="Your Name" class="input-compact">
+      <textarea id="cmtAppIsi" rows="3" placeholder="Share your thought..." class="input-compact"></textarea>
+      <button id="cmtAppKirim" class="btn-primary-compact full">Post Comment</button>
     </div>
   </div>
 
-  <!-- Float Modal -->
-  <div id="miniModal" class="mini-modal">
-    <div class="mini-content" id="miniContent"></div>
-  </div>
-
-  <!-- Modal lightbox -->
   <div id="lightboxModal" class="modal">
     <span class="close">&times;</span>
     <img class="modal-content" id="lightboxImg">
     <div class="modal-controls">
-      <button id="prevImg">❮</button>
-      <button id="nextImg">❯</button>
+        <button id="prevImg"><i class="fas fa-chevron-left"></i></button>
+        <button id="nextImg"><i class="fas fa-chevron-right"></i></button>
     </div>
   </div>
 
+  <div id="miniModal" class="mini-modal"><div class="mini-content" id="miniContent"></div></div>
 
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js"></script>
-  <script src="script.js"></script>
   <script type="module" src="script.js"></script>
-  <script type="module" src="app.js"></script>
-
+  <script>window.PAGE_ID = "schedule_optimization"; AOS.init();</script>
 
 </body>
-
 </html>
