@@ -1,4 +1,8 @@
-// Import Firebase SDK
+/* =========================================
+   SCRIPT.JS - WORKLOAD ANALYST (FULL FIX)
+   ========================================= */
+
+// 1. Import Firebase SDK
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import {
   getFirestore, doc, collection, getDoc, setDoc, updateDoc, increment,
@@ -6,14 +10,13 @@ import {
   limit, startAfter
 } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
-// Initialize AOS
+// 2. Initialize Library
 AOS.init({ duration: 800, once: true });
 
 /* ==========================
    👔 OFFICE AVATAR GENERATOR
    ========================== */
 function getOfficeAvatar(name) {
-  // Icons8 Fluency Style (Theme: Corporate/Office)
   const icons = [
     "https://img.icons8.com/fluency/96/business-man-in-suit.png",
     "https://img.icons8.com/fluency/96/businesswoman.png",
@@ -33,8 +36,8 @@ function getOfficeAvatar(name) {
 }
 
 /* ==========================
-   SLIDER LOGIC
-========================== */
+   SLIDER & MODAL LOGIC
+   ========================== */
 const slideContainer = document.querySelector('.slide-project');
 const slides = slideContainer ? slideContainer.querySelectorAll('img') : [];
 const prevBtn = document.querySelector('.prev');
@@ -48,9 +51,7 @@ function showSlide(i) {
 if (nextBtn) nextBtn.addEventListener('click', () => { index = (index + 1) % slides.length; showSlide(index); });
 if (prevBtn) prevBtn.addEventListener('click', () => { index = (index - 1 + slides.length) % slides.length; showSlide(index); });
 
-/* ==========================
-   LIGHTBOX MODAL
-========================== */
+// Lightbox
 const modal = document.getElementById("lightboxModal");
 const modalImg = document.getElementById("lightboxImg");
 const closeBtn = document.querySelector(".close");
@@ -82,9 +83,7 @@ function showImage(idx) {
   }
 }
 
-/* ==========================
-   PROGRESS BAR
-========================== */
+// Progress Bar
 const progressBar = document.getElementById('progress-bar');
 const progressText = document.getElementById('progress-text');
 function setProgress(percent) {
@@ -93,11 +92,11 @@ function setProgress(percent) {
     progressText.textContent = percent + '%';
   }
 }
-setTimeout(() => setProgress(100), 500); // Animasi saat load
+setTimeout(() => setProgress(100), 500);
 
 /* ==========================
-   FIREBASE COMMENTS
-========================== */
+   🔥 FIREBASE CONFIG
+   ========================== */
 const firebaseConfig = {
   apiKey: "AIzaSyBGS2_U6M-lC0YozJd0FCHpncyNLE1mE2g",
   authDomain: "portfolio-setiawanryes.firebaseapp.com",
@@ -110,15 +109,15 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-const pageId = window.PAGE_ID || 'workload_analyst'; // ID Project
+const pageId = window.PAGE_ID || 'workload_analyst';
 const pageLikeDoc = doc(db, 'post_reactions', pageId);
 const commentsCollection = collection(db, 'comments', pageId, 'list');
 
-const pageSize = 3;
+const pageSize = 5;
 let lastVisible = null;
 let isLoadingMore = false;
 
-// Elements
+// DOM Elements
 const komentarList = document.getElementById('comments-list');
 const komentarModal = document.getElementById('cmtAppModal');
 const komentarBtn = document.getElementById('komentar-btn');
@@ -161,7 +160,9 @@ async function initPageLike() {
 }
 initPageLike();
 
-// Render Comment (CLEAN BUTTONS)
+/* ==========================
+   💬 RENDER COMMENTS (LOGIC TOMBOL LENGKAP)
+   ========================== */
 function renderComment(docSnap, container, parentId = null) {
   const data = docSnap.data();
   const id = docSnap.id;
@@ -169,6 +170,7 @@ function renderComment(docSnap, container, parentId = null) {
   
   const div = document.createElement('div');
   div.className = 'cmtApp-comment';
+  // Layout HTML (Tanpa Ikon Emoji)
   div.innerHTML = `
     <div class="cmtApp-comment-header">
       <img src="${escapeHtml(data.avatar || getOfficeAvatar(data.nama))}" alt="Avatar">
@@ -188,7 +190,9 @@ function renderComment(docSnap, container, parentId = null) {
   `;
   container.appendChild(div);
 
-  // Event Listeners for Buttons inside Comment
+  // --- EVENT LISTENERS TOMBOL ---
+
+  // 1. LIKE
   const likeBtnLocal = div.querySelector('.cmtApp-like');
   if (likeBtnLocal) likeBtnLocal.addEventListener('click', async () => {
     if (!canLikeCommentLocal(id)) return alert('Already liked!');
@@ -196,8 +200,64 @@ function renderComment(docSnap, container, parentId = null) {
     await updateDoc(ref, { likes: increment(1) });
     markLikedLocal(id);
   });
-  
-  // (Tambahkan logic Reply/Edit/Delete seperti script sebelumnya jika perlu)
+
+  // 2. REPLY
+  const replyBtn = div.querySelector('.cmtApp-reply');
+  if (replyBtn) replyBtn.addEventListener('click', () => {
+    window.CMT_REPLY_TO = { id, el: div };
+    const modalTitle = document.querySelector('#cmtAppModal h3');
+    if(modalTitle) modalTitle.textContent = `Reply to ${data.nama}`;
+    komentarModal.classList.add('show');
+    isiInput.focus();
+  });
+
+  // 3. EDIT
+  const editBtn = div.querySelector('.cmtApp-edit');
+  if (editBtn) editBtn.addEventListener('click', async () => {
+    const confirmName = prompt("Enter your name to verify ownership:");
+    if (!confirmName || confirmName.trim() !== data.nama) return alert("Incorrect name!");
+    
+    const newText = prompt("Edit your comment:", data.isi);
+    if (newText && newText !== data.isi) {
+      const ref = parentId ? doc(db, 'comments', pageId, 'list', parentId, 'replies', id) : doc(db, 'comments', pageId, 'list', id);
+      await updateDoc(ref, { isi: newText });
+    }
+  });
+
+  // 4. DELETE
+  const deleteBtn = div.querySelector('.cmtApp-delete');
+  if (deleteBtn) deleteBtn.addEventListener('click', async () => {
+    const confirmName = prompt("Enter your name to delete:");
+    if (!confirmName || confirmName.trim() !== data.nama) return alert("Incorrect name!");
+    
+    if(!confirm("Are you sure?")) return;
+
+    const ref = parentId ? doc(db, 'comments', pageId, 'list', parentId, 'replies', id) : doc(db, 'comments', pageId, 'list', id);
+    await deleteDoc(ref);
+    div.remove(); // Hapus dari UI langsung biar cepet
+  });
+
+  // --- LOAD REPLIES ---
+  const repliesContainer = div.querySelector('.cmtApp-replies');
+  const repliesRef = collection(db, 'comments', pageId, 'list', id, 'replies');
+  const qRep = query(repliesRef, orderBy('timestamp', 'asc'));
+  onSnapshot(qRep, snap => {
+    repliesContainer.innerHTML = '';
+    if(snap.size > 0) {
+       replyBtn.textContent = `Reply (${snap.size})`;
+       snap.forEach(subDoc => renderComment(subDoc, repliesContainer, id));
+    } else {
+       replyBtn.textContent = `Reply`;
+    }
+    updateCount();
+  });
+}
+
+// Update Total Count
+function updateCount() {
+  if(!komentarCountSpan) return;
+  const count = document.querySelectorAll('.cmtApp-comment').length;
+  komentarCountSpan.textContent = count;
 }
 
 // Load Initial Comments
@@ -206,34 +266,63 @@ onSnapshot(q, snap => {
   if (komentarList) {
     komentarList.innerHTML = '';
     snap.forEach(docSnap => renderComment(docSnap, komentarList));
-    lastVisible = snap.docs[snap.docs.length - 1];
-    updateCount(snap.size); // Helper function need to be created or size handling logic added
+    if(snap.docs.length > 0) lastVisible = snap.docs[snap.docs.length - 1];
+    updateCount();
   }
 });
 
-function updateCount(size) {
-    if(komentarCountSpan) komentarCountSpan.textContent = size; // Simple count update, refine as needed
-}
+// Load More
+if (loadMoreBtn) loadMoreBtn.addEventListener('click', async () => {
+  if (isLoadingMore || !lastVisible) return;
+  isLoadingMore = true;
+  const qMore = query(commentsCollection, orderBy('timestamp', 'desc'), startAfter(lastVisible), limit(pageSize));
+  const snap = await getDocs(qMore);
+  if (!snap.empty) {
+    snap.forEach(docSnap => renderComment(docSnap, komentarList));
+    lastVisible = snap.docs[snap.docs.length - 1];
+  } else {
+    loadMoreBtn.style.display = 'none';
+  }
+  isLoadingMore = false;
+});
 
-
-// Send Comment
+// Send Comment (New / Reply)
 if (kirimBtn) kirimBtn.addEventListener('click', async () => {
   const nama = namaInput.value.trim();
   const isi = isiInput.value.trim();
-  if (!nama || !isi) return alert("Please fill details");
+  if (!nama || !isi) return alert("Please fill name and message");
   
-  await addDoc(commentsCollection, {
+  const payload = {
     nama, isi, 
-    avatar: getOfficeAvatar(nama), // Pakai avatar kantor
+    avatar: getOfficeAvatar(nama),
     likes: 0, 
     timestamp: Date.now()
-  });
+  };
+
+  const replyTo = window.CMT_REPLY_TO;
+  
+  if (replyTo && replyTo.id) {
+    // Save as Reply
+    await addDoc(collection(db, 'comments', pageId, 'list', replyTo.id, 'replies'), payload);
+    window.CMT_REPLY_TO = null;
+  } else {
+    // Save as New Comment
+    await addDoc(commentsCollection, payload);
+  }
   
   namaInput.value = ''; isiInput.value = '';
   komentarModal.classList.remove('show');
+  
+  // Reset Title
+  const modalTitle = document.querySelector('#cmtAppModal h3');
+  if(modalTitle) modalTitle.textContent = "Join Discussion";
 });
 
-// Modal UI
-if (komentarBtn) komentarBtn.addEventListener('click', () => komentarModal.classList.add('show'));
+// Modal UI Handlers
+if (komentarBtn) komentarBtn.addEventListener('click', () => {
+  window.CMT_REPLY_TO = null; // Reset reply target
+  document.querySelector('#cmtAppModal h3').textContent = "Join Discussion";
+  komentarModal.classList.add('show');
+});
 if (closeModalBtn) closeModalBtn.addEventListener('click', () => komentarModal.classList.remove('show'));
 window.addEventListener('click', e => { if (e.target === komentarModal) komentarModal.classList.remove('show'); });
