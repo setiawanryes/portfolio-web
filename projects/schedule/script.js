@@ -186,14 +186,14 @@ function renderComment(docSnap, container, parentId = null) {
   // HTML Structure: Tombol Teks tanpa Emoji (Kecuali Like)
   div.innerHTML = `
     <div class="cmtApp-comment-header">
-      <img src="${escapeHtml(data.avatar || getOfficeAvatar(data.nama))}" alt="Avatar">
+      <img src="${escapeHtml(data.avatar || `https://i.pravatar.cc/50?u=${encodeURIComponent(data.nama || 'anon')}`)}" alt="">
       <strong>${escapeHtml(data.nama || 'Anonymous')}</strong>
     </div>
-    <div class="cmtApp-comment-body">${escapeHtml(data.isi)}</div>
+    <div class="cmtApp-comment-body">${escapeHtml(data.isi || data.message || '')}</div>
     <div class="cmtApp-comment-footer">
       <div class="cmtApp-comment-actions">
         <button class="cmtApp-like">${canLikeCommentLocal(id) ? '👍' : '💖'} ${data.likes || 0}</button>
-        <button class="cmtApp-reply">Reply</button>
+        <button class="cmtApp-reply">Reply (0)</button>
         <button class="cmtApp-edit">Edit</button>
         <button class="cmtApp-delete">Delete</button>
       </div>

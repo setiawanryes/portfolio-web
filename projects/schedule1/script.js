@@ -245,9 +245,9 @@ function renderComment(docSnap, container, parentId = null) {
     <div class="cmtApp-comment-footer">
       <div class="cmtApp-comment-actions">
         <button class="cmtApp-like">${canLikeCommentLocal(id) ? '👍' : '💖'} ${data.likes || 0}</button>
-        <button class="cmtApp-reply">💬 Reply (0)</button>
-        <button class="cmtApp-edit">✏️ Edit</button>
-        <button class="cmtApp-delete">🗑️ Delete</button>
+        <button class="cmtApp-reply">Reply (0)</button>
+        <button class="cmtApp-edit">Edit</button>
+        <button class="cmtApp-delete">Delete</button>
       </div>
       <span class="cmtApp-time">${formatWaktu(created)}</span>
     </div>
