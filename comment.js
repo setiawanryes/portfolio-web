@@ -2,7 +2,7 @@
 const USER = "setiawanryes";
 const REPO = "portfolio-web";
 
-// === Ambil komentar dari Issues ===
+
 async function loadComments() {
   const res = await fetch(`https://api.github.com/repos/${USER}/${REPO}/issues`);
   const issues = await res.json();
@@ -22,7 +22,6 @@ async function loadComments() {
   });
 }
 
-// === Kirim komentar baru (aman via repository_dispatch) ===
 async function postComment(e) {
   e.preventDefault();
 
