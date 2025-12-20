@@ -5,7 +5,7 @@ import fetch from "node-fetch";
 export async function handler(event) {
   try {
     const { title, body } = JSON.parse(event.body);
-    const repo = "setiawanryes/portfolio-web"; // ganti sesuai nama repo kamu
+    const repo = "setiawanryes/portfolio-web";
     const token = process.env.GH_TOKEN;
 
     const res = await fetch(`https://api.github.com/repos/${repo}/issues`, {

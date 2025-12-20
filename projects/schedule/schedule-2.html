@@ -4,9 +4,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Workload Analyst | Roni Setiawan</title>
+  <title>Scheduling Optimization | Roni Setiawan</title>
   
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../styles_project/style.css">
+  
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -24,7 +25,7 @@
         <a href="javascript:history.back()" class="back-link">
           <i class="fas fa-arrow-left"></i> <span>Portfolio</span>
         </a>
-        <div class="project-tag">HR & Operations</div>
+        <div class="project-tag">Research & Optimization</div>
       </div>
 
       <div class="compact-grid">
@@ -32,51 +33,48 @@
         <div class="col-info">
           
           <div class="info-header">
-            <h1 class="gradient-title">Workload Analyst</h1>
-            <p class="subtitle">Task Management System (TMS) & WLA Implementation</p>
+            <h1 class="gradient-title">Course Scheduling</h1>
+            <p class="subtitle">Goal Programming Optimization at ITERA</p>
           </div>
 
           <div class="info-scroll-box">
             <p>
-              I conducted a <b>Workload Analyst</b> project using the <em>Task Management System (TMS)</em> and
-              <em>Workload Analyst (WLA)</em> approaches. The objective was to evaluate <b>workload balance</b>, <b>time efficiency</b>, and <b>task distribution</b> to enhance productivity.
+              I began working on this thesis because I previously had experience analyzing scheduling issues at <b>BPS East Lampung</b> during the Covid-19 period. From that project, I saw firsthand how manual scheduling could create many problems like overlaps and inefficient workload allocation.
             </p>
             <p>
-              The first project was at <b>PT Great Giant Food (GGF)</b> (4 months), focusing on <b>Admin</b> positions. I utilized direct observation and daily activity mapping to identify <b>workload imbalances</b> and <b>task duplication</b>.
+              As a student in the <b>Mathematics Study Program at ITERA</b>, I noticed that semester schedules were often not optimal—conflicting class times, overloaded days, and mismatches with lecturers’ preferences were common issues.
             </p>
             <p>
-              The second project was at <b>K3DK (Accounting Sub-Dept)</b> (2 months). I analyzed accounting processes from data entry to reporting, mapping task frequencies, duration, and complexity using <em>TMS</em>.
+              Realizing this is an optimization problem, I applied <b>Goal Programming</b>. This method is highly suitable for handling multiple constraints (hard & soft constraints) simultaneously to satisfy institutional rules and preferences.
             </p>
             <p>
-              Using <em>WLA</em>, I compared <b>actual workload</b> vs <b>ideal capacity</b>. The results led to recommendations for <b>task prioritization</b>, balanced time allocation, and process optimization.
-            </p>
-            <p>
-              This project provides insights for <b>GGF</b> and <b>KDK</b> to build a productive, data-driven environment, supporting workforce planning and organizational improvement.
+              Through this research, I formulated a mathematical model to produce an <b>optimal even-semester course schedule</b> that avoids conflicts and provides convenience for both students and lecturers.
             </p>
           </div>
 
           <div class="tech-chips">
-            <span><i class="fas fa-chart-pie"></i> WLA Method</span>
-            <span><i class="fas fa-tasks"></i> TMS Concept</span>
-            <span><i class="fas fa-file-excel"></i> Excel Expert</span>
-            <span><i class="fas fa-stopwatch"></i> Time Study</span>
+            <span><i class="fas fa-calculator"></i> Goal Programming</span>
+            <span><i class="fas fa-laptop-code"></i> LINGO Software</span>
+            <span><i class="fas fa-chart-line"></i> Optimization</span>
+            <span><i class="fas fa-university"></i> Academic Research</span>
           </div>
 
           <div class="glass-widget action-widget">
             
-            <a href="#" class="btn-hero-live disabled"> <div class="btn-content">
-                <span class="btn-label">View Analysis Report</span>
-                <span class="btn-sub">Confidential / Portfolio View</span>
+            <a href="https://repository.itera.ac.id/depan/author/Roni/Setiawan" target="_blank" class="btn-hero-live">
+              <div class="btn-content">
+                <span class="btn-label">Read Full Thesis</span>
+                <span class="btn-sub">Repository ITERA</span>
               </div>
               <div class="btn-icon">
-                <i class="fas fa-file-signature"></i>
+                <i class="fas fa-book-open"></i>
               </div>
               <div class="glow-effect"></div>
             </a>
 
             <div class="progress-container-ios">
               <div class="progress-header">
-                <span class="p-label"><i class="fas fa-check-circle"></i> Project Status</span>
+                <span class="p-label"><i class="fas fa-check-circle"></i> Research Status</span>
                 <span class="p-val" id="progress-text">100%</span>
               </div>
               <div class="track-glass">
@@ -104,14 +102,13 @@
             <div class="ch-head">
               <span class="ch-title">Discussion</span>
               <span id="komentar-count" class="ch-count">0</span>
-              
               <select id="comment-sorting" style="display:none;"><option value="newest">Newest</option></select>
             </div>
             
             <div id="comments-list" class="ch-list">
               </div>
             
-            <button id="load-more-comments" class="btn-text-small">View previous discussions...</button>
+            <button id="load-more-comments" class="btn-text-small">Load previous comments...</button>
           </div>
 
         </div>
@@ -121,12 +118,8 @@
           <div class="slider-compact-wrapper">
             <div class="project-preview">
               <div class="slide-project">
-                <img src="../../images/workload1/workloada1.png" alt="WLA 1" class="lightbox-img">
-                <img src="../../images/workload1/workloada2.png" alt="WLA 2" class="lightbox-img">
-                <img src="../../images/workload1/workloada3.png" alt="WLA 3" class="lightbox-img">
-                <img src="../../images/workload1/workloada4.png" alt="WLA 4" class="lightbox-img">
-                <img src="../../images/workload1/workloada5.png" alt="WLA 5" class="lightbox-img">
-                <img src="../../images/workload1/workloada6.png" alt="WLA 6" class="lightbox-img">
+                <img src="../../images/gpl/jadwalitera.png" alt="Schedule Table" class="lightbox-img">
+                <img src="../../images/gpl/goalprograming.png" alt="Math Model" class="lightbox-img">
               </div>
               <div class="slide-nav">
                 <button class="prev"><i class="fas fa-chevron-left"></i></button>
@@ -138,42 +131,50 @@
           <div class="features-compact-grid">
             
             <div class="feat-card">
-              <div class="fc-icon blue"><i class="fas fa-list-check"></i></div>
+              <div class="fc-icon blue"><i class="fas fa-calendar-day"></i></div>
               <div class="fc-text">
-                <h4>Task Tracking</h4>
-                <p>Monitor progress & timelines.</p>
+                <h4>Optimal Allocation</h4>
+                <p>Assigning courses to suitable slots & rooms.</p>
               </div>
             </div>
 
             <div class="feat-card">
-              <div class="fc-icon purple"><i class="fas fa-balance-scale"></i></div>
+              <div class="fc-icon purple"><i class="fas fa-chalkboard-teacher"></i></div>
               <div class="fc-text">
-                <h4>Workload Balance</h4>
-                <p>Efficiency distribution analysis.</p>
+                <h4>Lecturer Matching</h4>
+                <p>Aligning with availability & preferences.</p>
               </div>
             </div>
 
             <div class="feat-card">
-              <div class="fc-icon red"><i class="fas fa-bell"></i></div>
+              <div class="fc-icon gold"><i class="fas fa-balance-scale"></i></div>
               <div class="fc-text">
-                <h4>Notifications</h4>
-                <p>Identify critical priorities.</p>
+                <h4>Balanced Workload</h4>
+                <p>Fair distribution of teaching loads.</p>
               </div>
             </div>
 
             <div class="feat-card">
-              <div class="fc-icon teal"><i class="fas fa-handshake"></i></div>
+              <div class="fc-icon red"><i class="fas fa-ban"></i></div>
               <div class="fc-text">
-                <h4>Collaboration</h4>
-                <p>Teamwork & communication flow.</p>
+                <h4>Conflict Free</h4>
+                <p>Zero overlaps between courses & groups.</p>
               </div>
             </div>
 
             <div class="feat-card full-width">
-              <div class="fc-icon gold"><i class="fas fa-chart-line"></i></div>
+              <div class="fc-icon teal"><i class="fas fa-sliders-h"></i></div>
               <div class="fc-text">
-                <h4>Reports & Insights</h4>
-                <p>Data-driven recommendations for process improvement.</p>
+                <h4>Flexible Adjustment</h4>
+                <p>Easily adaptable to curriculum or lecturer changes.</p>
+              </div>
+            </div>
+
+            <div class="feat-card full-width">
+              <div class="fc-icon green"><i class="fas fa-chart-line"></i></div>
+              <div class="fc-text">
+                <h4>Efficiency Improvement</h4>
+                <p>Enhancing the overall effectiveness of course planning.</p>
               </div>
             </div>
 
@@ -190,7 +191,7 @@
       <span class="cmtApp-close" id="close-cmtAppModal">&times;</span>
       <h3>Join Discussion</h3>
       <input type="text" id="cmtAppNama" placeholder="Your Name" class="input-compact">
-      <textarea id="cmtAppIsi" rows="3" placeholder="Share your insight..." class="input-compact"></textarea>
+      <textarea id="cmtAppIsi" rows="3" placeholder="Share your thoughts..." class="input-compact"></textarea>
       <button id="cmtAppKirim" class="btn-primary-compact full">Post Comment</button>
     </div>
   </div>
@@ -206,8 +207,12 @@
 
   <div id="miniModal" class="mini-modal"><div class="mini-content" id="miniContent"></div></div>
 
-  <script type="module" src="script.js"></script>
-  <script>window.PAGE_ID = "workload_analyst"; AOS.init();</script>
+  <script type="module" src="../script_project/script.js"></script>
+  <script>
+    // PAGE_ID UNIK UNTUK PROJECT INI
+    window.PAGE_ID = "course_scheduling"; 
+    AOS.init();
+  </script>
 
 </body>
 </html>
