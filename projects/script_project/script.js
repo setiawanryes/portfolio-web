@@ -1,6 +1,4 @@
-/* =========================================
-   SCRIPT.JS - WORKLOAD ANALYST (FULL FIX)
-   ========================================= */
+
 
 // 1. Import Firebase SDK
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
@@ -13,9 +11,7 @@ import {
 // 2. Initialize Library
 AOS.init({ duration: 800, once: true });
 
-/* ==========================
-   👔 OFFICE AVATAR GENERATOR
-   ========================== */
+// 3. Avatar Generator
 function getOfficeAvatar(name) {
   const icons = [
     "https://img.icons8.com/fluency/96/business-man-in-suit.png",
@@ -35,9 +31,7 @@ function getOfficeAvatar(name) {
   return icons[Math.abs(hash) % icons.length];
 }
 
-/* ==========================
-   SLIDER & MODAL LOGIC
-   ========================== */
+// 4. Image Slider & Lightbox
 const slideContainer = document.querySelector('.slide-project');
 const slides = slideContainer ? slideContainer.querySelectorAll('img') : [];
 const prevBtn = document.querySelector('.prev');
@@ -51,7 +45,7 @@ function showSlide(i) {
 if (nextBtn) nextBtn.addEventListener('click', () => { index = (index + 1) % slides.length; showSlide(index); });
 if (prevBtn) prevBtn.addEventListener('click', () => { index = (index - 1 + slides.length) % slides.length; showSlide(index); });
 
-// Lightbox
+// 5. Lightbox Modal
 const modal = document.getElementById("lightboxModal");
 const modalImg = document.getElementById("lightboxImg");
 const closeBtn = document.querySelector(".close");
@@ -68,7 +62,7 @@ if (modal && modalImg) {
       currentIndex = i;
     });
   });
-  
+
   if (closeBtn) closeBtn.addEventListener("click", (e) => { e.stopPropagation(); modal.style.display = "none"; });
   modal.addEventListener("click", (e) => { if (e.target === modal) modal.style.display = "none"; });
 
@@ -83,7 +77,7 @@ function showImage(idx) {
   }
 }
 
-// Progress Bar
+// 6. Progress Bar
 const progressBar = document.getElementById('progress-bar');
 const progressText = document.getElementById('progress-text');
 function setProgress(percent) {
@@ -94,9 +88,7 @@ function setProgress(percent) {
 }
 setTimeout(() => setProgress(100), 500);
 
-/* ==========================
-   🔥 FIREBASE CONFIG
-   ========================== */
+// 7. Comment System with Firebase Firestore
 const firebaseConfig = {
   apiKey: "AIzaSyBGS2_U6M-lC0YozJd0FCHpncyNLE1mE2g",
   authDomain: "portfolio-setiawanryes.firebaseapp.com",
@@ -117,7 +109,7 @@ const pageSize = 5;
 let lastVisible = null;
 let isLoadingMore = false;
 
-// DOM Elements
+// 8. DOM Elements
 const komentarList = document.getElementById('comments-list');
 const komentarModal = document.getElementById('cmtAppModal');
 const komentarBtn = document.getElementById('komentar-btn');
@@ -131,7 +123,7 @@ const likeCount = document.getElementById('like-count');
 const loadMoreBtn = document.getElementById('load-more-comments');
 const notifyBadge = document.getElementById('comment-notify-badge');
 
-// Utilities
+// 9. Utility Functions
 function escapeHtml(s = '') {
   return String(s).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#039;');
 }
@@ -146,7 +138,7 @@ function formatWaktu(ts) {
 function canLikeCommentLocal(id) { return !localStorage.getItem(`${pageId}-liked-${id}`); }
 function markLikedLocal(id) { localStorage.setItem(`${pageId}-liked-${id}`, '1'); }
 
-// Page Likes
+// 10. Initialize Page Like System
 async function initPageLike() {
   try {
     const s = await getDoc(pageLikeDoc);
@@ -160,17 +152,15 @@ async function initPageLike() {
 }
 initPageLike();
 
-/* ==========================
-   💬 RENDER COMMENTS (LOGIC TOMBOL LENGKAP)
-   ========================== */
+// 11. Render Comment
 function renderComment(docSnap, container, parentId = null) {
   const data = docSnap.data();
   const id = docSnap.id;
   const created = data.timestamp || Date.now();
-  
+
+  // HTML Structure: Komentar Utama atau Balasan
   const div = document.createElement('div');
   div.className = 'cmtApp-comment';
-  // Layout HTML (Tanpa Ikon Emoji)
   div.innerHTML = `
     <div class="cmtApp-comment-header">
       <img src="${escapeHtml(data.avatar || getOfficeAvatar(data.nama))}" alt="Avatar">
@@ -189,9 +179,6 @@ function renderComment(docSnap, container, parentId = null) {
     <div class="cmtApp-replies"></div>
   `;
   container.appendChild(div);
-
-  // --- EVENT LISTENERS TOMBOL ---
-
   // 1. LIKE
   const likeBtnLocal = div.querySelector('.cmtApp-like');
   if (likeBtnLocal) likeBtnLocal.addEventListener('click', async () => {
@@ -200,23 +187,21 @@ function renderComment(docSnap, container, parentId = null) {
     await updateDoc(ref, { likes: increment(1) });
     markLikedLocal(id);
   });
-
   // 2. REPLY
   const replyBtn = div.querySelector('.cmtApp-reply');
   if (replyBtn) replyBtn.addEventListener('click', () => {
     window.CMT_REPLY_TO = { id, el: div };
     const modalTitle = document.querySelector('#cmtAppModal h3');
-    if(modalTitle) modalTitle.textContent = `Reply to ${data.nama}`;
+    if (modalTitle) modalTitle.textContent = `Reply to ${data.nama}`;
     komentarModal.classList.add('show');
     isiInput.focus();
   });
-
   // 3. EDIT
   const editBtn = div.querySelector('.cmtApp-edit');
   if (editBtn) editBtn.addEventListener('click', async () => {
     const confirmName = prompt("Enter your name to verify ownership:");
     if (!confirmName || confirmName.trim() !== data.nama) return alert("Incorrect name!");
-    
+
     const newText = prompt("Edit your comment:", data.isi);
     if (newText && newText !== data.isi) {
       const ref = parentId ? doc(db, 'comments', pageId, 'list', parentId, 'replies', id) : doc(db, 'comments', pageId, 'list', id);
@@ -229,25 +214,25 @@ function renderComment(docSnap, container, parentId = null) {
   if (deleteBtn) deleteBtn.addEventListener('click', async () => {
     const confirmName = prompt("Enter your name to delete:");
     if (!confirmName || confirmName.trim() !== data.nama) return alert("Incorrect name!");
-    
-    if(!confirm("Are you sure?")) return;
+
+    if (!confirm("Are you sure?")) return;
 
     const ref = parentId ? doc(db, 'comments', pageId, 'list', parentId, 'replies', id) : doc(db, 'comments', pageId, 'list', id);
     await deleteDoc(ref);
-    div.remove(); // Hapus dari UI langsung biar cepet
+    div.remove();
   });
 
-  // --- LOAD REPLIES ---
+  // LOAD REPLIES
   const repliesContainer = div.querySelector('.cmtApp-replies');
   const repliesRef = collection(db, 'comments', pageId, 'list', id, 'replies');
   const qRep = query(repliesRef, orderBy('timestamp', 'asc'));
   onSnapshot(qRep, snap => {
     repliesContainer.innerHTML = '';
-    if(snap.size > 0) {
-       replyBtn.textContent = `Reply (${snap.size})`;
-       snap.forEach(subDoc => renderComment(subDoc, repliesContainer, id));
+    if (snap.size > 0) {
+      replyBtn.textContent = `Reply (${snap.size})`;
+      snap.forEach(subDoc => renderComment(subDoc, repliesContainer, id));
     } else {
-       replyBtn.textContent = `Reply`;
+      replyBtn.textContent = `Reply`;
     }
     updateCount();
   });
@@ -255,7 +240,7 @@ function renderComment(docSnap, container, parentId = null) {
 
 // Update Total Count
 function updateCount() {
-  if(!komentarCountSpan) return;
+  if (!komentarCountSpan) return;
   const count = document.querySelectorAll('.cmtApp-comment').length;
   komentarCountSpan.textContent = count;
 }
@@ -266,7 +251,7 @@ onSnapshot(q, snap => {
   if (komentarList) {
     komentarList.innerHTML = '';
     snap.forEach(docSnap => renderComment(docSnap, komentarList));
-    if(snap.docs.length > 0) lastVisible = snap.docs[snap.docs.length - 1];
+    if (snap.docs.length > 0) lastVisible = snap.docs[snap.docs.length - 1];
     updateCount();
   }
 });
@@ -291,16 +276,16 @@ if (kirimBtn) kirimBtn.addEventListener('click', async () => {
   const nama = namaInput.value.trim();
   const isi = isiInput.value.trim();
   if (!nama || !isi) return alert("Please fill name and message");
-  
+
   const payload = {
-    nama, isi, 
+    nama, isi,
     avatar: getOfficeAvatar(nama),
-    likes: 0, 
+    likes: 0,
     timestamp: Date.now()
   };
 
   const replyTo = window.CMT_REPLY_TO;
-  
+
   if (replyTo && replyTo.id) {
     // Save as Reply
     await addDoc(collection(db, 'comments', pageId, 'list', replyTo.id, 'replies'), payload);
@@ -309,18 +294,18 @@ if (kirimBtn) kirimBtn.addEventListener('click', async () => {
     // Save as New Comment
     await addDoc(commentsCollection, payload);
   }
-  
+
   namaInput.value = ''; isiInput.value = '';
   komentarModal.classList.remove('show');
-  
+
   // Reset Title
   const modalTitle = document.querySelector('#cmtAppModal h3');
-  if(modalTitle) modalTitle.textContent = "Join Discussion";
+  if (modalTitle) modalTitle.textContent = "Join Discussion";
 });
 
 // Modal UI Handlers
 if (komentarBtn) komentarBtn.addEventListener('click', () => {
-  window.CMT_REPLY_TO = null; // Reset reply target
+  window.CMT_REPLY_TO = null;
   document.querySelector('#cmtAppModal h3').textContent = "Join Discussion";
   komentarModal.classList.add('show');
 });
