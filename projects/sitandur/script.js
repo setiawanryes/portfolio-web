@@ -269,7 +269,36 @@ async function initPageLike() {
   } catch (e) { console.error('initPageLike err', e); }
 }
 initPageLike();
+function getFarmAvatar(name) {
+  // Koleksi Icon Pertanian Premium (Icons8 Fluency & 3D Style)
+  const icons = [
+    "https://img.icons8.com/fluency/96/farmer-male.png",      // Petani Cowok
+    "https://img.icons8.com/fluency/96/farmer-female.png",    // Petani Cewek
+    "https://img.icons8.com/fluency/96/cow.png",              // Sapi Lucu
+    "https://img.icons8.com/fluency/96/chicken.png",          // Ayam
+    "https://img.icons8.com/fluency/96/sheep.png",            // Domba
+    "https://img.icons8.com/fluency/96/tractor.png",          // Traktor Modern
+    "https://img.icons8.com/fluency/96/corn.png",             // Jagung
+    "https://img.icons8.com/fluency/96/wheat.png",            // Gandum
+    "https://img.icons8.com/fluency/96/scarecrow.png",        // Orang-orangan sawah
+    "https://img.icons8.com/fluency/96/bee.png",              // Lebah
+    "https://img.icons8.com/fluency/96/sunflower.png",        // Bunga Matahari
+    "https://img.icons8.com/fluency/96/watering-can.png"      // Penyiram
+  ];
 
+  // Algoritma Hash Sederhana
+  // Mengubah String Nama menjadi Angka Index Unik
+  let hash = 0;
+  const nameStr = name || "Anonymous";
+  for (let i = 0; i < nameStr.length; i++) {
+    hash = nameStr.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  
+  // Ambil index agar tidak melebihi jumlah icon
+  const index = Math.abs(hash) % icons.length;
+  
+  return icons[index];
+}
 function renderComment(docSnap, container, parentId = null) {
   const data = docSnap.data ? docSnap.data() : {};
   const id = docSnap.id || (docSnap._id || Math.random().toString(36).slice(2));
