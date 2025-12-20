@@ -1,5 +1,6 @@
 
-// 1. Import Library Firebase
+
+// 1. Import Firebase Library
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { 
   getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp, 
@@ -9,11 +10,11 @@ import {
   getStorage, ref, uploadBytes, getDownloadURL 
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
 
-// 2. DETEKSI ID HALAMAN
+// 2. DETECT PAGE ID
 const PAGE_ID = window.PAGE_ID || "guestbook_main";
-console.log(`💬 System Komentar Aktif untuk: ${PAGE_ID}`);
+console.log(`💬 Comment System Active for: ${PAGE_ID}`);
 
-// 3. Konfigurasi Firebase (Milikmu)
+// 3. Firebase Configuration (Yours)
 const firebaseConfig = {
   apiKey: "AIzaSyBGS2_U6M-lC0YozJd0FCHpncyNLE1mE2g",
   authDomain: "portfolio-setiawanryes.firebaseapp.com",
@@ -24,12 +25,12 @@ const firebaseConfig = {
   measurementId: "G-4R3C18RXW0"
 };
 
-// 4. Inisialisasi Aplikasi
+// 4. Initialize App
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const storage = getStorage(app);
 
-// 5. Referensi Database
+// 5. Database Reference
 const commentsRef = collection(db, "comments", PAGE_ID, "list");
 
 // 6. DOM Elements
@@ -39,7 +40,6 @@ const nameInput = document.getElementById('commentName');
 const msgInput = document.getElementById('commentText');
 const photoInput = document.getElementById('profilePhoto');
 const fileBtnIcon = document.querySelector('.file-btn i');
-
 
 if (photoInput) {
   photoInput.addEventListener('change', function() {
@@ -60,7 +60,7 @@ if (commentForm) {
     const file = photoInput ? photoInput.files[0] : null;
 
     if (!name || !text) {
-      alert("Silakan isi Nama dan Pesan!");
+      alert("Please enter your Name and Message!");
       return;
     }
 
@@ -84,7 +84,7 @@ if (commentForm) {
         text: text,
         photoURL: photoURL,
         timestamp: serverTimestamp(),
-        likes: 0,
+        likes: 0, 
         replies: [] 
       });
 
@@ -96,7 +96,7 @@ if (commentForm) {
 
     } catch (error) {
       console.error("Error:", error);
-      alert("Gagal mengirim pesan.");
+      alert("Failed to send message.");
     } finally {
       submitBtn.innerHTML = originalIcon;
       submitBtn.disabled = false;
@@ -108,32 +108,36 @@ if (commentForm) {
 if (commentList) {
   commentList.addEventListener('click', async (e) => {
     
+    // --- A. CLICK LIKE BUTTON ---
     if (e.target.closest('.btn-like')) {
       const btn = e.target.closest('.btn-like');
       const docId = btn.dataset.id;
       const storageKey = `liked_${docId}`;
 
+      // Check LocalStorage to prevent spamming likes
       if (localStorage.getItem(storageKey)) {
-        alert("Kamu sudah menyukai komentar ini!");
+        alert("You already liked this comment!");
         return;
       }
 
+      // Update Firestore (Increment)
       const docRef = doc(db, "comments", PAGE_ID, "list", docId);
       await updateDoc(docRef, {
         likes: increment(1)
       });
 
+      // Save like status in user browser
       localStorage.setItem(storageKey, true);
       btn.classList.add('liked'); 
     }
 
-
+    // --- B. CLICK REPLY TOGGLE (Show Form) ---
     if (e.target.closest('.btn-reply-toggle')) {
       const btn = e.target.closest('.btn-reply-toggle');
       const docId = btn.dataset.id;
       const formContainer = document.getElementById(`reply-form-${docId}`);
       
-  
+      // Toggle visibility
       if (formContainer.style.display === "block") {
         formContainer.style.display = "none";
       } else {
@@ -142,7 +146,7 @@ if (commentList) {
       }
     }
 
-  
+    // --- C. CLICK SEND REPLY ---
     if (e.target.closest('.btn-send-reply')) {
       const btn = e.target.closest('.btn-send-reply');
       const docId = btn.dataset.id;
@@ -153,12 +157,13 @@ if (commentList) {
       const rName = replyNameInput.value.trim();
       const rText = replyMsgInput.value.trim();
 
-      if (!rName || !rText) return alert("Isi nama dan balasan!");
+      if (!rName || !rText) return alert("Please enter your name and reply message.");
 
       btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
       btn.disabled = true;
 
       try {
+        // Update Comment Document: Add data to 'replies' Array
         const docRef = doc(db, "comments", PAGE_ID, "list", docId);
         
         const newReply = {
@@ -171,16 +176,16 @@ if (commentList) {
           replies: arrayUnion(newReply)
         });
 
-      
+        // Reset Reply Form
         replyNameInput.value = "";
         replyMsgInput.value = "";
         document.getElementById(`reply-form-${docId}`).style.display = "none";
 
       } catch (error) {
-        console.error("Gagal membalas:", error);
-        alert("Gagal mengirim balasan.");
+        console.error("Failed to reply:", error);
+        alert("Failed to send reply.");
       } finally {
-        btn.innerHTML = 'Kirim';
+        btn.innerHTML = 'Send';
         btn.disabled = false;
       }
     }
@@ -197,13 +202,15 @@ onSnapshot(q, (snapshot) => {
     const data = doc.data();
     const docId = doc.id;
     
- 
-    let timeString = 'Baru saja';
+    // Time Format
+    let timeString = 'Just now';
     if (data.timestamp) {
         const date = new Date(data.timestamp.seconds * 1000);
-        timeString = date.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' });
+        // Changed locale to en-US for English format
+        timeString = date.toLocaleDateString('en-US', { day: 'numeric', month: 'short' });
     }
     
+    // Avatar Logic
     let avatarImg;
     if (data.photoURL) {
       avatarImg = `<img src="${data.photoURL}" alt="${data.name}" class="comment-avatar">`;
@@ -211,14 +218,15 @@ onSnapshot(q, (snapshot) => {
       avatarImg = `<img src="https://ui-avatars.com/api/?name=${encodeURIComponent(data.name)}&background=random&color=fff&size=128" alt="${data.name}" class="comment-avatar">`;
     }
 
+    // Check if user liked this comment
     const isLiked = localStorage.getItem(`liked_${docId}`) ? 'liked' : '';
 
-
+    // Render Replies
     let repliesHTML = '';
     if (data.replies && data.replies.length > 0) {
       repliesHTML = `<div class="replies-list">`;
       data.replies.forEach(reply => {
-        const rTime = new Date(reply.timestamp).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' });
+        const rTime = new Date(reply.timestamp).toLocaleDateString('en-US', { day: 'numeric', month: 'short' });
         repliesHTML += `
           <div class="reply-item">
             <div class="reply-header">
@@ -251,15 +259,15 @@ onSnapshot(q, (snapshot) => {
               <span>${data.likes || 0}</span>
             </button>
             <button class="btn-action btn-reply-toggle" data-id="${docId}">
-              <i class="far fa-comment-alt"></i> Balas
+              <i class="far fa-comment-alt"></i> Reply
             </button>
           </div>
 
           <div class="reply-input-container" id="reply-form-${docId}">
             <div class="reply-form-row">
-              <input type="text" id="reply-name-${docId}" placeholder="Nama kamu" class="reply-input" style="width:30%;">
-              <input type="text" id="reply-text-${docId}" placeholder="Tulis balasan..." class="reply-input">
-              <button class="btn-send-reply" data-id="${docId}">Kirim</button>
+              <input type="text" id="reply-name-${docId}" placeholder="Your Name" class="reply-input" style="width:30%;">
+              <input type="text" id="reply-text-${docId}" placeholder="Write a reply..." class="reply-input">
+              <button class="btn-send-reply" data-id="${docId}">Send</button>
             </div>
           </div>
 
@@ -278,7 +286,7 @@ onSnapshot(q, (snapshot) => {
       commentList.innerHTML = `
         <div class="empty-state">
           <i class="far fa-comment-dots"></i>
-          <p>Belum ada pesan. Jadilah yang pertama menyapa!</p>
+          <p>No messages yet. Be the first to say hello!</p>
         </div>
       `;
     }
