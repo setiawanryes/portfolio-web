@@ -2346,3 +2346,13 @@ section {
   padding: 15px;
   margin-bottom: 20px;
 }
+
+.cmtApp-comment-avatar {
+  width: 40px; 
+  height: 40px; 
+  border-radius: 50%; 
+  object-fit: cover;
+  border: 2px solid white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  flex-shrink: 0;
+}
