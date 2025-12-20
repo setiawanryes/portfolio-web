@@ -2515,3 +2515,79 @@ section {
   /* Perkecil Ikon di HP Kecil */
   .edu-icon-box, .exp-logo-box img { width: 50px; height: 50px; }
 }
+/* =========================================
+   🚑 EMERGENCY FIX: MOBILE RESPONSIVE
+   (Tempel di baris PALING BAWAH style.css)
+   ========================================= */
+
+@media (max-width: 900px) {
+
+  /* 1. PAKSA LAYOUT 1 KOLOM */
+  .about-container {
+    display: flex !important; /* Pakai Flex biar lebih nurut daripada Grid */
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+  }
+
+  /* 2. SIDEBAR (MENU TAB) */
+  .about-sidebar {
+    width: 100% !important; /* Lebar penuh */
+    position: relative !important; /* Jangan melayang/sticky */
+    top: 0 !important;
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+
+  /* Menu Tab Horizontal (Scroll Samping) */
+  .about-tabs {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto; /* Bisa digeser */
+    gap: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+  }
+  
+  .about-tabs::-webkit-scrollbar { display: none; } /* Umpetin scrollbar */
+
+  .about-tabs li {
+    flex-shrink: 0; /* Jangan mengecil gepeng */
+    width: auto;
+    white-space: nowrap;
+  }
+
+  /* 3. PERBAIKAN VITAL: SKILL SLIDER */
+  .skill-slider-container {
+    width: 100%;
+    padding-right: 20px; /* Biar kartu terakhir gak kepotong */
+    overflow-x: auto;
+  }
+
+  .skill-card-slide {
+    /* INI KUNCINYA: Jangan pakai 300px, pakai % layar */
+    min-width: 85vw !important; 
+    max-width: 85vw !important;
+    margin-right: 15px; /* Jarak antar kartu */
+  }
+
+  /* 4. MENCEGAH BODY MELEBAR */
+  body, html {
+    overflow-x: hidden;
+    width: 100%;
+  }
+  
+  section {
+    padding: 60px 20px; /* Kurangi padding section */
+    overflow: hidden; /* Potong konten bandel */
+  }
+
+  /* 5. GUESTBOOK & CONTACT BIAR RAPI */
+  .contact-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .email-card-glass, .contact-left .sticky-content {
+    width: 100%;
+  }
+}
