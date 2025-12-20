@@ -8,9 +8,7 @@ import {
 // Initialize AOS
 AOS.init({ duration: 1000, once: true });
 
-/* ==========================
-   SLIDER LOGIC
-========================== */
+
 const slideContainer = document.querySelector('.slide-project');
 const slides = slideContainer ? slideContainer.querySelectorAll('img') : [];
 const prevBtn = document.querySelector('.prev');
@@ -37,12 +35,10 @@ if (prevBtn) {
   });
 }
 
-/* ==========================
-   LIGHTBOX MODAL
-========================== */
+
 const modal = document.getElementById("lightboxModal");
 const modalImg = document.getElementById("lightboxImg");
-const closeBtn = document.querySelector(".close"); // Use querySelector for class
+const closeBtn = document.querySelector(".close"); 
 const lightboxImages = document.querySelectorAll(".lightbox-img");
 const prevImgBtn = document.getElementById("prevImg");
 const nextImgBtn = document.getElementById("nextImg");
@@ -113,9 +109,7 @@ function showImage(index) {
   }
 }
 
-/* ==========================
-   MINI MODAL (STATS)
-========================== */
+
 const miniModal = document.getElementById("miniModal");
 const miniContent = document.getElementById("miniContent");
 const stats = document.querySelectorAll(".stat");
@@ -157,9 +151,7 @@ if (miniModal && miniContent) {
   });
 }
 
-/* ==========================
-   PROGRESS BAR
-========================== */
+
 const progressBar = document.getElementById('progress-bar');
 const progressText = document.getElementById('progress-text');
 
@@ -173,9 +165,7 @@ function setProgress(percent) {
 // Initialize progress
 setProgress(100);
 
-/* ==========================
-   FIREBASE COMMENTS SYSTEM
-========================== */
+// firebase config and initialization
 const firebaseConfig = {
   apiKey: "AIzaSyBGS2_U6M-lC0YozJd0FCHpncyNLE1mE2g",
   authDomain: "portfolio-setiawanryes.firebaseapp.com",
@@ -269,36 +259,32 @@ async function initPageLike() {
   } catch (e) { console.error('initPageLike err', e); }
 }
 initPageLike();
+
 function getFarmAvatar(name) {
-  // Koleksi Icon Pertanian Premium (Icons8 Fluency & 3D Style)
   const icons = [
-    "https://img.icons8.com/fluency/96/farmer-male.png",      // Petani Cowok
-    "https://img.icons8.com/fluency/96/farmer-female.png",    // Petani Cewek
-    "https://img.icons8.com/fluency/96/cow.png",              // Sapi Lucu
-    "https://img.icons8.com/fluency/96/chicken.png",          // Ayam
-    "https://img.icons8.com/fluency/96/sheep.png",            // Domba
-    "https://img.icons8.com/fluency/96/tractor.png",          // Traktor Modern
-    "https://img.icons8.com/fluency/96/corn.png",             // Jagung
-    "https://img.icons8.com/fluency/96/wheat.png",            // Gandum
-    "https://img.icons8.com/fluency/96/scarecrow.png",        // Orang-orangan sawah
-    "https://img.icons8.com/fluency/96/bee.png",              // Lebah
-    "https://img.icons8.com/fluency/96/sunflower.png",        // Bunga Matahari
-    "https://img.icons8.com/fluency/96/watering-can.png"      // Penyiram
+    "https://img.icons8.com/fluency/96/farmer-male.png",      
+    "https://img.icons8.com/fluency/96/farmer-female.png",   
+    "https://img.icons8.com/fluency/96/cow.png",             
+    "https://img.icons8.com/fluency/96/chicken.png",          
+    "https://img.icons8.com/fluency/96/sheep.png",            
+    "https://img.icons8.com/fluency/96/tractor.png",         
+    "https://img.icons8.com/fluency/96/corn.png",             
+    "https://img.icons8.com/fluency/96/wheat.png",            
+    "https://img.icons8.com/fluency/96/scarecrow.png",        
+    "https://img.icons8.com/fluency/96/bee.png",             
+    "https://img.icons8.com/fluency/96/sunflower.png",       
+    "https://img.icons8.com/fluency/96/watering-can.png"      
   ];
 
-  // Algoritma Hash Sederhana
-  // Mengubah String Nama menjadi Angka Index Unik
   let hash = 0;
   const nameStr = name || "Anonymous";
   for (let i = 0; i < nameStr.length; i++) {
     hash = nameStr.charCodeAt(i) + ((hash << 5) - hash);
   }
-  
-  // Ambil index agar tidak melebihi jumlah icon
   const index = Math.abs(hash) % icons.length;
-  
   return icons[index];
 }
+
 function renderComment(docSnap, container, parentId = null) {
   const data = docSnap.data ? docSnap.data() : {};
   const id = docSnap.id || (docSnap._id || Math.random().toString(36).slice(2));
@@ -310,7 +296,7 @@ function renderComment(docSnap, container, parentId = null) {
   div.dataset.parentId = parentId || '';
   div.innerHTML = `
     <div class="cmtApp-comment-header">
-      <img src="${escapeHtml(data.avatar || `https://i.pravatar.cc/50?u=${encodeURIComponent(data.nama || 'anon')}`)}" alt="">
+<img src="${escapeHtml(data.avatar || getFarmAvatar(data.nama))}" alt="${escapeHtml(data.nama)}">
       <strong>${escapeHtml(data.nama || 'Anonymous')}</strong>
     </div>
     <div class="cmtApp-comment-body">${escapeHtml(data.isi || data.message || '')}</div>
@@ -319,7 +305,6 @@ function renderComment(docSnap, container, parentId = null) {
         <button class="cmtApp-like">${canLikeCommentLocal(id) ? '👍' : '💖'} ${data.likes || 0}</button>
         
         <button class="cmtApp-reply">Reply (0)</button>
-        <button class="cmtApp-edit">Edit</button>
         <button class="cmtApp-delete">Delete</button>
       </div>
       <span class="cmtApp-time">${formatWaktu(created)}</span>
@@ -490,7 +475,7 @@ safeAddEvent(kirimBtn, 'click', async () => {
     const isi = (isiInput?.value || '').trim();
     if (!nama || !isi) return alert('Nama dan komentar wajib diisi!');
 
-    const avatar = `https://i.pravatar.cc/50?u=${encodeURIComponent(nama)}`;
+    const avatar = getFarmAvatar(nama);
     const ts = Date.now();
     const replyTo = window.CMT_REPLY_TO || null;
 
