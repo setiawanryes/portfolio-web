@@ -38,43 +38,74 @@
 
 
   <!-- HOME -->
-  <section id="home" class="hero">
-    <div class="hero-text">
-      <h3>Hello, I am</h3>
-      <h1>Roni <span>Setiawan</span></h1>
-      <div class="role-slider">
-        <div class="slide-text" id="role-text">Web Developer</div>
-      </div>
-      <p>
-        I’m Roni Setiawan, an administration and data professional with a passion for web development. I love blending
-        design, data, and storytelling to create websites that inspire and make a difference.
-      </p>
+<section id="home" class="hero-section">
+    <div class="hero-glass-container" data-aos="fade-up" data-aos-duration="1000">
+      
+      <div class="hero-grid">
+        <div class="hero-text-col">
+          
+          <div class="welcome-badge">
+            <span class="wave">👋</span> Hello, I am
+          </div>
+          
+          <h1 class="hero-name">Roni <span class="text-gradient">Setiawan</span></h1>
+          
+          <div class="role-container">
+            <span class="role-prefix">I'm a</span>
+            <div class="role-slider">
+              <span class="slide-text" id="role-text">Web Developer</span>
+            </div>
+          </div>
 
-      <div class="socials">
-        <a href="https://www.facebook.com/rstwnnn"><i class="fab fa-facebook-f"></i></a>
-        <a href="https://www.tiktok.com/@setiawanryes_"><i class="fab fa-tiktok"></i></a>
-        <a href="https://www.instagram.com/setiawanryes_"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.linkedin.com/in/rstwn"><i class="fab fa-linkedin-in"></i></a>
-        <a href="mailto:ronisetiawan496@gmail.com"><i class="fa-solid fa-envelope"></i></a>
-      </div>
+          <p class="hero-bio">
+            An administration and data professional with a passion for web development. 
+            Blending <b>design</b>, <b>data</b>, and <b>storytelling</b> to create impactful digital experiences.
+          </p>
 
-      <div class="buttons">
-        <a href="mailto:ronisetiawan496@gmail.com" class="btn1">Hire Me</a>
+          <div class="social-dock-hero">
+            <a href="https://www.facebook.com/rstwnnn" class="dock-icon fb" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.tiktok.com/@setiawanryes_" class="dock-icon tk" title="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="https://www.instagram.com/setiawanryes_" class="dock-icon ig" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/in/rstwn" class="dock-icon in" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="mailto:ronisetiawan496@gmail.com" class="dock-icon mail" title="Email"><i class="fa-solid fa-envelope"></i></a>
+          </div>
 
-        <div class="button-wrapper">
-          <a href="javascript:void(0)" class="btn" onclick="togglePopup('popupDl')">Download CV</a>
-          <div id="popupDl" class="mini-popup">
-            <div class="popup-arrow"></div>
-            <div class="dl-links">
-              <a href="LINK_CLOUDINARY_EN" target="_blank">English</a>
-              <a href="LINK_CLOUDINARY_ID" target="_blank">Indonesia</a>
+          <div class="hero-actions">
+            <a href="mailto:ronisetiawan496@gmail.com" class="btn-hero-primary">
+              Hire Me <i class="fas fa-paper-plane"></i>
+            </a>
+
+            <div class="dropdown-wrapper">
+              <button class="btn-hero-secondary" onclick="togglePopup('popupDl')">
+                Download CV <i class="fas fa-chevron-down"></i>
+              </button>
+              
+              <div id="popupDl" class="glass-dropdown">
+                <a href="LINK_CLOUDINARY_EN" target="_blank" class="dd-item">
+                  <img src="https://img.icons8.com/color/48/usa.png" alt="EN"> English CV
+                </a>
+                <a href="LINK_CLOUDINARY_ID" target="_blank" class="dd-item">
+                  <img src="https://img.icons8.com/color/48/indonesia.png" alt="ID"> Indonesia CV
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="hero-img-col">
+          <div class="profile-glass-frame">
+            <div class="img-glow"></div>
+            <img src="images/profile.jpeg" alt="Roni Setiawan" class="main-profile-img" />
+            
+            <div class="status-badge">
+              <div class="status-dot"></div>
+              <span>Open to Work</span>
             </div>
           </div>
         </div>
+
       </div>
-    </div>
-    <div class="hero-img">
-      <img src="images/profile.jpeg" alt="Roni Setiawan" />
     </div>
   </section>
 
