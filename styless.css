@@ -436,13 +436,6 @@ section {
 }
 
 
-.status-dot {
-  width: 10px;
-  height: 10px;
-  background: #10b981;
-  border-radius: 50%;
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
-}
 
 @keyframes floatBadge {
 
@@ -2033,7 +2026,6 @@ section {
 }
 .header-text h3 { margin: 0; font-size: 1.1rem; }
 .status-dot { font-size: 0.75rem; color: #10b981; font-weight: 600; display: flex; align-items: center; gap: 5px; }
-.dot { width: 8px; height: 8px; background: #10b981; border-radius: 50%; animation: pulse 2s infinite; }
 
 .comment-chat-area {
   flex: 1; overflow-y: auto; padding: 20px;
@@ -2069,7 +2061,80 @@ section {
 }
 .send-chat-btn:hover { background: #0284c7; transform: scale(1.1); }
 
+.chat-header {
+  display: flex;            /* Wajib Flexbox */
+  align-items: center;      /* Rata tengah vertikal */
+  gap: 15px;                /* Jarak antara Ikon dan Teks */
+  padding: 20px 25px;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  background: rgba(255,255,255,0.5);
+  margin-bottom: 0 !important; /* Hapus margin default */
+}
 
+/* 2. Ikon Kotak Pink */
+.chat-header .icon-sq {
+  width: 50px;              /* Lebar Tetap */
+  height: 50px;             /* Tinggi Tetap */
+  flex-shrink: 0;           /* Jangan mengecil */
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.4rem;
+  
+  /* Gradient Pink sesuai gambar */
+  background: linear-gradient(135deg, #ec4899, #db2777); 
+  box-shadow: 0 5px 15px rgba(236, 72, 153, 0.3);
+}
+
+/* 3. Wrapper Teks (Guestbook + Live Chat) */
+.header-text {
+  display: flex;
+  flex-direction: column;   /* PENTING: Susun Atas-Bawah */
+  justify-content: center;
+  line-height: 1.2;         /* Jarak antar baris rapat */
+}
+
+/* Judul "Guestbook" */
+.header-text h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-main);
+  text-align: left;         /* Pastikan rata kiri */
+}
+
+/* Status "LIVE CHAT" */
+.status-dot {
+  font-size: 0.7rem;
+  color: #10b981;           /* Hijau */
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+  text-transform: uppercase; /* Huruf Kapital Semua */
+  letter-spacing: 0.5px;
+}
+
+/* Titik Hijau Berkedip */
+.dot {
+  width: 8px;
+  height: 8px;
+  background-color: #10b981;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+  animation: pulseGreen 2s infinite;
+}
+
+/* Animasi Kedip */
+@keyframes pulseGreen {
+  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
 /* --- RESPONSIVE (MOBILE HP) --- */
 @media (max-width: 900px) {
   .contact-grid {
