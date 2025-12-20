@@ -1990,3 +1990,148 @@ header {
   .dock-fab:active { transform: scale(0.9); }
   .dock-fab:hover { box-shadow: 0 15px 35px rgba(99, 102, 241, 0.4); transform: translateY(-5px); }
 }
+
+/* =========================================
+   TAMBAHAN: FIX SKILL SLIDER & ABOUT MOBILE
+   (Paste ini di paling bawah styless.css)
+   ========================================= */
+
+/* --- 1. MEMPERBAIKI CONTAINER ABOUT --- */
+/* Mencegah halaman melebar ke samping */
+section {
+    overflow-x: hidden; /* PENTING: Memotong elemen yang keluar jalur */
+}
+
+.about-content {
+    min-width: 0; /* Trik CSS agar Flexbox anak tidak memaksa lebar */
+    width: 100%;
+}
+
+/* --- 2. STYLE UNTUK SKILL SLIDER (YANG HILANG) --- */
+.skills-header-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 0 5px;
+}
+
+.swipe-indicator {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.6);
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Wadah Slider */
+.skill-slider-container {
+    display: flex;
+    gap: 20px;
+    width: 100%; /* Pastikan tidak lebih lebar dari induknya */
+    
+    /* Mengaktifkan Scroll Samping */
+    overflow-x: auto; 
+    padding: 10px 5px 30px 5px; /* Padding bawah untuk bayangan */
+    
+    /* Efek Magnet saat Scroll */
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    
+    /* Sembunyikan Scrollbar Kasar */
+    scrollbar-width: none; 
+}
+.skill-slider-container::-webkit-scrollbar { display: none; }
+
+/* Kartu Skill */
+.skill-card-slide {
+    /* Ukuran Desktop */
+    min-width: 300px;
+    max-width: 300px;
+    
+    /* Style Kartu */
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 24px;
+    padding: 25px;
+    
+    /* Posisi & Animasi */
+    scroll-snap-align: center; /* Berhenti di tengah */
+    flex-shrink: 0; /* Jangan mengecil */
+    position: relative;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s;
+}
+
+/* Header Kartu (Icon + Judul) */
+.slide-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.icon-box {
+    width: 50px; height: 50px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 1.3rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Warna Gradient Icon */
+.gradient-amber { background: linear-gradient(135deg, #f59e0b, #d97706); }
+.gradient-blue { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+.gradient-pink { background: linear-gradient(135deg, #ec4899, #db2777); }
+
+.header-text h4 { margin: 0; font-size: 1.1rem; color: var(--text-main); font-weight: 700; }
+.header-text span { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; }
+
+/* Body Kartu (List Skill) */
+.slide-body {
+    display: flex; flex-wrap: wrap; gap: 8px;
+}
+
+.pill {
+    padding: 6px 14px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    font-size: 0.85rem;
+    color: var(--text-main);
+    font-weight: 500;
+}
+
+.spacer-end { min-width: 20px; } /* Jarak di akhir slider */
+
+
+/* --- 3. FIX RESPONSIVE HP (MENGATASI MELEBAR) --- */
+@media (max-width: 900px) {
+    /* Fix Sidebar About agar tidak melebar layar */
+    .about-sidebar {
+        width: 100%; /* Ganti 100vw dengan 100% */
+        margin-left: 0; /* Reset margin negatif */
+        position: relative;
+        top: 0;
+        margin-bottom: 20px;
+        border-radius: 20px;
+    }
+
+    /* Fix Skill Slider di HP */
+    .skill-slider-container {
+        padding-right: 20px; /* Ruang agar kartu terakhir terlihat */
+    }
+
+    .skill-card-slide {
+        /* Ubah ukuran kartu agar pas di layar HP */
+        min-width: 85vw; 
+        max-width: 85vw;
+    }
+}
