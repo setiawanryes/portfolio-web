@@ -26,12 +26,19 @@ body {
   color: var(--text-main);
   line-height: 1.6;
   overflow-x: hidden;
-  /* Mencegah scroll samping */
+  /* Mencegah scroll horizontal halaman */
   position: relative;
   width: 100%;
 }
 
-/* Background Animation Blobs */
+img {
+  max-width: 100%;
+  /* Mencegah gambar melebar */
+  height: auto;
+  display: block;
+}
+
+/* Background Animation */
 .bg-liquid-1,
 .bg-liquid-2 {
   position: fixed;
@@ -75,10 +82,10 @@ section {
   margin: 0 auto;
   width: 100%;
   overflow: hidden;
-  /* PENTING: Mencegah anak elemen melebar keluar */
+  /* PENTING: Mencegah konten section keluar */
 }
 
-/* Helper Classes */
+/* Utility Classes */
 .desktop-only {
   display: flex;
 }
@@ -179,7 +186,6 @@ section {
   transform: translateY(-2px);
 }
 
-/* Tombol CV Desktop */
 .btn-nav-cv {
   background: transparent;
   color: var(--text-main);
@@ -486,6 +492,7 @@ section {
   display: flex;
   gap: 12px;
   margin-bottom: 35px;
+  flex-wrap: wrap;
 }
 
 .dock-icon {
@@ -587,15 +594,15 @@ section {
   }
 }
 
-/* Hero Responsive */
+/* Hero Responsive (FIX MELEBAR) */
 @media (max-width: 968px) {
   .hero-glass-container {
-    padding: 40px;
+    padding: 40px 20px;
   }
 
   .hero-grid {
     grid-template-columns: 1fr;
-    gap: 60px;
+    gap: 40px;
     text-align: center;
   }
 
@@ -613,6 +620,13 @@ section {
   .social-dock-hero {
     margin: 0 auto 30px;
   }
+
+  .profile-glass-frame {
+    width: 100%;
+    max-width: 320px;
+    height: 400px;
+    margin: 0 auto;
+  }
 }
 
 @media (max-width: 480px) {
@@ -624,13 +638,6 @@ section {
 
   .hero-name {
     font-size: 2.2rem;
-  }
-
-  .profile-glass-frame {
-    width: 100%;
-    max-width: 300px;
-    height: 360px;
-    margin: 0 auto;
   }
 
   .status-badge {
@@ -739,6 +746,10 @@ section {
   gap: 40px;
 }
 
+.img-ring-container {
+  flex-shrink: 0;
+}
+
 .img-ring-container img {
   width: 140px;
   height: 140px;
@@ -763,6 +774,7 @@ section {
   display: flex;
   gap: 20px;
   margin-top: 20px;
+  flex-wrap: wrap;
 }
 
 .stat-num {
@@ -791,15 +803,13 @@ section {
 
 .birthday-hero {
   grid-column: span 2;
-  display: flex;
-  gap: 20px;
-  align-items: center;
 }
 
 .bday-content-wrapper {
   display: flex;
   gap: 20px;
   width: 100%;
+  align-items: center;
 }
 
 .bday-profile {
@@ -884,8 +894,8 @@ section {
 }
 
 .skill-card-slide {
-  min-width: 300px;
-  max-width: 300px;
+  min-width: 280px;
+  max-width: 280px;
   scroll-snap-align: center;
   flex-shrink: 0;
   background: rgba(255, 255, 255, 0.7);
@@ -912,6 +922,7 @@ section {
   align-items: center;
   justify-content: center;
   color: white;
+  flex-shrink: 0;
 }
 
 .gradient-amber {
@@ -959,6 +970,7 @@ section {
   align-items: center;
   gap: 20px;
   margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
 .edu-icon-box {
@@ -968,6 +980,7 @@ section {
   padding: 5px;
   border-radius: 12px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  flex-shrink: 0;
 }
 
 .edu-icon-box img {
@@ -1031,6 +1044,8 @@ section {
 
 /* --- ABOUT RESPONSIVE (MOBILE FIX) --- */
 @media (max-width: 900px) {
+
+  /* Stack Sidebar & Content */
   .about-container {
     grid-template-columns: 1fr;
   }
@@ -1043,11 +1058,13 @@ section {
     width: 100%;
   }
 
+  /* Horizontal Scroll Tab Menu */
   .about-tabs {
     display: flex;
     overflow-x: auto;
     gap: 10px;
     padding-bottom: 10px;
+    -webkit-overflow-scrolling: touch;
   }
 
   .about-tabs li {
@@ -1057,6 +1074,7 @@ section {
     border: 1px solid #e2e8f0;
   }
 
+  /* Intro Fix */
   .intro-layout {
     flex-direction: column;
     text-align: center;
@@ -1066,30 +1084,45 @@ section {
     justify-content: center;
   }
 
+  .intro-glass-card {
+    padding: 30px 20px;
+  }
+
+  /* Personal Dashboard Fix */
   .personal-dashboard {
     grid-template-columns: 1fr;
   }
 
   .birthday-hero {
     grid-column: span 1;
-    flex-direction: column;
-    text-align: center;
+    display: block;
   }
 
   .bday-content-wrapper {
     flex-direction: column;
+    text-align: center;
   }
 
+  .bday-profile {
+    flex-direction: column;
+  }
+
+  /* Education Fix */
   .edu-dashboard {
     grid-template-columns: 1fr;
   }
 
+  /* Skills Slider Fix */
   .skill-card-slide {
     min-width: 85vw;
     max-width: 85vw;
   }
 
-  /* Fix Slider Melebar */
+  /* Experience Fix */
+  .exp-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 /* =========================================
@@ -1235,6 +1268,23 @@ section {
     overflow-x: auto;
     white-space: nowrap;
   }
+
+  .premium-card {
+    height: auto;
+  }
+
+  .card-image {
+    height: 200px;
+  }
+
+  .card-glass-overlay {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    margin: -20px 10px 10px 10px;
+    max-height: none;
+  }
 }
 
 /* =========================================
@@ -1291,6 +1341,10 @@ section {
   .contact-grid {
     grid-template-columns: 1fr;
   }
+
+  .contact-glass-card {
+    padding: 25px 20px;
+  }
 }
 
 /* =========================================
@@ -1330,6 +1384,7 @@ section {
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  flex-shrink: 0;
 }
 
 .cmtApp-comment-actions button {
@@ -1353,4 +1408,3 @@ section {
   padding: 15px;
   margin-bottom: 20px;
 }
-
