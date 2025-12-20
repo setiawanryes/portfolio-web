@@ -26,16 +26,14 @@ body {
   color: var(--text-main);
   line-height: 1.6;
   overflow-x: hidden;
-  /* Mencegah scroll horizontal halaman */
+  /* PENTING: Mencegah halaman geser ke samping */
   position: relative;
   width: 100%;
 }
 
 img {
   max-width: 100%;
-  /* Mencegah gambar melebar */
   height: auto;
-  display: block;
 }
 
 /* Background Animation */
@@ -82,19 +80,15 @@ section {
   margin: 0 auto;
   width: 100%;
   overflow: hidden;
-  /* PENTING: Mencegah konten section keluar */
+  /* PENTING: Anak elemen tidak boleh keluar section */
 }
 
-/* Utility Classes */
+/* Helper Classes */
 .desktop-only {
   display: flex;
 }
 
 .mobile-only {
-  display: none;
-}
-
-.hidden {
   display: none;
 }
 
@@ -111,7 +105,6 @@ section {
   height: 70px;
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(25px);
-  -webkit-backdrop-filter: blur(25px);
   border: 1px solid rgba(255, 255, 255, 0.9);
   border-radius: 50px;
   display: flex;
@@ -186,6 +179,7 @@ section {
   transform: translateY(-2px);
 }
 
+/* Tombol CV Desktop */
 .btn-nav-cv {
   background: transparent;
   color: var(--text-main);
@@ -655,7 +649,7 @@ section {
 }
 
 /* =========================================
-   4. ABOUT SECTION (CORE STRUCTURE)
+   4. ABOUT SECTION (RESPONSIVE FIX)
    ========================================= */
 .about-container {
   display: grid;
@@ -732,7 +726,7 @@ section {
   }
 }
 
-/* --- 4a. CONTENT: INTRO --- */
+/* --- 4a. INTRO --- */
 .intro-glass-card {
   background: rgba(255, 255, 255, 0.7);
   border-radius: 30px;
@@ -787,77 +781,107 @@ section {
   color: var(--text-muted);
 }
 
-/* --- 4b. CONTENT: PERSONAL (Contact & Birthday) --- */
+/* --- 4b. PERSONAL DASHBOARD --- */
 .personal-dashboard {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  gap: 25px;
 }
 
 .dash-card {
-  background: white;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  border: 1px solid white;
+  border-radius: 24px;
   padding: 25px;
-  border-radius: 20px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+  transition: transform 0.3s;
+}
+
+.dash-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.9);
 }
 
 .birthday-hero {
   grid-column: span 2;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 249, 230, 0.8));
 }
 
 .bday-content-wrapper {
   display: flex;
-  gap: 20px;
-  width: 100%;
   align-items: center;
+  justify-content: space-between;
+  gap: 30px;
 }
 
 .bday-profile {
   display: flex;
-  gap: 20px;
   align-items: center;
+  gap: 20px;
+  flex: 1;
 }
 
 .bday-img-box img {
-  width: 80px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
+  border: 3px solid white;
+  object-fit: cover;
+}
+
+.divider-vertical {
+  width: 1px;
+  height: 80px;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.bday-quote-box {
+  flex: 1.5;
+  position: relative;
+  padding-left: 20px;
+}
+
+.quote-text-hero {
+  font-size: 1rem;
+  font-style: italic;
+  color: #334155;
 }
 
 .contact-items {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-top: 15px;
 }
 
 .c-pill {
-  background: #f1f5f9;
-  padding: 10px;
-  border-radius: 10px;
-  text-decoration: none;
-  color: var(--text-main);
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 0.9rem;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  text-decoration: none;
+  color: var(--text-main);
+  font-weight: 500;
 }
 
 .interest-cloud {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 15px;
 }
 
 .interest-cloud span {
-  background: #f1f5f9;
-  padding: 5px 10px;
-  border-radius: 20px;
-  font-size: 0.8rem;
+  background: white;
+  padding: 6px 12px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-/* --- 4c. CONTENT: SKILLS SLIDER (FIXED SCROLL) --- */
+/* --- 4c. SKILLS SLIDER (SCROLL FIX) --- */
 .skills-header-group {
   display: flex;
   justify-content: space-between;
@@ -886,6 +910,7 @@ section {
 
 .skill-slider-container::-webkit-scrollbar {
   height: 6px;
+  display: block;
 }
 
 .skill-slider-container::-webkit-scrollbar-thumb {
@@ -894,8 +919,8 @@ section {
 }
 
 .skill-card-slide {
-  min-width: 280px;
-  max-width: 280px;
+  min-width: 300px;
+  max-width: 300px;
   scroll-snap-align: center;
   flex-shrink: 0;
   background: rgba(255, 255, 255, 0.7);
@@ -903,8 +928,6 @@ section {
   padding: 25px;
   border: 1px solid white;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-  position: relative;
-  overflow: hidden;
 }
 
 .slide-header {
@@ -951,7 +974,7 @@ section {
   font-size: 0.85rem;
 }
 
-/* --- 4d. CONTENT: EDUCATION & EXPERIENCE --- */
+/* --- 4d. EDUCATION & EXPERIENCE --- */
 .edu-dashboard {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1042,10 +1065,10 @@ section {
   color: #475569;
 }
 
-/* --- ABOUT RESPONSIVE (MOBILE FIX) --- */
+/* --- PENTING: FIX ABOUT DI HP (STACKING) --- */
 @media (max-width: 900px) {
 
-  /* Stack Sidebar & Content */
+  /* Sidebar turun ke bawah */
   .about-container {
     grid-template-columns: 1fr;
   }
@@ -1058,13 +1081,12 @@ section {
     width: 100%;
   }
 
-  /* Horizontal Scroll Tab Menu */
+  /* Menu Tab bisa digeser samping */
   .about-tabs {
     display: flex;
     overflow-x: auto;
     gap: 10px;
     padding-bottom: 10px;
-    -webkit-overflow-scrolling: touch;
   }
 
   .about-tabs li {
@@ -1074,7 +1096,7 @@ section {
     border: 1px solid #e2e8f0;
   }
 
-  /* Intro Fix */
+  /* Layout Intro Tumpuk */
   .intro-layout {
     flex-direction: column;
     text-align: center;
@@ -1084,44 +1106,57 @@ section {
     justify-content: center;
   }
 
-  .intro-glass-card {
-    padding: 30px 20px;
-  }
-
-  /* Personal Dashboard Fix */
+  /* Dashboard Personal Jadi 1 Kolom */
   .personal-dashboard {
     grid-template-columns: 1fr;
   }
 
+  /* Birthday Hero */
   .birthday-hero {
     grid-column: span 1;
-    display: block;
   }
 
   .bday-content-wrapper {
     flex-direction: column;
     text-align: center;
+    gap: 20px;
   }
 
   .bday-profile {
     flex-direction: column;
+    width: 100%;
   }
 
-  /* Education Fix */
+  .divider-vertical {
+    width: 100%;
+    height: 1px;
+  }
+
+  /* Garis jadi horizontal */
+  .bday-quote-box {
+    width: 100%;
+    padding-left: 0;
+  }
+
+  /* Education & Experience Stack */
   .edu-dashboard {
     grid-template-columns: 1fr;
   }
 
-  /* Skills Slider Fix */
-  .skill-card-slide {
-    min-width: 85vw;
-    max-width: 85vw;
+  .edu-header-hero {
+    flex-direction: row;
   }
 
-  /* Experience Fix */
+  /* Tetap baris biar logo gak kegedean */
   .exp-card-header {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  /* Slider Skill Mobile Width */
+  .skill-card-slide {
+    min-width: 85vw;
+    max-width: 85vw;
   }
 }
 
