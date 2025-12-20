@@ -16,24 +16,37 @@
 <body>
 
   <header>
-    <nav class="navbar">
-      <h2 class="logo">Portfolio<span>.Roni</span></h2>
+<div class="bg-liquid-1"></div>
+  <div class="bg-liquid-2"></div>
 
-      <div class="menu-toggle" id="mobile-menu">
+  <nav class="glass-navbar">
+    <div class="nav-logo">Roni<span class="dot">.</span></div>
+    
+    <ul class="nav-links">
+      <li><a href="#home" class="active">Home</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+
+    <div class="nav-action">
+      <div class="dropdown-wrapper">
+        <button class="btn-nav-cv" onclick="togglePopup('popupDlNav')">
+          Download CV <i class="fas fa-chevron-down"></i>
+        </button>
+        <div id="popupDlNav" class="glass-dropdown nav-dropdown">
+          <a href="LINK_CLOUDINARY_EN" target="_blank" class="dd-item">
+            <img src="https://img.icons8.com/color/48/usa.png" alt="EN"> English
+          </a>
+          <a href="LINK_CLOUDINARY_ID" target="_blank" class="dd-item">
+            <img src="https://img.icons8.com/color/48/indonesia.png" alt="ID"> Indonesia
+          </a>
+        </div>
+      </div>
+      <div class="hamburger" onclick="toggleMenu()">
         <i class="fas fa-bars"></i>
       </div>
-
-      <ul class="nav-links">
-        <div class="close-menu"><i class="fas fa-times"></i></div>
-
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#portfolio">Portfolio</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-
-      <div class="overlay" id="overlay"></div>
-    </nav>
+    </div>
+  </nav>
   </header>
 
 
@@ -74,21 +87,6 @@
             <a href="mailto:ronisetiawan496@gmail.com" class="btn-hero-primary">
               Hire Me <i class="fas fa-paper-plane"></i>
             </a>
-
-            <div class="dropdown-wrapper">
-              <button class="btn-hero-secondary" onclick="togglePopup('popupDl')">
-                Download CV <i class="fas fa-chevron-down"></i>
-              </button>
-              
-              <div id="popupDl" class="glass-dropdown">
-                <a href="LINK_CLOUDINARY_EN" target="_blank" class="dd-item">
-                  <img src="https://img.icons8.com/color/48/usa.png" alt="EN"> English CV
-                </a>
-                <a href="LINK_CLOUDINARY_ID" target="_blank" class="dd-item">
-                  <img src="https://img.icons8.com/color/48/indonesia.png" alt="ID"> Indonesia CV
-                </a>
-              </div>
-            </div>
           </div>
 
         </div>
