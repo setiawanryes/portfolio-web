@@ -1,32 +1,17 @@
-/* =========================================
-   1. iOS LIQUID GLASS VARIABLES & RESET
-   ========================================= */
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 :root {
-  /* BACKGROUND: Putih bersih dengan bias mewah */
   --bg-color: #f5f7fa;
-
-  /* GLASS EFFECT (Crystal Clear) */
   --glass-bg: rgba(255, 255, 255, 0.65);
-  /* Sangat bening */
   --glass-border: 1px solid rgba(255, 255, 255, 0.8);
   --glass-shine: linear-gradient(145deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.4) 100%);
   --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08);
-  /* Shadow sangat soft */
   --glass-blur: blur(20px);
-
-  /* TEXT COLORS (Luxury Dark & Gold) */
   --text-main: #1e293b;
-  /* Slate Dark */
   --text-muted: #64748b;
-  /* Slate Gray */
   --accent-gold: #b4860b;
-  /* Emas Mewah */
   --accent-blue: #0ea5e9;
-  /* Biru Air */
-
-  /* Radius Super Bulat ala iOS */
   --radius-ios: 24px;
 }
 
@@ -87,33 +72,7 @@ body::after {
   100% {
     transform: translate(40px, 40px);
   }
-}
-
-/* =========================================
-   2. UTILITY: GLASS CARD CLASS (KUNCI RAPI)
-   ========================================= */
-/* Terapkan efek kaca ke semua elemen kotak utama */
-header,
-.about-sidebar,
-.profile-box,
-.info-box,
-.edu-item,
-.exp-item,
-.portfolio-card,
-.contact-form,
-.right-side,
-.mini-popup {
-  background: var(--glass-bg);
-  background-image: var(--glass-shine);
-  /* Kilau Kaca */
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border: var(--glass-border);
-  box-shadow: var(--glass-shadow);
-  border-radius: var(--radius-ios);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
+} 
 /* Hover Effect: Naik sedikit & Glow Emas */
 .profile-box:hover,
 .edu-item:hover,
