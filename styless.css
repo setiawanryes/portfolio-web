@@ -782,24 +782,44 @@ header {
     font-size: 0.85rem; color: var(--text-main); font-weight: 500;
 }
 
-/* =========================================
-   KHUSUS TAMPILAN HP (MOBILE SWIPE)
-   ========================================= */
-@media (max-width: 768px) {
-    .skill-slider-container {
-        padding-left: 20px; /* Jarak dari kiri layar */
-        padding-right: 20px;
-        gap: 15px;
-    }
+/* 2. WADAH SLIDER (REVISI FIX SCROLL) */
+.skill-slider-container {
+    display: flex; /* Berbaris ke samping */
+    gap: 20px; /* Jarak antar kartu */
+    
+    /* Agar overflow terdeteksi */
+    width: 100%; 
+    overflow-x: auto; /* Aktifkan scroll samping */
+    padding: 10px 5px 40px 5px; /* Ruang bayangan bawah */
+    
+    /* MAGIC CSS UNTUK EFEK SWIPE/SNAP */
+    scroll-snap-type: x mandatory; /* Wajib berhenti pas di kartu */
+    -webkit-overflow-scrolling: touch; /* Biar licin di iPhone */
+    scroll-behavior: smooth;
+    
+    /* --- PERBAIKAN SCROLLBAR --- */
+    /* Jangan di-hide total (display: none) di Desktop, ganti dengan style tipis */
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: rgba(0,0,0,0.2) transparent;
+}
 
-    .skill-card-slide {
-        /* PENTING: Ukuran kartu di HP */
-        min-width: 85vw; /* 85% lebar layar HP */
-        max-width: 85vw;
-        
-        /* Biar pas di tengah saat di-swipe */
-        scroll-snap-align: center;
-    }
+/* Kustomisasi Scrollbar Webkit (Chrome/Edge/Safari) */
+.skill-slider-container::-webkit-scrollbar {
+    height: 6px; /* Tinggi scrollbar horizontal */
+    display: block; /* Pastikan muncul */
+}
+
+.skill-slider-container::-webkit-scrollbar-track {
+    background: transparent; 
+}
+
+.skill-slider-container::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0.1); /* Warna scrollbar samar */
+    border-radius: 10px;
+}
+
+.skill-slider-container::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0,0,0,0.3); /* Gelap saat di-hover */
 }
 /* =========================================
    PERSONAL DASHBOARD (CLEAN & RESPONSIVE)
