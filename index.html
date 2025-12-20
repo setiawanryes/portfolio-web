@@ -807,121 +807,137 @@
     </div>
   </section>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const navLinks = document.querySelectorAll(".nav-links a");
-      const sections = document.querySelectorAll("body > section");
-      function showSection(targetId) {
-        sections.forEach(section => {
-          if (section.id === targetId) {
-            section.classList.remove("hidden");
-          } else {
-            section.classList.add("hidden");
-          }
-        });
-      }
-
-      showSection("home");
-      navLinks.forEach(link => {
-        link.addEventListener("click", e => {
-          e.preventDefault();
-          const targetId = link.getAttribute("href").replace("#", "");
-          showSection(targetId);
-
-          navLinks.forEach(nav => nav.classList.remove("active"));
-          link.classList.add("active");
-        });
-      });
-    });
-  </script>
-  <script>
+<script>
+    /* 1. FUNGSI GLOBAL (Bisa dipanggil dari HTML) */
     function togglePopup(popupId) {
-      // 1. Ambil elemen popup yang mau dibuka
       const popup = document.getElementById(popupId);
+      const allPopups = document.querySelectorAll('.mini-popup, .glass-dropdown, .glass-popup-mobile');
+      
+      // Cek status saat ini
+      const isClosed = !popup.style.display || popup.style.display === 'none';
 
-      // 2. Ambil semua popup yang ada (untuk menutup yang lain)
-      const allPopups = document.querySelectorAll('.mini-popup');
+      // Tutup semua popup dulu
+      allPopups.forEach(p => p.style.display = 'none');
 
-      // 3. Cek apakah popup ini sedang terbuka?
-      const isAlreadyOpen = popup.classList.contains('active');
-
-      // 4. Tutup SEMUA popup dulu (reset)
-      allPopups.forEach(p => p.classList.remove('active'));
-
-      // 5. Jika tadi belum terbuka, maka BUKA sekarang
-      if (!isAlreadyOpen) {
-        popup.classList.add('active');
+      // Buka jika tadi tertutup
+      if (isClosed) {
+        popup.style.display = 'block';
       }
     }
 
-    // OPSI: Tutup popup jika klik di sembarang tempat (selain tombol)
-    window.onclick = function (event) {
-      if (!event.target.matches('.bt') && !event.target.matches('.btn')) {
-        const allPopups = document.querySelectorAll('.mini-popup');
-        allPopups.forEach(p => p.classList.remove('active'));
+    // Tutup popup jika klik di luar area
+    window.addEventListener('click', function(event) {
+      // Cek apakah yang diklik BUKAN tombol trigger dan BUKAN di dalam popup
+      if (!event.target.closest('.dropdown-wrapper') && 
+          !event.target.closest('.mobile-dock-container') && 
+          !event.target.closest('.dock-fab-wrapper')) {
+        
+        document.querySelectorAll('.mini-popup, .glass-dropdown, .glass-popup-mobile').forEach(p => {
+          p.style.display = 'none';
+        });
       }
-    }
-  </script>
-  <script>
-    AOS.init({ duration: 1000, once: true });
-  </script>
-  <script>document.addEventListener("DOMContentLoaded", () => {
+    });
+
+    /* 2. EVENT LISTENER UTAMA (Saat Website Dimuat) */
+    document.addEventListener("DOMContentLoaded", () => {
+
+      // --- A. Inisialisasi AOS (Animasi) ---
+      AOS.init({ duration: 1000, once: true, offset: 100 });
+
+      // --- B. Mobile Menu Logic (Hamburger / Navbar Biasa) ---
       const menuToggle = document.getElementById('mobile-menu');
-      const navLinks = document.querySelector('.nav-links');
+      const navLinksContainer = document.querySelector('.nav-links'); // Container UL
       const closeMenu = document.querySelector('.close-menu');
       const overlay = document.getElementById('overlay');
-      const links = document.querySelectorAll('.nav-links a');
+      const links = document.querySelectorAll('.nav-links a, .dock-item'); // Support Dock & Nav biasa
 
-      // Fungsi Buka Menu
-      function openMenu() {
-        navLinks.classList.add('active');
-        overlay.classList.add('active');
-      }
-
-      // Fungsi Tutup Menu
       function closeMenuFunc() {
-        navLinks.classList.remove('active');
-        overlay.classList.remove('active');
+        if(navLinksContainer) navLinksContainer.classList.remove('active');
+        if(overlay) overlay.classList.remove('active');
       }
 
-      // Event Klik Tombol Hamburger
       if (menuToggle) {
-        menuToggle.addEventListener('click', openMenu);
+        menuToggle.addEventListener('click', () => {
+          navLinksContainer.classList.add('active');
+          if(overlay) overlay.classList.add('active');
+        });
       }
+      if (closeMenu) closeMenu.addEventListener('click', closeMenuFunc);
+      if (overlay) overlay.addEventListener('click', closeMenuFunc);
 
-      // Event Klik Tombol Close (X)
-      if (closeMenu) {
-        closeMenu.addEventListener('click', closeMenuFunc);
-      }
-
-      // Event Klik Overlay (Klik di luar menu untuk tutup)
-      if (overlay) {
-        overlay.addEventListener('click', closeMenuFunc);
-      }
-
-      // Event Klik Link (Otomatis tutup menu setelah klik section)
+      // --- C. Smooth Scroll & Active Link Handler ---
       links.forEach(link => {
-        link.addEventListener('click', closeMenuFunc);
-      });
-    });
-    // Auto-scroll tab menu on mobile click
-    const tabs = document.querySelectorAll('.about-tabs li');
-    const tabContainer = document.querySelector('.about-tabs');
+        link.addEventListener("click", e => {
+          // Hanya jika link mengarah ke ID halaman ini (#home, #about, dll)
+          const href = link.getAttribute("href");
+          if (href.startsWith("#") && href.length > 1) {
+            e.preventDefault();
+            const targetId = href.substring(1);
+            const targetSection = document.getElementById(targetId);
 
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        // Hapus active class dari semua tab
-        tabs.forEach(t => t.classList.remove('active'));
-        // Tambah ke yang di-klik
-        tab.classList.add('active');
+            if (targetSection) {
+              // Tutup menu mobile jika terbuka
+              closeMenuFunc();
 
-        // Logika agar tab yang diklik geser ke tengah layar HP
-        tab.scrollIntoView({
-          behavior: 'smooth',
-          block: 'nearest',
-          inline: 'center'
+              // Scroll manual dengan offset (biar gak ketutupan navbar)
+              const offset = 80; // Sesuaikan tinggi navbar
+              const bodyRect = document.body.getBoundingClientRect().top;
+              const elementRect = targetSection.getBoundingClientRect().top;
+              const elementPosition = elementRect - bodyRect;
+              const offsetPosition = elementPosition - offset;
+
+              window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth"
+              });
+
+              // Update Active Class
+              document.querySelectorAll('.nav-links a, .dock-item').forEach(nav => nav.classList.remove("active", "active-link"));
+              link.classList.add("active", "active-link");
+            }
+          }
         });
       });
+
+      // --- D. Tab System (About & Portfolio) ---
+      function setupTabs(tabSelector, contentSelector) {
+        const tabs = document.querySelectorAll(tabSelector);
+        const contents = document.querySelectorAll(contentSelector);
+
+        if (tabs.length === 0) return;
+
+        tabs.forEach(tab => {
+          tab.addEventListener('click', () => {
+            // Hapus class active lama
+            tabs.forEach(t => t.classList.remove('active'));
+            contents.forEach(c => c.classList.remove('active'));
+
+            // Tambah active ke yang baru
+            tab.classList.add('active');
+            
+            // Ambil ID konten dari atribut data-tab
+            const targetId = tab.getAttribute('data-tab'); 
+            const targetContent = document.getElementById(targetId);
+            
+            if (targetContent) {
+              targetContent.classList.add('active');
+              
+              // Refresh AOS agar animasi konten baru berjalan
+              setTimeout(() => AOS.refresh(), 100); 
+            }
+
+            // Auto-scroll tab menu di HP (biar tombol yang diklik geser ke tengah)
+            if (window.innerWidth <= 768) {
+              tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }
+          });
+        });
+      }
+
+      // Jalankan fungsi tab
+      setupTabs('.about-tabs li', '.about-content .tab-content'); // Tab About
+      setupTabs('.portfolio-tabs .tab-btn', '.portfolio-section .tab-content'); // Tab Portfolio
+
     });
   </script>
 
