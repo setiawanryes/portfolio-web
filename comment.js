@@ -1,6 +1,3 @@
-/* =========================================
-   FIREBASE COMMENT SYSTEM (WITH LIKE & REPLY)
-   ========================================= */
 
 // 1. Import Library Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
@@ -43,9 +40,7 @@ const msgInput = document.getElementById('commentText');
 const photoInput = document.getElementById('profilePhoto');
 const fileBtnIcon = document.querySelector('.file-btn i');
 
-/* =========================================
-   LOGIC 1: UI HANDLER
-   ========================================= */
+
 if (photoInput) {
   photoInput.addEventListener('change', function() {
     if (this.files && this.files[0]) {
@@ -55,9 +50,7 @@ if (photoInput) {
   });
 }
 
-/* =========================================
-   LOGIC 2: KIRIM KOMENTAR UTAMA
-   ========================================= */
+
 if (commentForm) {
   commentForm.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -91,8 +84,8 @@ if (commentForm) {
         text: text,
         photoURL: photoURL,
         timestamp: serverTimestamp(),
-        likes: 0, // Inisialisasi Like
-        replies: [] // Inisialisasi Array Balasan
+        likes: 0,
+        replies: [] 
       });
 
       commentForm.reset();
@@ -111,52 +104,45 @@ if (commentForm) {
   });
 }
 
-/* =========================================
-   LOGIC 3: HANDLE KLIK (LIKE & REPLY)
-   ========================================= */
-// Kita pasang Event Listener di Parent (commentList) biar dinamis
+
 if (commentList) {
   commentList.addEventListener('click', async (e) => {
     
-    // --- A. KLIK TOMBOL LIKE ---
     if (e.target.closest('.btn-like')) {
       const btn = e.target.closest('.btn-like');
       const docId = btn.dataset.id;
       const storageKey = `liked_${docId}`;
 
-      // Cek LocalStorage biar ga spam like
       if (localStorage.getItem(storageKey)) {
         alert("Kamu sudah menyukai komentar ini!");
         return;
       }
 
-      // Update Firestore (Increment)
       const docRef = doc(db, "comments", PAGE_ID, "list", docId);
       await updateDoc(docRef, {
         likes: increment(1)
       });
 
-      // Simpan status like di browser user
       localStorage.setItem(storageKey, true);
-      btn.classList.add('liked'); // Ubah warna jadi merah (visual instant)
+      btn.classList.add('liked'); 
     }
 
-    // --- B. KLIK TOMBOL REPLY (Toggle Form) ---
+
     if (e.target.closest('.btn-reply-toggle')) {
       const btn = e.target.closest('.btn-reply-toggle');
       const docId = btn.dataset.id;
       const formContainer = document.getElementById(`reply-form-${docId}`);
       
-      // Toggle visibility
+  
       if (formContainer.style.display === "block") {
         formContainer.style.display = "none";
       } else {
         formContainer.style.display = "block";
-        formContainer.querySelector('input').focus(); // Auto focus ke input nama
+        formContainer.querySelector('input').focus(); 
       }
     }
 
-    // --- C. KLIK KIRIM BALASAN ---
+  
     if (e.target.closest('.btn-send-reply')) {
       const btn = e.target.closest('.btn-send-reply');
       const docId = btn.dataset.id;
@@ -173,20 +159,19 @@ if (commentList) {
       btn.disabled = true;
 
       try {
-        // Update Dokumen Komentar: Tambah data ke Array 'replies'
         const docRef = doc(db, "comments", PAGE_ID, "list", docId);
         
         const newReply = {
           name: rName,
           text: rText,
-          timestamp: Date.now() // Pakai timestamp lokal utk array
+          timestamp: Date.now() 
         };
 
         await updateDoc(docRef, {
           replies: arrayUnion(newReply)
         });
 
-        // Reset Form Balasan
+      
         replyNameInput.value = "";
         replyMsgInput.value = "";
         document.getElementById(`reply-form-${docId}`).style.display = "none";
@@ -202,9 +187,7 @@ if (commentList) {
   });
 }
 
-/* =========================================
-   LOGIC 4: TAMPILKAN REALTIME
-   ========================================= */
+
 const q = query(commentsRef, orderBy("timestamp", "desc"));
 
 onSnapshot(q, (snapshot) => {
@@ -214,14 +197,13 @@ onSnapshot(q, (snapshot) => {
     const data = doc.data();
     const docId = doc.id;
     
-    // Format Waktu
+ 
     let timeString = 'Baru saja';
     if (data.timestamp) {
         const date = new Date(data.timestamp.seconds * 1000);
         timeString = date.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' });
     }
     
-    // Avatar
     let avatarImg;
     if (data.photoURL) {
       avatarImg = `<img src="${data.photoURL}" alt="${data.name}" class="comment-avatar">`;
@@ -229,10 +211,9 @@ onSnapshot(q, (snapshot) => {
       avatarImg = `<img src="https://ui-avatars.com/api/?name=${encodeURIComponent(data.name)}&background=random&color=fff&size=128" alt="${data.name}" class="comment-avatar">`;
     }
 
-    // Cek apakah user ini sudah like (untuk UI warna merah)
     const isLiked = localStorage.getItem(`liked_${docId}`) ? 'liked' : '';
 
-    // Render Balasan (Replies)
+
     let repliesHTML = '';
     if (data.replies && data.replies.length > 0) {
       repliesHTML = `<div class="replies-list">`;
@@ -251,7 +232,6 @@ onSnapshot(q, (snapshot) => {
       repliesHTML += `</div>`;
     }
 
-    // HTML Structure Lengkap
     const html = `
       <div class="cmtApp-comment" id="comment-${docId}">
         ${avatarImg}

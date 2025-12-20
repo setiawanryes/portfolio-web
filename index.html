@@ -720,84 +720,81 @@
     </div>
   </section>
 
-  <section id="contact" class="contact-section">
+ <section id="contact" class="contact-section">
     <div class="contact-dashboard-wrapper">
 
-      <div class="section-header-center">
-        <h2 class="section-title">Get in Touch</h2>
-        <p class="section-subtitle">Have a project or question? Send a message or leave a mark on my wall.</p>
-      </div>
-
       <div class="contact-grid">
-
-        <div class="contact-glass-card" data-aos="fade-right">
-          <div class="card-header-row">
-            <div class="icon-sq blue"><i class="fas fa-paper-plane"></i></div>
-            <h3>Send Message</h3>
-          </div>
-
-          <form action="https://formspree.io/f/maypkxyz" method="POST" class="glass-form">
-            <div class="input-group">
-              <i class="fas fa-user input-icon"></i>
-              <input type="text" name="name" placeholder="Your Name" required class="glass-input">
+        
+        <div class="contact-left" data-aos="fade-right">
+          <div class="sticky-content">
+            
+            <div class="section-header-left">
+              <span class="tag-pill"><i class="fas fa-paper-plane"></i> Get in Touch</span>
+              <h2 class="section-title">Let's Connect</h2>
+              <p class="section-subtitle">
+                Have a project in mind or just want to say hi? 
+                Feel free to send me a message or leave a mark on my guestbook.
+              </p>
             </div>
 
-            <div class="input-group">
-              <i class="fas fa-envelope input-icon"></i>
-              <input type="email" name="email" placeholder="Your Email" required class="glass-input">
+            <a href="mailto:ronisetiawan496@gmail.com" class="email-card-glass">
+              <div class="icon-circle"><i class="fas fa-envelope"></i></div>
+              <div class="text-group">
+                <span class="label">Email Me</span>
+                <h3 class="email-address">ronisetiawan496@gmail.com</h3>
+              </div>
+              <div class="arrow-circle"><i class="fas fa-arrow-right"></i></div>
+            </a>
+
+            <div class="social-dock-wrapper">
+              <p class="dock-label">Connect with me</p>
+              <div class="social-dock">
+                <a href="https://www.facebook.com/rstwnnn" class="dock-item fb" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.tiktok.com/@setiawanryes_" class="dock-item tk" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                <a href="https://www.instagram.com/setiawanryes_" class="dock-item ig" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.linkedin.com/in/rstwn" class="dock-item in" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+              </div>
             </div>
 
-            <div class="input-group">
-              <i class="fas fa-comment-alt input-icon top-align"></i>
-              <textarea name="message" rows="4" placeholder="Write your message here..." required
-                class="glass-input"></textarea>
-            </div>
-
-            <button class="btn-gradient-gold" type="submit">
-              Send Message <i class="fas fa-arrow-right"></i>
-            </button>
-          </form>
-
-          <div class="social-dock-wrapper">
-            <p>Or connect via:</p>
-            <div class="social-dock">
-              <a href="#" class="dock-item fb"><i class="fab fa-facebook-f"></i></a>
-              <a href="#" class="dock-item tk"><i class="fab fa-tiktok"></i></a>
-              <a href="#" class="dock-item ig"><i class="fab fa-instagram"></i></a>
-              <a href="#" class="dock-item in"><i class="fab fa-linkedin-in"></i></a>
-            </div>
           </div>
         </div>
 
-        <div class="contact-glass-card" data-aos="fade-left">
-          <div class="card-header-row">
-            <div class="icon-sq pink"><i class="fas fa-comments"></i></div>
-            <h3>Guestbook</h3>
+        <div class="contact-right" data-aos="fade-left">
+          <div class="contact-glass-card guestbook-card">
+            
+            <div class="card-header-row chat-header">
+              <div class="icon-sq pink"><i class="fas fa-comments"></i></div>
+              <div class="header-text">
+                <h3>Guestbook</h3>
+                <span class="status-dot"><span class="dot"></span> Live Chat</span>
+              </div>
+            </div>
+
+            <div id="commentList" class="comment-chat-area">
+              <div class="empty-state">
+                <i class="far fa-comment-dots"></i>
+                <p>No messages yet. Be the first to say hi!</p>
+              </div>
+            </div>
+
+            <form id="commentForm" class="chat-input-area">
+              <div class="chat-inputs">
+                <input type="text" id="commentName" placeholder="Your Name" required class="chat-name-input">
+                <label for="profilePhoto" class="file-btn" title="Upload Photo">
+                  <i class="fas fa-camera"></i>
+                </label>
+                <input type="file" id="profilePhoto" accept="image/*" hidden>
+              </div>
+
+              <div class="chat-box-row">
+                <textarea id="commentText" placeholder="Write a message..." required class="chat-msg-input"></textarea>
+                <button type="submit" class="send-chat-btn">
+                  <i class="fas fa-paper-plane"></i>
+                </button>
+              </div>
+            </form>
+
           </div>
-
-          <div id="commentList" class="comment-chat-area">
-            <div class="empty-state">
-              <i class="far fa-comment-dots"></i>
-              <p>No messages yet. Be the first to say hi!</p>
-            </div>
-          </div>
-
-          <form id="commentForm" class="chat-input-area">
-            <div class="chat-inputs">
-              <input type="text" id="commentName" placeholder="Name" required class="chat-name-input">
-              <label for="profilePhoto" class="file-btn" title="Upload Photo">
-                <i class="fas fa-camera"></i>
-              </label>
-              <input type="file" id="profilePhoto" accept="image/*" hidden>
-            </div>
-
-            <div class="chat-box-row">
-              <textarea id="commentText" placeholder="Leave a comment..." required class="chat-msg-input"></textarea>
-              <button type="submit" class="send-chat-btn">
-                <i class="fas fa-paper-plane"></i>
-              </button>
-            </div>
-          </form>
         </div>
 
       </div>
