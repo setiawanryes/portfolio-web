@@ -4,211 +4,215 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Workload Analyst | Roni Setiawan</title>
+  <title>Scheduling Optimization | Roni Setiawan</title>
+  
   <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="comments-full.css" />
+  
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-  <section class="project-detail">
-    <div class="project-container">
 
-      <!-- NAV -->
-      <div class="back-nav">
-        <a href="javascript:history.back()" class="back-btn">← Back</a>
-        <span>Project / Scheduling </span>
+  <div class="bg-liquid-1"></div>
+  <div class="bg-liquid-2"></div>
+
+  <section class="compact-view">
+    <div class="main-glass-card" data-aos="zoom-in" data-aos-duration="800">
+      
+      <div class="compact-header">
+        <a href="javascript:history.back()" class="back-link">
+          <i class="fas fa-arrow-left"></i> <span>Portfolio</span>
+        </a>
+        <div class="project-tag">Research & Optimization</div>
       </div>
 
-      <!-- LAYOUT (2 KOLOM) -->
-      <div class="project-header">
+      <div class="compact-grid">
+        
+        <div class="col-info">
+          
+          <div class="info-header">
+            <h1 class="gradient-title">Course Scheduling</h1>
+            <p class="subtitle">Goal Programming Optimization at ITERA</p>
+          </div>
 
-        <!-- LAYOUT KIRI  -->
-        <div class="left-column" data-aos="fade-right">
-          <div class="project-info">
-            <h1>Applying Goal Programming for Course Scheduling Optimization: A Case Study in the Mathematics Study
-              Program at ITERA</h1>
-            <div class="project-description" id="projectDescription">
-              <p> I began working on this thesis because I previously had experience analyzing scheduling issues at BPS
-                East Lampung during the Covid-19 period. From that project, I saw firsthand how manual scheduling could
-                create many problems when it was not optimized—overlaps, conflicts, and inefficient workload allocation.
-                That experience stayed with me, and it made me more aware when I noticed similar issues happening in my
-                own academic environment. </p>
-              <p> As a student in the Mathematics Study Program at ITERA, I often experienced that the course schedules
-                published each semester were still not optimal. Conflicting class times, overloaded days, limited rooms,
-                and mismatches with lecturers’ preferences were problems that many students—including myself—faced every
-                semester. With the limited number of lecturers and classrooms, creating a manual schedule became
-                increasingly difficult, and the results often did not fully satisfy either lecturers or students. </p>
-              <p> From these observations, I realized that this problem could actually be approached using a structured
-                mathematical method. Scheduling is fundamentally an optimization problem, and methods such as <b>Goal
-                  Programming</b> are highly suitable for handling multiple constraints and preferences simultaneously.
-                Previous studies have shown that this method can produce practical, fast, and optimal scheduling results
-                while fulfilling all hard constraints and minimizing soft constraint violations. </p>
-              <p> With this understanding, I felt motivated to use my background as a mathematics student to design a
-                better scheduling model. Through this research, I aim to produce an optimal even-semester course
-                schedule for the Mathematics Study Program at ITERA—one that avoids conflicts, satisfies institutional
-                constraints, and provides convenience for both students and lecturers. </p>
-              <p> In other words, this thesis was inspired by a combination of real-world experience, actual needs
-                within my department, and the desire to contribute a more effective solution for course scheduling in
-                the Mathematics Study Program at ITERA. </p>
+          <div class="info-scroll-box">
+            <p>
+              I began working on this thesis because I previously had experience analyzing scheduling issues at <b>BPS East Lampung</b> during the Covid-19 period. From that project, I saw firsthand how manual scheduling could create many problems like overlaps and inefficient workload allocation.
+            </p>
+            <p>
+              As a student in the <b>Mathematics Study Program at ITERA</b>, I noticed that semester schedules were often not optimal—conflicting class times, overloaded days, and mismatches with lecturers’ preferences were common issues.
+            </p>
+            <p>
+              Realizing this is an optimization problem, I applied <b>Goal Programming</b>. This method is highly suitable for handling multiple constraints (hard & soft constraints) simultaneously to satisfy institutional rules and preferences.
+            </p>
+            <p>
+              Through this research, I formulated a mathematical model to produce an <b>optimal even-semester course schedule</b> that avoids conflicts and provides convenience for both students and lecturers.
+            </p>
+          </div>
+
+          <div class="tech-chips">
+            <span><i class="fas fa-calculator"></i> Goal Programming</span>
+            <span><i class="fas fa-laptop-code"></i> LINGO Software</span>
+            <span><i class="fas fa-chart-line"></i> Optimization</span>
+            <span><i class="fas fa-university"></i> Academic Research</span>
+          </div>
+
+          <div class="glass-widget action-widget">
+            
+            <a href="https://repository.itera.ac.id/depan/author/Roni/Setiawan" target="_blank" class="btn-hero-live">
+              <div class="btn-content">
+                <span class="btn-label">Read Full Thesis</span>
+                <span class="btn-sub">Repository ITERA</span>
+              </div>
+              <div class="btn-icon">
+                <i class="fas fa-book-open"></i>
+              </div>
+              <div class="glow-effect"></div>
+            </a>
+
+            <div class="progress-container-ios">
+              <div class="progress-header">
+                <span class="p-label"><i class="fas fa-check-circle"></i> Research Status</span>
+                <span class="p-val" id="progress-text">100%</span>
+              </div>
+              <div class="track-glass">
+                <div class="fill-gradient" id="progress-bar"></div>
+              </div>
             </div>
-            <!-- More -->
-            <div class="project-stats">
-              <div class="stat" data-info="Uses Goal Programming for decision modeling, LINGO for optimization.">
-                <i class="fas fa-code"></i> Tool
-              </div>
 
-              <div class="stat"
-                data-info="Key analysis focus: ensuring tasks are planned, prioritized, and executed on time.">
-                <i class="fas fa-cogs"></i>Focus Analyst
-              </div>
-
-              <button id="readMoreBtn" class="read-more-btn">Read more</button>
-            </div>
-
-            <!-- Preview -->
-            <div class="project-buttons">
-              <a href="https://repository.itera.ac.id/depan/author/Roni/Setiawan" class="btn live">Preview</a>
-
-              <!-- Progres Bar -->
-              <div class="progress-bar-container">
-                <div class="progress-bar" id="progress-bar"></div>
-                <span id="progress-text">0%</span>
-              </div>
-
-
-              <!-- Tombol Like & Komen -->
-              <div class="like-dislike-container">
-                <button id="like-btn" class="reaction-btn like-theme">❤️</button>
-                <span id="like-count">0</span>
-                <button id="komentar-btn" class="reaction-btn komentar-theme">💬</button>
+            <div class="action-dock-row">
+              <button id="like-btn" class="dock-btn love">
+                <i class="fas fa-heart"></i> <span id="like-count">0</span>
+              </button>
+              
+              <button id="komentar-btn" class="dock-btn comment">
+                <i class="fas fa-comment-dots"></i> <span>Discuss</span>
                 <span id="comment-notify-badge"></span>
+              </button>
+              
+              <button class="dock-btn share">
+                <i class="fas fa-share-nodes"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="glass-widget comments-compact">
+            <div class="ch-head">
+              <span class="ch-title">Discussion</span>
+              <span id="komentar-count" class="ch-count">0</span>
+              <select id="comment-sorting" style="display:none;"><option value="newest">Newest</option></select>
+            </div>
+            
+            <div id="comments-list" class="ch-list">
+              </div>
+            
+            <button id="load-more-comments" class="btn-text-small">Load previous comments...</button>
+          </div>
+
+        </div>
+
+        <div class="col-visual">
+          
+          <div class="slider-compact-wrapper">
+            <div class="project-preview">
+              <div class="slide-project">
+                <img src="../../images/gpl/jadwalitera.png" alt="Schedule Table" class="lightbox-img">
+                <img src="../../images/gpl/goalprograming.png" alt="Math Model" class="lightbox-img">
+              </div>
+              <div class="slide-nav">
+                <button class="prev"><i class="fas fa-chevron-left"></i></button>
+                <button class="next"><i class="fas fa-chevron-right"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="features-compact-grid">
+            
+            <div class="feat-card">
+              <div class="fc-icon blue"><i class="fas fa-calendar-day"></i></div>
+              <div class="fc-text">
+                <h4>Optimal Allocation</h4>
+                <p>Assigning courses to suitable slots & rooms.</p>
               </div>
             </div>
 
-            <!-- Line -->
-            <div class="custom-line"></div>
-
-            <!-- Header Komentar -->
-            <div id="comments-header">
-              <h3>Comments (<span id="komentar-count">0</span>)</h3>
-              <div>
-                <select id="comment-sorting">
-                  <option value="newest">Newest</option>
-                  <option value="oldest">Oldest</option>
-                  <option value="popular">Popular</option>
-                </select>
+            <div class="feat-card">
+              <div class="fc-icon purple"><i class="fas fa-chalkboard-teacher"></i></div>
+              <div class="fc-text">
+                <h4>Lecturer Matching</h4>
+                <p>Aligning with availability & preferences.</p>
               </div>
             </div>
 
-            <!-- Isi Komentar -->
-            <div id="comments-list"></div>
-            <button id="load-more-comments">Load more</button>
+            <div class="feat-card">
+              <div class="fc-icon gold"><i class="fas fa-balance-scale"></i></div>
+              <div class="fc-text">
+                <h4>Balanced Workload</h4>
+                <p>Fair distribution of teaching loads.</p>
+              </div>
+            </div>
+
+            <div class="feat-card">
+              <div class="fc-icon red"><i class="fas fa-ban"></i></div>
+              <div class="fc-text">
+                <h4>Conflict Free</h4>
+                <p>Zero overlaps between courses & groups.</p>
+              </div>
+            </div>
+
+            <div class="feat-card full-width">
+              <div class="fc-icon teal"><i class="fas fa-sliders-h"></i></div>
+              <div class="fc-text">
+                <h4>Flexible Adjustment</h4>
+                <p>Easily adaptable to curriculum or lecturer changes.</p>
+              </div>
+            </div>
+
+            <div class="feat-card full-width">
+              <div class="fc-icon green"><i class="fas fa-chart-line"></i></div>
+              <div class="fc-text">
+                <h4>Efficiency Improvement</h4>
+                <p>Enhancing the overall effectiveness of course planning.</p>
+              </div>
+            </div>
+
           </div>
+
         </div>
 
-
-        <!-- LAYOUT KANAN -->
-        <div class="right-column" data-aos="fade-left">
-          <!-- Galeri Project -->
-          <div class="project-preview">
-            <div class="slide-project">
-              <img src="../../images/gpl/jadwalitera.png" alt="Preview 1" class="lightbox-img">
-
-            </div>
-            <div class="slide-controls">
-              <button class="prev">❮</button>
-              <button class="next">❯</button>
-            </div>
-          </div>
-
-          <!-- Manfaat Project -->
-          <div class="key-features">
-            <h2>🧩 Key Features of Course Scheduling Optimization</h2>
-            <ul class="feature-list">
-
-              <li>
-                <span class="icon">📚</span>
-                <div class="text"><b>Optimal Course Allocation</b>: Assigning courses to the most suitable time slots
-                  and rooms.</div>
-              </li>
-
-              <li>
-                <span class="icon">👩‍🏫</span>
-                <div class="text"><b>Lecturer Availability Matching</b>: Ensuring schedules align with lecturer
-                  availability and preferences.</div>
-              </li>
-
-              <li>
-                <span class="icon">⚖️</span>
-                <div class="text"><b>Balanced Workload</b>: Distributing teaching loads fairly across lecturers and
-                  semesters.</div>
-              </li>
-
-              <li>
-                <span class="icon">🚫</span>
-                <div class="text"><b>Conflict Minimization</b>: Avoiding schedule overlaps between courses, lecturers,
-                  and student groups.</div>
-              </li>
-
-              <li>
-                <span class="icon">🔄</span>
-                <div class="text"><b>Flexible Adjustment</b>: Easily adaptable when there are curriculum or lecturer
-                  changes.</div>
-              </li>
-
-              <li>
-                <span class="icon">📈</span>
-                <div class="text"><b>Efficiency Improvement</b>: Enhancing the overall effectiveness of course planning.
-                </div>
-              </li>
-
-            </ul>
-          </div>
-
-
-
-        </div>
       </div>
+    </div>
   </section>
 
-  <!-- MODAL -->
-  <!-- Komentar -->
   <div class="cmtApp-modal" id="cmtAppModal">
-    <div class="cmtApp-modal-content">
+    <div class="glass-modal-content">
       <span class="cmtApp-close" id="close-cmtAppModal">&times;</span>
-      <div id="cmtAppModalTitle">Write a Comment</div>
-      <input type="text" id="cmtAppNama" placeholder="Enter your name">
-      <textarea id="cmtAppIsi" rows="4" placeholder="Comment..."></textarea>
-      <button id="cmtAppKirim">Send</button>
+      <h3>Join Discussion</h3>
+      <input type="text" id="cmtAppNama" placeholder="Your Name" class="input-compact">
+      <textarea id="cmtAppIsi" rows="3" placeholder="Share your thoughts..." class="input-compact"></textarea>
+      <button id="cmtAppKirim" class="btn-primary-compact full">Post Comment</button>
     </div>
   </div>
 
-  <!-- Float Modal -->
-  <div id="miniModal" class="mini-modal">
-    <div class="mini-content" id="miniContent"></div>
-  </div>
-
-  <!-- Modal lightbox -->
   <div id="lightboxModal" class="modal">
     <span class="close">&times;</span>
     <img class="modal-content" id="lightboxImg">
     <div class="modal-controls">
-      <button id="prevImg">❮</button>
-      <button id="nextImg">❯</button>
+        <button id="prevImg"><i class="fas fa-chevron-left"></i></button>
+        <button id="nextImg"><i class="fas fa-chevron-right"></i></button>
     </div>
   </div>
 
+  <div id="miniModal" class="mini-modal"><div class="mini-content" id="miniContent"></div></div>
 
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js"></script>
-  <script src="script.js"></script>
   <script type="module" src="script.js"></script>
-  <script type="module" src="app.js"></script>
-
+  <script>
+    // PAGE_ID UNIK UNTUK PROJECT INI
+    window.PAGE_ID = "course_scheduling"; 
+    AOS.init();
+  </script>
 
 </body>
-
 </html>
