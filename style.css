@@ -637,7 +637,9 @@ section {
   }
 }
 
-
+/* =========================================
+   3. ABOUT SECTION (Sidebar & Content)
+   ========================================= */
 .about-container {
   display: grid;
   grid-template-columns: 260px 1fr;
