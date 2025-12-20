@@ -106,9 +106,9 @@ function showImage(index) {
   if (lightboxImages.length > 0) {
     currentIndex = (index + lightboxImages.length) % lightboxImages.length;
     if (modalImg) {
-        modalImg.src = lightboxImages[currentIndex].src;
-        scale = 1;
-        modalImg.style.transform = `scale(${scale})`;
+      modalImg.src = lightboxImages[currentIndex].src;
+      scale = 1;
+      modalImg.style.transform = `scale(${scale})`;
     }
   }
 }
@@ -242,10 +242,10 @@ function canLikeCommentLocal(commentId) {
   try { return !localStorage.getItem(`${pageId}-liked-cmt-${commentId}`); } catch { return true; }
 }
 function markLikedLocal(commentId) {
-  try { localStorage.setItem(`${pageId}-liked-cmt-${commentId}`, '1'); } catch {}
+  try { localStorage.setItem(`${pageId}-liked-cmt-${commentId}`, '1'); } catch { }
 }
 function unmarkLikedLocal(commentId) {
-  try { localStorage.removeItem(`${pageId}-liked-cmt-${commentId}`); } catch {}
+  try { localStorage.removeItem(`${pageId}-liked-cmt-${commentId}`); } catch { }
 }
 
 async function ensurePageLikeDoc() {
@@ -288,9 +288,10 @@ function renderComment(docSnap, container, parentId = null) {
     <div class="cmtApp-comment-footer">
       <div class="cmtApp-comment-actions">
         <button class="cmtApp-like">${canLikeCommentLocal(id) ? '👍' : '💖'} ${data.likes || 0}</button>
-        <button class="cmtApp-reply">💬 Reply (0)</button>
-        <button class="cmtApp-edit">✏️ Edit</button>
-        <button class="cmtApp-delete">🗑️ Delete</button>
+        
+        <button class="cmtApp-reply">Reply (0)</button>
+        <button class="cmtApp-edit">Edit</button>
+        <button class="cmtApp-delete">Delete</button>
       </div>
       <span class="cmtApp-time">${formatWaktu(created)}</span>
     </div>
@@ -533,7 +534,7 @@ const comments = document.querySelectorAll('.cmtApp-comment-body');
 
 comments.forEach(comment => {
   comment.addEventListener('scroll', () => {
-    if(comment.scrollLeft > 0) {
+    if (comment.scrollLeft > 0) {
       comment.classList.add('scroll-left');
     } else {
       comment.classList.remove('scroll-left');
