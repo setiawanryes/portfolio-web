@@ -2356,3 +2356,55 @@ section {
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   flex-shrink: 0;
 }
+
+.comment-actions {
+  display: flex; align-items: center; gap: 15px;
+  margin-top: 8px;
+}
+
+.btn-action {
+  background: transparent; border: none; cursor: pointer;
+  font-size: 0.8rem; color: #94a3b8; font-weight: 600;
+  display: flex; align-items: center; gap: 5px;
+  transition: 0.2s; padding: 0;
+}
+
+.btn-action:hover { color: var(--accent-blue); }
+.btn-action.liked { color: #ef4444; } 
+.btn-action.liked i { font-weight: 900; }
+
+.reply-input-container {
+  display: none; 
+  margin-top: 10px;
+  padding: 10px;
+  background: #f8fafc; border-radius: 12px;
+  border: 1px solid #eee;
+  animation: fadeIn 0.3s ease;
+}
+.reply-input-container.active { display: block; }
+
+.reply-form-row { display: flex; gap: 10px; }
+.reply-input {
+  flex: 1; padding: 8px 12px; border-radius: 8px; border: 1px solid #ddd;
+  font-size: 0.85rem; outline: none;
+}
+.btn-send-reply {
+  background: var(--text-main); color: white; border: none;
+  padding: 5px 15px; border-radius: 8px; cursor: pointer; font-size: 0.8rem;
+}
+
+.replies-list {
+  margin-top: 10px;
+  margin-left: 10px;
+  padding-left: 10px;
+  border-left: 2px solid #e2e8f0;
+}
+
+.reply-item {
+  background: rgba(248, 250, 252, 0.7);
+  padding: 8px 12px; border-radius: 8px;
+  margin-bottom: 5px; font-size: 0.85rem;
+}
+.reply-header { display: flex; justify-content: space-between; margin-bottom: 2px; }
+.reply-author { font-weight: 700; color: var(--text-main); font-size: 0.8rem; }
+.reply-date { font-size: 0.65rem; color: #94a3b8; }
