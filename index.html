@@ -15,72 +15,26 @@
 
 <body>
 
- <header>
-  <div class="bg-liquid-1"></div>
-  <div class="bg-liquid-2"></div>
+  <header>
+    <nav class="navbar">
+      <h2 class="logo">Portfolio<span>.Roni</span></h2>
 
-  <nav class="glass-navbar desktop-only">
-    <div class="nav-logo">Roni<span class="dot">.</span></div>
-    
-    <ul class="nav-links">
-      <li><a href="#home" class="active-link">Home</a></li>
-      <li><a href="#portfolio">Portfolio</a></li>
-      <li><a href="#about">About</a></li>
-    </ul>
-
-    <div class="nav-action">
-      <div class="dropdown-wrapper">
-        <button class="btn-nav-cv" onclick="togglePopup('popupDlDesktop')">
-          Download CV <i class="fas fa-chevron-down"></i>
-        </button>
-        <div id="popupDlDesktop" class="glass-dropdown nav-dropdown">
-          <a href="LINK_CLOUDINARY_EN" target="_blank" class="dd-item">
-            <img src="https://img.icons8.com/color/48/usa.png" alt="EN"> English
-          </a>
-          <a href="LINK_CLOUDINARY_ID" target="_blank" class="dd-item">
-            <img src="https://img.icons8.com/color/48/indonesia.png" alt="ID"> Indonesia
-          </a>
-        </div>
-      </div>
-    </div>
-  </nav>
-
-  <div class="mobile-dock-container mobile-only">
-    
-    <div id="popupDlMobile" class="glass-popup-mobile">
-      <div class="popup-header">Select Language</div>
-      <a href="LINK_CLOUDINARY_EN" target="_blank" class="mobile-dd-item">
-        <img src="https://img.icons8.com/color/48/usa.png" alt="EN"> English CV
-      </a>
-      <a href="LINK_CLOUDINARY_ID" target="_blank" class="mobile-dd-item">
-        <img src="https://img.icons8.com/color/48/indonesia.png" alt="ID"> Indonesia CV
-      </a>
-    </div>
-
-    <nav class="glass-dock">
-      <a href="#home" class="dock-item active">
-        <i class="fas fa-home"></i>
-      </a>
-      <a href="#portfolio" class="dock-item">
-        <i class="fas fa-layer-group"></i>
-      </a>
-      
-      <div class="dock-fab-wrapper">
-        <button class="dock-fab" onclick="togglePopup('popupDlMobile')">
-          <i class="fas fa-file-download"></i>
-        </button>
+      <div class="menu-toggle" id="mobile-menu">
+        <i class="fas fa-bars"></i>
       </div>
 
-      <a href="#about" class="dock-item">
-        <i class="fas fa-user"></i>
-      </a>
-      <a href="mailto:ronisetiawan496@gmail.com" class="dock-item">
-        <i class="fas fa-envelope"></i>
-      </a>
+      <ul class="nav-links">
+        <div class="close-menu"><i class="fas fa-times"></i></div>
+
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <div class="overlay" id="overlay"></div>
     </nav>
-  </div>
-
-</header>
+  </header>
 
 
   <!-- HOME -->
