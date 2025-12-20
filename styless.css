@@ -198,82 +198,6 @@ section {
 }
 
 
-@media (max-width: 900px) {
-  .desktop-only {
-    display: none !important;
-  }
-
-  .mobile-only {
-    display: flex !important;
-  }
-
-  .mobile-dock-container {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: auto;
-    z-index: 9999;
-  }
-
-  .glass-dock {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(25px);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    padding: 10px 20px;
-    border-radius: 40px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  }
-
-  .dock-item {
-    color: #94a3b8;
-    font-size: 1.3rem;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 12px;
-    transition: 0.3s;
-    text-decoration: none;
-  }
-
-  .dock-item:hover,
-  .dock-item.active {
-    color: var(--accent-gold);
-    transform: translateY(-3px);
-    background: #fffbf0;
-  }
-
-  .dock-fab-wrapper {
-    margin: 0 5px;
-    position: relative;
-    top: -20px;
-  }
-
-  .dock-fab {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--text-main), #333);
-    color: white;
-    font-size: 1.4rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 10px 25px rgba(30, 41, 59, 0.3);
-    border: 5px solid var(--bg-color);
-    text-decoration: none;
-  }
-
-  .dock-fab:active {
-    transform: scale(0.9);
-  }
-}
-
 /* Hero Section */
 .hero-section {
   min-height: 100vh;
@@ -448,64 +372,7 @@ section {
   }
 }
 
-@media (max-width: 968px) {
-  .hero-glass-container {
-    padding: 40px 20px;
-  }
 
-  .hero-grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
-    text-align: center;
-  }
-
-  .hero-img-col {
-    order: -1;
-  }
-
-  .hero-text-col {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .hero-bio,
-  .social-dock-hero {
-    margin: 0 auto 30px;
-  }
-
-  .profile-glass-frame {
-    width: 100%;
-    max-width: 320px;
-    height: 400px;
-    margin: 0 auto;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero-section {
-    padding-top: 100px;
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-
-  .hero-name {
-    font-size: 2.2rem;
-  }
-
-  .status-badge {
-    left: 50%;
-    transform: translateX(-50%) !important;
-    bottom: -15px;
-    width: max-content;
-    animation: none;
-  }
-
-  .btn-hero-primary {
-    width: 100%;
-    justify-content: center;
-  }
-}
 
 /* 3. ABOUT SECTION */
 .about-container {
@@ -1164,36 +1031,6 @@ section {
   transform: rotate(-5deg);
 }
 
-@media (max-width: 768px) {
-  .intro-glass-card {
-    padding: 30px 20px;
-  }
-
-  .intro-layout {
-    flex-direction: column;
-    text-align: center;
-    gap: 20px;
-  }
-
-  .status-badge {
-    position: relative;
-    top: 0;
-    right: 0;
-    display: inline-flex;
-    margin-bottom: 15px;
-  }
-
-  .intro-footer {
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .img-ring-container {
-    width: 130px;
-    height: 130px;
-    margin: 0 auto;
-  }
-}
 
 /* 8. EDUCATION SECTION */
 .edu-dashboard {
@@ -1561,149 +1398,6 @@ section {
   margin-right: 5px;
 }
 
-
-@media (max-width: 600px) {
-  .timeline-wrapper {
-    padding-left: 20px;
-  }
-
-  .timeline-marker {
-    left: -26px;
-  }
-
-  .exp-card-header {
-    align-items: flex-start;
-  }
-
-  .exp-logo-box {
-    margin-bottom: 10px;
-  }
-
-  .exp-date-capsule {
-    font-size: 0.75rem;
-    padding: 4px 10px;
-    margin-top: 5px;
-  }
-}
-
-@media (max-width: 600px) {
-  .edu-header-hero {
-    flex-direction: row;
-
-  }
-
-  .edu-icon-box {
-    width: 60px;
-    height: 60px;
-  }
-
-  .edu-title-hero h4 {
-    font-size: 1.1rem;
-  }
-}
-
-@media (max-width: 900px) {
-  .edu-dashboard {
-    grid-template-columns: 1fr;
-    gap: 30px;
-  }
-
-  .hero-edu {
-    border-left: none;
-    border-top: 6px solid var(--accent-gold);
-  }
-
-  .edu-header-hero {
-    align-items: flex-start;
-  }
-}
-
-
-@media (max-width: 900px) {
-
-  .about-container {
-    grid-template-columns: 1fr;
-  }
-
-
-  .about-sidebar {
-    position: relative;
-    top: 0;
-    width: 100%;
-    margin-bottom: 30px;
-    padding: 20px;
-  }
-
-
-  .about-tabs {
-    display: flex;
-    overflow-x: auto;
-    gap: 10px;
-    padding-bottom: 10px;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .about-tabs li {
-    white-space: nowrap;
-    flex-shrink: 0;
-    background: white;
-    border: 1px solid #e2e8f0;
-  }
-
-
-  .personal-dashboard {
-    grid-template-columns: 1fr;
-  }
-
-
-  .birthday-hero {
-    grid-column: span 1;
-  }
-
-  .bday-content-wrapper {
-    flex-direction: column;
-    text-align: center;
-    gap: 20px;
-  }
-
-  .bday-profile {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .divider-vertical {
-    width: 100%;
-    height: 1px;
-  }
-
-  .bday-quote-box {
-    padding-left: 0;
-    width: 100%;
-  }
-
-
-  .edu-dashboard {
-    grid-template-columns: 1fr;
-  }
-
-
-  .intro-layout {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .intro-stats {
-    justify-content: center;
-  }
-
-
-  .skill-card-slide {
-    min-width: 85vw;
-    max-width: 85vw;
-    scroll-snap-align: center;
-  }
-}
-
 /* 10. PORTFOLIO SECTION */
 .portfolio-section {
   padding: 80px 5%;
@@ -1899,35 +1593,7 @@ section {
 }
 
 
-@media (max-width: 768px) {
-  .section-header-compact {
-    flex-direction: column;
-    align-items: flex-start;
-  }
 
-  .portfolio-tabs {
-    width: 100%;
-    overflow-x: auto;
-    white-space: nowrap;
-  }
-
-  .premium-card {
-    height: auto;
-  }
-
-  .card-image {
-    height: 200px;
-  }
-
-  .card-glass-overlay {
-    position: relative;
-    bottom: auto;
-    left: auto;
-    right: auto;
-    margin: -40px 15px 15px 15px;
-    max-height: none;
-  }
-}
 
 /* 11. Contact */
 
@@ -2290,44 +1956,7 @@ section {
   }
 }
 
-/* --- RESPONSIVE (MOBILE HP) --- */
-@media (max-width: 900px) {
-  .contact-grid {
-    grid-template-columns: 1fr;
-    /* Tumpuk jadi 1 kolom */
-    gap: 40px;
-  }
 
-  .contact-left .sticky-content {
-    position: relative;
-    top: 0;
-    text-align: center;
-  }
-
-  .section-header-left {
-    margin-bottom: 30px;
-  }
-
-  .email-card-glass {
-    flex-direction: column;
-    text-align: center;
-    gap: 10px;
-  }
-
-  .email-card-glass .arrow-circle {
-    display: none;
-  }
-
-  .social-dock {
-    justify-content: center;
-  }
-
-  .guestbook-card {
-    height: 500px;
-  }
-
-  /* Tinggi chat di HP */
-}
 
 .mini-popup {
   background: white;
@@ -2499,4 +2128,203 @@ section {
 .reply-date {
   font-size: 0.65rem;
   color: #94a3b8;
+}
+
+/* =========================================
+   RESPONSIVE & MOBILE OPTIMIZATION (ALL DEVICES)
+   Paste ini di bagian PALING BAWAH style.css
+   ========================================= */
+
+/* --- 1. TABLET / LAPTOP KECIL (Max 968px) --- */
+@media (max-width: 968px) {
+  .hero-glass-container {
+    padding: 40px 20px;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .hero-img-col {
+    order: -1; /* Gambar di atas teks */
+  }
+
+  .hero-text-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-bio,
+  .social-dock-hero {
+    margin: 0 auto 30px;
+  }
+
+  .profile-glass-frame {
+    width: 100%;
+    max-width: 320px;
+    height: 400px;
+    margin: 0 auto;
+  }
+}
+
+/* --- 2. MOBILE MAIN BREAKPOINT (Max 900px) --- */
+/* Ini titik perubahan utama dari Desktop ke HP */
+@media (max-width: 900px) {
+  
+  /* A. Toggle Navigasi (PENTING: Ganti Nav Atas jadi Dock Bawah) */
+  .desktop-only { display: none !important; }
+  .mobile-only { display: flex !important; }
+
+  /* B. Mobile Dock Styling */
+  .mobile-dock-container {
+    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+    width: auto; z-index: 9999;
+  }
+
+  .glass-dock {
+    display: flex; align-items: center; gap: 15px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    padding: 10px 20px; border-radius: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .dock-item {
+    color: #94a3b8; font-size: 1.3rem; width: 40px; height: 40px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 12px; transition: 0.3s; text-decoration: none;
+  }
+
+  .dock-item:hover, .dock-item.active {
+    color: var(--accent-gold); transform: translateY(-3px); background: #fffbf0;
+  }
+
+  .dock-fab-wrapper { margin: 0 5px; position: relative; top: -20px; }
+
+  .dock-fab {
+    width: 60px; height: 60px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--text-main), #333);
+    color: white; font-size: 1.4rem;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 10px 25px rgba(30, 41, 59, 0.3);
+    border: 5px solid var(--bg-color); text-decoration: none;
+  }
+  .dock-fab:active { transform: scale(0.9); }
+
+  /* C. Layout Global (Jadi 1 Kolom) */
+  .about-container,
+  .personal-dashboard,
+  .edu-dashboard,
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  /* D. Sidebar About */
+  .about-sidebar {
+    position: relative; top: 0; width: 100%;
+    margin-bottom: 30px; padding: 20px;
+  }
+
+  .about-tabs {
+    display: flex; overflow-x: auto; gap: 10px; padding-bottom: 10px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .about-tabs li {
+    white-space: nowrap; flex-shrink: 0;
+    background: white; border: 1px solid #e2e8f0;
+  }
+
+  /* E. Hero Education Style */
+  .hero-edu {
+    border-left: none;
+    border-top: 6px solid var(--accent-gold);
+  }
+  .edu-header-hero { align-items: flex-start; }
+
+  /* F. Intro & Skill Card */
+  .intro-layout { flex-direction: column; text-align: center; }
+  .intro-stats { justify-content: center; }
+  
+  .skill-card-slide {
+    min-width: 85vw; max-width: 85vw; /* Kartu Skill lebar layar HP */
+    scroll-snap-align: center;
+  }
+
+  /* G. Birthday & Contact */
+  .birthday-hero { grid-column: span 1; }
+  .bday-content-wrapper { flex-direction: column; text-align: center; gap: 20px; }
+  .bday-profile { flex-direction: column; width: 100%; }
+  .divider-vertical { width: 100%; height: 1px; }
+  .bday-quote-box { padding-left: 0; width: 100%; }
+
+  .contact-left .sticky-content { position: relative; top: 0; text-align: center; }
+  .section-header-left { margin-bottom: 30px; }
+  .email-card-glass { flex-direction: column; text-align: center; gap: 10px; }
+  .email-card-glass .arrow-circle { display: none; }
+  .social-dock { justify-content: center; }
+  .guestbook-card { height: 500px; }
+}
+
+/* --- 3. SMALLER TABLET / LARGE PHONE (Max 768px) --- */
+@media (max-width: 768px) {
+  .section-header-compact {
+    flex-direction: column; align-items: flex-start;
+  }
+
+  .portfolio-tabs {
+    width: 100%; overflow-x: auto; white-space: nowrap;
+  }
+
+  .premium-card { height: auto; }
+  .card-image { height: 200px; }
+
+  /* Overlay card selalu muncul sedikit di HP */
+  .card-glass-overlay {
+    position: relative; bottom: auto; left: auto; right: auto;
+    margin: -40px 15px 15px 15px; max-height: none;
+  }
+
+  .intro-glass-card { padding: 30px 20px; }
+  .status-badge { position: relative; top: 0; right: 0; display: inline-flex; margin-bottom: 15px; }
+  .intro-footer { flex-direction: column; gap: 20px; }
+  .img-ring-container { width: 130px; height: 130px; margin: 0 auto; }
+}
+
+/* --- 4. SMALL PHONE (Max 600px) --- */
+@media (max-width: 600px) {
+  .timeline-wrapper { padding-left: 20px; }
+  .timeline-marker { left: -26px; }
+  .exp-card-header { align-items: flex-start; }
+  .exp-logo-box { margin-bottom: 10px; }
+  
+  .exp-date-capsule {
+    font-size: 0.75rem; padding: 4px 10px; margin-top: 5px;
+  }
+
+  /* Biar logo Edukasi sejajar dengan teks di HP kecil */
+  .edu-header-hero { flex-direction: row; } 
+  .edu-icon-box { width: 60px; height: 60px; }
+  .edu-title-hero h4 { font-size: 1.1rem; }
+}
+
+/* --- 5. EXTRA SMALL PHONE (Max 480px) --- */
+@media (max-width: 480px) {
+  .hero-section {
+    padding-top: 100px; padding-left: 10px; padding-right: 10px;
+  }
+
+  .hero-name { font-size: 2.2rem; }
+
+  .status-badge {
+    left: 50%; transform: translateX(-50%) !important;
+    bottom: -15px; width: max-content; animation: none;
+  }
+
+  .btn-hero-primary { width: 100%; justify-content: center; }
 }
