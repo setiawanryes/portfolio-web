@@ -29,70 +29,75 @@
     </script>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Montserrat:wght@300;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Outfit:wght@300;500;700&display=swap');
         
         :root {
-            --gold: #FFD700;
-            --gold-dim: #C5A000;
-            --glass-bg: rgba(20, 20, 35, 0.6);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --admin-glow: 0 0 15px rgba(255, 215, 0, 0.4);
+            --primary: #ffd700; /* Emas */
+            --accent: #00f3ff; /* Cyan */
+            --glass-bg: rgba(20, 20, 30, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.12);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
 
         body {
-            /* Royal Deep Space */
-            background: radial-gradient(circle at bottom center, #1b2735 0%, #090a0f 100%);
-            color: white; height: 100vh; overflow: hidden; font-family: 'Montserrat', sans-serif;
+            background: radial-gradient(circle at center, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            color: white; height: 100vh; overflow: hidden; font-family: 'Outfit', sans-serif;
             display: flex; flex-direction: column;
         }
 
         canvas { position: fixed; top: 0; left: 0; z-index: 0; pointer-events: none; }
 
-        /* HEADER CLASSY */
+        /* HEADER */
         .header-container {
             z-index: 10; padding: 15px; text-align: center; flex-shrink: 0;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
             border-bottom: 1px solid rgba(255,255,255,0.05);
+            position: relative;
         }
-
-        /* JAM ELEGAN */
-        .classy-clock {
-            font-family: 'Cinzel'; font-size: 0.9rem; color: var(--gold); letter-spacing: 2px;
-            margin-bottom: 5px; opacity: 0.9; text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-            display: inline-block; padding: 5px 15px; border: 1px solid rgba(255, 215, 0, 0.3);
-            border-radius: 20px; background: rgba(0,0,0,0.3);
+        
+        /* JAM DIGITAL */
+        .holo-clock {
+            font-family: 'Cinzel'; font-size: 0.8rem; color: var(--accent); letter-spacing: 3px;
+            margin-bottom: 5px; opacity: 0.8; text-shadow: 0 0 10px var(--accent);
         }
 
         .year {
-            font-size: 3rem; font-weight: 800; line-height: 1; margin: 10px 0 15px 0; font-family: 'Cinzel';
-            background: linear-gradient(to right, #fff, var(--gold), #fff);
-            background-size: 200% auto;
+            font-size: 3.5rem; font-weight: 900; line-height: 1; margin: 5px 0 15px 0; font-family: 'Cinzel';
+            background: linear-gradient(to bottom, #fff, var(--primary));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: shineText 5s linear infinite;
+            filter: drop-shadow(0 0 25px rgba(255, 215, 0, 0.4));
+            animation: pulseGlow 3s infinite alternate;
         }
-        @keyframes shineText { to { background-position: 200% center; } }
 
-        /* SLIDER CARD (Elegant Slide) */
+        /* 3D SLIDER CARD */
         .slider-wrapper {
             width: 100%; max-width: 500px; height: 80px; margin: 0 auto; position: relative;
+            perspective: 1000px; /* Enable 3D space */
         }
         .roast-card {
             position: absolute; width: 100%; height: 100%;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px;
-            padding: 5px 20px; animation: smoothFade 6s infinite;
+            background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border); border-radius: 16px;
+            padding: 5px 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transform-style: preserve-3d;
+            animation: cardEntrance 5s infinite;
         }
-        .roast-title { color: var(--gold); font-family: 'Cinzel'; font-size: 0.8rem; font-weight: bold; margin-bottom: 3px; letter-spacing: 1px; }
-        .roast-content { color: #ddd; font-size: 0.85rem; font-style: italic; line-height: 1.3; text-align: center; }
-        
-        @keyframes smoothFade {
-            0% { opacity: 0; transform: translateY(10px); }
-            10% { opacity: 1; transform: translateY(0); }
-            90% { opacity: 1; transform: translateY(0); }
-            100% { opacity: 0; transform: translateY(-10px); }
+        .roast-title {
+            color: var(--accent); font-family: 'Cinzel', serif; font-size: 0.8rem; font-weight: bold;
+            margin-bottom: 3px; letter-spacing: 2px; text-transform: uppercase;
+        }
+        .roast-content {
+            color: #eee; font-size: 0.85rem; font-style: italic; line-height: 1.2; text-align: center;
+        }
+
+        @keyframes cardEntrance {
+            0% { opacity: 0; transform: translateY(30px) rotateX(-20deg); }
+            10% { opacity: 1; transform: translateY(0) rotateX(0deg); }
+            90% { opacity: 1; transform: translateY(0) rotateX(0deg); }
+            100% { opacity: 0; transform: translateY(-30px) rotateX(20deg); }
         }
 
         /* FEED CHAT */
@@ -100,62 +105,43 @@
             flex: 1; overflow-y: auto; padding: 15px; z-index: 10;
             display: flex; flex-direction: column; gap: 15px;
             mask-image: linear-gradient(to bottom, transparent, black 5%, black 95%, transparent);
-            scrollbar-width: none; padding-bottom: 160px;
+            scrollbar-width: none; padding-bottom: 140px; /* Space extra buat reaction bar */
             -webkit-overflow-scrolling: touch;
         }
         
         .wish-card {
-            background: var(--glass-bg); backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border); border-radius: 16px;
-            padding: 15px; animation: slideUp 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            background: var(--glass-bg); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border); border-radius: 18px;
+            padding: 15px; animation: slideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             max-width: 600px; margin: 0 auto; width: 100%;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            position: relative; overflow: hidden;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s;
         }
-        @keyframes slideUp { from { opacity:0; transform: translateY(30px); } to { opacity:1; transform: translateY(0); } }
-
-        /* 🔥 ADMIN SULTAN EFFECT 🔥 */
-        .wish-card.admin-card {
-            border: 1px solid var(--gold);
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.05), rgba(0, 0, 0, 0.6));
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.15);
-        }
-        .wish-card.admin-card::after {
-            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,215,0,0.2), transparent);
-            transform: skewX(-25deg);
-            animation: shineCard 6s infinite;
-        }
-        @keyframes shineCard { 0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; } }
-
-        /* USER INFO */
+        @keyframes slideIn { from { opacity:0; transform: scale(0.9) translateY(20px); } to { opacity:1; transform: scale(1) translateY(0); } }
+        
         .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-        .sender-name { 
-            color: var(--gold); font-weight: 700; font-size: 0.95rem; font-family: 'Cinzel'; 
-            display: flex; align-items: center; gap: 6px;
-        }
-        .verified-icon { color: #00c3ff; font-size: 0.9rem; filter: drop-shadow(0 0 5px rgba(0,195,255,0.4)); }
+        
+        /* Verified Badge Style */
+        .sender-name { color: var(--primary); font-weight: 700; font-size: 0.95rem; font-family: 'Cinzel'; display: flex; align-items: center; gap: 5px; }
+        .verified-badge { color: #00f3ff; font-size: 0.9rem; filter: drop-shadow(0 0 5px #00f3ff); }
+        
         .timestamp { font-size: 0.7rem; opacity: 0.5; }
+        .card-body { font-size: 1rem; color: #fff; line-height: 1.5; font-weight: 300; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
         
-        .card-body { font-size: 1rem; color: #fff; line-height: 1.5; font-weight: 300; }
-        
-        .card-actions { 
-            display: flex; gap: 20px; margin-top: 12px; padding-top: 8px; 
-            border-top: 1px solid rgba(255,255,255,0.05); font-size: 0.8rem; color: #aaa; 
-        }
-        .action-btn { cursor: pointer; display: flex; align-items: center; gap: 5px; transition: 0.2s; }
-        .action-btn:hover { color: white; }
-        .liked { color: #ff4444; font-weight: bold; }
+        .card-actions { display: flex; gap: 20px; margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.05); font-size: 0.85rem; color: #aaa; }
+        .action-btn { cursor: pointer; display: flex; align-items: center; gap: 6px; transition: 0.2s; }
+        .action-btn:hover { color: white; transform: scale(1.1); }
+        .liked { color: #ff4444; font-weight: bold; text-shadow: 0 0 10px #ff4444; }
 
-        /* REPLY SECTION */
-        .reply-container { margin-top: 10px; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 8px; display: none; border-left: 2px solid var(--gold); }
+        /* Reply */
+        .reply-container { margin-top: 10px; padding: 10px; background: rgba(0,0,0,0.3); border-radius: 10px; display: none; border-left: 2px solid var(--accent); }
         .reply-item { font-size: 0.85rem; color: #ccc; margin-bottom: 5px; }
         .reply-input-box { display: none; margin-top: 10px; gap: 8px; }
         .reply-input-box.show { display: flex; }
         .reply-in { flex: 1; background: rgba(255,255,255,0.1); border: none; color: white; padding: 8px 12px; border-radius: 8px; }
-        .reply-btn { background: var(--gold); color: #000; border: none; padding: 0 15px; font-weight: bold; cursor: pointer; border-radius: 8px; }
+        .reply-btn { background: var(--primary); color: #000; border: none; padding: 0 15px; font-weight: bold; cursor: pointer; border-radius: 8px; }
 
-        /* BOTTOM PANEL */
+        /* --- ADVANCED INPUT AREA --- */
         .bottom-panel {
             position: fixed; bottom: 0; left: 0; width: 100%; z-index: 50;
             display: flex; flex-direction: column; align-items: center;
@@ -163,74 +149,73 @@
             padding-bottom: env(safe-area-inset-bottom, 10px);
         }
 
-        /* FLOATING EMOJI (BUBBLES) */
-        #floating-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 100; overflow: hidden; }
-        .float-emoji { position: absolute; bottom: -50px; font-size: 2rem; animation: floatUp 4s ease-in forwards; opacity: 0; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
-        @keyframes floatUp { 
-            0% { transform: translateY(0) scale(0.5) translateX(0); opacity: 0; } 
-            20% { opacity: 1; }
-            100% { transform: translateY(-80vh) scale(1.1) translateX(20px); opacity: 0; } 
-        }
-
         /* REACTION BAR */
         .reaction-bar {
-            display: flex; gap: 20px; margin-bottom: 10px; padding: 8px 25px;
-            background: rgba(255,255,255,0.08); backdrop-filter: blur(10px);
+            display: flex; gap: 15px; margin-bottom: 10px; padding: 8px 20px;
+            background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);
             border-radius: 50px; border: 1px solid rgba(255,255,255,0.1);
-            transform: translateY(-5px);
+            transform: translateY(10px); opacity: 0; animation: slideUp 0.5s 0.5s forwards;
         }
-        .react-btn { background: none; border: none; font-size: 1.5rem; cursor: pointer; transition: transform 0.2s; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3)); }
-        .react-btn:hover { transform: scale(1.3); }
+        @keyframes slideUp { to { transform: translateY(0); opacity: 1; } }
+        
+        .react-btn {
+            background: none; border: none; font-size: 1.5rem; cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .react-btn:hover { transform: scale(1.4) rotate(10deg); }
+        .react-btn:active { transform: scale(0.9); }
 
-        .input-wrapper { width: 100%; padding: 0 20px 20px; display: flex; justify-content: center; }
-        .input-group { display: flex; gap: 10px; width: 100%; max-width: 650px; }
+        .input-wrapper {
+            width: 100%; padding: 10px 20px 20px;
+            display: flex; justify-content: center;
+        }
+        .input-group { display: flex; gap: 10px; width: 100%; max-width: 650px; position: relative; }
         
         #name-input { 
-            width: 28%; background: rgba(30, 30, 40, 0.9); border: 1px solid rgba(255,255,255,0.2); 
-            color: var(--gold); font-weight: 600; border-radius: 12px; padding: 12px; 
-            text-align: center; font-family: 'Cinzel';
+            width: 28%; background: rgba(20, 20, 30, 0.9); border: 1px solid rgba(255,255,255,0.2); 
+            color: var(--primary); font-weight: 700; border-radius: 12px; padding: 12px; 
+            text-align: center; transition: 0.3s;
         }
         #msg-input { 
-            flex: 1; background: rgba(30, 30, 40, 0.9); border: 1px solid rgba(255,255,255,0.2); 
-            color: white; border-radius: 12px; padding: 12px; font-family: 'Montserrat';
+            flex: 1; background: rgba(20, 20, 30, 0.9); border: 1px solid rgba(255,255,255,0.2); 
+            color: white; border-radius: 12px; padding: 12px; transition: 0.3s;
         }
-        input:focus { border-color: var(--gold) !important; box-shadow: 0 0 15px rgba(255, 215, 0, 0.2); }
+        input:focus { border-color: var(--accent) !important; box-shadow: 0 0 15px rgba(0, 243, 255, 0.3); }
         
         #send-btn { 
-            background: linear-gradient(135deg, var(--gold), #b8860b); 
+            background: linear-gradient(135deg, var(--primary), #b8860b); 
             border: none; border-radius: 12px; width: 55px; cursor: pointer; font-size: 1.4rem; color: #000;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3); transition: 0.3s;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
         }
-        #send-btn:active { transform: scale(0.9); }
 
         /* OVERLAY */
         #overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #050508; z-index: 999; display: flex; flex-direction: column;
+            background: #000; z-index: 999; display: flex; flex-direction: column;
             justify-content: center; align-items: center; cursor: pointer; transition: 0.8s ease-in-out;
         }
         .btn-start {
-            padding: 18px 50px; border: 1px solid var(--gold); color: var(--gold); font-family: 'Cinzel'; font-weight: 700;
-            font-size: 1.2rem; border-radius: 50px; letter-spacing: 3px; background: rgba(255, 215, 0, 0.05); 
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.1); animation: pulseBtn 2s infinite;
+            padding: 18px 50px; border: 2px solid var(--primary); color: var(--primary); font-family: 'Cinzel'; font-weight: 700;
+            font-size: 1.2rem; border-radius: 50px; letter-spacing: 3px; background: transparent; 
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.2); animation: pulseBtn 2s infinite;
         }
-        @keyframes pulseBtn { 0% { box-shadow: 0 0 0 0 rgba(255,215,0,0.4); } 70% { box-shadow: 0 0 0 20px rgba(255,215,0,0); } 100% { box-shadow: 0 0 0 0 rgba(255,215,0,0); } }
-        .shake { animation: shakeAnim 0.3s; }
-        @keyframes shakeAnim { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(5px); } 75% { transform: translateX(-5px); } }
+        @keyframes pulseBtn { 0% { box-shadow: 0 0 0 0 rgba(255,215,0,0.7); } 70% { box-shadow: 0 0 0 20px rgba(255,215,0,0); } 100% { box-shadow: 0 0 0 0 rgba(255,215,0,0); } }
+        @keyframes pulseGlow { from { opacity: 0.8; filter: drop-shadow(0 0 10px var(--primary)); } to { opacity: 1; filter: drop-shadow(0 0 25px var(--primary)); } }
+        .shake { animation: shakeAnim 0.3s cubic-bezier(.36,.07,.19,.97) both; }
+        @keyframes shakeAnim { 10%, 90% { transform: translate3d(-1px, 0, 0); } 20%, 80% { transform: translate3d(2px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-4px, 0, 0); } 40%, 60% { transform: translate3d(4px, 0, 0); } }
     </style>
 </head>
 <body>
 
-    <div id="floating-container"></div>
     <div id="overlay">
-        <div class="btn-start">ENTER GALA 2026</div>
-        <p style="color:rgba(255,255,255,0.4); margin-top:20px; font-size:0.7rem; letter-spacing: 2px;">[ TAP TO START ]</p>
+        <div class="btn-start">OPEN GATE 2026</div>
+        <p style="color:rgba(255,255,255,0.5); margin-top:20px; font-size:0.8rem; letter-spacing: 1px;">Click to Initialize</p>
     </div>
 
     <canvas id="canvas"></canvas>
 
     <div class="header-container" id="main-header">
-        <div class="classy-clock" id="holo-clock">00:00:00</div>
+        <div class="holo-clock" id="holo-clock">00:00:00</div>
         <div class="year">2026</div>
         <div class="slider-wrapper" id="slider-container"></div>
     </div>
@@ -238,33 +223,33 @@
     <div class="feed-container" id="feed">
         <div style="text-align:center; color:rgba(255,255,255,0.3); margin-top:80px; font-style: italic;">
             <div style="font-size: 3rem; margin-bottom: 15px; opacity:0.7;">✨</div>
-            Menunggu tamu kehormatan...<br>Kirim harapan pertamamu!
+            Menunggu harapan pertamamu...
         </div>
     </div>
 
     <div class="bottom-panel">
         <div class="reaction-bar">
-            <button class="react-btn" onclick="quickReact('🔥')">🔥</button>
-            <button class="react-btn" onclick="quickReact('❤️')">❤️</button>
-            <button class="react-btn" onclick="quickReact('🥂')">🥂</button>
-            <button class="react-btn" onclick="quickReact('🚀')">🚀</button>
-            <button class="react-btn" onclick="quickReact('👑')">👑</button>
+            <button class="react-btn" onclick="quickReact('🔥', 'Semangat membara di 2026!')">🔥</button>
+            <button class="react-btn" onclick="quickReact('❤️', 'Cinta dan damai selalu.')">❤️</button>
+            <button class="react-btn" onclick="quickReact('🎉', 'Party 2026 dimulai!')">🎉</button>
+            <button class="react-btn" onclick="quickReact('🚀', 'To the moon 2026!')">🚀</button>
+            <button class="react-btn" onclick="quickReact('💰', 'Auto kaya tahun ini!')">💰</button>
         </div>
 
         <div class="input-wrapper">
             <div class="input-group">
-                <input type="text" id="name-input" placeholder="NAMA" maxlength="15">
-                <input type="text" id="msg-input" placeholder="Ketik harapan...">
+                <input type="text" id="name-input" placeholder="Nama" maxlength="12">
+                <input type="text" id="msg-input" placeholder="Tulis harapan...">
                 <button id="send-btn">➤</button>
             </div>
         </div>
     </div>
 
     <script>
-        // --- REALTIME CLOCK ---
+        // --- HOLO CLOCK ---
         function updateClock() {
             const now = new Date();
-            document.getElementById('holo-clock').innerText = now.toLocaleTimeString('en-GB') + " WIB";
+            document.getElementById('holo-clock').innerText = now.toLocaleTimeString() + " | LIVE";
         }
         setInterval(updateClock, 1000); updateClock();
 
@@ -277,6 +262,9 @@
             { title: "REALITA KERJA", text: "Semoga tahun ini kerjanya remote, gajinya dollar, tapi pengeluaran tetap rupiah warteg." },
             { title: "TIM JOMBLO", text: "Resolusi 2026, Berhenti jadi 'penjaga jodoh orang'. Saatnya jadi pemeran utama!" },
             { title: "KEUANGAN", text: "Ya Allah, semoga tahun ini dompet hamba setebal harapan orang tua hamba kepada hamba." },
+            { title: "HOPE", text: "Diet wacana sudah berlalu, tahun ini body goals harus jadi nomor satu." },
+            { title: "GEN Z", text: "Mental aman? Semoga tahun ini ga dikit-dikit 'Burnout' padahal baru kerja 5 menit." },
+            { title: "SANDWICH GEN", text: "Semoga punggung kita sekuat baja menahan beban keluarga, bukan encok mikirin cicilan." },
             { title: "AAMIIN", text: "Semoga semua yang baca ini sehat selalu, sukses karirnya, dan bahagia terus. Gas 2026!" }
         ];
 
@@ -293,106 +281,91 @@
         }
         showNextCard(); setInterval(showNextCard, 5000);
 
-        // --- VISUAL (STARFIELD & SHOOTING STARS) ---
+        // --- INTERACTIVE VISUALS ---
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
         const overlay = document.getElementById('overlay');
         const header = document.getElementById('main-header');
         let audioCtx;
+        // Mouse interaction vars
+        let mouse = { x: undefined, y: undefined };
 
         function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
         window.addEventListener('resize', resize); resize();
+        
+        window.addEventListener('mousemove', (e) => { mouse.x = e.x; mouse.y = e.y; });
+        window.addEventListener('touchmove', (e) => { mouse.x = e.touches[0].clientX; mouse.y = e.touches[0].clientY; });
 
         function playSound(type) {
             if(!audioCtx) return;
             const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain();
             if(type === 'boom') {
-                osc.type = 'triangle'; osc.frequency.setValueAtTime(100, audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.8);
+                osc.frequency.setValueAtTime(100, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.6);
                 gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
             } else { 
-                osc.type = 'sine'; osc.frequency.setValueAtTime(600, audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.2);
+                osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.15);
                 gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
             }
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + (type==='boom'?0.6:0.15));
             osc.connect(gain); gain.connect(audioCtx.destination);
-            osc.start(); osc.stop(audioCtx.currentTime + 0.5);
+            osc.start(); osc.stop(audioCtx.currentTime + 0.6);
         }
 
-        // Star Class
-        class Star {
-            constructor() { this.reset(); }
-            reset() {
-                this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2; this.blinkSpeed = Math.random() * 0.05;
-                this.alpha = Math.random(); this.direction = Math.random() > 0.5 ? 1 : -1;
-            }
-            update() {
-                this.alpha += this.blinkSpeed * this.direction;
-                if(this.alpha >= 1 || this.alpha <= 0) this.direction *= -1;
-            }
-            draw() {
-                ctx.globalAlpha = Math.max(0, this.alpha); ctx.fillStyle = "white";
-                ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, 6.28); ctx.fill();
-            }
-        }
-
-        // Shooting Star
-        let shootingStars = [];
-        class ShootingStar {
-            constructor() { this.reset(); }
-            reset() {
-                this.x = Math.random() * canvas.width; this.y = 0;
-                this.len = Math.random() * 80 + 10; this.speed = Math.random() * 10 + 5;
-                this.size = Math.random() * 1 + 0.1; this.active = false;
-                this.waitTime = new Date().getTime() + Math.random() * 3000 + 1000;
-            }
-            update() {
-                if (this.active) {
-                    this.x -= this.speed; this.y += this.speed;
-                    if (this.x < 0 || this.y >= canvas.height) { this.active = false; this.waitTime = new Date().getTime() + Math.random() * 5000; }
-                } else {
-                    if (this.waitTime < new Date().getTime()) { this.active = true; this.x = Math.random() * canvas.width + 200; this.y = -50; }
-                }
-            }
-            draw() {
-                if (this.active) {
-                    ctx.globalAlpha = 1; ctx.strokeStyle = "rgba(255, 255, 255, 0.5)";
-                    ctx.lineWidth = this.size; ctx.beginPath(); ctx.moveTo(this.x, this.y); ctx.lineTo(this.x + this.len, this.y - this.len); ctx.stroke();
-                }
-            }
-        }
-
-        let stars = []; for(let i=0; i<150; i++) stars.push(new Star());
-        for(let i=0; i<3; i++) shootingStars.push(new ShootingStar());
-        
-        // Particles Explosion
         class Particle {
             constructor(x, y, color) {
                 this.x = x; this.y = y; this.color = color;
-                const a = Math.random() * 6.28; const s = Math.random() * 4 + 1;
+                this.baseX = x; this.baseY = y;
+                const a = Math.random() * 6.28; const s = Math.random() * 5 + 2;
                 this.vx = Math.cos(a) * s; this.vy = Math.sin(a) * s;
-                this.life = 1; this.decay = 0.02;
+                this.life = 1; this.decay = Math.random() * 0.015 + 0.01;
+                this.gravity = 0.05;
             }
-            update() { this.x += this.vx; this.y += this.vy; this.life -= this.decay; }
-            draw() { ctx.globalAlpha = this.life; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, 2, 0, 6.28); ctx.fill(); }
+            update() {
+                // Physics normal
+                this.x += this.vx; this.y += this.vy; this.vy += this.gravity; this.life -= this.decay;
+                
+                // Mouse Interaction (Repulsion)
+                if(mouse.x) {
+                    let dx = mouse.x - this.x;
+                    let dy = mouse.y - this.y;
+                    let distance = Math.sqrt(dx*dx + dy*dy);
+                    if(distance < 100) {
+                        const forceDirectionX = dx / distance;
+                        const forceDirectionY = dy / distance;
+                        const force = (100 - distance) / 100;
+                        const directionX = forceDirectionX * force * 5; // Kekuatan dorong
+                        const directionY = forceDirectionY * force * 5;
+                        this.x -= directionX;
+                        this.y -= directionY;
+                    }
+                }
+            }
+            draw() { 
+                ctx.globalAlpha = this.life; ctx.fillStyle = this.color; 
+                ctx.beginPath(); ctx.arc(this.x, this.y, 2.5, 0, 6.28); ctx.fill(); 
+            }
         }
-        let explosionParticles = [];
 
+        let particles = [];
+        let stars = [];
+        for(let i=0; i<150; i++) stars.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, s:Math.random()*2});
+        
         function createExplosion(x, y, color) {
             playSound('boom');
-            const colors = ['#ffd700', '#ffffff', '#ff4444'];
-            const c = color || colors[Math.floor(Math.random() * colors.length)];
-            for(let i=0; i<30; i++) explosionParticles.push(new Particle(x, y, c));
+            const c = color || `hsl(${Math.random()*360}, 100%, 60%)`;
+            for(let i=0; i<45; i++) particles.push(new Particle(x, y, c));
         }
 
         function animate() {
-            ctx.clearRect(0,0,canvas.width, canvas.height);
-            stars.forEach(s => { s.update(); s.draw(); });
-            shootingStars.forEach(s => { s.update(); s.draw(); });
-            explosionParticles.forEach((p,i) => { p.update(); p.draw(); if(p.life<=0) explosionParticles.splice(i,1); });
-            if(Math.random() < 0.005) createExplosion(Math.random()*canvas.width, Math.random()*canvas.height*0.5);
+            ctx.fillStyle = 'rgba(15, 12, 41, 0.25)'; ctx.fillRect(0,0,canvas.width, canvas.height);
+            stars.forEach(s => { 
+                ctx.fillStyle = `rgba(255,255,255,${Math.random()})`; 
+                ctx.beginPath(); ctx.arc(s.x, s.y, s.s, 0, 6.28); ctx.fill(); 
+            });
+            particles.forEach((p,i) => { p.update(); p.draw(); if(p.life<=0) particles.splice(i,1); });
+            if(Math.random() < 0.015) createExplosion(Math.random()*canvas.width, Math.random()*canvas.height*0.6);
             requestAnimationFrame(animate);
         }
 
@@ -414,50 +387,46 @@
             if(localStorage.getItem('chatName')) nameIn.value = localStorage.getItem('chatName');
 
             window.onSnapshot(q, (snapshot) => {
-                if(feedDiv.innerText.includes("Menunggu")) feedDiv.innerHTML = "";
+                if(feedDiv.innerText.includes("Belum ada")) feedDiv.innerHTML = "";
 
                 snapshot.docChanges().forEach((change) => {
                     if (change.type === "added") {
                         const data = change.doc.data();
                         const key = change.doc.id;
 
-                        // ADMIN CHECK
+                        // LOGIC VERIFIED BADGE
                         let nameDisplay = escapeHtml(data.name);
-                        let specialClass = '';
-                        let verifiedIcon = '';
-                        
                         if(nameDisplay === "RONI SETIAWAN") {
-                            verifiedIcon = '<span class="verified-icon">💎</span>';
-                            specialClass = 'admin-card';
+                            nameDisplay += ' <span class="verified-badge">✓</span>';
                         }
 
                         const div = document.createElement('div');
-                        div.className = `wish-card ${specialClass}`;
+                        div.className = 'wish-card';
                         div.id = `card-${key}`;
                         div.innerHTML = `
-                            <div class="card-content" style="width:100%">
-                                <div class="card-header">
-                                    <span class="sender-name">${nameDisplay} ${verifiedIcon}</span>
-                                    <span class="timestamp">${new Date(data.timestamp).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</span>
+                            <div class="card-header">
+                                <span class="sender-name">${nameDisplay}</span>
+                                <span class="timestamp">${new Date(data.timestamp).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</span>
+                            </div>
+                            <div class="card-body">${escapeHtml(data.message)}</div>
+                            <div class="reply-container" id="reply-list-${key}"></div>
+                            <div class="card-actions">
+                                <div class="action-btn" onclick="likePost('${key}')">
+                                    <span id="heart-${key}" style="font-size:1.2rem">♡</span> <span id="likes-${key}">${data.likes||0}</span>
                                 </div>
-                                <div class="card-body">${escapeHtml(data.message)}</div>
-                                <div class="reply-container" id="reply-list-${key}"></div>
-                                <div class="card-actions">
-                                    <div class="action-btn" onclick="likePost('${key}')">
-                                        <span id="heart-${key}" style="font-size:1.1rem">♡</span> <span id="likes-${key}">${data.likes||0}</span>
-                                    </div>
-                                    <div class="action-btn" onclick="toggleReply('${key}')" style="color:var(--gold)">↩ Balas</div>
-                                </div>
-                                <div class="reply-input-box" id="reply-box-${key}">
-                                    <input type="text" class="reply-in" id="reply-input-${key}" placeholder="Tulis balasan...">
-                                    <button class="reply-btn" onclick="sendReply('${key}')">></button>
-                                </div>
+                                <div class="action-btn" onclick="toggleReply('${key}')" style="color:var(--accent)">↩ Balas</div>
+                            </div>
+                            <div class="reply-input-box" id="reply-box-${key}">
+                                <input type="text" class="reply-in" id="reply-input-${key}" placeholder="Tulis balasan...">
+                                <button class="reply-btn" onclick="sendReply('${key}')">></button>
                             </div>
                         `;
                         feedDiv.appendChild(div);
                         feedDiv.scrollTop = feedDiv.scrollHeight;
 
                         if(data.replies) data.replies.forEach(r => renderReply(key, r));
+                        
+                        // Efek Chat Masuk
                         createExplosion(Math.random()*canvas.width, Math.random()*canvas.height/2);
                         playSound('pop');
                     }
@@ -475,7 +444,7 @@
                 });
             });
 
-            // SEND MESSAGE
+            // KIRIM PESAN MANUAL
             sendBtn.onclick = async () => {
                 const name = nameIn.value.trim().toUpperCase() || "ANONIM";
                 const msg = msgIn.value.trim();
@@ -490,54 +459,45 @@
                 } catch (e) { alert("Gagal kirim: " + e.message); }
             };
 
-            // QUICK REACT (FLOATING)
-            window.quickReact = async (emoji) => {
-                // Visual Float
-                const container = document.getElementById('floating-container');
-                const el = document.createElement('div');
-                el.innerText = emoji; el.className = 'float-emoji';
-                el.style.left = (Math.random() * 80 + 10) + '%';
-                container.appendChild(el);
-                setTimeout(() => el.remove(), 4000);
-
+            // QUICK REACTION FUNCTION (Global)
+            window.quickReact = async (emoji, text) => {
                 const name = nameIn.value.trim().toUpperCase() || "ANONIM";
-                localStorage.setItem('chatName', name);
-                createExplosion(window.innerWidth/2, window.innerHeight/2, '#ffffff');
+                const msg = `${emoji} ${text}`;
+                
+                // Visual lokal biar cepet
+                createExplosion(window.innerWidth/2, window.innerHeight/2, '#00f3ff');
                 
                 try {
-                    await window.addDoc(colRef, { name: name, message: emoji, likes: 0, replies: [], timestamp: Date.now() });
+                    await window.addDoc(colRef, { name: name, message: msg, likes: 0, replies: [], timestamp: Date.now() });
                 } catch (e) { console.log(e); }
             };
         });
 
-        // HELPERS
+        // ACTIONS
         window.likePost = (key) => {
             const heart = document.getElementById(`heart-${key}`);
             if(heart.innerText === '♡') {
                 heart.innerText = '♥'; heart.classList.add('liked');
                 const docRef = window.doc(window.db, 'gala_party_2026', key);
                 window.updateDoc(docRef, { likes: window.increment(1) });
-                
-                // Visual Float Heart
-                const container = document.getElementById('floating-container');
-                const el = document.createElement('div');
-                el.innerText = '❤️'; el.className = 'float-emoji';
-                el.style.left = (Math.random() * 80 + 10) + '%';
-                container.appendChild(el);
-                setTimeout(() => el.remove(), 4000);
+                createExplosion(window.innerWidth/2, window.innerHeight/2, '#ff4444');
             }
         };
 
-        window.toggleReply = (key) => { document.getElementById(`reply-box-${key}`).classList.toggle('show'); };
+        window.toggleReply = (key) => {
+            document.getElementById(`reply-box-${key}`).classList.toggle('show');
+        };
 
         window.sendReply = (key) => {
             const input = document.getElementById(`reply-input-${key}`);
             const text = input.value.trim();
             const name = document.getElementById('name-input').value.trim().toUpperCase() || "ANONIM";
             if(!text) return;
+
             const docRef = window.doc(window.db, 'gala_party_2026', key);
             window.updateDoc(docRef, { replies: window.arrayUnion({ name, text }) });
-            input.value = ""; document.getElementById(`reply-box-${key}`).classList.remove('show');
+            input.value = "";
+            document.getElementById(`reply-box-${key}`).classList.remove('show');
         };
 
         function renderReply(key, data) {
@@ -545,7 +505,7 @@
             cont.style.display = 'block';
             const div = document.createElement('div');
             div.className = 'reply-item';
-            div.innerHTML = `<b style="color:var(--gold)">${escapeHtml(data.name)}:</b> ${escapeHtml(data.text)}`;
+            div.innerHTML = `<b style="color:var(--primary)">${escapeHtml(data.name)}:</b> ${escapeHtml(data.text)}`;
             cont.appendChild(div);
         }
         function escapeHtml(text) { return text ? text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : ""; }
