@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Gala New Years 2026</title>
-
+    <title>RONI'S ROYAL PARTY - TRANSPARENT</title>
+    
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, addDoc, onSnapshot, doc, updateDoc, arrayUnion, increment, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -25,526 +24,191 @@
         window.collection = collection; window.addDoc = addDoc; window.onSnapshot = onSnapshot;
         window.doc = doc; window.updateDoc = updateDoc; window.arrayUnion = arrayUnion;
         window.increment = increment; window.query = query; window.orderBy = orderBy;
-
+        
         window.dispatchEvent(new Event('firebase-ready'));
     </script>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Outfit:wght@300;400;600&display=swap');
-
+        
         :root {
             --gold: #FFD700;
             --accent: #00f3ff;
-            /* UBAH 1: Background kaca lebih transparan */
-            --glass-bg: rgba(0, 0, 0, 0.25);
+            /* TRANSPARANSI DI SINI DIATUR */
+            --glass-bg: rgba(20, 20, 35, 0.6); 
             --glass-border: rgba(255, 255, 255, 0.2);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            outline: none;
-            -webkit-tap-highlight-color: transparent;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
 
         body {
-            /* Background agak diterangin dikit biar kembang api makin nonjol */
-            background: radial-gradient(circle at bottom, #0a0015 0%, #000000 100%);
-            color: white;
-            height: 100vh;
-            overflow: hidden;
-            font-family: 'Outfit', sans-serif;
-            display: flex;
-            flex-direction: column;
+            background: radial-gradient(circle at bottom, #1a0b2e 0%, #000000 100%);
+            color: white; height: 100vh; overflow: hidden; font-family: 'Outfit', sans-serif;
+            display: flex; flex-direction: column;
         }
 
-        canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 0;
-            pointer-events: none;
-        }
+        canvas { position: fixed; top: 0; left: 0; z-index: 0; pointer-events: none; }
 
-        /* HEADER TRANSPARAN */
+        /* HEADER */
         .header-container {
-            z-index: 10;
-            padding: 10px 15px;
-            text-align: center;
-            flex-shrink: 0;
-            /* UBAH 2: Header jadi kaca */
-            background: rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border-bottom: 1px solid var(--glass-border);
-            position: relative;
+            z-index: 10; padding: 10px 15px; text-align: center; flex-shrink: 0;
+            background: rgba(0,0,0,0.6); /* Header agak transparan */
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
         .live-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-family: 'Cinzel';
-            font-size: 0.8rem;
-            color: var(--accent);
-            background: rgba(0, 243, 255, 0.1);
-            padding: 4px 12px;
-            border-radius: 20px;
-            border: 1px solid var(--accent);
-            margin-bottom: 5px;
-            box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
-            backdrop-filter: blur(5px);
+            display: inline-flex; align-items: center; gap: 6px;
+            font-family: 'Cinzel'; font-size: 0.8rem; color: var(--accent);
+            background: rgba(0, 243, 255, 0.15); padding: 4px 12px; border-radius: 20px;
+            border: 1px solid var(--accent); margin-bottom: 5px;
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
         }
-
-        .dot {
-            width: 8px;
-            height: 8px;
-            background: red;
-            border-radius: 50%;
-            box-shadow: 0 0 5px red;
-            animation: blink 1s infinite;
-        }
-
-        @keyframes blink {
-            50% {
-                opacity: 0.3;
-            }
-        }
+        .dot { width: 8px; height: 8px; background: red; border-radius: 50%; box-shadow: 0 0 5px red; animation: blink 1s infinite; }
+        @keyframes blink { 50% { opacity: 0.3; } }
 
         .year {
-            font-size: 2.5rem;
-            font-weight: 900;
-            line-height: 1;
-            margin: 5px 0 10px 0;
-            font-family: 'Cinzel';
+            font-size: 2.8rem; font-weight: 900; line-height: 1; margin: 5px 0 10px 0; font-family: 'Cinzel';
             background: linear-gradient(to bottom, #fff, var(--gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.6));
+            animation: pulseGlow 2s infinite alternate;
         }
+        @keyframes pulseGlow { from { filter: drop-shadow(0 0 5px var(--gold)); } to { filter: drop-shadow(0 0 20px var(--gold)); } }
 
-        /* SLIDER CARD TRANSPARAN */
-        .slider-wrapper {
-            width: 100%;
-            max-width: 500px;
-            height: 80px;
-            margin: 0 auto;
-            position: relative;
-        }
-
+        /* SLIDER CARD */
+        .slider-wrapper { width: 100%; max-width: 500px; height: 80px; margin: 0 auto; position: relative; }
         .roast-card {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            /* UBAH 3: Slider lebih bening */
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            padding: 5px 20px;
+            position: absolute; width: 100%; height: 100%;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 215, 0, 0.3); border-radius: 12px;
+            padding: 5px 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             animation: slideFade 6s infinite;
         }
-
-        .roast-title {
-            color: var(--gold);
-            font-family: 'Cinzel';
-            font-weight: bold;
-            margin-bottom: 4px;
-            letter-spacing: 1px;
-            font-size: 0.9rem;
-        }
-
-        .roast-content {
-            font-size: 0.85rem;
-            font-style: italic;
-            text-align: center;
-            color: #fff;
-            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
-            line-height: 1.3;
-        }
-
-        @keyframes slideFade {
-            0% {
-                opacity: 0;
-                transform: translateY(20px) scale(0.9);
-            }
-
-            10% {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-
-            90% {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-
-            100% {
-                opacity: 0;
-                transform: translateY(-20px) scale(0.9);
-            }
+        .roast-title { color: var(--gold); font-family: 'Cinzel'; font-weight: bold; margin-bottom: 4px; letter-spacing: 1px; font-size: 0.9rem; }
+        .roast-content { font-size: 0.85rem; font-style: italic; text-align: center; color: #fff; text-shadow: 0 1px 2px black; line-height: 1.3; }
+        
+        @keyframes slideFade { 
+            0% { opacity:0; transform:translateY(20px) scale(0.9); } 
+            10% { opacity:1; transform:translateY(0) scale(1); } 
+            90% { opacity:1; transform:translateY(0) scale(1); } 
+            100% { opacity:0; transform:translateY(-20px) scale(0.9); } 
         }
 
         /* FEED CHAT */
         .feed-container {
-            flex: 1;
-            overflow-y: auto;
-            padding: 15px;
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            padding-bottom: 160px;
-            -webkit-overflow-scrolling: touch;
-            /* Masking dihilangkan biar kembang api terlihat full dari atas ke bawah */
+            flex: 1; overflow-y: auto; padding: 15px; z-index: 10;
+            display: flex; flex-direction: column; gap: 15px;
+            padding-bottom: 160px; -webkit-overflow-scrolling: touch;
         }
-
-        /* WISH CARD (KACA TRANSPARAN) */
+        
+        /* KARTU TRANSPARAN & ANTI GEPENG */
         .wish-card {
-            /* UBAH 4: Kartu menggunakan variabel glass-bg yang baru */
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border);
-            border-radius: 18px;
-            padding: 20px;
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-            /* Shadow diperhalus biar gak terlalu ngeblok */
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.112);
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow: visible;
+            background: var(--glass-bg); /* Transparan */
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border); border-radius: 18px;
+            padding: 20px; /* Padding lega */
+            width: 100%; max-width: 600px; margin: 0 auto;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+            display: flex; flex-direction: column;
+            position: relative; overflow: visible;
             animation: popIn 0.3s ease-out;
         }
-
-        @keyframes popIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+        @keyframes popIn { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
 
         /* HEADER KARTU */
         .card-top {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            width: 100%;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 12px;
-            margin-bottom: 12px;
-            padding-right: 60px;
+            display: flex; align-items: center; gap: 15px;
+            width: 100%; border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 12px; margin-bottom: 10px;
+            padding-right: 70px; /* Space buat jam */
         }
-
+        
         .avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
+            width: 48px; height: 48px; border-radius: 50%;
             background: linear-gradient(135deg, #FFD700, #B8860B);
-            color: #000;
-            font-weight: 800;
-            font-family: 'Cinzel';
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.4rem;
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            flex-shrink: 0;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+            color: #000; font-weight: 800; font-family: 'Cinzel';
+            display: flex; justify-content: center; align-items: center;
+            font-size: 1.4rem; border: 2px solid rgba(255,255,255,0.6);
+            flex-shrink: 0; box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
         }
 
-        .user-info {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .sender-name {
-            color: var(--gold);
-            font-weight: 700;
-            font-family: 'Cinzel';
-            font-size: 1.1rem;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-        }
-
-        .verified {
-            color: #00f3ff;
-            margin-left: 5px;
-            text-shadow: 0 0 5px cyan;
-            font-size: 1rem;
-        }
-
-        /* TIMESTAMP DIPAKU DI KANAN ATAS - Transparan */
-        .timestamp {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.8);
-            font-family: monospace;
-            letter-spacing: 1px;
-            background: rgba(0, 0, 0, 0.2);
-            padding: 4px 8px;
-            border-radius: 6px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .user-info { display: flex; flex-direction: column; justify-content: center; }
+        .sender-name { color: var(--gold); font-weight: 700; font-family: 'Cinzel'; font-size: 1.1rem; text-shadow: 0 1px 3px black; }
+        .verified { color: #00f3ff; margin-left: 5px; text-shadow: 0 0 5px cyan; font-size: 1rem; }
+        
+        /* TIMESTAMP DI POJOK KANAN ATAS */
+        .timestamp { 
+            position: absolute; top: 20px; right: 20px;
+            font-size: 0.75rem; color: rgba(255,255,255,0.8); 
+            font-family: monospace; letter-spacing: 1px;
+            background: rgba(0,0,0,0.3); padding: 4px 8px; border-radius: 6px;
         }
 
         /* BODY PESAN */
         .card-body {
-            font-size: 1.15rem;
-            color: #ffffff;
-            line-height: 1.6;
-            font-weight: 400;
-            /* Shadow teks diperhalus */
-            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+            font-size: 1.15rem; color: #ffffff; line-height: 1.6; font-weight: 400;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.8); /* Shadow teks biar jelas di transparan */
             margin-left: 63px;
-            word-wrap: break-word;
-            padding-bottom: 5px;
+            word-wrap: break-word; padding-bottom: 5px;
         }
 
         /* ACTIONS */
         .card-actions {
-            display: flex;
-            gap: 25px;
-            font-size: 0.9rem;
-            color: #ddd;
-            margin-top: 8px;
-            margin-left: 63px;
+            display: flex; gap: 25px; font-size: 0.9rem; color: #ddd; 
+            margin-top: 8px; margin-left: 63px;
         }
+        .action-btn { cursor: pointer; display: flex; align-items: center; gap: 6px; transition: 0.2s; }
+        .action-btn:hover { color: white; transform: scale(1.1); }
+        .liked { color: #ff4444; font-weight: bold; }
 
-        .action-btn {
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: 0.2s;
-        }
-
-        .action-btn:hover {
-            color: white;
-            transform: scale(1.1);
-        }
-
-        .liked {
-            color: #ff4444;
-            font-weight: bold;
-        }
-
-        /* REPLY SECTION - Transparan */
+        /* REPLY LIST - TRANSPARAN */
         .reply-container {
-            /* UBAH 5: Reply box transparan */
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            padding: 12px;
-            display: none;
-            border-left: 3px solid var(--gold);
-            margin-left: 63px;
-            margin-top: 15px;
+            background: rgba(255,255,255,0.05); /* Reply box bening */
+            border-radius: 8px; padding: 12px;
+            display: none; border-left: 3px solid var(--gold); margin-left: 63px; margin-top: 15px;
         }
+        .reply-item { font-size: 0.95rem; color: #eee; margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px; text-shadow: 0 1px 2px black; }
+        
+        /* INPUT REPLY */
+        .reply-input-box { display: none; gap: 10px; margin-top: 15px; margin-left: 63px; }
+        .reply-input-box.show { display: flex; }
+        .reply-in { flex: 1; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 12px; border-radius: 8px; }
+        .reply-btn { background: var(--gold); border: none; padding: 0 20px; font-weight: bold; border-radius: 8px; cursor: pointer; color: black; }
 
-        .reply-item {
-            font-size: 0.95rem;
-            color: #eee;
-            margin-bottom: 8px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 5px;
-        }
-
-        .reply-input-box {
-            display: none;
-            gap: 10px;
-            margin-top: 15px;
-            margin-left: 63px;
-        }
-
-        .reply-input-box.show {
-            display: flex;
-        }
-
-        /* UBAH 6: Input reply transparan */
-        .reply-in {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            padding: 12px;
-            border-radius: 8px;
-            backdrop-filter: blur(5px);
-        }
-
-        .reply-btn {
-            background: var(--gold);
-            border: none;
-            padding: 0 20px;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-            color: black;
-        }
-
-        /* ADMIN STYLE - Lebih glowing tapi transparan */
+        /* ADMIN STYLE */
         .wish-card.admin {
             border: 2px solid var(--gold);
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(0, 0, 0, 0.4));
-            box-shadow: 0 0 35px rgba(255, 215, 0, 0.15);
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(0,0,0,0.6));
+            box-shadow: 0 0 35px rgba(255, 215, 0, 0.25);
         }
 
         /* BOTTOM PANEL TRANSPARAN */
         .bottom-panel {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            z-index: 50;
-            /* UBAH 7: Panel bawah kaca */
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            padding: 10px 15px 20px;
-            border-top: 1px solid var(--glass-border);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            position: fixed; bottom: 0; left: 0; width: 100%; z-index: 50;
+            background: rgba(0, 0, 0, 0.6); /* Bawah lebih gelap dikit biar tombol jelas */
+            backdrop-filter: blur(15px);
+            padding: 10px 15px 20px; border-top: 1px solid rgba(255,215,0,0.2);
+            display: flex; flex-direction: column; align-items: center;
         }
+        .reaction-bar { display: flex; gap: 15px; margin-bottom: 10px; }
+        .react-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.1); border-radius: 50%; width: 42px; height: 42px; font-size: 1.4rem; cursor: pointer; transition: 0.2s; backdrop-filter: blur(5px); }
+        .react-btn:active { transform: scale(0.9); background: var(--gold); }
 
-        .reaction-bar {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 10px;
-        }
-
-        /* UBAH 8: Tombol reaksi lebih bening */
-        .react-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            width: 42px;
-            height: 42px;
-            font-size: 1.4rem;
-            cursor: pointer;
-            transition: 0.2s;
-            backdrop-filter: blur(5px);
-        }
-
-        .react-btn:active {
-            transform: scale(0.9);
-            background: var(--gold);
-        }
-
-        .input-group {
-            display: flex;
-            gap: 10px;
-            width: 100%;
-            max-width: 650px;
-        }
-
-        /* UBAH 9: Input field transparan */
-        #name-input {
-            width: 30%;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            font-weight: 700;
-            border-radius: 12px;
-            padding: 12px;
-            text-align: center;
-            backdrop-filter: blur(5px);
-        }
-
-        #msg-input {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            border-radius: 12px;
-            padding: 12px;
-            backdrop-filter: blur(5px);
-        }
-
-        #send-btn {
-            background: linear-gradient(135deg, var(--gold), #ff8c00);
-            border: none;
-            border-radius: 12px;
-            width: 55px;
-            font-size: 1.4rem;
-            cursor: pointer;
-            color: #000;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
-        }
+        .input-group { display: flex; gap: 10px; width: 100%; max-width: 650px; }
+        #name-input { width: 30%; background: rgba(255,255,255,0.05); border: 1px solid var(--gold); color: var(--gold); font-weight: 700; border-radius: 12px; padding: 12px; text-align: center; }
+        #msg-input { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); color: white; border-radius: 12px; padding: 12px; }
+        #send-btn { background: linear-gradient(135deg, var(--gold), #ff8c00); border: none; border-radius: 12px; width: 55px; font-size: 1.4rem; cursor: pointer; color: #000; box-shadow: 0 0 15px rgba(255, 215, 0, 0.3); }
 
         /* OVERLAY */
-        #overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000;
-            z-index: 999;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            transition: 0.8s;
-        }
-
-        .btn-start {
-            padding: 20px 50px;
-            border: 2px solid var(--gold);
-            color: var(--gold);
-            font-family: 'Cinzel';
-            font-size: 1.5rem;
-            font-weight: bold;
-            background: rgba(255, 215, 0, 0.05);
-            border-radius: 50px;
-            animation: btnPulse 1.5s infinite;
-        }
-
-        @keyframes btnPulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.5);
-            }
-
-            70% {
-                box-shadow: 0 0 0 20px rgba(255, 215, 0, 0);
-            }
-        }
-
-        .shake {
-            animation: shakeAnim 0.3s;
-        }
-
-        @keyframes shakeAnim {
-            0% {
-                transform: translateX(0);
-            }
-
-            25% {
-                transform: translateX(5px);
-            }
-
-            75% {
-                transform: translateX(-5px);
-            }
-        }
+        #overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 999; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; transition: 0.8s; }
+        .btn-start { padding: 20px 50px; border: 2px solid var(--gold); color: var(--gold); font-family: 'Cinzel'; font-size: 1.5rem; font-weight: bold; background: rgba(255,215,0,0.05); border-radius: 50px; animation: btnPulse 1.5s infinite; }
+        @keyframes btnPulse { 0% { box-shadow: 0 0 0 0 rgba(255,215,0,0.5); } 70% { box-shadow: 0 0 0 20px rgba(255,215,0,0); } }
+        .shake { animation: shakeAnim 0.3s; }
+        @keyframes shakeAnim { 0% { transform: translateX(0); } 25% { transform: translateX(5px); } 75% { transform: translateX(-5px); } }
     </style>
 </head>
-
 <body>
 
     <div id="overlay">
@@ -555,10 +219,7 @@
     <canvas id="canvas"></canvas>
 
     <div class="header-container" id="main-header">
-        <div class="live-badge">
-            <div class="dot"></div> LIVE NOW | <span id="clock-display"
-                style="margin-left:5px; color:white;">00:00:00</span>
-        </div>
+        <div class="live-badge"><div class="dot"></div> LIVE NOW | <span id="clock-display" style="margin-left:5px; color:white;">00:00:00</span></div>
         <div class="year">2026</div>
         <div class="slider-wrapper" id="slider-container"></div>
     </div>
@@ -573,7 +234,7 @@
     <div class="bottom-panel">
         <div class="reaction-bar">
             <button class="react-btn" onclick="quickReact('🔥', 'Semangat membara di 2026!')">🔥</button>
-            <button class="react-btn" onclick="quickReact('❤️', 'Semoga tahun ini penuh cinta.')">❤️</button>
+            <button class="react-btn" onclick="quickReact('❤️', 'Cinta dan damai selalu.')">❤️</button>
             <button class="react-btn" onclick="quickReact('🎉', 'Happy New Year 2026!')">🎉</button>
             <button class="react-btn" onclick="quickReact('🚀', 'Karir & Rezeki melesat naik!')">🚀</button>
             <button class="react-btn" onclick="quickReact('👑', 'Bismillah jadi Sultan 2026!')">👑</button>
@@ -636,9 +297,9 @@
         window.addEventListener('touchmove', (e) => { mouse.x = e.touches[0].clientX; mouse.y = e.touches[0].clientY; });
 
         function playSound(type) {
-            if (!audioCtx) return;
+            if(!audioCtx) return;
             const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain();
-            osc.frequency.setValueAtTime(type === 'boom' ? 100 : 600, audioCtx.currentTime);
+            osc.frequency.setValueAtTime(type==='boom'?100:600, audioCtx.currentTime);
             osc.frequency.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
             gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
             gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
@@ -649,7 +310,7 @@
         class Particle {
             constructor(x, y, color) {
                 this.x = x; this.y = y; this.color = color;
-                this.vx = (Math.random() - 0.5) * 4; this.vy = (Math.random() - 0.5) * 4;
+                this.vx = (Math.random()-0.5)*4; this.vy = (Math.random()-0.5)*4;
                 this.life = 1; this.decay = 0.02;
             }
             update() { this.x += this.vx; this.y += this.vy; this.life -= this.decay; }
@@ -659,36 +320,36 @@
         class Firework {
             constructor(x, targetY, color) {
                 this.x = x; this.y = canvas.height; this.targetY = targetY; this.color = color;
-                this.vy = -Math.random() * 3 - 8; this.exploded = false;
+                this.vy = -Math.random()*3 - 8; this.exploded = false;
             }
             update() {
                 this.y += this.vy; this.vy *= 0.98;
-                if (this.y <= this.targetY || this.vy > -1) { this.exploded = true; this.explode(); }
+                if(this.y <= this.targetY || this.vy > -1) { this.exploded = true; this.explode(); }
             }
             draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, 3, 0, 6.28); ctx.fill(); }
             explode() {
                 playSound('boom');
-                for (let i = 0; i < 30; i++) particles.push(new Particle(this.x, this.y, this.color));
+                for(let i=0; i<30; i++) particles.push(new Particle(this.x, this.y, this.color));
             }
         }
 
         let fireworks = []; let particles = []; let stars = [];
-        for (let i = 0; i < 80; i++) stars.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, s: Math.random() * 2 });
+        for(let i=0; i<80; i++) stars.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, s:Math.random()*2});
 
         function animate() {
-            ctx.fillStyle = 'rgba(0,0,0,0.2)'; ctx.fillRect(0, 0, canvas.width, canvas.height);
-            stars.forEach(s => { ctx.fillStyle = 'white'; ctx.beginPath(); ctx.arc(s.x, s.y, s.s, 0, 6.28); ctx.fill(); });
-
-            if (Math.random() < 0.02) fireworks.push(new Firework(Math.random() * canvas.width, canvas.height / 2, '#FFD700'));
-
-            fireworks.forEach((fw, i) => { fw.update(); fw.draw(); if (fw.exploded) fireworks.splice(i, 1); });
-            particles.forEach((p, i) => { p.update(); p.draw(); if (p.life <= 0) particles.splice(i, 1); });
+            ctx.fillStyle = 'rgba(0,0,0,0.2)'; ctx.fillRect(0,0,canvas.width, canvas.height);
+            stars.forEach(s => { ctx.fillStyle='white'; ctx.beginPath(); ctx.arc(s.x, s.y, s.s, 0, 6.28); ctx.fill(); });
+            
+            if(Math.random() < 0.02) fireworks.push(new Firework(Math.random()*canvas.width, canvas.height/2, '#FFD700'));
+            
+            fireworks.forEach((fw,i) => { fw.update(); fw.draw(); if(fw.exploded) fireworks.splice(i,1); });
+            particles.forEach((p,i) => { p.update(); p.draw(); if(p.life<=0) particles.splice(i,1); });
             requestAnimationFrame(animate);
         }
 
         overlay.addEventListener('click', () => {
             audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            overlay.style.opacity = 0; setTimeout(() => overlay.remove(), 800); animate();
+            overlay.style.opacity = 0; setTimeout(()=>overlay.remove(), 800); animate();
         });
 
         // --- FIRESTORE LOGIC ---
@@ -697,14 +358,13 @@
             const nameIn = document.getElementById('name-input');
             const msgIn = document.getElementById('msg-input');
             const sendBtn = document.getElementById('send-btn');
-            // GANTI COLLECTION BIAR FRESH
-            const colRef = window.collection(window.db, 'gala_2026_final_fix_v2');
+            const colRef = window.collection(window.db, 'gala_2026_transparent_fix');
             const q = window.query(colRef, window.orderBy('timestamp', 'asc'));
 
-            if (localStorage.getItem('chatName')) nameIn.value = localStorage.getItem('chatName');
+            if(localStorage.getItem('chatName')) nameIn.value = localStorage.getItem('chatName');
 
             window.onSnapshot(q, (snapshot) => {
-                if (feedDiv.innerText.includes("Menunggu")) feedDiv.innerHTML = "";
+                if(feedDiv.innerText.includes("Menunggu")) feedDiv.innerHTML = "";
 
                 snapshot.docChanges().forEach((change) => {
                     if (change.type === "added") {
@@ -713,7 +373,7 @@
                         let nameDisplay = escapeHtml(data.name);
                         let specialClass = '';
                         let verifiedIcon = '';
-                        if (nameDisplay === "RONI SETIAWAN") {
+                        if(nameDisplay === "RONI SETIAWAN") {
                             verifiedIcon = ' <span class="verified">💎</span>';
                             specialClass = 'admin';
                         }
@@ -724,20 +384,19 @@
                         div.id = `card-${key}`;
                         div.ondblclick = () => window.likePost(key);
 
-                        // TIMESTAMP SUDAH DI KANAN ATAS
                         div.innerHTML = `
                             <div class="card-top">
                                 <div class="avatar">${initial}</div>
                                 <div class="user-info">
                                     <span class="sender-name">${nameDisplay}${verifiedIcon}</span>
                                 </div>
-                                <span class="timestamp">${new Date(data.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                                <span class="timestamp">${new Date(data.timestamp).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</span>
                             </div>
                             <div class="card-body">${escapeHtml(data.message)}</div>
                             <div class="reply-container" id="reply-list-${key}"></div>
                             <div class="card-actions">
                                 <div class="action-btn" onclick="likePost('${key}')">
-                                    <span id="heart-${key}">♡</span> <span id="likes-${key}">${data.likes || 0}</span>
+                                    <span id="heart-${key}">♡</span> <span id="likes-${key}">${data.likes||0}</span>
                                 </div>
                                 <div class="action-btn" onclick="toggleReply('${key}')">↩ Balas</div>
                             </div>
@@ -747,26 +406,26 @@
                             </div>
                         `;
                         feedDiv.appendChild(div);
-
-                        if (data.replies) {
+                        
+                        if(data.replies) {
                             const cont = document.getElementById(`reply-list-${key}`);
                             cont.style.display = 'block';
                             data.replies.forEach(r => renderReply(cont, r));
                         }
-
+                        
                         feedDiv.scrollTop = feedDiv.scrollHeight;
                         playSound('pop');
                     }
-
+                    
                     if (change.type === "modified") {
                         const data = change.doc.data();
                         const key = change.doc.id;
                         const likesEl = document.getElementById(`likes-${key}`);
-                        if (likesEl) likesEl.innerText = data.likes || 0;
+                        if(likesEl) likesEl.innerText = data.likes || 0;
                         const cont = document.getElementById(`reply-list-${key}`);
-                        if (cont) {
-                            cont.innerHTML = "";
-                            if (data.replies) {
+                        if(cont) {
+                            cont.innerHTML = ""; 
+                            if(data.replies) {
                                 cont.style.display = 'block';
                                 data.replies.forEach(r => renderReply(cont, r));
                             }
@@ -778,25 +437,37 @@
             sendBtn.onclick = async () => {
                 const name = nameIn.value.trim().toUpperCase() || "ANONIM";
                 const msg = msgIn.value.trim();
-                if (!msg) return;
+                if(!msg) return;
                 localStorage.setItem('chatName', name);
                 try {
                     await window.addDoc(colRef, { name: name, message: msg, likes: 0, replies: [], timestamp: Date.now() });
                     msgIn.value = "";
-                    fireworks.push(new Firework(window.innerWidth / 2, window.innerHeight / 2, '#00f3ff'));
+                    fireworks.push(new Firework(window.innerWidth/2, window.innerHeight/2, '#00f3ff'));
                 } catch (e) { alert("Error: " + e.message); }
             };
 
-            window.quickReact = async (emoji) => {
+            // FIX: TERIMA 2 ARGUMEN (EMOJI, TEXT)
+            window.quickReact = async (emoji, text) => {
                 const name = nameIn.value.trim().toUpperCase() || "ANONIM";
-                try { await window.addDoc(colRef, { name: name, message: emoji, likes: 0, replies: [], timestamp: Date.now() }); } catch (e) { }
+                // Gabung Emoji + Text
+                const finalMsg = text ? `${emoji} ${text}` : emoji;
+                
+                try { 
+                    await window.addDoc(colRef, { 
+                        name: name, 
+                        message: finalMsg, 
+                        likes: 0, 
+                        replies: [], 
+                        timestamp: Date.now() 
+                    }); 
+                } catch (e) {}
             };
         });
 
         window.likePost = (key) => {
             const heart = document.getElementById(`heart-${key}`);
-            if (heart) heart.innerText = '♥';
-            const docRef = window.doc(window.db, 'gala_2026_final_fix_v2', key);
+            if(heart) heart.innerText = '♥';
+            const docRef = window.doc(window.db, 'gala_2026_transparent_fix', key);
             window.updateDoc(docRef, { likes: window.increment(1) });
         };
 
@@ -806,8 +477,8 @@
             const input = document.getElementById(`reply-input-${key}`);
             const text = input.value.trim();
             const name = document.getElementById('name-input').value.trim().toUpperCase() || "ANONIM";
-            if (!text) return;
-            const docRef = window.doc(window.db, 'gala_2026_final_fix_v2', key);
+            if(!text) return;
+            const docRef = window.doc(window.db, 'gala_2026_transparent_fix', key);
             window.updateDoc(docRef, { replies: window.arrayUnion({ name, text }) });
             input.value = ""; document.getElementById(`reply-box-${key}`).classList.remove('show');
         };
@@ -821,5 +492,4 @@
         function escapeHtml(text) { return text ? text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : ""; }
     </script>
 </body>
-
 </html>
