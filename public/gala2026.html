@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>RONI'S ROYAL GALA - FINAL FIX</title>
+    <title>RONI'S ROYAL GALA - LIVE FIX</title>
     
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -33,10 +33,9 @@
         
         :root {
             --gold: #FFD700;
-            --gold-light: #ffec8b;
             --accent: #00f3ff;
-            --glass-bg: rgba(20, 20, 35, 0.85); /* Lebih gelap biar teks kebaca */
-            --glass-border: rgba(255, 215, 0, 0.2);
+            --glass-bg: rgba(20, 20, 35, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.15);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
@@ -49,13 +48,22 @@
 
         canvas { position: fixed; top: 0; left: 0; z-index: 0; pointer-events: none; }
 
-        /* HEADER */
+        /* HEADER & LIVE CLOCK */
         .header-container {
-            z-index: 10; padding: 15px; text-align: center; flex-shrink: 0;
+            z-index: 10; padding: 10px 15px; text-align: center; flex-shrink: 0;
             background: linear-gradient(to bottom, rgba(0,0,0,0.95), transparent);
-            border-bottom: 1px solid rgba(255,215,0,0.2);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
+
+        .live-indicator {
+            display: inline-flex; align-items: center; gap: 8px;
+            font-family: 'Cinzel'; font-size: 0.8rem; color: var(--accent);
+            background: rgba(0, 243, 255, 0.1); padding: 5px 12px; border-radius: 20px;
+            border: 1px solid var(--accent); margin-bottom: 5px;
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+        }
+        .dot { width: 8px; height: 8px; background: red; border-radius: 50%; box-shadow: 0 0 5px red; animation: blink 1s infinite; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
 
         .year {
             font-size: 2.8rem; font-weight: 900; line-height: 1; margin: 5px 0 10px 0; font-family: 'Cinzel';
@@ -67,9 +75,7 @@
         @keyframes pulseGlow { from { filter: drop-shadow(0 0 5px var(--gold)); } to { filter: drop-shadow(0 0 20px var(--gold)); } }
 
         /* SLIDER CARD */
-        .slider-wrapper {
-            width: 100%; max-width: 500px; height: 80px; margin: 0 auto; position: relative;
-        }
+        .slider-wrapper { width: 100%; max-width: 500px; height: 75px; margin: 0 auto; position: relative; }
         .roast-card {
             position: absolute; width: 100%; height: 100%;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
@@ -97,87 +103,86 @@
             -webkit-overflow-scrolling: touch;
         }
         
-        /* FIX LAYOUT KARTU BIAR GAK GEPENG */
+        /* CARD FIX: ANTI GEPENG */
         .wish-card {
             background: var(--glass-bg); 
             backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border); border-radius: 16px;
-            padding: 16px; /* Padding ditambah biar lega */
+            border: 1px solid var(--glass-border); border-radius: 18px;
+            padding: 18px; /* Padding lebih besar */
             animation: popIn 0.3s ease-out;
             max-width: 600px; margin: 0 auto; width: 100%;
             box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-            display: flex; flex-direction: column; /* Susun ke bawah */
-            position: relative; overflow: hidden;
+            
+            /* Penting: Layout Block biar isinya dorong tinggi kartu */
+            display: block; 
+            position: relative; overflow: visible;
         }
         @keyframes popIn { from { opacity:0; transform:scale(0.95); } to { opacity:1; transform:scale(1); } }
 
-        /* HEADER KARTU: AVATAR KIRI, NAMA TENGAH, JAM KANAN MENTOK */
+        /* HEADER KARTU */
         .card-top {
             display: flex; align-items: center; gap: 12px;
-            width: 100%; border-bottom: 1px solid rgba(255,255,255,0.05);
-            padding-bottom: 8px; margin-bottom: 8px;
+            width: 100%; border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 10px; margin-bottom: 10px;
         }
         
         .avatar {
-            width: 42px; height: 42px; border-radius: 50%;
+            width: 45px; height: 45px; border-radius: 50%;
             background: linear-gradient(135deg, #FFD700, #B8860B);
             color: #000; font-weight: 800; font-family: 'Cinzel';
             display: flex; justify-content: center; align-items: center;
-            font-size: 1.2rem; border: 2px solid rgba(255,255,255,0.3);
-            flex-shrink: 0; /* Biar avatar gak gepeng */
+            font-size: 1.3rem; border: 2px solid rgba(255,255,255,0.5);
+            flex-shrink: 0; box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
         }
 
-        .user-info {
-            display: flex; flex-direction: column; flex: 1;
-        }
+        .user-info { flex: 1; }
+        .top-row { display: flex; justify-content: space-between; align-items: center; }
 
-        .top-row {
-            display: flex; justify-content: space-between; align-items: center; width: 100%;
-        }
-
-        .sender-name { color: var(--gold); font-weight: 700; font-family: 'Cinzel'; font-size: 1rem; }
+        .sender-name { color: var(--gold); font-weight: 700; font-family: 'Cinzel'; font-size: 1.1rem; text-shadow: 0 0 5px rgba(255, 215, 0, 0.3); }
         .verified { color: #00f3ff; margin-left: 5px; text-shadow: 0 0 5px cyan; }
         
-        /* JAM DI UJUNG KANAN */
+        /* JAM DI POJOK KANAN */
         .timestamp { 
-            font-size: 0.75rem; color: rgba(255,255,255,0.6); 
+            font-size: 0.75rem; color: rgba(255,255,255,0.7); 
             font-family: monospace; letter-spacing: 1px;
         }
 
-        /* ISI PESAN (PUTIH TERANG & LEGA) */
+        /* BODY PESAN */
         .card-body {
-            font-size: 1.1rem; color: #ffffff; line-height: 1.5; font-weight: 400;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
-            margin-left: 54px; /* Indent biar sejajar nama */
-            word-wrap: break-word; /* Biar teks panjang turun ke bawah */
+            font-size: 1.1rem; color: #ffffff; line-height: 1.6; font-weight: 400;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.9);
+            margin-left: 57px; /* Indentasi rapi */
+            word-wrap: break-word;
+            padding-bottom: 5px;
         }
 
-        /* ACTIONS & REPLY */
+        /* ACTIONS */
         .card-actions {
-            display: flex; gap: 20px; font-size: 0.85rem; color: #aaa; 
-            margin-top: 5px; margin-left: 54px;
+            display: flex; gap: 20px; font-size: 0.9rem; color: #ccc; 
+            margin-top: 5px; margin-left: 57px;
         }
-        .action-btn { cursor: pointer; display: flex; align-items: center; gap: 5px; }
+        .action-btn { cursor: pointer; display: flex; align-items: center; gap: 5px; transition: 0.2s; }
+        .action-btn:hover { color: white; transform: scale(1.05); }
         .liked { color: #ff4444; font-weight: bold; }
 
         /* REPLY LIST */
         .reply-container {
-            background: rgba(0,0,0,0.3); border-radius: 8px; padding: 10px;
-            display: none; border-left: 3px solid var(--gold); margin-left: 54px; margin-top: 10px;
+            background: rgba(0,0,0,0.4); border-radius: 8px; padding: 12px;
+            display: none; border-left: 3px solid var(--gold); margin-left: 57px; margin-top: 12px;
         }
-        .reply-item { font-size: 0.9rem; color: #ddd; margin-bottom: 6px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 4px; }
+        .reply-item { font-size: 0.95rem; color: #eee; margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 5px; }
         
         /* INPUT REPLY */
-        .reply-input-box { display: none; gap: 10px; margin-top: 10px; margin-left: 54px; }
+        .reply-input-box { display: none; gap: 10px; margin-top: 12px; margin-left: 57px; }
         .reply-input-box.show { display: flex; }
         .reply-in { flex: 1; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 10px; border-radius: 8px; }
         .reply-btn { background: var(--gold); border: none; padding: 0 15px; font-weight: bold; border-radius: 8px; cursor: pointer; }
 
-        /* STYLE KHUSUS ADMIN */
+        /* ADMIN STYLE */
         .wish-card.admin {
             border: 2px solid var(--gold);
             background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(0,0,0,0.9));
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.25);
         }
 
         /* BOTTOM PANEL */
@@ -194,7 +199,7 @@
         .input-group { display: flex; gap: 10px; width: 100%; max-width: 650px; }
         #name-input { width: 30%; background: rgba(30, 30, 40, 0.8); border: 1px solid var(--gold); color: var(--gold); font-weight: 700; border-radius: 12px; padding: 12px; text-align: center; }
         #msg-input { flex: 1; background: rgba(30, 30, 40, 0.8); border: 1px solid rgba(255,255,255,0.2); color: white; border-radius: 12px; padding: 12px; }
-        #send-btn { background: linear-gradient(135deg, var(--gold), #ff8c00); border: none; border-radius: 12px; width: 55px; font-size: 1.4rem; cursor: pointer; color: #000; box-shadow: 0 0 15px rgba(255, 215, 0, 0.3); }
+        #send-btn { background: linear-gradient(135deg, var(--gold), #ff8c00); border: none; border-radius: 12px; width: 55px; font-size: 1.4rem; cursor: pointer; color: #000; }
 
         /* OVERLAY */
         #overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 999; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; transition: 0.8s; }
@@ -214,6 +219,7 @@
     <canvas id="canvas"></canvas>
 
     <div class="header-container" id="main-header">
+        <div class="live-indicator"><div class="dot"></div> LIVE NOW | <span id="clock-display">00:00:00</span></div>
         <div class="year">2026</div>
         <div class="slider-wrapper" id="slider-container"></div>
     </div>
@@ -241,6 +247,13 @@
     </div>
 
     <script>
+        // --- REALTIME CLOCK ---
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock-display').innerText = now.toLocaleTimeString('id-ID');
+        }
+        setInterval(updateClock, 1000); updateClock();
+
         // --- SLIDER DATA ---
         const roastData = [
             { title: "RONI SETIAWAN", text: "Selamat Tahun Baru 2026! Semoga tahun ini rezekinya 'gacor' dan dijauhkan dari teman yang suka 'pinjam dulu seratus'." },
@@ -356,26 +369,12 @@
             requestAnimationFrame(animate);
         }
 
-        // Click Explosion
-        const handleInteraction = (e) => {
-            const x = e.clientX || e.touches[0].clientX;
-            const y = e.clientY || e.touches[0].clientY;
-            playSound('boom');
-            for (let i = 0; i < 30; i++) {
-                const angle = Math.random() * Math.PI * 2;
-                const velocity = { x: Math.cos(angle) * (Math.random()*6), y: Math.sin(angle) * (Math.random()*6) };
-                particles.push(new Particle(x, y, '#FFD700', velocity));
-            }
-        };
-        window.addEventListener('mousedown', (e) => { if(overlay.style.display==='none') handleInteraction(e) });
-        window.addEventListener('touchstart', (e) => { if(overlay.style.display==='none') handleInteraction(e) });
-
         overlay.addEventListener('click', () => {
             audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             overlay.style.opacity = 0; setTimeout(()=>overlay.remove(), 800); animate();
         });
 
-        // --- FIRESTORE LOGIC (FIXED) ---
+        // --- FIRESTORE LOGIC ---
         window.addEventListener('firebase-ready', () => {
             const feedDiv = document.getElementById('feed');
             const nameIn = document.getElementById('name-input');
@@ -391,11 +390,11 @@
                 if(feedDiv.innerText.includes("Menunggu")) feedDiv.innerHTML = "";
 
                 snapshot.docChanges().forEach((change) => {
-                    const data = change.doc.data();
-                    const key = change.doc.id;
-
-                    // 1. DATA ADDED
                     if (change.type === "added") {
+                        const data = change.doc.data();
+                        const key = change.doc.id;
+
+                        // ADMIN CHECK
                         let nameDisplay = escapeHtml(data.name);
                         let specialClass = '';
                         let verifiedIcon = '';
@@ -411,7 +410,7 @@
                         div.className = `wish-card ${specialClass}`;
                         div.id = `card-${key}`;
                         
-                        // HTML STRUKTUR BARU (BIAR GAK GEPENG)
+                        // STRUCTURE BARU (BIAR GAK GEPENG)
                         div.innerHTML = `
                             <div class="card-top">
                                 <div class="avatar">${initial}</div>
@@ -441,7 +440,7 @@
                         `;
                         feedDiv.appendChild(div);
                         
-                        // 🔥 FIX PENTING: LOAD REPLY LAMA 🔥
+                        // Load Replies
                         if(data.replies && data.replies.length > 0) {
                             const cont = document.getElementById(`reply-list-${key}`);
                             cont.style.display = 'block';
@@ -449,19 +448,15 @@
                         }
 
                         feedDiv.scrollTop = feedDiv.scrollHeight;
-                        
-                        // Fireworks Trigger
-                        const x = Math.random() * canvas.width;
-                        fireworks.push(new Firework(x, canvas.height/2, '#FFD700'));
+                        fireworks.push(new Firework(Math.random()*canvas.width, canvas.height/2, '#FFD700'));
                         playSound('pop');
                     }
                     
-                    // 2. DATA MODIFIED (Update Likes/Reply)
                     if (change.type === "modified") {
-                        const likesEl = document.getElementById(`likes-${key}`);
-                        if(likesEl) likesEl.innerText = data.likes || 0;
+                        const data = change.doc.data();
+                        const key = change.doc.id;
+                        document.getElementById(`likes-${key}`).innerText = data.likes || 0;
                         
-                        // Refresh Replies
                         const cont = document.getElementById(`reply-list-${key}`);
                         if(cont) {
                             cont.innerHTML = ""; 
@@ -474,7 +469,7 @@
                 });
             });
 
-            // SEND MSG
+            // SEND BUTTON
             sendBtn.onclick = async () => {
                 const name = nameIn.value.trim().toUpperCase() || "ANONIM";
                 const msg = msgIn.value.trim();
@@ -504,9 +499,6 @@
                 heart.innerText = '♥'; heart.classList.add('liked');
                 const docRef = window.doc(window.db, 'gala_2026_final', key);
                 window.updateDoc(docRef, { likes: window.increment(1) });
-                // Mini explosion
-                const rect = heart.getBoundingClientRect();
-                for(let i=0; i<10; i++) particles.push(new Particle(rect.left, rect.top, '#ff4444', {x:(Math.random()-0.5)*5, y:(Math.random()-0.5)*5}));
             }
         };
 
