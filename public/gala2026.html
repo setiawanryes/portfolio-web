@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>RONI'S ROYAL GALA 2026 - FINAL FIX</title>
+    <title>RONI'S ROYAL GALA - TIMESTAMP FIX</title>
     
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, addDoc, onSnapshot, doc, updateDoc, arrayUnion, increment, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // CONFIG (JANGAN DIUBAH)
         const firebaseConfig = {
             apiKey: "AIzaSyBGS2_U6M-lC0YozJd0FCHpncyNLE1mE2g",
             authDomain: "portfolio-setiawanryes.firebaseapp.com",
@@ -35,7 +34,7 @@
         :root {
             --gold: #FFD700;
             --accent: #00f3ff;
-            --glass-bg: rgba(20, 20, 35, 0.9); /* Lebih solid biar gak transparan bgt */
+            --glass-bg: rgba(20, 20, 35, 0.9);
             --glass-border: rgba(255, 255, 255, 0.15);
         }
 
@@ -49,10 +48,10 @@
 
         canvas { position: fixed; top: 0; left: 0; z-index: 0; pointer-events: none; }
 
-        /* HEADER & LIVE */
+        /* HEADER */
         .header-container {
             z-index: 10; padding: 10px 15px; text-align: center; flex-shrink: 0;
-            background: rgba(0,0,0,0.85); border-bottom: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.9); border-bottom: 1px solid rgba(255,255,255,0.1);
             position: relative;
         }
 
@@ -75,7 +74,7 @@
         }
         @keyframes pulseGlow { from { filter: drop-shadow(0 0 5px var(--gold)); } to { filter: drop-shadow(0 0 20px var(--gold)); } }
 
-        /* SLIDER CARD (ROASTING) */
+        /* SLIDER CARD */
         .slider-wrapper { width: 100%; max-width: 500px; height: 80px; margin: 0 auto; position: relative; }
         .roast-card {
             position: absolute; width: 100%; height: 100%;
@@ -88,12 +87,7 @@
         .roast-title { color: var(--gold); font-family: 'Cinzel'; font-weight: bold; margin-bottom: 4px; letter-spacing: 1px; font-size: 0.9rem; }
         .roast-content { font-size: 0.85rem; font-style: italic; text-align: center; color: #fff; text-shadow: 0 1px 2px black; line-height: 1.3; }
         
-        @keyframes slideFade { 
-            0% { opacity:0; transform:translateY(20px) scale(0.9); } 
-            10% { opacity:1; transform:translateY(0) scale(1); } 
-            90% { opacity:1; transform:translateY(0) scale(1); } 
-            100% { opacity:0; transform:translateY(-20px) scale(0.9); } 
-        }
+        @keyframes slideFade { 0%,100% { opacity:0; transform:translateY(10px); } 10%,90% { opacity:1; transform:translateY(0); } }
 
         /* FEED CHAT */
         .feed-container {
@@ -102,17 +96,17 @@
             padding-bottom: 160px; -webkit-overflow-scrolling: touch;
         }
         
-        /* CARD FIX: ANTI GEPENG & LEGA */
+        /* WISH CARD (ANTI GEPENG + RELATIVE POS) */
         .wish-card {
             background: var(--glass-bg); 
-            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(15px);
             border: 1px solid var(--glass-border); border-radius: 18px;
-            padding: 20px; /* Padding besar biar lega */
-            animation: popIn 0.3s ease-out;
-            max-width: 600px; margin: 0 auto; width: 100%;
+            padding: 20px; /* Padding lega */
+            width: 100%; max-width: 600px; margin: 0 auto;
             box-shadow: 0 8px 30px rgba(0,0,0,0.4);
-            display: flex; flex-direction: column; /* Susun ke bawah */
-            position: relative; overflow: hidden;
+            display: flex; flex-direction: column;
+            position: relative; /* Wajib buat absolute timestamp */
+            overflow: visible; animation: popIn 0.3s ease-out;
         }
         @keyframes popIn { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
 
@@ -120,7 +114,8 @@
         .card-top {
             display: flex; align-items: center; gap: 15px;
             width: 100%; border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 10px; margin-bottom: 10px;
+            padding-bottom: 12px; margin-bottom: 12px;
+            padding-right: 60px; /* Kasih ruang buat jam di kanan */
         }
         
         .avatar {
@@ -132,24 +127,26 @@
             flex-shrink: 0; box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
         }
 
-        .user-info { flex: 1; display: flex; justify-content: space-between; align-items: center; }
-        .sender-col { display: flex; flex-direction: column; }
-
+        .user-info { display: flex; flex-direction: column; justify-content: center; }
         .sender-name { color: var(--gold); font-weight: 700; font-family: 'Cinzel'; font-size: 1.1rem; text-shadow: 0 0 5px rgba(255, 215, 0, 0.3); }
         .verified { color: #00f3ff; margin-left: 5px; text-shadow: 0 0 5px cyan; font-size: 1rem; }
         
-        /* JAM DI POJOK KANAN */
+        /* TIMESTAMP DIPAKU DI KANAN ATAS */
         .timestamp { 
-            font-size: 0.7rem; color: rgba(255,255,255,0.6); 
+            position: absolute; /* Kunci Posisi */
+            top: 20px; 
+            right: 20px;
+            font-size: 0.75rem; color: rgba(255,255,255,0.7); 
             font-family: monospace; letter-spacing: 1px;
-            align-self: flex-start; /* Mentok atas */
+            background: rgba(0,0,0,0.3); padding: 4px 8px; border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         /* BODY PESAN */
         .card-body {
             font-size: 1.15rem; color: #ffffff; line-height: 1.6; font-weight: 400;
             text-shadow: 0 1px 2px rgba(0,0,0,0.9);
-            margin-left: 63px; /* Indentasi rapi di bawah nama */
+            margin-left: 63px; /* Indentasi di bawah nama */
             word-wrap: break-word; padding-bottom: 5px;
         }
 
@@ -162,15 +159,13 @@
         .action-btn:hover { color: white; transform: scale(1.1); }
         .liked { color: #ff4444; font-weight: bold; }
 
-        /* REPLY LIST - FIXED & PERSISTENT */
+        /* REPLY SECTION */
         .reply-container {
             background: rgba(0,0,0,0.4); border-radius: 8px; padding: 12px;
             display: none; border-left: 3px solid var(--gold); margin-left: 63px; margin-top: 15px;
         }
         .reply-item { font-size: 0.95rem; color: #eee; margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 5px; }
-        .reply-item b { color: var(--gold); font-family: 'Cinzel'; margin-right: 5px; }
         
-        /* INPUT REPLY */
         .reply-input-box { display: none; gap: 10px; margin-top: 15px; margin-left: 63px; }
         .reply-input-box.show { display: flex; }
         .reply-in { flex: 1; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 12px; border-radius: 8px; }
@@ -252,7 +247,7 @@
         }
         setInterval(updateClock, 1000); updateClock();
 
-        // --- SLIDER DATA (NEW ROAST DATA) ---
+        // --- SLIDER DATA ---
         const roastData = [
             { name: "RONI SETIAWAN", text: "Selamat Tahun Baru 2026! Semoga tahun ini rezekinya 'gacor' dan dijauhkan dari teman yang suka 'pinjam dulu seratus'." },
             { name: "GEN 98+", text: "Udah 2026 woy! Jangan cuma kondangan mulu, kapan ngundangnya? 🤣" },
@@ -276,7 +271,6 @@
             sliderContainer.innerHTML = '';
             const card = document.createElement('div');
             card.className = 'roast-card';
-            // PERBAIKAN: Menggunakan item.name untuk judul
             card.innerHTML = `<div class="roast-title">✨ ${item.name} ✨</div><div class="roast-content">"${item.text}"</div>`;
             sliderContainer.appendChild(card);
             sliderIndex = (sliderIndex + 1) % roastData.length;
@@ -333,7 +327,7 @@
         }
 
         let fireworks = []; let particles = []; let stars = [];
-        for(let i=0; i<100; i++) stars.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, size:Math.random()*2});
+        for(let i=0; i<80; i++) stars.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, s:Math.random()*2});
 
         function animate() {
             ctx.fillStyle = 'rgba(0,0,0,0.2)'; ctx.fillRect(0,0,canvas.width, canvas.height);
@@ -357,9 +351,8 @@
             const nameIn = document.getElementById('name-input');
             const msgIn = document.getElementById('msg-input');
             const sendBtn = document.getElementById('send-btn');
-            
-            // COLLECTION BARU BIAR BERSIH & NO ERROR
-            const colRef = window.collection(window.db, 'gala_2026_final_fix');
+            // GANTI COLLECTION BIAR FRESH
+            const colRef = window.collection(window.db, 'gala_2026_final_fix_v2');
             const q = window.query(colRef, window.orderBy('timestamp', 'asc'));
 
             if(localStorage.getItem('chatName')) nameIn.value = localStorage.getItem('chatName');
@@ -368,7 +361,6 @@
                 if(feedDiv.innerText.includes("Menunggu")) feedDiv.innerHTML = "";
 
                 snapshot.docChanges().forEach((change) => {
-                    // ADDED EVENT
                     if (change.type === "added") {
                         const data = change.doc.data();
                         const key = change.doc.id;
@@ -384,18 +376,16 @@
                         const div = document.createElement('div');
                         div.className = `wish-card ${specialClass}`;
                         div.id = `card-${key}`;
-                        // Double Tap Like
                         div.ondblclick = () => window.likePost(key);
 
+                        // TIMESTAMP SUDAH DI KANAN ATAS
                         div.innerHTML = `
                             <div class="card-top">
                                 <div class="avatar">${initial}</div>
                                 <div class="user-info">
-                                    <div class="sender-col">
-                                        <span class="sender-name">${nameDisplay}${verifiedIcon}</span>
-                                        <span class="timestamp">${new Date(data.timestamp).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</span>
-                                    </div>
+                                    <span class="sender-name">${nameDisplay}${verifiedIcon}</span>
                                 </div>
+                                <span class="timestamp">${new Date(data.timestamp).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</span>
                             </div>
                             <div class="card-body">${escapeHtml(data.message)}</div>
                             <div class="reply-container" id="reply-list-${key}"></div>
@@ -412,7 +402,6 @@
                         `;
                         feedDiv.appendChild(div);
                         
-                        // Load Existing Replies
                         if(data.replies) {
                             const cont = document.getElementById(`reply-list-${key}`);
                             cont.style.display = 'block';
@@ -423,18 +412,14 @@
                         playSound('pop');
                     }
                     
-                    // MODIFIED EVENT
                     if (change.type === "modified") {
                         const data = change.doc.data();
                         const key = change.doc.id;
-                        const likesEl = document.getElementById(`likes-${key}`);
-                        if(likesEl) likesEl.innerText = data.likes || 0;
-                        
-                        // Handle Replies Update
+                        document.getElementById(`likes-${key}`).innerText = data.likes || 0;
                         const cont = document.getElementById(`reply-list-${key}`);
                         if(cont) {
-                            cont.innerHTML = "";
-                            if(data.replies && data.replies.length > 0) {
+                            cont.innerHTML = ""; 
+                            if(data.replies) {
                                 cont.style.display = 'block';
                                 data.replies.forEach(r => renderReply(cont, r));
                             }
@@ -461,11 +446,10 @@
             };
         });
 
-        // GLOBAL ACTIONS
         window.likePost = (key) => {
             const heart = document.getElementById(`heart-${key}`);
             if(heart) heart.innerText = '♥';
-            const docRef = window.doc(window.db, 'gala_2026_final_fix', key);
+            const docRef = window.doc(window.db, 'gala_2026_final_fix_v2', key);
             window.updateDoc(docRef, { likes: window.increment(1) });
         };
 
@@ -476,7 +460,7 @@
             const text = input.value.trim();
             const name = document.getElementById('name-input').value.trim().toUpperCase() || "ANONIM";
             if(!text) return;
-            const docRef = window.doc(window.db, 'gala_2026_final_fix', key);
+            const docRef = window.doc(window.db, 'gala_2026_final_fix_v2', key);
             window.updateDoc(docRef, { replies: window.arrayUnion({ name, text }) });
             input.value = ""; document.getElementById(`reply-box-${key}`).classList.remove('show');
         };
@@ -484,7 +468,7 @@
         function renderReply(container, data) {
             const div = document.createElement('div');
             div.className = 'reply-item';
-            div.innerHTML = `<b>${escapeHtml(data.name)}:</b> ${escapeHtml(data.text)}`;
+            div.innerHTML = `<b style="color:var(--gold)">${escapeHtml(data.name)}:</b> ${escapeHtml(data.text)}`;
             container.appendChild(div);
         }
         function escapeHtml(text) { return text ? text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : ""; }
