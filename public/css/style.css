@@ -719,33 +719,87 @@ section {
   }
 }
 
+/* 1. WADAH UTAMA SLIDER */
 .skill-slider-container {
   display: flex;
-  gap: 20px;
-  width: 100%;
-  overflow-x: auto;
-  padding: 10px 5px 40px 5px;
+  flex-direction: row; /* Pastikan berbaris ke samping */
+  gap: 20px; /* Jarak antar kartu */
+  
+  /* KUNCI AGAR TIDAK MEMANJANG HALAMAN: */
+  width: 100%; 
+  max-width: 100%; /* Batasi lebar maksimal sesuai induk */
+  overflow-x: auto; /* Aktifkan scroll samping */
+  
+  padding: 10px 5px 40px 5px; /* Ruang untuk bayangan */
+  
+  /* Efek Scroll Halus & Magnet */
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
+  
+  /* Scrollbar styling */
   scrollbar-width: thin;
   scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
 }
 
+/* Scrollbar Webkit (Chrome/Edge) */
 .skill-slider-container::-webkit-scrollbar {
   height: 6px;
-  display: block;
 }
-
 .skill-slider-container::-webkit-scrollbar-track {
   background: transparent;
 }
-
 .skill-slider-container::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0.1);
   border-radius: 10px;
 }
 
+/* 2. ITEM KARTU SKILL */
+.skill-card-slide {
+  /* Ukuran Desktop Fixed */
+  min-width: 300px;
+  max-width: 300px;
+  
+  /* PENTING: Agar kartu tidak mengecil gepeng */
+  flex-shrink: 0; 
+  
+  /* Magnet Scroll */
+  scroll-snap-align: center;
+  
+  /* Tampilan Visual */
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(25px);
+  border: 1px solid white;
+  border-radius: 26px;
+  padding: 25px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s;
+}
+
+.spacer-end {
+  min-width: 1px; /* Penutup kecil di ujung kanan */
+  flex-shrink: 0;
+}
+
+/* 3. RESPONSIVE KHUSUS HP (WAJIB ADA) */
+/* Pastikan ini menimpa style di atas saat di HP */
+@media (max-width: 900px) {
+  .skill-card-slide {
+    /* Ubah ukuran jadi % layar HP biar pas */
+    min-width: 85vw !important;
+    max-width: 85vw !important;
+  }
+  
+  .skill-slider-container {
+    padding-right: 20px; /* Jarak aman di kanan */
+  }
+}
+.about-content, .tab-content {
+  min-width: 0; /* Ajaib! Ini mencegah Flexbox anak melebar tanpa batas */
+  width: 100%;
+}
 
 .skill-card-slide {
   min-width: 300px;
