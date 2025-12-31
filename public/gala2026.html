@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Gala New Years 2026</title>
+    <title>RONI'S ROYAL GALA - TRANSPARENT MODE</title>
     
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -34,33 +34,39 @@
         :root {
             --gold: #FFD700;
             --accent: #00f3ff;
-            --glass-bg: rgba(20, 20, 35, 0.9);
-            --glass-border: rgba(255, 255, 255, 0.15);
+            /* UBAH 1: Background kaca lebih transparan */
+            --glass-bg: rgba(0, 0, 0, 0.25); 
+            --glass-border: rgba(255, 255, 255, 0.2);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
 
         body {
-            background: radial-gradient(circle at bottom, #1a0b2e 0%, #000000 100%);
+            /* Background agak diterangin dikit biar kembang api makin nonjol */
+            background: radial-gradient(circle at bottom, #0a0015 0%, #000000 100%);
             color: white; height: 100vh; overflow: hidden; font-family: 'Outfit', sans-serif;
             display: flex; flex-direction: column;
         }
 
         canvas { position: fixed; top: 0; left: 0; z-index: 0; pointer-events: none; }
 
-        /* HEADER */
+        /* HEADER TRANSPARAN */
         .header-container {
             z-index: 10; padding: 10px 15px; text-align: center; flex-shrink: 0;
-            background: rgba(0,0,0,0.9); border-bottom: 1px solid rgba(255,255,255,0.1);
+            /* UBAH 2: Header jadi kaca */
+            background: rgba(0,0,0,0.2); 
+            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--glass-border);
             position: relative;
         }
 
         .live-badge {
             display: inline-flex; align-items: center; gap: 6px;
             font-family: 'Cinzel'; font-size: 0.8rem; color: var(--accent);
-            background: rgba(0, 243, 255, 0.15); padding: 4px 12px; border-radius: 20px;
+            background: rgba(0, 243, 255, 0.1); padding: 4px 12px; border-radius: 20px;
             border: 1px solid var(--accent); margin-bottom: 5px;
-            box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
+            backdrop-filter: blur(5px);
         }
         .dot { width: 8px; height: 8px; background: red; border-radius: 50%; box-shadow: 0 0 5px red; animation: blink 1s infinite; }
         @keyframes blink { 50% { opacity: 0.3; } }
@@ -70,43 +76,49 @@
             background: linear-gradient(to bottom, #fff, var(--gold));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.6));
-            animation: pulseGlow 2s infinite alternate;
         }
-        @keyframes pulseGlow { from { filter: drop-shadow(0 0 5px var(--gold)); } to { filter: drop-shadow(0 0 20px var(--gold)); } }
 
-        /* SLIDER CARD */
+        /* SLIDER CARD TRANSPARAN */
         .slider-wrapper { width: 100%; max-width: 500px; height: 80px; margin: 0 auto; position: relative; }
         .roast-card {
             position: absolute; width: 100%; height: 100%;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 215, 0, 0.3); border-radius: 12px;
-            padding: 5px 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-            animation: slideFade 6s infinite;
+            /* UBAH 3: Slider lebih bening */
+            background: rgba(255, 255, 255, 0.05); 
+            backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+            border: 1px solid var(--glass-border); border-radius: 12px;
+            padding: 5px 20px; animation: slideFade 6s infinite;
         }
         .roast-title { color: var(--gold); font-family: 'Cinzel'; font-weight: bold; margin-bottom: 4px; letter-spacing: 1px; font-size: 0.9rem; }
-        .roast-content { font-size: 0.85rem; font-style: italic; text-align: center; color: #fff; text-shadow: 0 1px 2px black; line-height: 1.3; }
+        .roast-content { font-size: 0.85rem; font-style: italic; text-align: center; color: #fff; text-shadow: 0 1px 1px rgba(0,0,0,0.5); line-height: 1.3; }
         
-        @keyframes slideFade { 0%,100% { opacity:0; transform:translateY(10px); } 10%,90% { opacity:1; transform:translateY(0); } }
+        @keyframes slideFade { 
+            0% { opacity:0; transform:translateY(20px) scale(0.9); } 
+            10% { opacity:1; transform:translateY(0) scale(1); } 
+            90% { opacity:1; transform:translateY(0) scale(1); } 
+            100% { opacity:0; transform:translateY(-20px) scale(0.9); } 
+        }
 
         /* FEED CHAT */
         .feed-container {
             flex: 1; overflow-y: auto; padding: 15px; z-index: 10;
             display: flex; flex-direction: column; gap: 15px;
             padding-bottom: 160px; -webkit-overflow-scrolling: touch;
+            /* Masking dihilangkan biar kembang api terlihat full dari atas ke bawah */
         }
         
-        /* WISH CARD (ANTI GEPENG + RELATIVE POS) */
+        /* WISH CARD (KACA TRANSPARAN) */
         .wish-card {
+            /* UBAH 4: Kartu menggunakan variabel glass-bg yang baru */
             background: var(--glass-bg); 
-            backdrop-filter: blur(15px);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
             border: 1px solid var(--glass-border); border-radius: 18px;
-            padding: 20px; /* Padding lega */
+            padding: 20px;
             width: 100%; max-width: 600px; margin: 0 auto;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+            /* Shadow diperhalus biar gak terlalu ngeblok */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             display: flex; flex-direction: column;
-            position: relative; /* Wajib buat absolute timestamp */
-            overflow: visible; animation: popIn 0.3s ease-out;
+            position: relative; overflow: visible; animation: popIn 0.3s ease-out;
         }
         @keyframes popIn { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
 
@@ -115,7 +127,7 @@
             display: flex; align-items: center; gap: 15px;
             width: 100%; border-bottom: 1px solid rgba(255,255,255,0.1);
             padding-bottom: 12px; margin-bottom: 12px;
-            padding-right: 60px; /* Kasih ruang buat jam di kanan */
+            padding-right: 60px;
         }
         
         .avatar {
@@ -123,75 +135,80 @@
             background: linear-gradient(135deg, #FFD700, #B8860B);
             color: #000; font-weight: 800; font-family: 'Cinzel';
             display: flex; justify-content: center; align-items: center;
-            font-size: 1.4rem; border: 2px solid rgba(255,255,255,0.6);
+            font-size: 1.4rem; border: 2px solid rgba(255,255,255,0.5);
             flex-shrink: 0; box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
         }
 
         .user-info { display: flex; flex-direction: column; justify-content: center; }
-        .sender-name { color: var(--gold); font-weight: 700; font-family: 'Cinzel'; font-size: 1.1rem; text-shadow: 0 0 5px rgba(255, 215, 0, 0.3); }
+        .sender-name { color: var(--gold); font-weight: 700; font-family: 'Cinzel'; font-size: 1.1rem; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
         .verified { color: #00f3ff; margin-left: 5px; text-shadow: 0 0 5px cyan; font-size: 1rem; }
         
-        /* TIMESTAMP DIPAKU DI KANAN ATAS */
+        /* TIMESTAMP DIPAKU DI KANAN ATAS - Transparan */
         .timestamp { 
-            position: absolute; /* Kunci Posisi */
-            top: 20px; 
-            right: 20px;
-            font-size: 0.75rem; color: rgba(255,255,255,0.7); 
+            position: absolute; top: 20px; right: 20px;
+            font-size: 0.75rem; color: rgba(255,255,255,0.8); 
             font-family: monospace; letter-spacing: 1px;
-            background: rgba(0,0,0,0.3); padding: 4px 8px; border-radius: 6px;
+            background: rgba(0,0,0,0.2); padding: 4px 8px; border-radius: 6px;
             border: 1px solid rgba(255,255,255,0.1);
         }
 
         /* BODY PESAN */
         .card-body {
             font-size: 1.15rem; color: #ffffff; line-height: 1.6; font-weight: 400;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.9);
-            margin-left: 63px; /* Indentasi di bawah nama */
-            word-wrap: break-word; padding-bottom: 5px;
+            /* Shadow teks diperhalus */
+            text-shadow: 0 1px 1px rgba(0,0,0,0.5);
+            margin-left: 63px; word-wrap: break-word; padding-bottom: 5px;
         }
 
         /* ACTIONS */
         .card-actions {
-            display: flex; gap: 25px; font-size: 0.9rem; color: #ccc; 
+            display: flex; gap: 25px; font-size: 0.9rem; color: #ddd; 
             margin-top: 8px; margin-left: 63px;
         }
         .action-btn { cursor: pointer; display: flex; align-items: center; gap: 6px; transition: 0.2s; }
         .action-btn:hover { color: white; transform: scale(1.1); }
         .liked { color: #ff4444; font-weight: bold; }
 
-        /* REPLY SECTION */
+        /* REPLY SECTION - Transparan */
         .reply-container {
-            background: rgba(0,0,0,0.4); border-radius: 8px; padding: 12px;
+            /* UBAH 5: Reply box transparan */
+            background: rgba(255,255,255,0.05); 
+            border-radius: 8px; padding: 12px;
             display: none; border-left: 3px solid var(--gold); margin-left: 63px; margin-top: 15px;
         }
-        .reply-item { font-size: 0.95rem; color: #eee; margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 5px; }
+        .reply-item { font-size: 0.95rem; color: #eee; margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px; }
         
         .reply-input-box { display: none; gap: 10px; margin-top: 15px; margin-left: 63px; }
         .reply-input-box.show { display: flex; }
-        .reply-in { flex: 1; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 12px; border-radius: 8px; }
+        /* UBAH 6: Input reply transparan */
+        .reply-in { flex: 1; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 12px; border-radius: 8px; backdrop-filter: blur(5px); }
         .reply-btn { background: var(--gold); border: none; padding: 0 20px; font-weight: bold; border-radius: 8px; cursor: pointer; color: black; }
 
-        /* ADMIN STYLE */
+        /* ADMIN STYLE - Lebih glowing tapi transparan */
         .wish-card.admin {
             border: 2px solid var(--gold);
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(0,0,0,0.9));
-            box-shadow: 0 0 35px rgba(255, 215, 0, 0.25);
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(0,0,0,0.4));
+            box-shadow: 0 0 35px rgba(255, 215, 0, 0.15);
         }
 
-        /* BOTTOM PANEL */
+        /* BOTTOM PANEL TRANSPARAN */
         .bottom-panel {
             position: fixed; bottom: 0; left: 0; width: 100%; z-index: 50;
-            background: rgba(10, 10, 15, 0.98); backdrop-filter: blur(15px);
-            padding: 10px 15px 20px; border-top: 1px solid rgba(255,215,0,0.2);
+            /* UBAH 7: Panel bawah kaca */
+            background: rgba(0, 0, 0, 0.4); 
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            padding: 10px 15px 20px; border-top: 1px solid var(--glass-border);
             display: flex; flex-direction: column; align-items: center;
         }
         .reaction-bar { display: flex; gap: 15px; margin-bottom: 10px; }
-        .react-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.1); border-radius: 50%; width: 42px; height: 42px; font-size: 1.4rem; cursor: pointer; transition: 0.2s; }
+        /* UBAH 8: Tombol reaksi lebih bening */
+        .react-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 50%; width: 42px; height: 42px; font-size: 1.4rem; cursor: pointer; transition: 0.2s; backdrop-filter: blur(5px); }
         .react-btn:active { transform: scale(0.9); background: var(--gold); }
 
         .input-group { display: flex; gap: 10px; width: 100%; max-width: 650px; }
-        #name-input { width: 30%; background: rgba(30, 30, 40, 0.8); border: 1px solid var(--gold); color: var(--gold); font-weight: 700; border-radius: 12px; padding: 12px; text-align: center; }
-        #msg-input { flex: 1; background: rgba(30, 30, 40, 0.8); border: 1px solid rgba(255,255,255,0.2); color: white; border-radius: 12px; padding: 12px; }
+        /* UBAH 9: Input field transparan */
+        #name-input { width: 30%; background: rgba(255,255,255,0.05); border: 1px solid var(--gold); color: var(--gold); font-weight: 700; border-radius: 12px; padding: 12px; text-align: center; backdrop-filter: blur(5px); }
+        #msg-input { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); color: white; border-radius: 12px; padding: 12px; backdrop-filter: blur(5px); }
         #send-btn { background: linear-gradient(135deg, var(--gold), #ff8c00); border: none; border-radius: 12px; width: 55px; font-size: 1.4rem; cursor: pointer; color: #000; box-shadow: 0 0 15px rgba(255, 215, 0, 0.3); }
 
         /* OVERLAY */
@@ -218,7 +235,7 @@
     </div>
 
     <div class="feed-container" id="feed">
-        <div style="text-align:center; color:#888; margin-top:80px;">
+        <div style="text-align:center; color:#fff; margin-top:80px; text-shadow: 0 2px 5px black;">
             <div style="font-size: 3rem; margin-bottom: 10px;">🎆</div>
             Menunggu tamu sultan...<br>Jadilah yang pertama!
         </div>
@@ -415,7 +432,8 @@
                     if (change.type === "modified") {
                         const data = change.doc.data();
                         const key = change.doc.id;
-                        document.getElementById(`likes-${key}`).innerText = data.likes || 0;
+                        const likesEl = document.getElementById(`likes-${key}`);
+                        if(likesEl) likesEl.innerText = data.likes || 0;
                         const cont = document.getElementById(`reply-list-${key}`);
                         if(cont) {
                             cont.innerHTML = ""; 
