@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>RONI'S GALA 2026 - CYBER HOLO</title>
+    <title>RONI'S ROYAL GALA 2026</title>
     
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, addDoc, onSnapshot, doc, updateDoc, arrayUnion, increment, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // ✅ CONFIG AMAN
+        // ✅ CONFIG FIRESTORE (AMAN)
         const firebaseConfig = {
             apiKey: "AIzaSyBGS2_U6M-lC0YozJd0FCHpncyNLE1mE2g",
             authDomain: "portfolio-setiawanryes.firebaseapp.com",
@@ -30,218 +30,183 @@
     </script>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Poppins:wght@300;400;600&display=swap');
         
         :root {
-            --cyan: #00f3ff;
-            --purple: #bc13fe;
-            --pink: #ff0055;
-            --gold: #ffd700;
-            --dark: #050508;
+            --primary: #ffd700; /* Emas */
+            --accent: #00f3ff; /* Cyan Neon */
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
 
         body {
-            background-color: var(--dark);
-            color: white; height: 100vh; overflow: hidden; 
-            font-family: 'Rajdhani', sans-serif;
+            /* Background Galaxy Elegan */
+            background: radial-gradient(circle at center, #1a1a2e 0%, #000000 100%);
+            color: white; height: 100vh; overflow: hidden; font-family: 'Poppins', sans-serif;
             display: flex; flex-direction: column;
         }
 
-        /* BACKGROUND GRID SYNTHWAVE */
-        .cyber-grid {
-            position: fixed; width: 200vw; height: 200vh;
-            top: -50%; left: -50%;
-            background-image: 
-                linear-gradient(rgba(188, 19, 254, 0.3) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 243, 255, 0.3) 1px, transparent 1px);
-            background-size: 50px 50px;
-            transform: perspective(500px) rotateX(60deg);
-            animation: gridMove 20s linear infinite;
-            z-index: 0; pointer-events: none; opacity: 0.2;
-        }
-        @keyframes gridMove { 0% { transform: perspective(500px) rotateX(60deg) translateY(0); } 100% { transform: perspective(500px) rotateX(60deg) translateY(50px); } }
+        canvas { position: fixed; top: 0; left: 0; z-index: 0; pointer-events: none; }
 
-        canvas { position: fixed; top: 0; left: 0; z-index: 1; pointer-events: none; }
-
-        /* HEADER GLITCH */
+        /* HEADER ELEGAN */
         .header-container {
-            z-index: 10; padding: 20px 15px 5px; text-align: center; flex-shrink: 0;
-            background: linear-gradient(to bottom, rgba(5,5,8,0.95), transparent);
-            border-bottom: 2px solid var(--cyan);
-            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
-            position: relative;
+            z-index: 10; padding: 20px 15px 10px; text-align: center; flex-shrink: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
-        
-        /* Glitch Title Effect */
-        .glitch-wrapper { position: relative; display: inline-block; }
         .title {
-            font-family: 'Orbitron', sans-serif; color: var(--cyan); font-size: 1.2rem; letter-spacing: 3px; font-weight: 900;
-            text-shadow: 2px 2px var(--purple); position: relative;
+            font-family: 'Cinzel', serif; color: var(--primary); font-size: 0.9rem; letter-spacing: 4px; font-weight: 700;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
         }
-        .title::before, .title::after {
-            content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.8;
-        }
-        .title::before { color: var(--pink); z-index: -1; animation: glitch-anim-1 2s infinite linear alternate-reverse; }
-        .title::after { color: var(--gold); z-index: -2; animation: glitch-anim-2 3s infinite linear alternate-reverse; }
-        
-        @keyframes glitch-anim-1 { 0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px,0); } 100% { clip-path: inset(60% 0 10% 0); transform: translate(2px,0); } }
-        @keyframes glitch-anim-2 { 0% { clip-path: inset(10% 0 60% 0); transform: translate(2px,0); } 100% { clip-path: inset(80% 0 5% 0); transform: translate(-2px,0); } }
-
         .year {
-            font-size: 3.5rem; font-weight: 900; line-height: 1; margin: 5px 0 10px 0; font-family: 'Orbitron';
-            background: linear-gradient(180deg, #fff, var(--gold));
+            font-size: 3.5rem; font-weight: 900; line-height: 1; margin: 5px 0 15px 0;
+            background: linear-gradient(45deg, #fff, var(--primary), #b8860b);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 10px var(--gold));
+            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.3));
+            animation: float 4s ease-in-out infinite;
         }
 
-        /* SLIDER HOLOGRAPHIC */
+        /* SLIDER CARD (Clean & Classy) */
         .slider-wrapper {
-            width: 100%; max-width: 500px; height: 80px; margin: 0 auto; position: relative;
+            width: 100%; max-width: 500px; height: 90px; margin: 0 auto; position: relative; overflow: hidden;
         }
         .roast-card {
             position: absolute; width: 100%; height: 100%;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            background: rgba(0, 243, 255, 0.05); border: 1px solid rgba(0, 243, 255, 0.3);
-            border-radius: 8px; padding: 5px 15px;
-            box-shadow: 0 0 15px rgba(0, 243, 255, 0.1) inset;
-            clip-path: polygon(10% 0, 100% 0, 100% 90%, 90% 100%, 0 100%, 0 10%); /* Sudut tech */
-            animation: holoFade 5s infinite;
+            background: var(--glass-bg); backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border); border-radius: 15px;
+            padding: 5px 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            animation: slideFade 5s infinite;
         }
-        .roast-title { color: var(--pink); font-family: 'Orbitron'; font-size: 0.8rem; font-weight: bold; letter-spacing: 1px; }
-        .roast-content { color: #eee; font-size: 0.9rem; font-style: italic; text-align: center; }
+        .roast-title {
+            color: var(--accent); font-family: 'Cinzel', serif; font-size: 0.8rem; font-weight: bold;
+            margin-bottom: 4px; letter-spacing: 2px; text-transform: uppercase;
+        }
+        .roast-content {
+            color: #eee; font-size: 0.85rem; font-style: italic; line-height: 1.3; text-align: center;
+        }
         
-        @keyframes holoFade { 0%,100% { opacity:0; transform:scale(0.9); } 10%,90% { opacity:1; transform:scale(1); } }
+        @keyframes slideFade {
+            0% { opacity: 0; transform: translateY(15px); }
+            10% { opacity: 1; transform: translateY(0); }
+            90% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-15px); }
+        }
 
-        /* FEED AREA */
+        /* FEED CHAT (Mewah) */
         .feed-container {
             flex: 1; overflow-y: auto; padding: 15px; z-index: 10;
             display: flex; flex-direction: column; gap: 15px;
-            padding-bottom: 100px; -webkit-overflow-scrolling: touch;
+            mask-image: linear-gradient(to bottom, transparent, black 5%, black 95%, transparent);
+            scrollbar-width: none; padding-bottom: 100px;
+            -webkit-overflow-scrolling: touch;
         }
         
         .wish-card {
-            background: rgba(10, 10, 20, 0.7); backdrop-filter: blur(8px);
-            border-left: 4px solid var(--cyan);
-            border-right: 1px solid rgba(255,255,255,0.1);
-            border-top: 1px solid rgba(255,255,255,0.1);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding: 12px; border-radius: 4px 15px 4px 15px;
-            animation: slideInLeft 0.3s ease-out;
-            position: relative; overflow: hidden;
+            background: rgba(30, 30, 40, 0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px;
+            padding: 15px; animation: popIn 0.4s ease-out;
+            max-width: 600px; margin: 0 auto; width: 100%;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
         }
-        /* Efek Kilau Hologram pas Hover */
-        .wish-card::before {
-            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-            transition: 0.5s;
-        }
-        .wish-card:hover::before { left: 100%; }
+        .wish-card:hover { transform: scale(1.01); border-color: rgba(255,255,255,0.3); }
         
-        @keyframes slideInLeft { from { opacity:0; transform:translateX(-20px); } to { opacity:1; transform:translateX(0); } }
-
-        .sender-name { color: var(--cyan); font-weight: 800; font-size: 1rem; font-family: 'Orbitron'; text-shadow: 0 0 5px var(--cyan); }
-        .timestamp { font-size: 0.7rem; color: #666; font-family: 'Rajdhani'; font-weight: 600; }
-        .card-body { font-size: 1.1rem; color: #fff; line-height: 1.4; margin-top: 5px; font-weight: 500; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .sender-name { color: var(--primary); font-weight: 700; font-size: 0.95rem; font-family: 'Cinzel'; }
+        .timestamp { font-size: 0.7rem; opacity: 0.5; }
+        .card-body { font-size: 1rem; color: #fff; line-height: 1.5; font-weight: 300; }
         
-        .card-actions { display: flex; gap: 15px; margin-top: 10px; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 8px; }
-        .action-btn { color: #888; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: 0.2s; }
+        .card-actions { display: flex; gap: 20px; margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.05); font-size: 0.85rem; color: #aaa; }
+        .action-btn { cursor: pointer; display: flex; align-items: center; gap: 6px; transition: 0.2s; }
         .action-btn:hover { color: white; }
-        .liked { color: var(--pink) !important; text-shadow: 0 0 8px var(--pink); }
+        .liked { color: #ff4444; font-weight: bold; }
 
         /* Reply */
-        .reply-container { margin-top: 8px; padding: 8px; background: rgba(0,0,0,0.3); border-radius: 5px; display: none; border-left: 2px solid var(--purple); }
-        .reply-item { font-size: 0.9rem; color: #ccc; margin-bottom: 4px; }
-        .reply-input-box { display: none; margin-top: 10px; gap: 5px; }
+        .reply-container { margin-top: 10px; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 10px; display: none; }
+        .reply-item { font-size: 0.85rem; color: #ccc; margin-bottom: 5px; border-left: 2px solid var(--accent); padding-left: 8px; }
+        .reply-input-box { display: none; margin-top: 10px; gap: 8px; }
         .reply-input-box.show { display: flex; }
-        .reply-in { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid var(--purple); color: white; padding: 8px; border-radius: 4px; }
-        .reply-btn { background: var(--purple); border: none; color: white; padding: 0 15px; font-weight: bold; cursor: pointer; clip-path: polygon(10% 0, 100% 0, 100% 100%, 0 100%, 0 20%); }
+        .reply-in { flex: 1; background: rgba(255,255,255,0.1); border: none; color: white; padding: 8px 12px; border-radius: 8px; font-family: 'Poppins'; }
+        .reply-btn { background: var(--primary); color: #000; border: none; padding: 0 15px; font-weight: bold; cursor: pointer; border-radius: 8px; }
 
-        /* INPUT HUD */
+        /* INPUT AREA (Clean Glass) */
         .input-wrapper {
             position: fixed; bottom: 0; left: 0; width: 100%;
-            background: rgba(5, 5, 8, 0.95); backdrop-filter: blur(10px);
-            padding: 15px; border-top: 2px solid var(--cyan);
+            background: rgba(10, 10, 15, 0.85); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            padding: 15px 20px; border-top: 1px solid rgba(255,255,255,0.1);
             z-index: 50; display: flex; justify-content: center;
-            box-shadow: 0 -10px 30px rgba(0, 243, 255, 0.1);
+            box-shadow: 0 -5px 30px rgba(0,0,0,0.5);
         }
-        .input-group { display: flex; gap: 8px; width: 100%; max-width: 650px; }
+        .input-group { display: flex; gap: 10px; width: 100%; max-width: 650px; }
         
         #name-input { 
-            width: 28%; background: #000; border: 1px solid var(--cyan); 
-            color: var(--gold); font-weight: 700; padding: 12px; text-align: center; 
-            font-family: 'Orbitron'; clip-path: polygon(10% 0, 100% 0, 100% 90%, 90% 100%, 0 100%, 0 10%);
+            width: 28%; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); 
+            color: var(--primary); font-weight: 700; border-radius: 12px; padding: 12px; 
+            text-align: center; letter-spacing: 0.5px; transition: 0.3s;
         }
         #msg-input { 
-            flex: 1; background: #000; border: 1px solid var(--purple); 
-            color: white; padding: 12px; font-family: 'Rajdhani'; font-size: 1rem;
-            clip-path: polygon(2% 0, 100% 0, 100% 80%, 98% 100%, 0 100%, 0 20%);
+            flex: 1; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); 
+            color: white; border-radius: 12px; padding: 12px; transition: 0.3s;
         }
+        input:focus { background: rgba(255,255,255,0.15); border-color: var(--accent) !important; }
+        
         #send-btn { 
-            background: var(--cyan); border: none; width: 55px; cursor: pointer; 
-            font-size: 1.5rem; color: #000; font-weight: 900;
-            clip-path: polygon(20% 0, 100% 0, 100% 100%, 0 100%, 0 20%);
-            transition: 0.2s;
+            background: linear-gradient(135deg, var(--primary), #b8860b); 
+            border: none; border-radius: 12px; width: 55px; cursor: pointer; font-size: 1.4rem; color: #000;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2); transition: 0.3s;
         }
-        #send-btn:active { transform: scale(0.9); background: var(--pink); color: white; }
-
-        /* Sound Toggle */
-        .sound-toggle {
-            position: absolute; top: 15px; right: 15px; z-index: 20;
-            background: rgba(0,0,0,0.5); border: 1px solid var(--cyan); color: var(--cyan);
-            padding: 5px 10px; font-size: 0.8rem; cursor: pointer; border-radius: 4px;
-        }
+        #send-btn:active { transform: scale(0.9); }
 
         /* OVERLAY */
         #overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000; z-index: 999; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; cursor: pointer; transition: 0.8s;
+            justify-content: center; align-items: center; cursor: pointer; transition: 0.8s ease-in-out;
         }
         .btn-start {
-            padding: 15px 40px; border: 2px solid var(--cyan); color: var(--cyan); 
-            font-family: 'Orbitron'; font-size: 1.5rem; letter-spacing: 2px;
-            background: rgba(0, 243, 255, 0.1); box-shadow: 0 0 20px var(--cyan);
-            clip-path: polygon(10% 0, 100% 0, 100% 80%, 90% 100%, 0 100%, 0 20%);
-            animation: pulse 1s infinite alternate;
+            padding: 18px 40px; border: 2px solid var(--primary); color: var(--primary); font-family: 'Cinzel'; font-weight: 700;
+            font-size: 1.2rem; border-radius: 50px; letter-spacing: 3px;
+            background: transparent; box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+            transition: 0.3s;
         }
-        @keyframes pulse { from { box-shadow: 0 0 10px var(--cyan); } to { box-shadow: 0 0 30px var(--cyan), 0 0 10px white; } }
-        .shake { animation: shakeAnim 0.3s; }
-        @keyframes shakeAnim { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(5px); } 75% { transform: translateX(-5px); } }
+        .btn-start:hover { background: var(--primary); color: #000; box-shadow: 0 0 40px rgba(255, 215, 0, 0.6); }
+
+        @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+        @keyframes popIn { from { transform: scale(0.9) translateY(20px); opacity: 0; } to { transform: scale(1) translateY(0); opacity: 1; } }
+        .shake { animation: shakeAnim 0.4s cubic-bezier(.36,.07,.19,.97) both; }
+        @keyframes shakeAnim { 10%, 90% { transform: translate3d(-1px, 0, 0); } 20%, 80% { transform: translate3d(2px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-4px, 0, 0); } 40%, 60% { transform: translate3d(4px, 0, 0); } }
     </style>
 </head>
 <body>
 
-    <div class="cyber-grid"></div>
-
     <div id="overlay">
-        <div class="btn-start">INITIALIZE SYSTEM</div>
-        <p style="color:var(--purple); margin-top:20px; font-family:'Orbitron'; font-size:0.8rem;">[ CLICK TO CONNECT ]</p>
+        <div class="btn-start">MASUK GALA 2026</div>
+        <p style="color:rgba(255,255,255,0.5); margin-top:20px; font-size:0.8rem; letter-spacing: 1px;">Ketuk layar untuk memulai</p>
     </div>
 
     <canvas id="canvas"></canvas>
 
     <div class="header-container" id="main-header">
-        <div class="sound-toggle" id="sound-btn">🔇 MUTE</div>
-        <div class="glitch-wrapper">
-            <div class="title" data-text="LIVE SYSTEM 2026">LIVE SYSTEM 2026</div>
-        </div>
+        <div class="title">LIVE HOPE & WISHES</div>
         <div class="year">2026</div>
         <div class="slider-wrapper" id="slider-container"></div>
     </div>
 
     <div class="feed-container" id="feed">
-        <div style="text-align:center; color:rgba(255,255,255,0.3); margin-top:80px;">
-            <div style="font-size: 4rem; margin-bottom: 10px; filter: drop-shadow(0 0 10px var(--cyan));">📡</div>
-            WAITING FOR SIGNAL...<br>Jadilah yang pertama!
+        <div style="text-align:center; color:rgba(255,255,255,0.3); margin-top:80px; font-style: italic;">
+            <div style="font-size: 3rem; margin-bottom: 15px; opacity:0.7;">✨</div>
+            Belum ada harapan...<br>Jadilah yang pertama menulis sejarah 2026!
         </div>
     </div>
 
     <div class="input-wrapper">
         <div class="input-group">
-            <input type="text" id="name-input" placeholder="CODENAME" maxlength="10">
-            <input type="text" id="msg-input" placeholder="INPUT DATA...">
+            <input type="text" id="name-input" placeholder="Nama" maxlength="12">
+            <input type="text" id="msg-input" placeholder="Tulis harapan...">
             <button id="send-btn">➤</button>
         </div>
     </div>
@@ -270,75 +235,71 @@
             sliderContainer.innerHTML = '';
             const card = document.createElement('div');
             card.className = 'roast-card';
-            card.innerHTML = `<div class="roast-title">[ ${item.title} ]</div><div class="roast-content">"${item.text}"</div>`;
+            card.innerHTML = `<div class="roast-title">✨ ${item.title} ✨</div><div class="roast-content">"${item.text}"</div>`;
             sliderContainer.appendChild(card);
             sliderIndex = (sliderIndex + 1) % roastData.length;
         }
         showNextCard(); setInterval(showNextCard, 5000);
 
-        // --- VISUAL & AUDIO ---
+        // --- VISUAL (PARTICLES & SOUND) ---
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
         const overlay = document.getElementById('overlay');
         const header = document.getElementById('main-header');
         let audioCtx;
-        let isMuted = false;
-
-        document.getElementById('sound-btn').onclick = () => {
-            isMuted = !isMuted;
-            document.getElementById('sound-btn').innerText = isMuted ? "🔇 MUTE" : "🔊 ON";
-        };
-
         function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
         window.addEventListener('resize', resize); resize();
 
         function playSound(type) {
-            if(!audioCtx || isMuted) return;
+            if(!audioCtx) return;
             const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain();
             if(type === 'boom') {
-                osc.type = 'sawtooth';
                 osc.frequency.setValueAtTime(100, audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
-                gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.6);
+                gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
             } else { 
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(800, audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.1);
+                osc.frequency.setValueAtTime(600, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.15);
                 gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
             }
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + (type==='boom'?0.6:0.15));
             osc.connect(gain); gain.connect(audioCtx.destination);
-            osc.start(); osc.stop(audioCtx.currentTime + 0.5);
+            osc.start(); osc.stop(audioCtx.currentTime + 0.6);
         }
 
-        // Cyber Particles
         class Particle {
             constructor(x, y, color) {
                 this.x = x; this.y = y; this.color = color;
-                const a = Math.random() * 6.28; const s = Math.random() * 8 + 2;
+                const a = Math.random() * 6.28; const s = Math.random() * 6 + 2;
                 this.vx = Math.cos(a) * s; this.vy = Math.sin(a) * s;
-                this.life = 1; this.decay = Math.random() * 0.02 + 0.01;
+                this.life = 1; this.decay = Math.random() * 0.015 + 0.01;
+                this.gravity = 0.05;
             }
-            update() { this.x += this.vx; this.y += this.vy; this.life -= this.decay; }
+            update() { this.x += this.vx; this.y += this.vy; this.vy += this.gravity; this.life -= this.decay; }
             draw() { 
                 ctx.globalAlpha = this.life; ctx.fillStyle = this.color; 
-                ctx.shadowBlur = 10; ctx.shadowColor = this.color;
-                ctx.fillRect(this.x, this.y, 3, 3); // Kotak pixel art
+                ctx.beginPath(); ctx.arc(this.x, this.y, 2, 0, 6.28); ctx.fill(); 
             }
         }
         let particles = [];
+        let stars = [];
+        for(let i=0; i<150; i++) stars.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, s:Math.random()*2});
         
         function createExplosion(x, y, color) {
             playSound('boom');
-            const colors = ['#00f3ff', '#bc13fe', '#ffd700', '#ff0055'];
+            const colors = ['#ffd700', '#00f3ff', '#ffffff', '#ff4444'];
             const c = color || colors[Math.floor(Math.random() * colors.length)];
             for(let i=0; i<40; i++) particles.push(new Particle(x, y, c));
         }
 
         function animate() {
-            ctx.clearRect(0,0,canvas.width, canvas.height);
+            ctx.fillStyle = 'rgba(0,0,0,0.2)'; ctx.fillRect(0,0,canvas.width, canvas.height);
+            stars.forEach(s => { 
+                ctx.fillStyle = `rgba(255,255,255,${Math.random()})`; 
+                ctx.beginPath(); ctx.arc(s.x, s.y, s.s, 0, 6.28); ctx.fill(); 
+            });
             particles.forEach((p,i) => { p.update(); p.draw(); if(p.life<=0) particles.splice(i,1); });
-            if(Math.random() < 0.02) createExplosion(Math.random()*canvas.width, Math.random()*canvas.height*0.7);
+            if(Math.random() < 0.015) createExplosion(Math.random()*canvas.width, Math.random()*canvas.height*0.6);
             requestAnimationFrame(animate);
         }
 
@@ -347,7 +308,7 @@
             overlay.style.opacity = 0; setTimeout(()=>overlay.remove(), 800); animate();
         });
 
-        // --- FIREBASE ---
+        // --- FIRESTORE LOGIC ---
         window.addEventListener('firebase-ready', () => {
             const feedDiv = document.getElementById('feed');
             const nameIn = document.getElementById('name-input');
@@ -357,12 +318,10 @@
             const colRef = window.collection(window.db, 'gala_party_2026');
             const q = window.query(colRef, window.orderBy('timestamp', 'asc'));
 
-            // AUTO LOAD NAME
             if(localStorage.getItem('chatName')) nameIn.value = localStorage.getItem('chatName');
 
-            // LISTEN
             window.onSnapshot(q, (snapshot) => {
-                if(feedDiv.innerText.includes("WAITING")) feedDiv.innerHTML = "";
+                if(feedDiv.innerText.includes("Belum ada")) feedDiv.innerHTML = "";
 
                 snapshot.docChanges().forEach((change) => {
                     if (change.type === "added") {
@@ -374,7 +333,7 @@
                         div.id = `card-${key}`;
                         div.innerHTML = `
                             <div class="card-header">
-                                <span class="sender-name">⚡ ${escapeHtml(data.name)}</span>
+                                <span class="sender-name">${escapeHtml(data.name)}</span>
                                 <span class="timestamp">${new Date(data.timestamp).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</span>
                             </div>
                             <div class="card-body">${escapeHtml(data.message)}</div>
@@ -383,10 +342,10 @@
                                 <div class="action-btn" onclick="likePost('${key}')">
                                     <span id="heart-${key}" style="font-size:1.2rem">♡</span> <span id="likes-${key}">${data.likes||0}</span>
                                 </div>
-                                <div class="action-btn" onclick="toggleReply('${key}')" style="color:var(--cyan)">↩ REPLY</div>
+                                <div class="action-btn" onclick="toggleReply('${key}')" style="color:var(--accent)">↩ Balas</div>
                             </div>
                             <div class="reply-input-box" id="reply-box-${key}">
-                                <input type="text" class="reply-in" id="reply-input-${key}" placeholder="Type here...">
+                                <input type="text" class="reply-in" id="reply-input-${key}" placeholder="Tulis balasan...">
                                 <button class="reply-btn" onclick="sendReply('${key}')">></button>
                             </div>
                         `;
@@ -411,11 +370,9 @@
                 });
             });
 
-            // SEND
             sendBtn.onclick = async () => {
                 const name = nameIn.value.trim().toUpperCase() || "ANONIM";
                 const msg = msgIn.value.trim();
-                
                 if(!msg) return;
                 localStorage.setItem('chatName', name);
 
@@ -425,21 +382,20 @@
                     });
                     msgIn.value = "";
                     header.classList.add('shake'); setTimeout(()=>header.classList.remove('shake'), 400);
-                    createExplosion(window.innerWidth/2, window.innerHeight - 100, '#00f3ff');
+                    createExplosion(window.innerWidth/2, window.innerHeight - 100, '#ffd700');
                 } catch (e) {
-                    alert("Error: " + e.message);
+                    alert("Gagal kirim: " + e.message);
                 }
             };
         });
 
-        // HELPERS
         window.likePost = (key) => {
             const heart = document.getElementById(`heart-${key}`);
             if(heart.innerText === '♡') {
                 heart.innerText = '♥'; heart.classList.add('liked');
                 const docRef = window.doc(window.db, 'gala_party_2026', key);
                 window.updateDoc(docRef, { likes: window.increment(1) });
-                createExplosion(window.innerWidth/2, window.innerHeight/2, '#ff0055');
+                createExplosion(window.innerWidth/2, window.innerHeight/2, '#ff4444');
             }
         };
 
@@ -464,7 +420,7 @@
             cont.style.display = 'block';
             const div = document.createElement('div');
             div.className = 'reply-item';
-            div.innerHTML = `<b style="color:var(--purple)">> ${escapeHtml(data.name)}:</b> ${escapeHtml(data.text)}`;
+            div.innerHTML = `<b style="color:var(--accent)">${escapeHtml(data.name)}:</b> ${escapeHtml(data.text)}`;
             cont.appendChild(div);
         }
         function escapeHtml(text) { return text ? text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : ""; }
