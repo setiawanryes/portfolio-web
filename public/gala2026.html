@@ -10,11 +10,13 @@
         import { getDatabase, ref, push, onChildAdded, update, runTransaction } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
         // =========================================================================
-        // ✅ CONFIG SUDAH TERPASANG SESUAI REQUEST
+        // ✅ SUDAH SAYA PERBAIKI CONFIGNYA (TAMBAH DATABASE URL)
         // =========================================================================
         const firebaseConfig = {
             apiKey: "AIzaSyBGS2_U6M-lC0YozJd0FCHpncyNLE1mE2g",
             authDomain: "portfolio-setiawanryes.firebaseapp.com",
+            // 👇 INI DIA YANG TADI HILANG BANG! 👇
+            databaseURL: "https://portfolio-setiawanryes-default-rtdb.firebaseio.com", 
             projectId: "portfolio-setiawanryes",
             storageBucket: "portfolio-setiawanryes.firebasestorage.app",
             messagingSenderId: "171755400027",
@@ -23,13 +25,24 @@
         };
         // =========================================================================
 
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
+        // Error Handling kalau Config salah
+        try {
+            const app = initializeApp(firebaseConfig);
+            const db = getDatabase(app);
 
-        // Expose ke global biar bisa dipanggil di HTML
-        window.db = db; window.push = push; window.ref = ref;
-        window.onChildAdded = onChildAdded; window.runTransaction = runTransaction;
-        window.dispatchEvent(new Event('firebase-ready'));
+            // Expose ke global
+            window.db = db; window.push = push; window.ref = ref;
+            window.onChildAdded = onChildAdded; window.runTransaction = runTransaction;
+            
+            // Kasih tau kalo firebase udah siap
+            setTimeout(() => {
+                window.dispatchEvent(new Event('firebase-ready'));
+                console.log("Firebase Siap 86!");
+            }, 500);
+
+        } catch (e) {
+            alert("Error Config Firebase: " + e.message);
+        }
     </script>
 
     <style>
@@ -37,7 +50,6 @@
         * { margin: 0; padding: 0; box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
 
         body {
-            /* Background Deep Space */
             background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
             color: white; height: 100vh; overflow: hidden; font-family: 'Poppins', sans-serif;
             display: flex; flex-direction: column;
@@ -45,7 +57,7 @@
 
         canvas { position: fixed; top: 0; left: 0; z-index: 0; pointer-events: none; }
 
-        /* --- HEADER AREA --- */
+        /* --- HEADER --- */
         .header-container {
             z-index: 10; padding: 15px 15px 5px 15px; text-align: center; flex-shrink: 0;
             background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
@@ -62,9 +74,9 @@
             animation: float 3s ease-in-out infinite;
         }
 
-        /* --- SLIDER CARD STYLE --- */
+        /* --- SLIDER CARD --- */
         .slider-wrapper {
-            width: 100%; max-width: 500px; height: 85px; margin: 0 auto; /* Tinggi disesuaikan */
+            width: 100%; max-width: 500px; height: 85px; margin: 0 auto;
             position: relative; overflow: hidden;
         }
         
@@ -77,9 +89,7 @@
             border-radius: 12px;
             padding: 5px 15px;
             box-shadow: 0 0 15px rgba(255, 215, 0, 0.1);
-            
-            /* Animasi Masuk */
-            animation: slideUpFade 5s infinite; /* 5 Detik per slide */
+            animation: slideUpFade 5s infinite;
         }
 
         .roast-title {
@@ -104,7 +114,7 @@
             display: flex; flex-direction: column; gap: 12px;
             mask-image: linear-gradient(to bottom, transparent, black 5%, black 95%, transparent);
             scrollbar-width: none;
-            padding-bottom: 80px; /* Space biar gak ketutup input */
+            padding-bottom: 80px; 
         }
         .feed-container::-webkit-scrollbar { display: none; }
 
@@ -133,7 +143,7 @@
         .reply-in { flex: 1; background: rgba(0,0,0,0.5); border: 1px solid #555; color: white; padding: 5px; border-radius: 5px; }
         .reply-btn { background: #ffd700; border: none; padding: 0 10px; font-weight: bold; cursor: pointer; border-radius: 5px; }
 
-        /* --- INPUT BAWAH --- */
+        /* --- INPUT --- */
         .input-wrapper {
             position: fixed; bottom: 0; left: 0; width: 100%;
             background: rgba(10, 10, 20, 0.95); backdrop-filter: blur(15px);
@@ -145,7 +155,6 @@
         #msg-input { flex: 1; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,215,0,0.3); color: white; border-radius: 10px; padding: 10px; }
         #send-btn { background: linear-gradient(45deg, #ffd700, #b8860b); border: none; border-radius: 10px; width: 50px; cursor: pointer; font-size: 1.2rem; box-shadow: 0 0 15px rgba(255,215,0,0.3); }
 
-        /* Overlay */
         #overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: black; z-index: 999; display: flex; flex-direction: column;
@@ -177,14 +186,13 @@
     <div class="header-container" id="main-header">
         <div class="title">LIVE HOPE & WISHES</div>
         <div class="year">2026</div>
-        
-        <div class="slider-wrapper" id="slider-container">
-            </div>
+        <div class="slider-wrapper" id="slider-container"></div>
     </div>
 
     <div class="feed-container" id="feed">
         <div style="text-align:center; color:#888; margin-top:50px;">
-            Belum ada yang kirim doa...<br>Jadilah yang pertama di 2026!
+            <div style="font-size: 2rem;">🚀</div>
+            <br>Connecting to Roni's Server...<br>Kalau lama, cek koneksi ya!
         </div>
     </div>
 
@@ -197,48 +205,36 @@
     </div>
 
     <script>
-        // --- DATA ROASTING/WISHES DARI USER ---
+        // --- DATA SLIDER CARD ---
         const roastData = [
             { title: "RONI SETIAWAN", text: "Selamat Tahun Baru 2026! Semoga tahun ini rezekinya 'gacor' dan dijauhkan dari teman yang suka 'pinjam dulu seratus'." },
             { title: "GEN 98+", text: "Udah 2026 woy! Jangan cuma kondangan mulu, kapan ngundangnya? 🤣" },
-            { title: "RESOLUSI 2026", text: "Jadi kaya raya tanpa harus ikut pesugihan. Rebahan, tapi saldo nambah terus. Aminin yang kenceng!" },
-            { title: "PANTUN", text: "Makan ketan di pinggir jalan, mantan lewat tolong abaikan. Tahun depan ayo nikahan, biar gak jadi beban pikiran! Wkwk." },
+            { title: "RESOLUSI 2026", text: "Jadi kaya raya tanpa harus ikut pesugihan. Rebahan, tapi saldo nambah terus." },
+            { title: "PANTUN", text: "Makan ketan di pinggir jalan, mantan lewat tolong abaikan. Tahun depan ayo nikahan! Wkwk." },
             { title: "REALITA KERJA", text: "Semoga tahun ini kerjanya remote, gajinya dollar, tapi pengeluaran tetap rupiah warteg." },
             { title: "TIM JOMBLO", text: "Resolusi 2026, Berhenti jadi 'penjaga jodoh orang'. Saatnya jadi pemeran utama!" },
             { title: "KEUANGAN", text: "Ya Allah, semoga tahun ini dompet hamba setebal harapan orang tua hamba kepada hamba." },
             { title: "HOPE", text: "Diet wacana sudah berlalu, tahun ini body goals harus jadi nomor satu." },
-            { title: "GEN Z", text: "Mental aman? Semoga tahun ini ga dikit-dikit 'Burnout' padahal baru kerja 5 menit. Semangat!" },
-            { title: "SANDWICH GEN", text: "Semoga punggung kita sekuat baja menahan beban keluarga, bukan encok mikirin cicilan Paylater." },
-            { title: "HEALING", text: "Kurangi wacana 'Healing ke Bali', perbanyak 'Billing' yang lunas. Biar ga pusing pas tanggal tua." },
-            { title: "TIPS SUKSES", text: "Kerja keras itu penting, tapi kerja cerdas (baca: cari orang dalem) lebih penting. Canda orang dalem! ✌️" },
+            { title: "GEN Z", text: "Mental aman? Semoga tahun ini ga dikit-dikit 'Burnout' padahal baru kerja 5 menit." },
+            { title: "SANDWICH GEN", text: "Semoga punggung kita sekuat baja menahan beban keluarga, bukan encok mikirin cicilan." },
+            { title: "TIPS SUKSES", text: "Kerja keras itu penting, tapi kerja cerdas (baca: cari orang dalem) lebih penting. Canda! ✌️" },
             { title: "AAMIIN", text: "Semoga semua yang baca ini sehat selalu, sukses karirnya, dan bahagia terus. Gas 2026!" }
         ];
 
         let sliderIndex = 0;
         const sliderContainer = document.getElementById('slider-container');
-
         function showNextCard() {
             const item = roastData[sliderIndex];
-            
-            // Render ulang untuk memicu animasi CSS
             sliderContainer.innerHTML = '';
             const card = document.createElement('div');
             card.className = 'roast-card';
-            card.innerHTML = `
-                <div class="roast-title">✨ ${item.title} ✨</div>
-                <div class="roast-content">"${item.text}"</div>
-            `;
-            
+            card.innerHTML = `<div class="roast-title">✨ ${item.title} ✨</div><div class="roast-content">"${item.text}"</div>`;
             sliderContainer.appendChild(card);
             sliderIndex = (sliderIndex + 1) % roastData.length;
         }
+        showNextCard(); setInterval(showNextCard, 5000);
 
-        // Mulai slider (Interval 5 detik)
-        showNextCard();
-        setInterval(showNextCard, 5000);
-
-
-        // --- VISUAL MERIAH (PARTICLE & SOUND) ---
+        // --- VISUAL (CANVAS) ---
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
         const overlay = document.getElementById('overlay');
@@ -250,9 +246,7 @@
 
         function playSound(type) {
             if(!audioCtx) return;
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            
+            const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain();
             if(type === 'boom') {
                 osc.frequency.setValueAtTime(100, audioCtx.currentTime);
                 osc.frequency.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
@@ -262,7 +256,6 @@
                 osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.1);
                 gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
             }
-            
             gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + (type==='boom'?0.5:0.1));
             osc.connect(gain); gain.connect(audioCtx.destination);
             osc.start(); osc.stop(audioCtx.currentTime + 0.5);
@@ -273,64 +266,63 @@
                 this.x = x; this.y = y; this.color = color;
                 const a = Math.random() * 6.28; const s = Math.random() * 6 + 2;
                 this.vx = Math.cos(a) * s; this.vy = Math.sin(a) * s;
-                this.life = 1; this.decay = Math.random() * 0.015 + 0.01;
-                this.gravity = 0.05;
+                this.life = 1; this.decay = Math.random() * 0.015 + 0.01; this.gravity = 0.05;
             }
             update() { this.x += this.vx; this.y += this.vy; this.vy += this.gravity; this.life -= this.decay; }
-            draw() { 
-                ctx.globalAlpha = this.life; ctx.fillStyle = this.color; 
-                ctx.beginPath(); ctx.arc(this.x, this.y, 2, 0, 6.28); ctx.fill(); 
-            }
+            draw() { ctx.globalAlpha = this.life; ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, 2, 0, 6.28); ctx.fill(); }
         }
-
         let particles = [];
         let stars = [];
         for(let i=0; i<150; i++) stars.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, s:Math.random()*2});
-
+        
         function createExplosion(x, y, color) {
             playSound('boom');
             const c = color || `hsl(${Math.random()*360}, 100%, 60%)`;
             for(let i=0; i<40; i++) particles.push(new Particle(x, y, c));
         }
-
         function animate() {
             ctx.fillStyle = 'rgba(0,0,0,0.2)'; ctx.fillRect(0,0,canvas.width, canvas.height);
-            stars.forEach(s => {
-                ctx.fillStyle = `rgba(255,255,255,${Math.random()})`;
-                ctx.beginPath(); ctx.arc(s.x, s.y, s.s, 0, 6.28); ctx.fill();
-            });
+            stars.forEach(s => { ctx.fillStyle = `rgba(255,255,255,${Math.random()})`; ctx.beginPath(); ctx.arc(s.x, s.y, s.s, 0, 6.28); ctx.fill(); });
             particles.forEach((p,i) => { p.update(); p.draw(); if(p.life<=0) particles.splice(i,1); });
             if(Math.random() < 0.02) createExplosion(Math.random()*canvas.width, Math.random()*canvas.height*0.6);
             requestAnimationFrame(animate);
         }
-
         overlay.addEventListener('click', () => {
             audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            overlay.style.opacity = 0; setTimeout(()=>overlay.remove(), 800);
-            animate();
+            overlay.style.opacity = 0; setTimeout(()=>overlay.remove(), 800); animate();
         });
 
-        // --- FIREBASE CHAT LOGIC ---
+        // --- FIREBASE LOGIC ---
         window.addEventListener('firebase-ready', () => {
             const feedDiv = document.getElementById('feed');
             const nameIn = document.getElementById('name-input');
             const msgIn = document.getElementById('msg-input');
             const sendBtn = document.getElementById('send-btn');
-            
-            // Nama database path kita
-            const wishesRef = window.ref(window.db, 'gala_party_2026');
+            // Ganti nama ini biar database fresh lagi
+            const wishesRef = window.ref(window.db, 'roni_final_gala_2026');
 
-            // KIRIM PESAN
+            // Debug Message
+            if(feedDiv.innerText.includes("Connecting")) {
+                feedDiv.innerHTML = `<div style="text-align:center; color:#888; margin-top:50px;">
+                    Belum ada yang kirim doa...<br>Jadilah yang pertama di 2026!</div>`;
+            }
+
+            // KIRIM PESAN + ERROR HANDLING
             sendBtn.onclick = () => {
                 const name = nameIn.value.trim().toUpperCase() || "ANONIM";
                 const msg = msgIn.value.trim();
-                if(!msg) return;
+                
+                if(!msg) { alert("Isi pesan dulu dong!"); return; }
 
-                window.push(wishesRef, { name: name, message: msg, likes: 0, timestamp: Date.now() });
-                msgIn.value = "";
-                // Efek Visual Kirim
-                header.classList.add('shake'); setTimeout(()=>header.classList.remove('shake'), 300);
-                createExplosion(window.innerWidth/2, window.innerHeight - 100, '#ffd700');
+                window.push(wishesRef, { name: name, message: msg, likes: 0, timestamp: Date.now() })
+                .then(() => {
+                    msgIn.value = "";
+                    header.classList.add('shake'); setTimeout(()=>header.classList.remove('shake'), 300);
+                    createExplosion(window.innerWidth/2, window.innerHeight - 100, '#ffd700');
+                })
+                .catch((e) => {
+                    alert("Gagal kirim: " + e.message + "\nCek 'Rules' di Firebase Console!");
+                });
             };
 
             // TERIMA PESAN LIVE
@@ -351,9 +343,7 @@
                     <div class="card-body">${escapeHtml(data.message)}</div>
                     <div class="reply-container" id="reply-list-${key}"></div>
                     <div class="card-actions">
-                        <div class="action-btn" onclick="likePost('${key}')">
-                            <span id="heart-${key}">♡</span> <span id="likes-${key}">${data.likes||0}</span>
-                        </div>
+                        <div class="action-btn" onclick="likePost('${key}')"><span id="heart-${key}">♡</span> <span id="likes-${key}">${data.likes||0}</span></div>
                         <div class="action-btn" onclick="toggleReply('${key}')">↩ Balas</div>
                     </div>
                     <div class="reply-input-box" id="reply-box-${key}">
@@ -362,25 +352,21 @@
                     </div>
                 `;
                 feedDiv.appendChild(div);
-                // Auto scroll ke paling bawah
                 feedDiv.scrollTop = feedDiv.scrollHeight;
-
                 if(data.replies) Object.values(data.replies).forEach(r => renderReply(key, r));
-                
-                // Tiap chat masuk = LEDAKAN
                 createExplosion(Math.random()*canvas.width, Math.random()*canvas.height/2);
                 playSound('pop');
             });
         });
 
-        // FUNGSI UNTUK HTML ONCLICK
+        // HELPERS
         window.likePost = (key) => {
             const heart = document.getElementById(`heart-${key}`);
             const count = document.getElementById(`likes-${key}`);
             if(heart.innerText === '♡') {
                 heart.innerText = '♥'; heart.classList.add('liked');
                 count.innerText = parseInt(count.innerText) + 1;
-                window.runTransaction(window.ref(window.db, `gala_party_2026/${key}/likes`), (c) => (c||0)+1);
+                window.runTransaction(window.ref(window.db, `roni_final_gala_2026/${key}/likes`), (c) => (c||0)+1);
                 createExplosion(window.innerWidth/2, window.innerHeight/2, '#ff0000');
             }
         };
@@ -395,8 +381,7 @@
             const text = input.value.trim();
             const name = document.getElementById('name-input').value.trim().toUpperCase() || "ANONIM";
             if(!text) return;
-
-            window.push(window.ref(window.db, `gala_party_2026/${key}/replies`), {name, text});
+            window.push(window.ref(window.db, `roni_final_gala_2026/${key}/replies`), {name, text});
             renderReply(key, {name, text});
             input.value = "";
             document.getElementById(`reply-box-${key}`).classList.remove('show');
@@ -410,7 +395,6 @@
             div.innerHTML = `<b>${escapeHtml(data.name)}:</b> ${escapeHtml(data.text)}`;
             cont.appendChild(div);
         }
-
         function escapeHtml(text) { return text ? text.replace(/</g, "&lt;").replace(/>/g, "&gt;") : ""; }
     </script>
 </body>
