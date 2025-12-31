@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>RONI'S GALA 2026 - LIVE PARTY</title>
-
+    
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getDatabase, ref, push, onChildAdded, update, runTransaction } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
         // =========================================================================
-        // 👇👇 PASTE KODE CONFIG FIREBASE KAMU DI SINI (TIMPA KODE INI) 👇👇
+        // ✅ CONFIG SUDAH TERPASANG SESUAI REQUEST
         // =========================================================================
         const firebaseConfig = {
             apiKey: "AIzaSyBGS2_U6M-lC0YozJd0FCHpncyNLE1mE2g",
@@ -22,12 +21,12 @@
             appId: "1:171755400027:web:6bbbbbda56613af0b4087e",
             measurementId: "G-4R3C18RXW0"
         };
-  // =========================================================================
+        // =========================================================================
 
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        // Expose ke global
+        // Expose ke global biar bisa dipanggil di HTML
         window.db = db; window.push = push; window.ref = ref;
         window.onChildAdded = onChildAdded; window.runTransaction = runTransaction;
         window.dispatchEvent(new Event('firebase-ready'));
@@ -38,6 +37,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
 
         body {
+            /* Background Deep Space */
             background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
             color: white; height: 100vh; overflow: hidden; font-family: 'Poppins', sans-serif;
             display: flex; flex-direction: column;
@@ -62,9 +62,9 @@
             animation: float 3s ease-in-out infinite;
         }
 
-        /* --- NEW SLIDER CARD STYLE --- */
+        /* --- SLIDER CARD STYLE --- */
         .slider-wrapper {
-            width: 100%; max-width: 500px; height: 70px; margin: 0 auto;
+            width: 100%; max-width: 500px; height: 85px; margin: 0 auto; /* Tinggi disesuaikan */
             position: relative; overflow: hidden;
         }
         
@@ -79,15 +79,16 @@
             box-shadow: 0 0 15px rgba(255, 215, 0, 0.1);
             
             /* Animasi Masuk */
-            animation: slideUpFade 4s infinite;
+            animation: slideUpFade 5s infinite; /* 5 Detik per slide */
         }
 
         .roast-title {
-            color: #ffd700; font-family: 'Cinzel', serif; font-size: 0.8rem; font-weight: bold;
-            margin-bottom: 2px; letter-spacing: 1px;
+            color: #ffd700; font-family: 'Cinzel', serif; font-size: 0.85rem; font-weight: bold;
+            margin-bottom: 4px; letter-spacing: 1px; text-transform: uppercase;
         }
         .roast-content {
-            color: #fff; font-size: 0.85rem; font-style: italic; line-height: 1.2;
+            color: #fff; font-size: 0.8rem; font-style: italic; line-height: 1.3;
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
         }
 
         @keyframes slideUpFade {
@@ -103,6 +104,7 @@
             display: flex; flex-direction: column; gap: 12px;
             mask-image: linear-gradient(to bottom, transparent, black 5%, black 95%, transparent);
             scrollbar-width: none;
+            padding-bottom: 80px; /* Space biar gak ketutup input */
         }
         .feed-container::-webkit-scrollbar { display: none; }
 
@@ -133,6 +135,7 @@
 
         /* --- INPUT BAWAH --- */
         .input-wrapper {
+            position: fixed; bottom: 0; left: 0; width: 100%;
             background: rgba(10, 10, 20, 0.95); backdrop-filter: blur(15px);
             padding: 15px; border-top: 1px solid rgba(255,215,0,0.2);
             z-index: 20; display: flex; justify-content: center;
@@ -180,26 +183,35 @@
     </div>
 
     <div class="feed-container" id="feed">
-        <div style="text-align:center; color:#888; margin-top:50px;">Belum ada yang kirim doa...<br>Jadilah yang pertama!</div>
+        <div style="text-align:center; color:#888; margin-top:50px;">
+            Belum ada yang kirim doa...<br>Jadilah yang pertama di 2026!
+        </div>
     </div>
 
     <div class="input-wrapper">
         <div class="input-group">
             <input type="text" id="name-input" placeholder="Nama" maxlength="10">
-            <input type="text" id="msg-input" placeholder="Harapan 2026...">
+            <input type="text" id="msg-input" placeholder="Tulis harapan...">
             <button id="send-btn">➤</button>
         </div>
     </div>
 
     <script>
-        // --- LOGIC SLIDER CARD (NEW!) ---
+        // --- DATA ROASTING/WISHES DARI USER ---
         const roastData = [
-            { title: "GEN 98", text: "Kapan nikah? Udah 2026 woy! Jangan jadi beban keluarga mulu 🤣" },
-            { title: "RESOLUSI", text: "Semoga saldo ATM sepanjang antrian BPJS. Aminin!" },
-            { title: "KEUANGAN", text: "Jangan cuma wacana Healing, lunasin dulu tuh Billing!" },
-            { title: "RELATE", text: "Pinjam dulu seratus? Maaf, tahun baru utang lama lunasin dulu." },
-            { title: "TIM JOMBLO", text: "Berhenti jagain jodoh orang. Saatnya jadi pemeran utama!" },
-            { title: "BODY GOALS", text: "Diet wacana sudah berlalu, 2026 perut rata nomor satu." }
+            { title: "RONI SETIAWAN", text: "Selamat Tahun Baru 2026! Semoga tahun ini rezekinya 'gacor' dan dijauhkan dari teman yang suka 'pinjam dulu seratus'." },
+            { title: "GEN 98+", text: "Udah 2026 woy! Jangan cuma kondangan mulu, kapan ngundangnya? 🤣" },
+            { title: "RESOLUSI 2026", text: "Jadi kaya raya tanpa harus ikut pesugihan. Rebahan, tapi saldo nambah terus. Aminin yang kenceng!" },
+            { title: "PANTUN", text: "Makan ketan di pinggir jalan, mantan lewat tolong abaikan. Tahun depan ayo nikahan, biar gak jadi beban pikiran! Wkwk." },
+            { title: "REALITA KERJA", text: "Semoga tahun ini kerjanya remote, gajinya dollar, tapi pengeluaran tetap rupiah warteg." },
+            { title: "TIM JOMBLO", text: "Resolusi 2026, Berhenti jadi 'penjaga jodoh orang'. Saatnya jadi pemeran utama!" },
+            { title: "KEUANGAN", text: "Ya Allah, semoga tahun ini dompet hamba setebal harapan orang tua hamba kepada hamba." },
+            { title: "HOPE", text: "Diet wacana sudah berlalu, tahun ini body goals harus jadi nomor satu." },
+            { title: "GEN Z", text: "Mental aman? Semoga tahun ini ga dikit-dikit 'Burnout' padahal baru kerja 5 menit. Semangat!" },
+            { title: "SANDWICH GEN", text: "Semoga punggung kita sekuat baja menahan beban keluarga, bukan encok mikirin cicilan Paylater." },
+            { title: "HEALING", text: "Kurangi wacana 'Healing ke Bali', perbanyak 'Billing' yang lunas. Biar ga pusing pas tanggal tua." },
+            { title: "TIPS SUKSES", text: "Kerja keras itu penting, tapi kerja cerdas (baca: cari orang dalem) lebih penting. Canda orang dalem! ✌️" },
+            { title: "AAMIIN", text: "Semoga semua yang baca ini sehat selalu, sukses karirnya, dan bahagia terus. Gas 2026!" }
         ];
 
         let sliderIndex = 0;
@@ -208,9 +220,8 @@
         function showNextCard() {
             const item = roastData[sliderIndex];
             
-            // Hapus konten lama & trigger reflow CSS biar animasi restart
+            // Render ulang untuk memicu animasi CSS
             sliderContainer.innerHTML = '';
-            
             const card = document.createElement('div');
             card.className = 'roast-card';
             card.innerHTML = `
@@ -222,10 +233,9 @@
             sliderIndex = (sliderIndex + 1) % roastData.length;
         }
 
-        // Jalanin pertama kali
+        // Mulai slider (Interval 5 detik)
         showNextCard();
-        // Ganti setiap 4 detik (sesuai durasi animasi CSS)
-        setInterval(showNextCard, 4000);
+        setInterval(showNextCard, 5000);
 
 
         // --- VISUAL MERIAH (PARTICLE & SOUND) ---
@@ -302,14 +312,15 @@
 
         // --- FIREBASE CHAT LOGIC ---
         window.addEventListener('firebase-ready', () => {
-            if(!window.db) { alert("ERROR: Paste kode Firebase dulu!"); return; }
-
             const feedDiv = document.getElementById('feed');
             const nameIn = document.getElementById('name-input');
             const msgIn = document.getElementById('msg-input');
             const sendBtn = document.getElementById('send-btn');
+            
+            // Nama database path kita
             const wishesRef = window.ref(window.db, 'gala_party_2026');
 
+            // KIRIM PESAN
             sendBtn.onclick = () => {
                 const name = nameIn.value.trim().toUpperCase() || "ANONIM";
                 const msg = msgIn.value.trim();
@@ -317,9 +328,12 @@
 
                 window.push(wishesRef, { name: name, message: msg, likes: 0, timestamp: Date.now() });
                 msgIn.value = "";
+                // Efek Visual Kirim
                 header.classList.add('shake'); setTimeout(()=>header.classList.remove('shake'), 300);
+                createExplosion(window.innerWidth/2, window.innerHeight - 100, '#ffd700');
             };
 
+            // TERIMA PESAN LIVE
             window.onChildAdded(wishesRef, (snapshot) => {
                 const data = snapshot.val();
                 const key = snapshot.key;
@@ -348,14 +362,18 @@
                     </div>
                 `;
                 feedDiv.appendChild(div);
+                // Auto scroll ke paling bawah
                 feedDiv.scrollTop = feedDiv.scrollHeight;
 
                 if(data.replies) Object.values(data.replies).forEach(r => renderReply(key, r));
+                
+                // Tiap chat masuk = LEDAKAN
                 createExplosion(Math.random()*canvas.width, Math.random()*canvas.height/2);
                 playSound('pop');
             });
         });
 
+        // FUNGSI UNTUK HTML ONCLICK
         window.likePost = (key) => {
             const heart = document.getElementById(`heart-${key}`);
             const count = document.getElementById(`likes-${key}`);
