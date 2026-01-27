@@ -29,9 +29,13 @@
         <li><a href="#contact">Contact</a></li>
       </ul>
 
-      <div class="nav-action">
-        <a href="#contact" class="btn-nav-primary">Let's Talk <i class="fas fa-arrow-right"></i></a>
-      </div>
+<div class="nav-action">
+  <button id="lang-toggle" class="btn-lang">
+    <span id="lang-text">ID</span> <i class="fas fa-globe"></i>
+  </button>
+  
+  <a href="#contact" class="btn-nav-primary">Let's Talk <i class="fas fa-arrow-right"></i></a>
+</div>
     </nav>
 
     <div class="mobile-dock-container mobile-only">
@@ -991,6 +995,33 @@
     });
   </script>
 
+<script>
+  const langBtn = document.getElementById('lang-toggle');
+  const langText = document.getElementById('lang-text');
+  const translateElements = document.querySelectorAll('.translate');
+  
+  // Cek apakah user pernah pilih bahasa sebelumnya di browser ini
+  let currentLang = localStorage.getItem('language') || 'en';
+
+  function updateLanguage(lang) {
+    translateElements.forEach(el => {
+      // Ambil teks dari atribut data-en atau data-id
+      el.innerHTML = el.getAttribute(`data-${lang}`);
+    });
+    
+    // Update teks tombol
+    langText.innerText = lang === 'en' ? 'ID' : 'EN';
+    localStorage.setItem('language', lang);
+  }
+
+  // Jalankan saat pertama kali load
+  updateLanguage(currentLang);
+
+  langBtn.addEventListener('click', () => {
+    currentLang = currentLang === 'en' ? 'id' : 'en';
+    updateLanguage(currentLang);
+  });
+</script>
 
   <script src="js/home.js"></script>
   <script src="js/experience.js"></script>
