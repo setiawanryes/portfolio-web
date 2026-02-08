@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LevelUp Arcade | Roni Setiawan</title>
+  
+  <link rel="stylesheet" href="css/project.css">
+  
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+</head>
+
+<body>
+
+  <div class="bg-liquid-1"></div>
+  <div class="bg-liquid-2"></div>
+
+  <section class="compact-view">
+    <div class="main-glass-card" data-aos="zoom-in" data-aos-duration="800">
+      
+      <div class="compact-header">
+        <a href="javascript:history.back()" class="back-link">
+          <i class="fas fa-arrow-left"></i> <span>Portfolio</span>
+        </a>
+        <div class="project-tag">Game Development & Education</div>
+      </div>
+
+      <div class="compact-grid">
+        
+        <div class="col-info">
+          
+          <div class="info-header">
+            <h1 class="gradient-title">LevelUp Arcade</h1>
+            <p class="subtitle">Interactive Educational Math Game Platform</p>
+          </div>
+
+          <div class="info-scroll-box">
+            <p>
+              <b>LevelUp Arcade</b> adalah platform game edukasi matematika yang dirancang khusus untuk meningkatkan kemampuan berhitung dan logika melalui pengalaman yang interaktif dan menyenangkan. Proyek ini lahir dari keinginan untuk mengubah persepsi matematika yang membosankan menjadi tantangan yang kompetitif.
+            </p>
+            <p>
+              Platform ini mengintegrasikan berbagai mekanik permainan, mulai dari teka-teki silang hingga pertempuran *real-time*, guna melatih berpikir kritis, daya ingat, dan kecepatan respon pengguna dalam menyelesaikan operasi aritmatika.
+            </p>
+            <p>
+              Setiap game dalam LevelUp Arcade memiliki fokus unik—seperti strategi, kecepatan, atau ketelitian—sehingga memberikan pendekatan belajar yang komprehensif bagi para pemain di berbagai tingkat kemampuan.
+            </p>
+          </div>
+
+          <div class="tech-chips">
+            <span><i class="fas fa-gamepad"></i> Gamification</span>
+            <span><i class="fas fa-users"></i> Multiplayer System</span>
+            <span><i class="fas fa-brain"></i> Logic Algorithm</span>
+            <span><i class="fas fa-code"></i> Interactive UI</span>
+          </div>
+
+          <div class="glass-widget action-widget">
+            
+            <a href="#" target="_blank" class="btn-hero-live">
+              <div class="btn-content">
+                <span class="btn-label">Play Demo</span>
+                <span class="btn-sub">Try LevelUp Arcade</span>
+              </div>
+              <div class="btn-icon">
+                <i class="fas fa-play-circle"></i>
+              </div>
+              <div class="glow-effect"></div>
+            </a>
+
+            <div class="progress-container-ios">
+              <div class="progress-header">
+                <span class="p-label"><i class="fas fa-check-circle"></i> Project Status</span>
+                <span class="p-val" id="progress-text">100%</span>
+              </div>
+              <div class="track-glass">
+                <div class="fill-gradient" id="progress-bar"></div>
+              </div>
+            </div>
+
+            <div class="action-dock-row">
+              <button id="like-btn" class="dock-btn love">
+                <i class="fas fa-heart"></i> <span id="like-count">0</span>
+              </button>
+              
+              <button id="komentar-btn" class="dock-btn comment">
+                <i class="fas fa-comment-dots"></i> <span>Discuss</span>
+                <span id="comment-notify-badge"></span>
+              </button>
+              
+              <button class="dock-btn share">
+                <i class="fas fa-share-nodes"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="glass-widget comments-compact">
+            <div class="ch-head">
+              <span class="ch-title">Discussion</span>
+              <span id="komentar-count" class="ch-count">0</span>
+            </div>
+            <div id="comments-list" class="ch-list"></div>
+            <button id="load-more-comments" class="btn-text-small">Load previous comments...</button>
+          </div>
+
+        </div>
+
+        <div class="col-visual">
+          
+          <div class="slider-compact-wrapper">
+            <div class="project-preview">
+              <div class="slide-project">
+                <img src="images/gpl/levelup-main.png" alt="LevelUp Arcade Preview" class="lightbox-img">
+                <img src="images/gpl/math-cross.png" alt="Math Cross Gameplay" class="lightbox-img">
+              </div>
+              <div class="slide-nav">
+                <button class="prev"><i class="fas fa-chevron-left"></i></button>
+                <button class="next"><i class="fas fa-chevron-right"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <div class="features-compact-grid">
+            
+            <div class="feat-card">
+              <div class="fc-icon blue"><i class="fas fa-not-equal"></i></div>
+              <div class="fc-text">
+                <h4>Math Cross</h4>
+                <p>Multiplayer teka-teki silang angka. Uji logika aritmatika (+, -, *, /) untuk melatih berpikir kritis.</p>
+              </div>
+            </div>
+
+            <div class="feat-card">
+              <div class="fc-icon purple"><i class="fas fa-map-signs"></i></div>
+              <div class="fc-text">
+                <h4>Maze Goat</h4>
+                <p>Game strategi multiplayer. Bantu domba keluar dari hutan dengan hitungan cepat dalam 10 detik.</p>
+              </div>
+            </div>
+
+            <div class="feat-card">
+              <div class="fc-icon gold"><i class="fas fa-th"></i></div>
+              <div class="fc-text">
+                <h4>Math Verse</h4>
+                <p>Klik grid angka sesuai operasi matematika yang tepat dalam tantangan waktu 1 menit.</p>
+              </div>
+            </div>
+
+            <div class="feat-card">
+              <div class="fc-icon red"><i class="fas fa-bomb"></i></div>
+              <div class="fc-text">
+                <h4>Math Pop Battle</h4>
+                <p>Mode duel kecepatan! Jawab cepat untuk meledakkan balon lawan dalam pertempuran matematika.</p>
+              </div>
+            </div>
+
+            <div class="feat-card full-width">
+              <div class="fc-icon teal"><i class="fas fa-graduation-cap"></i></div>
+              <div class="fc-text">
+                <h4>Educational Purpose</h4>
+                <p>Meningkatkan daya ingat, kecepatan berpikir, dan akurasi menjawab soal secara kompetitif.</p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="cmtApp-modal" id="cmtAppModal">
+    <div class="glass-modal-content">
+      <span class="cmtApp-close" id="close-cmtAppModal">&times;</span>
+      <h3>Join Discussion</h3>
+      <input type="text" id="cmtAppNama" placeholder="Your Name" class="input-compact">
+      <textarea id="cmtAppIsi" rows="3" placeholder="Share your thoughts..." class="input-compact"></textarea>
+      <button id="cmtAppKirim" class="btn-primary-compact full">Post Comment</button>
+    </div>
+  </div>
+
+  <div id="lightboxModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="lightboxImg">
+  </div>
+
+  <script type="module" src="js/project.js"></script>
+  <script>
+    window.PAGE_ID = "levelup_arcade"; 
+    AOS.init();
+  </script>
+
+</body>
+</html>
