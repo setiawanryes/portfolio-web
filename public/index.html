@@ -29,13 +29,9 @@
         <li><a href="#contact">Contact</a></li>
       </ul>
 
-<div class="nav-action">
-  <button id="lang-toggle" class="btn-lang">
-    <span id="lang-text">ID</span> <i class="fas fa-globe"></i>
-  </button>
-  
-  <a href="#contact" class="btn-nav-primary">Let's Talk <i class="fas fa-arrow-right"></i></a>
-</div>
+      <div class="nav-action">
+        <a href="#contact" class="btn-nav-primary">Let's Talk <i class="fas fa-arrow-right"></i></a>
+      </div>
     </nav>
 
     <div class="mobile-dock-container mobile-only">
@@ -71,25 +67,22 @@
         <div class="hero-text-col">
 
           <div class="welcome-badge">
-  <span class="wave">👋</span> 
-  <span class="translate" data-en="Hello, I am" data-id="Halo, saya">Hello, I am</span>
-</div>
+            <span class="wave">👋</span> Hello, I am
+          </div>
 
-<h1 class="hero-name">Roni <span class="text-gradient">Setiawan</span></h1>
+          <h1 class="hero-name">Roni <span class="text-gradient">Setiawan</span></h1>
 
-<div class="role-container">
-  <span class="role-prefix translate" data-en="I'm a" data-id="Saya seorang">I'm a</span>
-  <div class="role-slider">
-    <span class="slide-text translate" id="role-text" data-en="Web Developer" data-id="Pengembang Web">Web Developer</span>
-  </div>
-</div>
+          <div class="role-container">
+            <span class="role-prefix">I'm a</span>
+            <div class="role-slider">
+              <span class="slide-text" id="role-text">Web Developer</span>
+            </div>
+          </div>
 
-<p class="hero-bio translate" 
-   data-en="An administration and data professional with a passion for web development. Blending <b>design</b>, <b>data</b>, and <b>storytelling</b> to create impactful digital experiences." 
-   data-id="Seorang profesional administrasi dan data yang memiliki gairah dalam pengembangan web. Memadukan <b>desain</b>, <b>data</b>, dan <b>cerita</b> untuk menciptakan pengalaman digital yang berdampak.">
-  An administration and data professional with a passion for web development.
-  Blending <b>design</b>, <b>data</b>, and <b>storytelling</b> to create impactful digital experiences.
-</p>
+          <p class="hero-bio">
+            An administration and data professional with a passion for web development.
+            Blending <b>design</b>, <b>data</b>, and <b>storytelling</b> to create impactful digital experiences.
+          </p>
 
           <div class="social-dock-hero">
             <a href="https://www.facebook.com/rstwnnn" class="dock-icon fb" title="Facebook"><i
@@ -600,6 +593,24 @@
       <div id="projects" class="tab-content active">
         <div class="card-grid-compact">
 
+          <div class="premium-card" data-aos="fade-up" data-aos-delay="300">
+            <div class="card-image">
+              <img src="images/gpl/goalprograming.png" alt="LevelUp Archade">
+              <span class="card-badge">Research</span>
+            </div>
+            <div class="card-glass-overlay">
+              <div class="card-head">
+                <h3>Goal Programming</h3>
+                <a href="schedule-1.html" class="icon-btn"><i class="fas fa-arrow-up-right-from-square"></i></a>
+              </div>
+              <p class="card-desc">Mathematical modeling to resolve task conflicts and workload patterns.</p>
+              <div class="card-meta">
+                <span class="stars"><i class="fas fa-star filled"></i> Completed</span>
+                <span class="tech">Research</span>
+              </div>
+            </div>
+          </div>
+
           <div class="premium-card" data-aos="fade-up">
             <div class="card-image">
               <img src="images/sitandur/sitandur1.jpg" alt="SI-TANDUR">
@@ -671,6 +682,8 @@
               </div>
             </div>
           </div>
+
+
 
         </div>
       </div>
@@ -998,33 +1011,6 @@
     });
   </script>
 
-<script>
-  const langBtn = document.getElementById('lang-toggle');
-  const langText = document.getElementById('lang-text');
-  const translateElements = document.querySelectorAll('.translate');
-  
-  // Cek apakah user pernah pilih bahasa sebelumnya di browser ini
-  let currentLang = localStorage.getItem('language') || 'en';
-
-  function updateLanguage(lang) {
-    translateElements.forEach(el => {
-      // Ambil teks dari atribut data-en atau data-id
-      el.innerHTML = el.getAttribute(`data-${lang}`);
-    });
-    
-    // Update teks tombol
-    langText.innerText = lang === 'en' ? 'ID' : 'EN';
-    localStorage.setItem('language', lang);
-  }
-
-  // Jalankan saat pertama kali load
-  updateLanguage(currentLang);
-
-  langBtn.addEventListener('click', () => {
-    currentLang = currentLang === 'en' ? 'id' : 'en';
-    updateLanguage(currentLang);
-  });
-</script>
 
   <script src="js/home.js"></script>
   <script src="js/experience.js"></script>
