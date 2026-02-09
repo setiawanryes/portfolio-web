@@ -3031,3 +3031,95 @@ section {
   font-size: 0.85rem;
   line-height: 1.4;
 }
+.gallery-section {
+  padding: 80px 5%;
+  background: transparent;
+}
+
+.gallery-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-header-center {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+/* Grid Layout */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-auto-rows: 240px;
+  gap: 20px;
+  grid-auto-flow: dense; /* Mengisi celah kosong otomatis */
+}
+
+.gallery-item {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Modifikasi Ukuran Item */
+.gallery-item.wide { grid-column: span 2; }
+.gallery-item.tall { grid-row: span 2; }
+
+@media (max-width: 768px) {
+  .gallery-item.wide { grid-column: span 1; }
+  .gallery-item.tall { grid-row: span 1; }
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s ease;
+}
+
+/* Hover Effect */
+.gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+  display: flex;
+  align-items: flex-end;
+  padding: 25px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s ease;
+}
+
+.gallery-item:hover .gallery-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.gallery-item:hover img {
+  transform: scale(1.1);
+}
+
+.overlay-content .category {
+  background: var(--pink-gradient, #ff0080); /* Gunakan warna utama kamu */
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: white;
+}
+
+.overlay-content h4 {
+  margin: 10px 0 5px;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.overlay-content p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
