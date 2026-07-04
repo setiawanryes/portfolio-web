@@ -1,5 +1,5 @@
 
-const roles = ["Administrasi HR", "Staff Admin", "Analyst Data", "Welcome Web Developer"];
+const roles = ["Finance Staff","Administrasi HR", "Staff Admin", "Analyst Data", "Welcome Web Developer"];
 let roleIndex = 0;
 const roleContainer = document.getElementById("role-text");
 
