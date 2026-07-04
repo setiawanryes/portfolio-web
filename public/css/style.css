@@ -3173,10 +3173,42 @@ section {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 1; /* Default untuk gambar pertama */
+  opacity: 1; 
 }
 
 .team-info {
   z-index: 5; /* Pastikan teks selalu di depan gambar */
 }
 
+/* Styling Box Jabatan Sekarang */
+.current-role-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+
+
+.role-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.custom-role-text {
+  font-size: 1.15rem !important;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  background: linear-gradient(45deg, #414141 40%, #e0e0e0); 
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.2;
+}
+
+.company-tag {
+  font-size: 0.8rem !important;
+  color: #ff9100;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 2px;
+}
