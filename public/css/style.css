@@ -676,13 +676,14 @@ section {
   border: 1px solid rgba(0, 0, 0, 0.05);
   color: #333;
   cursor: default;
-  transition: 0.3s;
+  transition: all 0.3s ease;
 }
 
 .interest-cloud span:hover {
   background: #1e293b;
   color: white;
-  transform: scale(1.05);
+  transform: translateY(-2px) scale(1.05); 
+  box-shadow: 0 4px 12px rgba(30, 41, 59, 0.15);
 }
 
 /* 6. SKILLS SECTION */
